@@ -38,6 +38,68 @@ function addTest(name, status, details = {}) {
   report.tests.push({ name, status, ...details });
 }
 
+function validateTouchLayout(layout) {
+  if (!Array.isArray(layout)) {
+    throw new Error('Mobile touch layout is missing from QA state.');
+  }
+  const requiredNames = ['left', 'right', 'up', 'down', 'jump', 'attack', 'pause'];
+  const byName = new Map(layout.map((button) => [button.name, button]));
+  const missing = requiredNames.filter((name) => !byName.has(name));
+  if (missing.length > 0 || byName.size !== requiredNames.length) {
+    throw new Error(`Mobile touch layout does not expose the expected controls: ${JSON.stringify({ missing, count: layout.length })}`);
+  }
+  for (const button of layout) {
+    if (button.x - button.radius < 0 || button.x + button.radius > 960) {
+      throw new Error(`Touch control ${button.name} is outside horizontal game bounds.`);
+    }
+    if (button.y - button.radius < 0 || button.y + button.radius > 540) {
+      throw new Error(`Touch control ${button.name} is outside vertical game bounds.`);
+    }
+    if (button.radius < 28) {
+      throw new Error(`Touch control ${button.name} is below the minimum target radius.`);
+    }
+    if (button.cluster !== 'system' && button.y < 378) {
+      throw new Error(`Touch control ${button.name} escaped the lower gameplay control band.`);
+    }
+  }
+  for (const name of ['left', 'right', 'up', 'down']) {
+    if (byName.get(name).x > 288) {
+      throw new Error(`Movement control ${name} escaped the left cluster.`);
+    }
+  }
+  for (const name of ['jump', 'attack']) {
+    if (byName.get(name).x < 672) {
+      throw new Error(`Action control ${name} escaped the right cluster.`);
+    }
+  }
+  const jump = byName.get('jump');
+  const attack = byName.get('attack');
+  const pause = byName.get('pause');
+  const actionGap = gapBetween(jump, attack);
+  const pauseNearestGap = Math.min(...layout.filter((button) => button.name !== 'pause').map((button) => gapBetween(pause, button)));
+  if (actionGap < 16) {
+    throw new Error(`Jump and attack touch controls are too close: ${actionGap.toFixed(1)}px gap.`);
+  }
+  if (pause.x < 860 || pause.y > 100 || pauseNearestGap < 180) {
+    throw new Error(`Pause touch control left the upper-right safe area: ${JSON.stringify({ pause, pauseNearestGap })}`);
+  }
+  return {
+    valid: true,
+    buttonCount: layout.length,
+    actionGap: Math.round(actionGap * 10) / 10,
+    pauseNearestGap: Math.round(pauseNearestGap * 10) / 10,
+    clusters: {
+      movement: layout.filter((button) => button.cluster === 'movement').length,
+      action: layout.filter((button) => button.cluster === 'action').length,
+      system: layout.filter((button) => button.cluster === 'system').length
+    }
+  };
+}
+
+function gapBetween(a, b) {
+  return Math.hypot(a.x - b.x, a.y - b.y) - a.radius - b.radius;
+}
+
 const { server, url } = await startQaServer(5321);
 const browser = await chromium.launch();
 const captures = [];
@@ -152,6 +214,8 @@ try {
   if (!initial?.mobileControlsVisible) {
     throw new Error('Mobile controls are not visible in 390x844 viewport.');
   }
+  const layout = validateTouchLayout(initial.touchControls);
+  addTest('mobile-controls/layout', 'PASS', layout);
   await holdGame(mobilePage, 168, 452, 700);
   const afterRight = await qaState(mobilePage);
   if (!afterRight || afterRight.player.x <= initial.player.x + 8) {
@@ -171,11 +235,12 @@ try {
   const afterAttack = await qaState(mobilePage);
   report.mobile = {
     visible: true,
+    layout,
     startX: initial.player.x,
     afterRightX: afterRight.player.x,
     attackActive: afterAttack?.player.attackActive === true
   };
-  addTest('mobile-controls', 'PASS', report.mobile);
+  addTest('mobile-controls/input', 'PASS', report.mobile);
   await mobile.close();
 
   const combined = {

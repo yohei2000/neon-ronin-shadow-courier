@@ -40,6 +40,7 @@ Latest quality passes added:
 - `StageHazards` so hazard sprite creation, contrast tinting, and damage overlaps are isolated from `Stage1Scene`.
 - `StageProgression` so checkpoints, tutorial markers, fall rescue, respawn, and current section lookup are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
+- `src/utils/touchLayout.ts` so mobile virtual-control placement is shared by rendering, QA state, and Vitest coverage without depending on Phaser.
 - `.github/workflows/deploy.yml` uses current Node 24-era GitHub Actions majors for Pages deployment.
 
 ## GitHub Reference Pass
@@ -69,6 +70,8 @@ Applied changes from that pass:
 - Updated the Pages deployment workflow to `checkout@v7`, `setup-node@v6`, `configure-pages@v6`, `upload-pages-artifact@v5`, and `deploy-pages@v5`, following the current action generation used by `remarkablegames/phaser-platformer`.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
+- Added pure touch-layout helper tests and exposed the virtual-control layout through read-only QA state.
+- Added Playwright checks for the seven-button mobile layout, left/right cluster separation, action gap, and upper-right pause safe area.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Added Playwright canvas pixel sampling so high contrast mode is verified as a visible Stage 1 rendering change.
 - Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.
@@ -126,7 +129,7 @@ Audio is generated with WebAudio through `AudioSystem`; required SFX keys are tr
 
 Scripts:
 
-- `npm run e2e`: Playwright title flow, visible high contrast pixel assertion, pause retry/restart, keyboard Stage 1 clear, route-health thresholds, Stage Clear assertion, and mobile virtual control probes
+- `npm run e2e`: Playwright title flow, visible high contrast pixel assertion, pause retry/restart, keyboard Stage 1 clear, route-health thresholds, Stage Clear assertion, mobile virtual-control layout validation, and mobile input probes
 - `npm run qa:level`: stage data quality and coarse route checks
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
 - `npm run qa:bundle`: production bundle chunk checks after `npm run build`
@@ -135,7 +138,7 @@ Scripts:
 - `npm run qa:playtest`: evidence-backed tuning note generated from route-health, level, dist, and screenshot reports
 - `npm run qa:all`: final gate runner
 
-Read-only browser QA state is exposed through `window.__NEON_RONIN_QA__` and `window.__NEON_RONIN_CLEAR__`. Tests do not teleport, mutate stage state, or call hidden clear functions.
+Read-only browser QA state is exposed through `window.__NEON_RONIN_QA__` and `window.__NEON_RONIN_CLEAR__`, including the current mobile virtual-control layout. Tests do not teleport, mutate stage state, or call hidden clear functions.
 
 ## Commands Run
 
@@ -176,6 +179,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production
 - Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
 - Latest QA Automation Review: production `dist/` output is now served and smoke-tested locally and with the Pages base path in CI.
+- Latest QA Automation Review: mobile virtual controls now expose layout metrics and fail E2E if the seven-button layout, lower control band, action spacing, or upper-right pause placement regresses.
 - Latest Playtest Review: generated `playtest-tuning.md` from route-health, level, dist, and screenshot evidence; current tuning stays stable and next human check is physical-phone HUD/input ergonomics plus optional-scroll discoverability.
 - Latest Build Review: Phaser now builds as `vendor-phaser` and `qa:bundle` verifies app chunk size.
 - Latest Code Quality Review: progression helpers are covered by Vitest so checkpoint advancement and section lookup are no longer browser-only behavior.
@@ -185,7 +189,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production
 ## Tradeoffs
 
 - Procedural art is intentionally local and reproducible; it is not a substitute for final authored art.
-- The mobile portrait view uses the 960x540 game canvas scaled into a 390x844 viewport. Controls are visible and tested, but real-device ergonomic tuning should continue.
+- The mobile portrait view uses the 960x540 game canvas scaled into a 390x844 viewport. Controls are visible, layout-checked, and input-tested, but real-device ergonomic tuning should continue.
 - The automated route prioritizes proof of clearability; it does not collect all scrolls.
 - Music is omitted to keep the slice focused on input, combat, layout, and QA evidence.
 

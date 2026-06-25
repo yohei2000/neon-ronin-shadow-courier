@@ -1,6 +1,6 @@
 # Stage 1 Playtest Tuning Note
 
-Generated: 2026-06-25T17:31:26.265Z
+Generated: 2026-06-25T17:50:12.473Z
 Status: PASS
 
 ## Method
@@ -20,10 +20,10 @@ Evidence-backed manual review of current QA screenshots plus automated route, le
 
 ## Findings
 
-- The automated clear route reaches Stage Clear in 22.2s with 7 damage, leaving 1 damage before the route-health cap.
-- The route collects 9/22 seals (41%) without pursuing optional scroll routes, so critical-path pickup density is adequate for a first clear.
+- The automated clear route reaches Stage Clear in 22.2s with 6 damage, leaving 2 damage before the route-health cap.
+- The route collects 11/22 seals (50%) without pursuing optional scroll routes, so critical-path pickup density is adequate for a first clear.
 - Desktop screenshots show readable onboarding, first-combat spacing, Lantern Warden objective text, and Stage Clear results.
-- Mobile controls are visible and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.
+- Mobile controls are visible, expose 7 QA-tracked buttons, keep jump/attack separated by 21.9px, and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.
 
 ## Tuning Decisions
 

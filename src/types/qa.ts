@@ -21,7 +21,18 @@ export interface Stage1QaState {
   readonly gateActive: boolean;
   readonly stageClear: boolean;
   readonly mobileControlsVisible: boolean;
+  readonly touchControls: readonly Stage1TouchControlQa[];
   readonly elapsedMs: number;
+}
+
+export interface Stage1TouchControlQa {
+  readonly name: string;
+  readonly x: number;
+  readonly y: number;
+  readonly radius: number;
+  readonly hitRadius: number;
+  readonly label: string;
+  readonly cluster: string;
 }
 
 export interface StageClearQaState {

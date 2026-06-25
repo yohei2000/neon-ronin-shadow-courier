@@ -23,6 +23,7 @@ assert(e2e?.valid === true, 'e2e-report.json is missing or invalid.');
 assert(e2e?.routeHealth?.passed === true, 'Stage 1 route health did not pass.');
 assert(level?.valid === true, 'level-report.json is missing or invalid.');
 assert(dist?.valid === true, 'dist-report.json is missing or invalid.');
+assert(e2e?.mobile?.layout?.valid === true, 'Mobile touch layout QA did not pass.');
 
 const screenshotStatus = {};
 for (const name of screenshotNames) {
@@ -37,12 +38,13 @@ const metrics = level?.metrics ?? {};
 const routeSeconds = Math.round((route.routeDurationMs ?? 0) / 100) / 10;
 const damageMargin = Math.max(0, (route.thresholds?.maxDamageTaken ?? 0) - (route.damageTaken ?? 0));
 const sealCoverage = metrics.seals ? Math.round(((clear.seals ?? 0) / metrics.seals) * 100) : 0;
+const mobileLayout = mobile.layout ?? {};
 
 const findings = [
   `The automated clear route reaches Stage Clear in ${routeSeconds}s with ${route.damageTaken ?? '?'} damage, leaving ${damageMargin} damage before the route-health cap.`,
   `The route collects ${clear.seals ?? 0}/${metrics.seals ?? '?'} seals (${sealCoverage}%) without pursuing optional scroll routes, so critical-path pickup density is adequate for a first clear.`,
   `Desktop screenshots show readable onboarding, first-combat spacing, Lantern Warden objective text, and Stage Clear results.`,
-  `Mobile controls are visible and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.`
+  `Mobile controls are visible, expose ${mobileLayout.buttonCount ?? '?'} QA-tracked buttons, keep jump/attack separated by ${mobileLayout.actionGap ?? '?'}px, and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.`
 ];
 
 const decisions = [

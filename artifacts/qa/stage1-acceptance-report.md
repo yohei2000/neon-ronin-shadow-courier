@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T17:31:26.309Z
+Generated: 2026-06-25T17:50:12.521Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -37,7 +37,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: Rain/atmosphere exists.
 - PASS: High contrast mode changes visible stage pixels.
 - PASS: Slash/hit/checkpoint effects exist.
-- PASS: Mobile controls are legible.
+- PASS: Mobile controls are legible and layout-checked.
 
 ## Audio
 - PASS: Required SFX exist.
@@ -51,6 +51,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: bundle split keeps app chunk below threshold.
 - PASS: production dist boots from built assets.
 - PASS: e2e passes.
+- PASS: mobile virtual-control layout checks pass.
 - PASS: qa:level passes.
 - PASS: qa:assets passes.
 - PASS: qa:screenshots passes.
@@ -91,6 +92,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.
 - QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.
 - QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.
+- QA Automation Reviewer: E2E now validates the seven-button mobile layout, action gap, lower control band, and upper-right pause safe area.
 - QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.
 - QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.
 - QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, and screenshot reports.

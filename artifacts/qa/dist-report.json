@@ -1,26 +1,26 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T17:30:04.979Z",
+  "startedAt": "2026-06-25T17:48:51.193Z",
   "basePath": "/",
-  "url": "http://127.0.0.1:62615/",
+  "url": "http://127.0.0.1:57640/",
   "responses": [
     {
-      "url": "http://127.0.0.1:62615/",
+      "url": "http://127.0.0.1:57640/",
       "status": 200,
       "contentType": "text/html; charset=utf-8"
     },
     {
-      "url": "http://127.0.0.1:62615/assets/index-CRcrQnOJ.css",
+      "url": "http://127.0.0.1:57640/assets/index-CRcrQnOJ.css",
       "status": 200,
       "contentType": "text/css; charset=utf-8"
     },
     {
-      "url": "http://127.0.0.1:62615/assets/index-BlD7IGxU.js",
+      "url": "http://127.0.0.1:57640/assets/index-B-afpUpQ.js",
       "status": 200,
       "contentType": "text/javascript; charset=utf-8"
     },
     {
-      "url": "http://127.0.0.1:62615/assets/vendor-phaser-pXoLyEn6.js",
+      "url": "http://127.0.0.1:57640/assets/vendor-phaser-pXoLyEn6.js",
       "status": 200,
       "contentType": "text/javascript; charset=utf-8"
     }
@@ -44,19 +44,19 @@
     "warnings": [
       {
         "type": "warning",
-        "text": "[.WebGL-0x69a4001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        "text": "[.WebGL-0x36f4001ace00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
       },
       {
         "type": "warning",
-        "text": "[.WebGL-0x69a4001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        "text": "[.WebGL-0x36f4001ace00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
       },
       {
         "type": "warning",
-        "text": "[.WebGL-0x69a4001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        "text": "[.WebGL-0x36f4001ace00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
       },
       {
         "type": "warning",
-        "text": "[.WebGL-0x69a4001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        "text": "[.WebGL-0x36f4001ace00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
       }
     ],
     "pageErrors": [],
@@ -101,8 +101,73 @@
     "gateActive": false,
     "stageClear": false,
     "mobileControlsVisible": false,
-    "elapsedMs": 1302.8
+    "touchControls": [
+      {
+        "name": "left",
+        "x": 72,
+        "y": 452,
+        "radius": 44,
+        "label": "<",
+        "cluster": "movement",
+        "hitRadius": 52.8
+      },
+      {
+        "name": "right",
+        "x": 168,
+        "y": 452,
+        "radius": 44,
+        "label": ">",
+        "cluster": "movement",
+        "hitRadius": 52.8
+      },
+      {
+        "name": "up",
+        "x": 120,
+        "y": 404,
+        "radius": 38,
+        "label": "^",
+        "cluster": "movement",
+        "hitRadius": 45.6
+      },
+      {
+        "name": "down",
+        "x": 120,
+        "y": 492,
+        "radius": 38,
+        "label": "v",
+        "cluster": "movement",
+        "hitRadius": 45.6
+      },
+      {
+        "name": "jump",
+        "x": 725,
+        "y": 450,
+        "radius": 44,
+        "label": "JMP",
+        "cluster": "action",
+        "hitRadius": 52.8
+      },
+      {
+        "name": "attack",
+        "x": 836,
+        "y": 436,
+        "radius": 46,
+        "label": "ATK",
+        "cluster": "action",
+        "hitRadius": 55.199999999999996
+      },
+      {
+        "name": "pause",
+        "x": 908,
+        "y": 54,
+        "radius": 28,
+        "label": "II",
+        "cluster": "system",
+        "hitRadius": 33.6
+      }
+    ],
+    "elapsedMs": 1099.3
   },
-  "finishedAt": "2026-06-25T17:30:06.935Z",
-  "durationMs": 1956
+  "finishedAt": "2026-06-25T17:48:52.953Z",
+  "durationMs": 1760
 }

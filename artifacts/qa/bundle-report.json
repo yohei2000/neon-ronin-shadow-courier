@@ -6,8 +6,8 @@
     "jsChunkCount": 2,
     "vendorChunkCount": 1,
     "appChunkCount": 1,
-    "largestAppChunkBytes": 64703,
-    "totalJsBytes": 1543786
+    "largestAppChunkBytes": 65161,
+    "totalJsBytes": 1544244
   },
   "chunks": [
     {
@@ -15,8 +15,8 @@
       "bytes": 1479083
     },
     {
-      "file": "index-BlD7IGxU.js",
-      "bytes": 64703
+      "file": "index-B-afpUpQ.js",
+      "bytes": 65161
     }
   ]
 }

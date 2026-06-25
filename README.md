@@ -27,7 +27,7 @@ npm run preview
 - Slash: `J` or `Z`
 - Pause: `Esc` or `P`
 
-Mobile uses the same input system through virtual controls: left/right/up/down on the left pad, jump/attack/pause on the right.
+Mobile uses the same input system through virtual controls: left/right/up/down on the left pad, jump/attack on the right, and pause in the upper-right safe area.
 
 ## Quality Gates
 
@@ -47,13 +47,13 @@ npm run qa:playtest
 npm run qa:all
 ```
 
-`npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, verifies saved and visible high contrast mode, verifies pause-menu Retry Checkpoint and Restart Stage actions, clears Stage 1 with keyboard controls, records route-health thresholds, verifies Stage Clear data, and probes mobile virtual controls in a 390x844 viewport.
+`npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, verifies saved and visible high contrast mode, verifies pause-menu Retry Checkpoint and Restart Stage actions, clears Stage 1 with keyboard controls, records route-health thresholds, verifies Stage Clear data, and checks mobile virtual-control layout plus input probes in a 390x844 viewport.
 
 `npm run qa:screenshots` regenerates the browser evidence under `artifacts/qa/`.
 
 `npm run qa:dist` serves the built `dist/` directory and verifies the production bundle boots from Title to Stage 1 without dev-server fallback. Set `QA_DIST_BASE=/repo-name/` to smoke a GitHub Pages-style base path.
 
-`npm run qa:playtest` writes an evidence-backed tuning note from current route-health, level, dist, and screenshot reports.
+`npm run qa:playtest` writes an evidence-backed tuning note from current route-health, level, dist, mobile layout, and screenshot reports.
 
 ## QA Screenshots
 

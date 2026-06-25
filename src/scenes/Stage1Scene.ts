@@ -229,6 +229,7 @@ export class Stage1Scene extends Phaser.Scene {
       gateActive: this.combat.defeated,
       stageClear: this.stageClear,
       mobileControlsVisible: typeof document !== 'undefined' && document.body.dataset.touchControls === 'visible',
+      touchControls: this.touchControls?.getLayout() ?? [],
       elapsedMs: this.time.now - this.startedAt
     };
   }

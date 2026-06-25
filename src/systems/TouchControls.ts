@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser';
 import { TouchControlNames, type TouchControlName } from '../config/controls';
-import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette } from '../config/palette';
 import type { GameSettings } from '../types/save';
+import { createTouchLayout, type TouchButtonLayout } from '../utils/touchLayout';
 
 type TouchState = Record<TouchControlName, boolean>;
 interface TouchHitArea {
@@ -20,6 +20,7 @@ export class TouchControls {
   private readonly container: Phaser.GameObjects.Container;
   private readonly buttons: Phaser.GameObjects.GameObject[] = [];
   private readonly hitAreas: TouchHitArea[] = [];
+  private readonly layout = createTouchLayout();
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -35,6 +36,10 @@ export class TouchControls {
 
   isDown(name: string): boolean {
     return this.state[name as TouchControlName] ?? false;
+  }
+
+  getLayout(): readonly TouchButtonLayout[] {
+    return this.layout;
   }
 
   setVisible(visible: boolean): void {
@@ -68,23 +73,12 @@ export class TouchControls {
 
   private build(): void {
     const opacity = this.settings.touchUiOpacity;
-    this.addButton('left', 72, BASE_HEIGHT - 88, 44, '<', opacity);
-    this.addButton('right', 168, BASE_HEIGHT - 88, 44, '>', opacity);
-    this.addButton('up', 120, BASE_HEIGHT - 136, 38, '^', opacity);
-    this.addButton('down', 120, BASE_HEIGHT - 40, 38, 'v', opacity);
-    this.addButton('jump', BASE_WIDTH - 235, BASE_HEIGHT - 90, 44, 'JMP', opacity);
-    this.addButton('attack', BASE_WIDTH - 124, BASE_HEIGHT - 104, 46, 'ATK', opacity);
-    this.addButton('pause', BASE_WIDTH - 52, 54, 28, 'II', opacity);
+    for (const button of this.layout) {
+      this.addButton(button, opacity);
+    }
   }
 
-  private addButton(
-    name: TouchControlName,
-    x: number,
-    y: number,
-    radius: number,
-    label: string,
-    opacity: number
-  ): void {
+  private addButton({ name, x, y, radius, hitRadius, label }: TouchButtonLayout, opacity: number): void {
     const circle = this.scene.add.circle(x, y, radius, Palette.ink2, opacity);
     circle.setStrokeStyle(3, Palette.cyan, 0.8);
     const text = this.scene.add
@@ -109,7 +103,7 @@ export class TouchControls {
     hitZone.on('pointerupoutside', release);
     this.container.add([circle, text, hitZone]);
     this.buttons.push(circle, text, hitZone);
-    this.hitAreas.push({ name, x, y, radius: radius * 1.2, circle });
+    this.hitAreas.push({ name, x, y, radius: hitRadius, circle });
   }
 
   private handlePointerDown(pointer: Phaser.Input.Pointer): void {

@@ -35,6 +35,8 @@ export async function writeAcceptanceReport(options = {}) {
     e2eReport?.tests?.some((test) => test.name === 'settings/high-contrast-stage-pixel' && test.status === 'PASS');
   const routeHealthPass =
     e2ePass && e2eReport?.tests?.some((test) => test.name === 'stage1-route-health' && test.status === 'PASS');
+  const mobileLayoutPass =
+    e2ePass && e2eReport?.tests?.some((test) => test.name === 'mobile-controls/layout' && test.status === 'PASS');
   const levelPass = options.levelPass ?? commandStatus('npm run qa:level') === 'PASS';
   const assetPass = options.assetPass ?? commandStatus('npm run qa:assets') === 'PASS';
   const bundleReport = await readBundleReport();
@@ -83,7 +85,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('Rain/atmosphere exists.', screenshotStatus['stage-start.png']),
     row('High contrast mode changes visible stage pixels.', highContrastPixelPass),
     row('Slash/hit/checkpoint effects exist.', screenshotStatus['combat-encounter.png'] && screenshotStatus['checkpoint.png']),
-    row('Mobile controls are legible.', screenshotStatus['mobile-controls-390x844.png']),
+    row('Mobile controls are legible and layout-checked.', screenshotStatus['mobile-controls-390x844.png'] && mobileLayoutPass),
     '',
     '## Audio',
     row('Required SFX exist.', assetPass),
@@ -97,6 +99,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('bundle split keeps app chunk below threshold.', bundlePass),
     row('production dist boots from built assets.', distPass),
     row('e2e passes.', e2ePass),
+    row('mobile virtual-control layout checks pass.', mobileLayoutPass),
     row('qa:level passes.', levelPass),
     row('qa:assets passes.', assetPass),
     row('qa:screenshots passes.', commandStatus('npm run qa:screenshots') === 'PASS'),
@@ -127,6 +130,7 @@ export async function writeAcceptanceReport(options = {}) {
     '- QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.',
     '- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.',
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
+    '- QA Automation Reviewer: E2E now validates the seven-button mobile layout, action gap, lower control band, and upper-right pause safe area.',
     '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
     '- QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.',
     '- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, and screenshot reports.',

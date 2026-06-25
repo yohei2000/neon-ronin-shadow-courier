@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T17:30:08.609Z",
+  "startedAt": "2026-06-25T17:48:54.541Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,16 +48,14 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 22215,
+      "elapsedMs": 22243,
       "milestones": [],
       "result": {
-        "elapsedMs": 21865.800000000003,
+        "elapsedMs": 21999.1,
         "rank": "C",
-        "scrolls": [
-          "scroll-wall-route"
-        ],
-        "damageTaken": 7,
-        "seals": 9
+        "scrolls": [],
+        "damageTaken": 6,
+        "seals": 11
       }
     },
     {
@@ -68,35 +66,57 @@
         "maxDamageTaken": 8,
         "minSeals": 5
       },
-      "routeDurationMs": 22215,
-      "clearElapsedMs": 21865.800000000003,
+      "routeDurationMs": 22243,
+      "clearElapsedMs": 21999.1,
       "rank": "C",
-      "damageTaken": 7,
-      "seals": 9,
+      "damageTaken": 6,
+      "seals": 11,
       "passed": true
     },
     {
-      "name": "mobile-controls",
+      "name": "mobile-controls/layout",
+      "status": "PASS",
+      "valid": true,
+      "buttonCount": 7,
+      "actionGap": 21.9,
+      "pauseNearestGap": 314.7,
+      "clusters": {
+        "movement": 4,
+        "action": 2,
+        "system": 1
+      }
+    },
+    {
+      "name": "mobile-controls/input",
       "status": "PASS",
       "visible": true,
+      "layout": {
+        "valid": true,
+        "buttonCount": 7,
+        "actionGap": 21.9,
+        "pauseNearestGap": 314.7,
+        "clusters": {
+          "movement": 4,
+          "action": 2,
+          "system": 1
+        }
+      },
       "startX": 160,
-      "afterRightX": 413.3333333333336,
+      "afterRightX": 427.66666666666697,
       "attackActive": true
     }
   ],
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 22215,
+    "elapsedMs": 22243,
     "milestones": [],
     "result": {
-      "elapsedMs": 21865.800000000003,
+      "elapsedMs": 21999.1,
       "rank": "C",
-      "scrolls": [
-        "scroll-wall-route"
-      ],
-      "damageTaken": 7,
-      "seals": 9
+      "scrolls": [],
+      "damageTaken": 6,
+      "seals": 11
     }
   },
   "highContrast": {
@@ -123,19 +143,30 @@
       "maxDamageTaken": 8,
       "minSeals": 5
     },
-    "routeDurationMs": 22215,
-    "clearElapsedMs": 21865.800000000003,
+    "routeDurationMs": 22243,
+    "clearElapsedMs": 21999.1,
     "rank": "C",
-    "damageTaken": 7,
-    "seals": 9,
+    "damageTaken": 6,
+    "seals": 11,
     "passed": true
   },
   "mobile": {
     "visible": true,
+    "layout": {
+      "valid": true,
+      "buttonCount": 7,
+      "actionGap": 21.9,
+      "pauseNearestGap": 314.7,
+      "clusters": {
+        "movement": 4,
+        "action": 2,
+        "system": 1
+      }
+    },
     "startX": 160,
-    "afterRightX": 413.3333333333336,
+    "afterRightX": 427.66666666666697,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T17:30:52.028Z",
-  "durationMs": 43419
+  "finishedAt": "2026-06-25T17:49:37.791Z",
+  "durationMs": 43250
 }

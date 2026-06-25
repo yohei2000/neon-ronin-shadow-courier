@@ -62,7 +62,7 @@ GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
 
 Recommended next cycle:
 
-1. Run a physical-device human playtest focused on mobile HUD scale, input reach, boss readability, and optional scroll discoverability.
+1. Run a physical-device human playtest focused on mobile HUD scale, input reach, boss readability, and optional scroll discoverability. The automated mobile layout checks are now a baseline, not a substitute for hand testing.
 2. Keep pause/retry, high-contrast pixel, boss-route, dist-smoke, and playtest-note coverage stable if menu labels, layout, palette, or combat timing changes.
 3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
 4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
@@ -72,6 +72,10 @@ Recommended next cycle:
 
 Latest cycle improvements:
 
+- Added `src/utils/touchLayout.ts` so virtual-control positions, labels, radii, hit radii, and clusters are shared by rendering and QA.
+- Added `tests/touchLayout.test.ts` to protect the seven-button layout, lower control band, action gap, and upper-right pause safe area.
+- Exposed `touchControls` through `window.__NEON_RONIN_QA__` and extended E2E mobile checks to validate layout before input probes.
+- Updated `qa:playtest` output to include mobile layout evidence from `artifacts/qa/e2e-report.json`.
 - Added `npm run qa:playtest` to generate `artifacts/qa/playtest-tuning.md` from current route-health, level, dist, and screenshot evidence.
 - Captured current tuning decisions: keep enemy spacing/hazard damage/boss HP stable, avoid tuning optional scrolls from the optimized route alone, and make mobile HUD/input ergonomics the next physical-phone check.
 - Added `npm run qa:dist` to serve built `dist/` output and verify production Title -> Stage 1 boot from emitted assets.
