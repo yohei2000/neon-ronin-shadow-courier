@@ -23,6 +23,8 @@ These public GitHub repositories were inspected for structure and workflow patte
   - Vite + Phaser + TypeScript starter structure.
 - `https://github.com/phaserjs/template-vite-ts`
   - Official Phaser template reference for Vite/TypeScript project organization. Note: current upstream uses Phaser 4; this project must remain Phaser 3.90.x.
+- `https://github.com/danipeck/squishroom`
+  - Small Phaser/TypeScript platformer reference for keeping gameplay code outside the main scene where practical.
 
 ## Current Quality Baseline
 
@@ -58,15 +60,17 @@ GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
 Recommended next cycle:
 
 1. Add a short human-playtest tuning note after checking Stage 1 manually.
-2. Split collectibles/hazards out of `Stage1Scene` if it grows further.
-3. Consider a screenshot/pixel assertion for high contrast mode, not only saved-setting assertion.
-4. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
-5. Keep pause/retry coverage stable if menu labels or layout change.
+2. Split enemy/miniboss orchestration out of `Stage1Scene` if it grows further.
+3. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
+4. Keep pause/retry and high-contrast pixel coverage stable if menu labels, layout, or palette changes.
+5. Consider adding a tiny route-health summary to `e2e-report.json` if playtest tuning changes damage or rank.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Split collectibles and hazards out of `Stage1Scene` into `StageCollectibles` and `StageHazards`.
+- Added Playwright canvas pixel sampling to verify high contrast mode affects visible Stage 1 pixels.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Updated the acceptance report to verify the pause/retry test from `artifacts/qa/e2e-report.json`.
 - Added `StageHud` to move HUD/objective/section/boss-bar responsibilities out of `Stage1Scene`.

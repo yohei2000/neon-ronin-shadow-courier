@@ -30,6 +30,9 @@ export async function writeAcceptanceReport(options = {}) {
   const pauseRestartPass =
     e2ePass &&
     e2eReport?.tests?.some((test) => test.name === 'pause/retry-checkpoint-and-restart-stage' && test.status === 'PASS');
+  const highContrastPixelPass =
+    e2ePass &&
+    e2eReport?.tests?.some((test) => test.name === 'settings/high-contrast-stage-pixel' && test.status === 'PASS');
   const levelPass = options.levelPass ?? commandStatus('npm run qa:level') === 'PASS';
   const assetPass = options.assetPass ?? commandStatus('npm run qa:assets') === 'PASS';
 
@@ -70,6 +73,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('Enemies are visually distinct.', screenshotStatus['combat-encounter.png'] && screenshotStatus['miniboss.png']),
     row('Background has 3+ layers.', screenshotStatus['stage-start.png']),
     row('Rain/atmosphere exists.', screenshotStatus['stage-start.png']),
+    row('High contrast mode changes visible stage pixels.', highContrastPixelPass),
     row('Slash/hit/checkpoint effects exist.', screenshotStatus['combat-encounter.png'] && screenshotStatus['checkpoint.png']),
     row('Mobile controls are legible.', screenshotStatus['mobile-controls-390x844.png']),
     '',
@@ -105,6 +109,7 @@ export async function writeAcceptanceReport(options = {}) {
     '- Art/UI Director Reviewer: Split HUD/objective/section/boss-bar rendering into StageHud.',
     '- QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.',
     '- QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.',
+    '- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.',
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];

@@ -34,6 +34,8 @@ Latest quality passes added:
 
 - `CameraController` so camera lead/follow tuning is no longer embedded directly in `Stage1Scene`.
 - `StageHud` so HUD, objective, section-title, and boss-bar rendering are isolated from `Stage1Scene`.
+- `StageCollectibles` so seal, health, energy, scroll, and miniboss scroll-reward state are isolated from `Stage1Scene`.
+- `StageHazards` so hazard sprite creation, contrast tinting, and damage overlaps are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
 
 ## GitHub Reference Pass
@@ -44,6 +46,7 @@ The quality pass inspected these public GitHub projects for structure and workfl
 - `rootasjey/phaser3-platformer`: Phaser platformer example used as a scene/sprite separation reference.
 - `iwantantra/vite-phaser-ts`: Vite + Phaser + TypeScript starter reference.
 - `phaserjs/template-vite-ts`: official Phaser template reference for Vite organization; not copied because the current upstream template targets Phaser 4 while this repo must remain Phaser 3.90.x.
+- `danipeck/squishroom`: small Phaser/TypeScript platformer reference for separating gameplay code from scene setup.
 
 Applied changes from that pass:
 
@@ -53,9 +56,11 @@ Applied changes from that pass:
 - Made high contrast mode visibly affect Stage 1 platform outlines and hazard tint.
 - Extended E2E to toggle and verify persisted high contrast settings.
 - Split HUD rendering into `StageHud`, following the scene/sprite/system separation seen in the reference projects.
+- Split collectibles and hazards into `StageCollectibles` and `StageHazards` so Stage1Scene owns less item/hazard state.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
+- Added Playwright canvas pixel sampling so high contrast mode is verified as a visible Stage 1 rendering change.
 
 ## Player Feel
 
@@ -70,7 +75,7 @@ Current movement tuning:
 - Hurt invulnerability: 1000ms
 - Max HP: 6
 
-The E2E route exercises run, jump, wall kick, slash, damage, checkpoints, pause retry/restart, miniboss defeat, gate clear, and mobile input probes.
+The E2E route exercises run, jump, wall kick, slash, damage, checkpoints, pause retry/restart, visible high contrast rendering, miniboss defeat, gate clear, and mobile input probes.
 
 ## Stage 1 Room Breakdown
 
@@ -109,7 +114,7 @@ Audio is generated with WebAudio through `AudioSystem`; required SFX keys are tr
 
 Scripts:
 
-- `npm run e2e`: Playwright title flow, pause retry/restart, keyboard Stage 1 clear, Stage Clear assertion, and mobile virtual control probes
+- `npm run e2e`: Playwright title flow, visible high contrast pixel assertion, pause retry/restart, keyboard Stage 1 clear, Stage Clear assertion, and mobile virtual control probes
 - `npm run qa:level`: stage data quality and coarse route checks
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
@@ -142,8 +147,10 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Art/UI Director Reviewer: required layered procedural art, title treatment, parallax/rain, HUD readability, panelized menus, and mobile visual controls.
 - Latest Art/UI Review: made high contrast mode produce visible in-stage outlines.
 - Latest Art/UI Review: separated HUD rendering into `StageHud`.
+- Latest Art/UI Review: high contrast is now verified by sampling Stage 1 canvas pixels in E2E.
 - QA Automation Reviewer: required real Playwright browser evidence, screenshot artifacts, console reports, and keyboard clear proof.
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
+- Latest QA Automation Review: high contrast stage pixels are now asserted in Playwright E2E.
 - Latest QA Automation Review: pause menu Retry Checkpoint and Restart Stage are now asserted through real menu input.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
@@ -156,4 +163,4 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 
 ## Next Recommended Step
 
-Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work.
+Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, split enemy/miniboss orchestration out of `Stage1Scene` before adding new gameplay.

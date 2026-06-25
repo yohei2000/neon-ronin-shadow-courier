@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T15:18:45.844Z
+Generated: 2026-06-25T15:37:36.518Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -34,6 +34,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: Enemies are visually distinct.
 - PASS: Background has 3+ layers.
 - PASS: Rain/atmosphere exists.
+- PASS: High contrast mode changes visible stage pixels.
 - PASS: Slash/hit/checkpoint effects exist.
 - PASS: Mobile controls are legible.
 
@@ -79,5 +80,6 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - Art/UI Director Reviewer: Split HUD/objective/section/boss-bar rendering into StageHud.
 - QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.
 - QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.
+- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.
 - QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.
 - Build Fixer: Final status is determined by npm run qa:all and the individual required commands.

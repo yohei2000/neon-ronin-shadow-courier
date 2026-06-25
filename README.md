@@ -42,7 +42,7 @@ npm run qa:screenshots
 npm run qa:all
 ```
 
-`npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, verifies pause-menu Retry Checkpoint and Restart Stage actions, clears Stage 1 with keyboard controls, verifies Stage Clear data, and probes mobile virtual controls in a 390x844 viewport.
+`npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, verifies saved and visible high contrast mode, verifies pause-menu Retry Checkpoint and Restart Stage actions, clears Stage 1 with keyboard controls, verifies Stage Clear data, and probes mobile virtual controls in a 390x844 viewport.
 
 `npm run qa:screenshots` regenerates the browser evidence under `artifacts/qa/`.
 

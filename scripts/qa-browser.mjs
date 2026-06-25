@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { inflateSync } from 'node:zlib';
 import { chromium } from '@playwright/test';
 import { createServer } from 'vite';
 import { createInlineViteConfig } from './vite-inline-config.mjs';
@@ -161,6 +162,131 @@ export async function scene(page) {
 
 export async function qaState(page) {
   return page.evaluate(() => window.__NEON_RONIN_QA__ ?? null);
+}
+
+export async function sampleGamePixel(page, x, y) {
+  const viewport = page.viewportSize() ?? { width: 960, height: 540 };
+  const screenshot = await page.screenshot({ fullPage: false });
+  const image = decodePng(screenshot);
+  const pixelX = Math.max(0, Math.min(image.width - 1, Math.round((x / 960) * viewport.width)));
+  const pixelY = Math.max(0, Math.min(image.height - 1, Math.round((y / 540) * viewport.height)));
+  const offset = (pixelY * image.width + pixelX) * 4;
+  return {
+    r: image.pixels[offset],
+    g: image.pixels[offset + 1],
+    b: image.pixels[offset + 2],
+    a: image.pixels[offset + 3],
+    x: pixelX,
+    y: pixelY,
+    width: image.width,
+    height: image.height
+  };
+}
+
+export async function findBrightGamePixel(page, area) {
+  const viewport = page.viewportSize() ?? { width: 960, height: 540 };
+  const screenshot = await page.screenshot({ fullPage: false });
+  const image = decodePng(screenshot);
+  const startX = Math.max(0, Math.min(image.width - 1, Math.round((area.x / 960) * viewport.width)));
+  const endX = Math.max(startX, Math.min(image.width - 1, Math.round(((area.x + area.width) / 960) * viewport.width)));
+  const startY = Math.max(0, Math.min(image.height - 1, Math.round((area.y / 540) * viewport.height)));
+  const endY = Math.max(startY, Math.min(image.height - 1, Math.round(((area.y + area.height) / 540) * viewport.height)));
+  const step = Math.max(1, area.step ?? 2);
+  let best = { r: 0, g: 0, b: 0, a: 0, x: startX, y: startY, width: image.width, height: image.height, score: 0 };
+  for (let pixelY = startY; pixelY <= endY; pixelY += step) {
+    for (let pixelX = startX; pixelX <= endX; pixelX += step) {
+      const offset = (pixelY * image.width + pixelX) * 4;
+      const r = image.pixels[offset];
+      const g = image.pixels[offset + 1];
+      const b = image.pixels[offset + 2];
+      const a = image.pixels[offset + 3];
+      const score = r + g + b;
+      if (score > best.score) {
+        best = { r, g, b, a, x: pixelX, y: pixelY, width: image.width, height: image.height, score };
+      }
+    }
+  }
+  return best;
+}
+
+function decodePng(buffer) {
+  const signature = '89504e470d0a1a0a';
+  if (buffer.subarray(0, 8).toString('hex') !== signature) {
+    throw new Error('Screenshot was not a PNG image.');
+  }
+  let offset = 8;
+  let width = 0;
+  let height = 0;
+  let colorType = 0;
+  const idat = [];
+  while (offset < buffer.length) {
+    const length = buffer.readUInt32BE(offset);
+    const type = buffer.subarray(offset + 4, offset + 8).toString('ascii');
+    const data = buffer.subarray(offset + 8, offset + 8 + length);
+    if (type === 'IHDR') {
+      width = data.readUInt32BE(0);
+      height = data.readUInt32BE(4);
+      const bitDepth = data[8];
+      colorType = data[9];
+      const interlace = data[12];
+      if (bitDepth !== 8 || interlace !== 0 || (colorType !== 2 && colorType !== 6)) {
+        throw new Error(`Unsupported PNG format: bitDepth=${bitDepth} colorType=${colorType} interlace=${interlace}`);
+      }
+    } else if (type === 'IDAT') {
+      idat.push(data);
+    } else if (type === 'IEND') {
+      break;
+    }
+    offset += length + 12;
+  }
+
+  const bytesPerPixel = colorType === 6 ? 4 : 3;
+  const inflated = inflateSync(Buffer.concat(idat));
+  const stride = width * bytesPerPixel;
+  const raw = Buffer.alloc(height * stride);
+  let source = 0;
+  for (let y = 0; y < height; y += 1) {
+    const filter = inflated[source];
+    source += 1;
+    for (let x = 0; x < stride; x += 1) {
+      const current = inflated[source + x];
+      const left = x >= bytesPerPixel ? raw[y * stride + x - bytesPerPixel] : 0;
+      const up = y > 0 ? raw[(y - 1) * stride + x] : 0;
+      const upLeft = y > 0 && x >= bytesPerPixel ? raw[(y - 1) * stride + x - bytesPerPixel] : 0;
+      raw[y * stride + x] = unfilter(filter, current, left, up, upLeft);
+    }
+    source += stride;
+  }
+
+  const pixels = Buffer.alloc(width * height * 4);
+  for (let pixel = 0; pixel < width * height; pixel += 1) {
+    const sourceOffset = pixel * bytesPerPixel;
+    const targetOffset = pixel * 4;
+    pixels[targetOffset] = raw[sourceOffset];
+    pixels[targetOffset + 1] = raw[sourceOffset + 1];
+    pixels[targetOffset + 2] = raw[sourceOffset + 2];
+    pixels[targetOffset + 3] = colorType === 6 ? raw[sourceOffset + 3] : 255;
+  }
+  return { width, height, pixels };
+}
+
+function unfilter(filter, value, left, up, upLeft) {
+  if (filter === 0) return value;
+  if (filter === 1) return (value + left) & 255;
+  if (filter === 2) return (value + up) & 255;
+  if (filter === 3) return (value + Math.floor((left + up) / 2)) & 255;
+  if (filter === 4) return (value + paeth(left, up, upLeft)) & 255;
+  throw new Error(`Unsupported PNG filter: ${filter}`);
+}
+
+function paeth(left, up, upLeft) {
+  const estimate = left + up - upLeft;
+  const leftDistance = Math.abs(estimate - left);
+  const upDistance = Math.abs(estimate - up);
+  const upLeftDistance = Math.abs(estimate - upLeft);
+  if (leftDistance <= upDistance && leftDistance <= upLeftDistance) return left;
+  if (upDistance <= upLeftDistance) return up;
+  return upLeft;
 }
 
 export async function waitForScene(page, expected, timeout = 10000) {

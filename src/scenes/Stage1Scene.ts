@@ -14,6 +14,8 @@ import { FXSystem } from '../systems/FXSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { getAudioSystem, getSaveSystem } from '../systems/Registry';
 import { SaveSystem } from '../systems/SaveSystem';
+import { StageCollectibles } from '../systems/StageCollectibles';
+import { StageHazards } from '../systems/StageHazards';
 import { StageHud } from '../systems/StageHud';
 import { TouchControls } from '../systems/TouchControls';
 import type { Stage1SceneData, StageClearSceneData } from '../types/flow';
@@ -43,16 +45,13 @@ export class Stage1Scene extends Phaser.Scene {
   private checkpointIndex = 0;
   private startedAt = 0;
   private damageTaken = 0;
-  private seals = 0;
-  private collectedPickups = new Set<string>();
-  private collectedScrolls = new Set<string>();
-  private scrollSprites = new Map<string, Phaser.Physics.Arcade.Image>();
   private slashHitIds = new Set<string>();
   private wasAttackActive = false;
   private minibossStarted = false;
   private minibossDefeated = false;
   private stageClear = false;
   private gameOverQueued = false;
+  private collectibles!: StageCollectibles;
   private hud!: StageHud;
 
   constructor() {
@@ -62,10 +61,6 @@ export class Stage1Scene extends Phaser.Scene {
   init(data: Stage1SceneData = {}): void {
     this.checkpointIndex = Math.max(0, Math.min(stage.checkpoints.length - 1, data.checkpointIndex ?? 0));
     this.damageTaken = 0;
-    this.seals = 0;
-    this.collectedPickups = new Set();
-    this.collectedScrolls = new Set();
-    this.scrollSprites = new Map();
     this.slashHitIds = new Set();
     this.wasAttackActive = false;
     this.minibossStarted = false;
@@ -88,8 +83,11 @@ export class Stage1Scene extends Phaser.Scene {
     this.createPlatforms();
     this.createDecor();
     this.createPlayer();
-    this.createHazards();
-    this.createPickups();
+    new StageHazards(this, stage, this.player, this.saveSystem.data.settings.highContrast, (damage, sourceX) =>
+      this.damagePlayer(damage, sourceX)
+    ).create();
+    this.collectibles = new StageCollectibles(this, stage, this.player, this.audio, this.fx);
+    this.collectibles.create();
     this.createCheckpoints();
     this.createTutorials();
     this.createEnemies();
@@ -217,44 +215,6 @@ export class Stage1Scene extends Phaser.Scene {
     }
   }
 
-  private createHazards(): void {
-    for (const hazard of stage.hazards) {
-      const texture = hazard.kind === 'thorn' ? TextureKey.TileThorn : hazard.id === 'falling-sign-a' ? TextureKey.FallingSign : TextureKey.TimedSpark;
-      const sprite = this.physics.add.staticImage(hazard.x + hazard.width / 2, hazard.y + hazard.height / 2, texture);
-      sprite.setDisplaySize(hazard.width, hazard.height).refreshBody();
-      sprite.setDepth(hazard.kind === 'thorn' ? 9 : 13);
-      if (this.saveSystem.data.settings.highContrast) {
-        sprite.setTint(Palette.red);
-      }
-      this.physics.add.overlap(this.player, sprite, () => {
-        this.damagePlayer(hazard.safeIntro ? 1 : 1, sprite.x);
-      });
-    }
-  }
-
-  private createPickups(): void {
-    for (const pickup of stage.pickups) {
-      const texture =
-        pickup.type === 'seal' ? TextureKey.Seal : pickup.type === 'health' ? TextureKey.Health : TextureKey.Energy;
-      const sprite = this.physics.add.image(pickup.x, pickup.y, texture);
-      (sprite.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
-      sprite.setDepth(18);
-      this.tweens.add({ targets: sprite, y: pickup.y - 8, duration: 850, yoyo: true, repeat: -1 });
-      this.physics.add.overlap(this.player, sprite, () => this.collectPickup(pickup.id, pickup.type, sprite));
-    }
-    for (const scroll of stage.scrolls) {
-      const sprite = this.physics.add.image(scroll.x, scroll.y, TextureKey.Scroll);
-      (sprite.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
-      sprite.setDepth(19);
-      if (scroll.route === 'combat') {
-        sprite.disableBody(true, true);
-      }
-      this.scrollSprites.set(scroll.id, sprite);
-      this.tweens.add({ targets: sprite, angle: 8, duration: 700, yoyo: true, repeat: -1 });
-      this.physics.add.overlap(this.player, sprite, () => this.collectScroll(scroll.id, sprite));
-    }
-  }
-
   private createCheckpoints(): void {
     stage.checkpoints.forEach((checkpoint, index) => {
       const sprite = this.physics.add.staticImage(checkpoint.x, checkpoint.y, TextureKey.Checkpoint);
@@ -328,8 +288,8 @@ export class Stage1Scene extends Phaser.Scene {
     this.hud.update({
       elapsedMs: time - this.startedAt,
       hp: this.player.hp,
-      seals: this.seals,
-      scrolls: this.collectedScrolls.size,
+      seals: this.collectibles.sealCount,
+      scrolls: this.collectibles.scrollCount,
       section,
       minibossStarted: this.minibossStarted,
       minibossDefeated: this.minibossDefeated,
@@ -393,35 +353,7 @@ export class Stage1Scene extends Phaser.Scene {
     this.bossBarrier.disableBody(true, true);
     this.gate.clearTint();
     this.gate.setTint(Palette.gold);
-    const reward = this.scrollSprites.get('scroll-warden-reward');
-    reward?.enableBody(false, stage.scrolls.find((scroll) => scroll.id === 'scroll-warden-reward')?.x ?? 6760, 410, true, true);
-  }
-
-  private collectPickup(id: string, type: 'seal' | 'health' | 'energy', sprite: Phaser.Physics.Arcade.Image): void {
-    if (this.collectedPickups.has(id)) return;
-    this.collectedPickups.add(id);
-    sprite.disableBody(true, true);
-    if (type === 'seal') {
-      this.seals += 1;
-      this.audio.play(AudioKey.PickupSeal);
-      this.fx.burst(sprite.x, sprite.y, Palette.cyan, 8);
-    } else if (type === 'health') {
-      this.player.heal(1);
-      this.audio.play(AudioKey.Confirm);
-      this.fx.burst(sprite.x, sprite.y, Palette.red, 10);
-    } else {
-      this.player.heal(1);
-      this.audio.play(AudioKey.Confirm);
-      this.fx.burst(sprite.x, sprite.y, Palette.magenta, 10);
-    }
-  }
-
-  private collectScroll(id: string, sprite: Phaser.Physics.Arcade.Image): void {
-    if (this.collectedScrolls.has(id)) return;
-    this.collectedScrolls.add(id);
-    sprite.disableBody(true, true);
-    this.audio.play(AudioKey.PickupScroll);
-    this.fx.burst(sprite.x, sprite.y, Palette.gold, 18);
+    this.collectibles.enableWardenReward();
   }
 
   private damagePlayer(rawDamage: number, sourceX: number): void {
@@ -476,14 +408,14 @@ export class Stage1Scene extends Phaser.Scene {
     }
     this.stageClear = true;
     const elapsedMs = this.time.now - this.startedAt;
-    const scrolls = [...this.collectedScrolls];
+    const scrolls = this.collectibles.scrollIds;
     const rank = rankStage(elapsedMs, scrolls.length, this.damageTaken);
     const result: StageClearSceneData = {
       elapsedMs,
       rank,
       scrolls,
       damageTaken: this.damageTaken,
-      seals: this.seals,
+      seals: this.collectibles.sealCount,
       checkpointIndex: this.checkpointIndex
     };
     this.saveSystem.completeStage(result);
@@ -522,8 +454,8 @@ export class Stage1Scene extends Phaser.Scene {
       sectionId: section.id,
       sectionName: section.name,
       checkpointIndex: this.checkpointIndex,
-      scrolls: [...this.collectedScrolls],
-      seals: this.seals,
+      scrolls: this.collectibles.scrollIds,
+      seals: this.collectibles.sealCount,
       damageTaken: this.damageTaken,
       minibossActive: this.minibossStarted && !this.minibossDefeated,
       minibossDefeated: this.minibossDefeated,

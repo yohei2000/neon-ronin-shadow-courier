@@ -4,6 +4,7 @@ import {
   createConsoleCapture,
   ensureQaDir,
   finalizeConsoleReport,
+  findBrightGamePixel,
   holdGame,
   keyboardClearRoute,
   qaState,
@@ -19,8 +20,9 @@ const report = {
   valid: false,
   startedAt: new Date().toISOString(),
   tests: [],
-  route: 'Title -> Controls -> Settings -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes',
+  route: 'Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes',
   clear: null,
+  highContrast: null,
   pause: null,
   mobile: null
 };
@@ -65,6 +67,13 @@ try {
 
   await startStageFromTitle(page);
   addTest('title-flow/start-stage', 'PASS');
+  await page.waitForTimeout(180);
+  const highContrastPixel = await findBrightGamePixel(page, { x: 0, y: 330, width: 960, height: 105, step: 2 });
+  if (highContrastPixel.g < 180 || highContrastPixel.b < 180) {
+    throw new Error(`High contrast platform outline pixel was not bright cyan/white: ${JSON.stringify(highContrastPixel)}`);
+  }
+  report.highContrast = { platformOutlinePixel: highContrastPixel };
+  addTest('settings/high-contrast-stage-pixel', 'PASS', report.highContrast);
   const checkpointProbe = await keyboardClearRoute(page, {
     stopWhen: (qa) => qa.checkpointIndex >= 1 && qa.player.x > 3480
   });
