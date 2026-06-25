@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T17:05:19.800Z",
+  "startedAt": "2026-06-25T17:19:28.758Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,14 +48,14 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 23080,
+      "elapsedMs": 24347,
       "milestones": [],
       "result": {
-        "elapsedMs": 22915.699999999997,
+        "elapsedMs": 24099,
         "rank": "C",
         "scrolls": [],
-        "damageTaken": 4,
-        "seals": 10
+        "damageTaken": 3,
+        "seals": 8
       }
     },
     {
@@ -66,11 +66,11 @@
         "maxDamageTaken": 8,
         "minSeals": 5
       },
-      "routeDurationMs": 23080,
-      "clearElapsedMs": 22915.699999999997,
+      "routeDurationMs": 24347,
+      "clearElapsedMs": 24099,
       "rank": "C",
-      "damageTaken": 4,
-      "seals": 10,
+      "damageTaken": 3,
+      "seals": 8,
       "passed": true
     },
     {
@@ -78,21 +78,21 @@
       "status": "PASS",
       "visible": true,
       "startX": 160,
-      "afterRightX": 413.3333333333336,
+      "afterRightX": 420.5000000000003,
       "attackActive": true
     }
   ],
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 23080,
+    "elapsedMs": 24347,
     "milestones": [],
     "result": {
-      "elapsedMs": 22915.699999999997,
+      "elapsedMs": 24099,
       "rank": "C",
       "scrolls": [],
-      "damageTaken": 4,
-      "seals": 10
+      "damageTaken": 3,
+      "seals": 8
     }
   },
   "highContrast": {
@@ -119,19 +119,19 @@
       "maxDamageTaken": 8,
       "minSeals": 5
     },
-    "routeDurationMs": 23080,
-    "clearElapsedMs": 22915.699999999997,
+    "routeDurationMs": 24347,
+    "clearElapsedMs": 24099,
     "rank": "C",
-    "damageTaken": 4,
-    "seals": 10,
+    "damageTaken": 3,
+    "seals": 8,
     "passed": true
   },
   "mobile": {
     "visible": true,
     "startX": 160,
-    "afterRightX": 413.3333333333336,
+    "afterRightX": 420.5000000000003,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T17:06:03.713Z",
-  "durationMs": 43913
+  "finishedAt": "2026-06-25T17:20:12.532Z",
+  "durationMs": 43774
 }

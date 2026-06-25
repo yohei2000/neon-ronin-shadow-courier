@@ -39,6 +39,8 @@ export async function writeAcceptanceReport(options = {}) {
   const assetPass = options.assetPass ?? commandStatus('npm run qa:assets') === 'PASS';
   const bundleReport = await readBundleReport();
   const bundlePass = commandStatus('npm run qa:bundle') === 'PASS' && bundleReport?.valid === true;
+  const distReport = await readDistReport();
+  const distPass = commandStatus('npm run qa:dist') === 'PASS' && distReport?.valid === true;
 
   const lines = [
     '# Stage 1 Acceptance Report',
@@ -92,6 +94,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('unit tests pass.', commandStatus('npm run test') === 'PASS'),
     row('build passes.', commandStatus('npm run build') === 'PASS'),
     row('bundle split keeps app chunk below threshold.', bundlePass),
+    row('production dist boots from built assets.', distPass),
     row('e2e passes.', e2ePass),
     row('qa:level passes.', levelPass),
     row('qa:assets passes.', assetPass),
@@ -123,6 +126,7 @@ export async function writeAcceptanceReport(options = {}) {
     '- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.',
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
     '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
+    '- QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.',
     '- Build Fixer: Phaser is split into a vendor chunk and qa:bundle verifies app chunk size.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];
@@ -141,6 +145,14 @@ async function readE2eReport() {
 async function readBundleReport() {
   try {
     return JSON.parse(await readFile(path.join(qaDir, 'bundle-report.json'), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+async function readDistReport() {
+  try {
+    return JSON.parse(await readFile(path.join(qaDir, 'dist-report.json'), 'utf8'));
   } catch {
     return null;
   }

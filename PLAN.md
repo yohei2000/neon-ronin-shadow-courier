@@ -75,6 +75,7 @@ Required scripts:
 - `npm run qa:level`
 - `npm run qa:assets`
 - `npm run qa:bundle`
+- `npm run qa:dist`
 - `npm run qa:screenshots`
 - `npm run qa:all`
 
@@ -95,6 +96,8 @@ Generated under `artifacts/qa/`:
 - `mobile-controls-390x844.png`
 - `console-report.json`
 - `e2e-report.json`
+- `bundle-report.json`
+- `dist-report.json`
 - `stage1-acceptance-report.md`
 
 ## Completion Gate
@@ -109,6 +112,7 @@ npm run e2e
 npm run qa:level
 npm run qa:assets
 npm run qa:bundle
+npm run qa:dist
 npm run qa:screenshots
 npm run qa:all
 ```

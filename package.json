@@ -13,6 +13,7 @@
     "qa:level": "node scripts/qa-level.mjs",
     "qa:assets": "node scripts/qa-assets.mjs",
     "qa:bundle": "node scripts/qa-bundle.mjs",
+    "qa:dist": "node scripts/qa-dist.mjs",
     "qa:screenshots": "node scripts/qa-screenshots.mjs",
     "qa:all": "node scripts/qa-all.mjs"
   },

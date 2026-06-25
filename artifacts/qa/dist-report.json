@@ -1,0 +1,108 @@
+{
+  "valid": true,
+  "startedAt": "2026-06-25T17:19:25.412Z",
+  "basePath": "/",
+  "url": "http://127.0.0.1:64232/",
+  "responses": [
+    {
+      "url": "http://127.0.0.1:64232/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "url": "http://127.0.0.1:64232/assets/index-CRcrQnOJ.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "url": "http://127.0.0.1:64232/assets/index-BlD7IGxU.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "url": "http://127.0.0.1:64232/assets/vendor-phaser-pXoLyEn6.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    }
+  ],
+  "checks": [
+    {
+      "name": "title-scene",
+      "status": "PASS"
+    },
+    {
+      "name": "title-canvas-nonblank",
+      "status": "PASS"
+    },
+    {
+      "name": "stage1-start-state",
+      "status": "PASS"
+    }
+  ],
+  "console": {
+    "errors": [],
+    "warnings": [
+      {
+        "type": "warning",
+        "text": "[.WebGL-0x5dbc001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      },
+      {
+        "type": "warning",
+        "text": "[.WebGL-0x5dbc001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      },
+      {
+        "type": "warning",
+        "text": "[.WebGL-0x5dbc001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      },
+      {
+        "type": "warning",
+        "text": "[.WebGL-0x5dbc001b4e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+      }
+    ],
+    "pageErrors": [],
+    "failedRequests": [],
+    "viewport": {
+      "width": 960,
+      "height": 540
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36"
+  },
+  "titleCanvas": {
+    "r": 248,
+    "g": 251,
+    "b": 255,
+    "a": 255,
+    "x": 348,
+    "y": 56,
+    "width": 960,
+    "height": 540,
+    "score": 754
+  },
+  "stageQa": {
+    "scene": "Stage1Scene",
+    "player": {
+      "x": 160,
+      "y": 417.6333333333333,
+      "hp": 6,
+      "facing": 1,
+      "attackActive": false,
+      "grounded": true,
+      "wallSliding": false
+    },
+    "sectionId": "rain-lantern-start",
+    "sectionName": "Rain Lantern Start",
+    "checkpointIndex": 0,
+    "scrolls": [],
+    "seals": 0,
+    "damageTaken": 0,
+    "minibossActive": false,
+    "minibossDefeated": false,
+    "minibossHealthRatio": 1,
+    "gateActive": false,
+    "stageClear": false,
+    "mobileControlsVisible": false,
+    "elapsedMs": 1157.8
+  },
+  "finishedAt": "2026-06-25T17:19:27.212Z",
+  "durationMs": 1800
+}

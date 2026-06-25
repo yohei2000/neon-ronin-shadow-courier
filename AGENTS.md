@@ -42,6 +42,7 @@ Required artifacts are committed under `artifacts/qa/`, including:
 - `console-report.json`
 - `e2e-report.json`
 - `bundle-report.json`
+- `dist-report.json`
 - `stage1-acceptance-report.md`
 
 GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
@@ -64,12 +65,15 @@ Recommended next cycle:
 2. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
 3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
 4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
-5. Keep GitHub Actions versions current if Pages starts emitting runtime deprecation annotations again.
+5. Keep `qa:dist` wired into both local `qa:all` and the Pages workflow if deployment/build paths change.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Added `npm run qa:dist` to serve built `dist/` output and verify production Title -> Stage 1 boot from emitted assets.
+- Added `artifacts/qa/dist-report.json` and an acceptance-report row for production dist smoke coverage.
+- Added a Pages post-build smoke step with `QA_DIST_BASE=/${{ github.event.repository.name }}/`, following the production page-test pattern seen in `remarkablegames/phaser-platformer`.
 - Updated GitHub Pages deployment to current Node 24-era action majors: `checkout@v7`, `setup-node@v6`, `configure-pages@v6`, `upload-pages-artifact@v5`, and `deploy-pages@v5`.
 - Added `.nvmrc` with Node 24 and switched the workflow to `node-version-file`.
 - Set Pages workflow concurrency to cancel stale in-progress deploys after a newer push.

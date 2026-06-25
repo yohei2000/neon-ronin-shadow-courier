@@ -41,6 +41,14 @@ jobs:
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
 
+      - name: Check Pages bundle
+        run: npm run qa:bundle
+
+      - name: Smoke Pages build
+        run: npm run qa:dist
+        env:
+          QA_DIST_BASE: /${{ github.event.repository.name }}/
+
       - name: Configure Pages
         uses: actions/configure-pages@v6
 

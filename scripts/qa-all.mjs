@@ -8,6 +8,7 @@ const commands = [
   { name: 'npm run test', args: ['run', 'test'] },
   { name: 'npm run build', args: ['run', 'build'] },
   { name: 'npm run qa:bundle', args: ['run', 'qa:bundle'] },
+  { name: 'npm run qa:dist', args: ['run', 'qa:dist'] },
   { name: 'npm run e2e', args: ['run', 'e2e'] },
   { name: 'npm run qa:level', args: ['run', 'qa:level'] },
   { name: 'npm run qa:screenshots', args: ['run', 'qa:screenshots'] },

@@ -41,6 +41,7 @@ npm run e2e
 npm run qa:level
 npm run qa:assets
 npm run qa:bundle
+npm run qa:dist
 npm run qa:screenshots
 npm run qa:all
 ```
@@ -48,6 +49,8 @@ npm run qa:all
 `npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, verifies saved and visible high contrast mode, verifies pause-menu Retry Checkpoint and Restart Stage actions, clears Stage 1 with keyboard controls, records route-health thresholds, verifies Stage Clear data, and probes mobile virtual controls in a 390x844 viewport.
 
 `npm run qa:screenshots` regenerates the browser evidence under `artifacts/qa/`.
+
+`npm run qa:dist` serves the built `dist/` directory and verifies the production bundle boots from Title to Stage 1 without dev-server fallback. Set `QA_DIST_BASE=/repo-name/` to smoke a GitHub Pages-style base path.
 
 ## QA Screenshots
 
@@ -75,6 +78,7 @@ Additional evidence:
 - `artifacts/qa/console-report.json`
 - `artifacts/qa/e2e-report.json`
 - `artifacts/qa/bundle-report.json`
+- `artifacts/qa/dist-report.json`
 - `artifacts/qa/stage1-acceptance-report.md`
 
 ## Stage 1 Contents
