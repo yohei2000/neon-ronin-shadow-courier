@@ -1,0 +1,22 @@
+{
+  "valid": true,
+  "errors": [],
+  "maxAppChunkBytes": 220000,
+  "metrics": {
+    "jsChunkCount": 2,
+    "vendorChunkCount": 1,
+    "appChunkCount": 1,
+    "largestAppChunkBytes": 63572,
+    "totalJsBytes": 1542655
+  },
+  "chunks": [
+    {
+      "file": "vendor-phaser-pXoLyEn6.js",
+      "bytes": 1479083
+    },
+    {
+      "file": "index-JC5TxxIF.js",
+      "bytes": 63572
+    }
+  ]
+}

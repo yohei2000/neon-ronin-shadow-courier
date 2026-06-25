@@ -38,6 +38,7 @@ npm run build
 npm run e2e
 npm run qa:level
 npm run qa:assets
+npm run qa:bundle
 npm run qa:screenshots
 npm run qa:all
 ```
@@ -71,6 +72,7 @@ Additional evidence:
 - `artifacts/qa/movement-tutorial.png`
 - `artifacts/qa/console-report.json`
 - `artifacts/qa/e2e-report.json`
+- `artifacts/qa/bundle-report.json`
 - `artifacts/qa/stage1-acceptance-report.md`
 
 ## Stage 1 Contents

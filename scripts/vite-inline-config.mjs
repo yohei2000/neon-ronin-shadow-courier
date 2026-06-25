@@ -10,6 +10,19 @@ export function createInlineViteConfig() {
     },
     optimizeDeps: {
       exclude: ['phaser']
+    },
+    build: {
+      chunkSizeWarningLimit: 1700,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/phaser') || id.includes('phaser/dist')) {
+              return 'vendor-phaser';
+            }
+            return undefined;
+          }
+        }
+      }
     }
   };
 }

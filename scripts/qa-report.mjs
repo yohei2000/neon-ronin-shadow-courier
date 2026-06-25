@@ -37,6 +37,8 @@ export async function writeAcceptanceReport(options = {}) {
     e2ePass && e2eReport?.tests?.some((test) => test.name === 'stage1-route-health' && test.status === 'PASS');
   const levelPass = options.levelPass ?? commandStatus('npm run qa:level') === 'PASS';
   const assetPass = options.assetPass ?? commandStatus('npm run qa:assets') === 'PASS';
+  const bundleReport = await readBundleReport();
+  const bundlePass = commandStatus('npm run qa:bundle') === 'PASS' && bundleReport?.valid === true;
 
   const lines = [
     '# Stage 1 Acceptance Report',
@@ -89,6 +91,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('typecheck passes.', commandStatus('npm run typecheck') === 'PASS'),
     row('unit tests pass.', commandStatus('npm run test') === 'PASS'),
     row('build passes.', commandStatus('npm run build') === 'PASS'),
+    row('bundle split keeps app chunk below threshold.', bundlePass),
     row('e2e passes.', e2ePass),
     row('qa:level passes.', levelPass),
     row('qa:assets passes.', assetPass),
@@ -118,6 +121,7 @@ export async function writeAcceptanceReport(options = {}) {
     '- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.',
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
     '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
+    '- Build Fixer: Phaser is split into a vendor chunk and qa:bundle verifies app chunk size.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];
 
@@ -127,6 +131,14 @@ export async function writeAcceptanceReport(options = {}) {
 async function readE2eReport() {
   try {
     return JSON.parse(await readFile(path.join(qaDir, 'e2e-report.json'), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+async function readBundleReport() {
+  try {
+    return JSON.parse(await readFile(path.join(qaDir, 'bundle-report.json'), 'utf8'));
   } catch {
     return null;
   }

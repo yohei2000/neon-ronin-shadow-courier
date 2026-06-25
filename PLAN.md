@@ -73,6 +73,7 @@ Required scripts:
 - `npm run e2e`
 - `npm run qa:level`
 - `npm run qa:assets`
+- `npm run qa:bundle`
 - `npm run qa:screenshots`
 - `npm run qa:all`
 
@@ -106,6 +107,7 @@ npm run build
 npm run e2e
 npm run qa:level
 npm run qa:assets
+npm run qa:bundle
 npm run qa:screenshots
 npm run qa:all
 ```

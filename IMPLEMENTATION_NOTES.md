@@ -61,6 +61,7 @@ Applied changes from that pass:
 - Split world/background/platform/decor setup into `StageWorld`.
 - Split enemy/miniboss/gate orchestration and slash hit resolution into `StageCombat`.
 - Split collectibles and hazards into `StageCollectibles` and `StageHazards` so Stage1Scene owns less item/hazard state.
+- Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle` to verify app chunk size.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
@@ -123,6 +124,7 @@ Scripts:
 - `npm run e2e`: Playwright title flow, visible high contrast pixel assertion, pause retry/restart, keyboard Stage 1 clear, route-health thresholds, Stage Clear assertion, and mobile virtual control probes
 - `npm run qa:level`: stage data quality and coarse route checks
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
+- `npm run qa:bundle`: production bundle chunk checks after `npm run build`
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
 - `npm run qa:all`: final gate runner
 
@@ -163,6 +165,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Latest QA Automation Review: route-health thresholds are now recorded in `e2e-report.json`.
 - Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
+- Latest Build Review: Phaser now builds as `vendor-phaser` and `qa:bundle` verifies app chunk size.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
 ## Tradeoffs

@@ -41,6 +41,7 @@ Required artifacts are committed under `artifacts/qa/`, including:
 - title, controls, settings, stage-start, movement-tutorial, combat-encounter, wall-kick-shaft, checkpoint, miniboss, stage-clear, mobile-controls screenshots
 - `console-report.json`
 - `e2e-report.json`
+- `bundle-report.json`
 - `stage1-acceptance-report.md`
 
 GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
@@ -60,15 +61,17 @@ GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
 Recommended next cycle:
 
 1. Add a short human-playtest tuning note after checking Stage 1 manually.
-2. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
-3. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
-4. If Stage1Scene grows again, split checkpoint/tutorial setup next.
-5. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
+2. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
+3. If Stage1Scene grows again, split checkpoint/tutorial setup next.
+4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
+5. Keep bundle thresholds honest if Phaser or Vite versions change.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle`.
+- Added `artifacts/qa/bundle-report.json` to record chunk counts and largest app chunk size.
 - Split background, platform, high-contrast outlines, rain/parallax, and decor setup out of `Stage1Scene` into `StageWorld`.
 - Added `stage1-route-health` to E2E with route duration, damage, rank, seal count, and thresholds in `artifacts/qa/e2e-report.json`.
 - Moved the miniboss screenshot trigger to the pre-fight encounter view so screenshot capture does not stall combat timing.
