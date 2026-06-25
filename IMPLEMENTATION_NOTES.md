@@ -34,6 +34,7 @@ Latest quality passes added:
 
 - `CameraController` so camera lead/follow tuning is no longer embedded directly in `Stage1Scene`.
 - `StageHud` so HUD, objective, section-title, and boss-bar rendering are isolated from `Stage1Scene`.
+- `StageCombat` so enemy spawning, miniboss state, gate/barrier handling, and slash hit resolution are isolated from `Stage1Scene`.
 - `StageCollectibles` so seal, health, energy, scroll, and miniboss scroll-reward state are isolated from `Stage1Scene`.
 - `StageHazards` so hazard sprite creation, contrast tinting, and damage overlaps are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
@@ -56,6 +57,7 @@ Applied changes from that pass:
 - Made high contrast mode visibly affect Stage 1 platform outlines and hazard tint.
 - Extended E2E to toggle and verify persisted high contrast settings.
 - Split HUD rendering into `StageHud`, following the scene/sprite/system separation seen in the reference projects.
+- Split enemy/miniboss/gate orchestration and slash hit resolution into `StageCombat`.
 - Split collectibles and hazards into `StageCollectibles` and `StageHazards` so Stage1Scene owns less item/hazard state.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
@@ -144,6 +146,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Gameplay Feel Reviewer: required respawn fix, checkpoint stability, easier Lantern Warden tuning, and mobile input correction.
 - Latest Gameplay Feel Review: added hit pause and separated camera lead tuning.
 - Latest Gameplay Feel Review: added pure damage cooldown coverage and moved mobile pause away from the attack cluster.
+- Latest Gameplay Feel Review: split combat orchestration into `StageCombat` while preserving hit pause, miniboss reward, and gate clear behavior.
 - Level Designer Reviewer: kept safe start, ordered tutorial beats, optional scroll sections, fair hazard introduction, and a rest checkpoint before the miniboss.
 - Art/UI Director Reviewer: required layered procedural art, title treatment, parallax/rain, HUD readability, panelized menus, and mobile visual controls.
 - Latest Art/UI Review: made high contrast mode produce visible in-stage outlines.
@@ -165,4 +168,4 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 
 ## Next Recommended Step
 
-Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, split enemy/miniboss orchestration out of `Stage1Scene` before adding new gameplay.
+Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, split background/decor or checkpoint/tutorial setup out of `Stage1Scene` before adding new gameplay.

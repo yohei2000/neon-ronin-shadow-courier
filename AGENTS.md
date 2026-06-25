@@ -60,15 +60,17 @@ GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
 Recommended next cycle:
 
 1. Add a short human-playtest tuning note after checking Stage 1 manually.
-2. Split enemy/miniboss orchestration out of `Stage1Scene` if it grows further.
-3. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
-4. Keep pause/retry and high-contrast pixel coverage stable if menu labels, layout, or palette changes.
-5. Consider adding a tiny route-health summary to `e2e-report.json` if playtest tuning changes damage or rank.
+2. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
+3. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
+4. Consider adding a tiny route-health summary to `e2e-report.json` if playtest tuning changes damage or rank.
+5. If Stage1Scene grows again, split background/decor or checkpoint/tutorial setup next.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Split enemy, miniboss, gate, boss barrier, and slash-hit orchestration out of `Stage1Scene` into `StageCombat`.
+- Reduced `Stage1Scene` to scene flow, stage setup, player/checkpoint state, HUD, and clear/game-over transitions.
 - Split collectibles and hazards out of `Stage1Scene` into `StageCollectibles` and `StageHazards`.
 - Added Playwright canvas pixel sampling to verify high contrast mode affects visible Stage 1 pixels.
 - Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.

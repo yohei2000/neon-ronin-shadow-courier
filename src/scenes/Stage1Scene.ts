@@ -4,9 +4,6 @@ import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette, PaletteCss } from '../config/palette';
 import stage1Data from '../data/stage1.json';
 import { PlayerBalance } from '../data/balance';
-import { InkCrawler } from '../entities/enemies/InkCrawler';
-import { KiteWraith } from '../entities/enemies/KiteWraith';
-import { LanternWarden } from '../entities/enemies/LanternWarden';
 import { Player } from '../entities/Player';
 import { AudioSystem } from '../systems/AudioSystem';
 import { CameraController } from '../systems/CameraController';
@@ -14,6 +11,7 @@ import { FXSystem } from '../systems/FXSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { getAudioSystem, getSaveSystem } from '../systems/Registry';
 import { SaveSystem } from '../systems/SaveSystem';
+import { StageCombat } from '../systems/StageCombat';
 import { StageCollectibles } from '../systems/StageCollectibles';
 import { StageHazards } from '../systems/StageHazards';
 import { StageHud } from '../systems/StageHud';
@@ -24,7 +22,6 @@ import { rankStage } from '../utils/math';
 import { markSceneStatus } from '../utils/sceneStatus';
 
 type PlatformVisualKind = 'floor' | 'wall' | 'roof' | 'edge';
-type EnemyInstance = InkCrawler | KiteWraith;
 
 const stage = stage1Data as Stage1Definition;
 
@@ -37,20 +34,12 @@ export class Stage1Scene extends Phaser.Scene {
   private touchControls: TouchControls | null = null;
   private player!: Player;
   private platforms!: Phaser.Physics.Arcade.StaticGroup;
-  private enemies: EnemyInstance[] = [];
-  private enemyIds = new Map<EnemyInstance, string>();
-  private warden!: LanternWarden;
-  private bossBarrier!: Phaser.Physics.Arcade.Image;
-  private gate!: Phaser.Physics.Arcade.Image;
   private checkpointIndex = 0;
   private startedAt = 0;
   private damageTaken = 0;
-  private slashHitIds = new Set<string>();
-  private wasAttackActive = false;
-  private minibossStarted = false;
-  private minibossDefeated = false;
   private stageClear = false;
   private gameOverQueued = false;
+  private combat!: StageCombat;
   private collectibles!: StageCollectibles;
   private hud!: StageHud;
 
@@ -61,14 +50,8 @@ export class Stage1Scene extends Phaser.Scene {
   init(data: Stage1SceneData = {}): void {
     this.checkpointIndex = Math.max(0, Math.min(stage.checkpoints.length - 1, data.checkpointIndex ?? 0));
     this.damageTaken = 0;
-    this.slashHitIds = new Set();
-    this.wasAttackActive = false;
-    this.minibossStarted = false;
-    this.minibossDefeated = false;
     this.stageClear = false;
     this.gameOverQueued = false;
-    this.enemies = [];
-    this.enemyIds = new Map();
   }
 
   create(): void {
@@ -90,8 +73,12 @@ export class Stage1Scene extends Phaser.Scene {
     this.collectibles.create();
     this.createCheckpoints();
     this.createTutorials();
-    this.createEnemies();
-    this.createMinibossAndGate();
+    this.combat = new StageCombat(this, stage, this.player, this.platforms, this.audio, this.fx, {
+      damagePlayer: (damage, sourceX) => this.damagePlayer(damage, sourceX),
+      onGateTouched: () => this.tryClearStage(),
+      onMinibossDefeated: () => this.collectibles.enableWardenReward()
+    });
+    this.combat.create();
     this.hud = new StageHud(this);
     this.touchControls = new TouchControls(this, this.saveSystem.data.settings);
     this.inputSystem = new InputSystem(this, this.touchControls);
@@ -120,16 +107,9 @@ export class Stage1Scene extends Phaser.Scene {
     }
     this.player.updatePlayer(input, time, delta);
     this.cameraController.update(delta);
-    this.enemies.forEach((enemy) => {
-      if (enemy.active) {
-        if (enemy instanceof KiteWraith) enemy.updateEnemy(time);
-        else enemy.updateEnemy();
-      }
-    });
-    this.updateMiniboss(time);
-    this.resolvePlayerSlash(time);
+    this.combat.update(time);
     this.updateCheckpointByProgress();
-    if (this.minibossDefeated && this.player.x >= stage.goal.x - 22) {
+    if (this.combat.defeated && this.player.x >= stage.goal.x - 22) {
       this.tryClearStage();
     }
     this.handleFall();
@@ -244,35 +224,6 @@ export class Stage1Scene extends Phaser.Scene {
     }
   }
 
-  private createEnemies(): void {
-    for (const spawn of stage.enemies) {
-      const enemy = spawn.type === 'kiteWraith'
-        ? new KiteWraith(this, spawn.x, spawn.y, spawn.patrol)
-        : new InkCrawler(this, spawn.x, spawn.y, spawn.patrol);
-      this.enemies.push(enemy);
-      this.enemyIds.set(enemy, spawn.id);
-      this.physics.add.collider(enemy, this.platforms);
-      this.physics.add.overlap(this.player, enemy, () => this.damagePlayer(enemy.damage, enemy.x));
-    }
-  }
-
-  private createMinibossAndGate(): void {
-    this.warden = new LanternWarden(this, 6460, 436);
-    this.warden.setAlpha(0.78);
-    this.physics.add.collider(this.warden, this.platforms);
-    this.physics.add.overlap(this.player, this.warden, () => {
-      if (this.warden.active && this.warden.isDangerous(this.time.now)) {
-        this.damagePlayer(this.warden.damage, this.warden.x);
-      }
-    });
-    this.bossBarrier = this.physics.add.staticImage(6900, 392, TextureKey.TileWall);
-    this.bossBarrier.setDisplaySize(42, 240).setVisible(false).refreshBody();
-    this.gate = this.physics.add.staticImage(stage.goal.x, stage.goal.y, TextureKey.GoalGate);
-    this.gate.setDepth(14);
-    this.gate.setTint(Palette.smoke);
-    this.physics.add.overlap(this.player, this.gate, () => this.tryClearStage());
-  }
-
   private createPlayer(): void {
     const spawn = stage.checkpoints[this.checkpointIndex] ?? stage.playerSpawn;
     this.player = new Player(this, spawn.x, spawn.y - 22, this.audio);
@@ -280,7 +231,6 @@ export class Stage1Scene extends Phaser.Scene {
 
   private bindCollisions(): void {
     this.physics.add.collider(this.player, this.platforms);
-    this.physics.add.collider(this.player, this.bossBarrier);
   }
 
   private updateHud(time: number): void {
@@ -291,69 +241,10 @@ export class Stage1Scene extends Phaser.Scene {
       seals: this.collectibles.sealCount,
       scrolls: this.collectibles.scrollCount,
       section,
-      minibossStarted: this.minibossStarted,
-      minibossDefeated: this.minibossDefeated,
-      minibossHealthRatio: this.warden.healthRatio()
+      minibossStarted: this.combat.started,
+      minibossDefeated: this.combat.defeated,
+      minibossHealthRatio: this.combat.healthRatio
     });
-  }
-
-  private updateMiniboss(time: number): void {
-    if (!this.minibossStarted && this.player.x >= stage.minibossTriggerX) {
-      this.minibossStarted = true;
-      this.warden.setAlpha(1);
-      this.warden.begin(time);
-      this.audio.play(AudioKey.MinibossStart);
-      this.fx.shake(0.006, 180);
-      this.fx.burst(this.warden.x, this.warden.y, Palette.gold, 24);
-    }
-    if (this.warden.active) {
-      this.warden.updateWarden(time, this.player.x);
-    }
-  }
-
-  private resolvePlayerSlash(time: number): void {
-    const active = this.player.isAttackActive(time);
-    if (active && !this.wasAttackActive) {
-      this.slashHitIds.clear();
-      this.fx.slash(this.player.x + this.player.facing * 34, this.player.y - 10, this.player.facing, false);
-    }
-    this.wasAttackActive = active;
-    if (!active) return;
-    const rect = this.player.attackRect(time);
-    if (!rect) return;
-    for (const enemy of this.enemies) {
-      if (!enemy.active) continue;
-      const id = this.enemyIds.get(enemy) ?? enemy.name;
-      if (this.slashHitIds.has(id)) continue;
-      if (Phaser.Geom.Intersects.RectangleToRectangle(rect, enemy.getBounds())) {
-        this.slashHitIds.add(id);
-        const defeated = enemy.hit(1);
-        this.audio.play(defeated ? AudioKey.EnemyDefeat : AudioKey.EnemyHit);
-        this.fx.hitPause(defeated ? 70 : 45);
-        this.fx.burst(enemy.x, enemy.y, defeated ? Palette.magenta : Palette.cyan, defeated ? 16 : 9);
-      }
-    }
-    if (this.warden.active && !this.slashHitIds.has('lantern-warden') && Phaser.Geom.Intersects.RectangleToRectangle(rect, this.warden.getBounds())) {
-      this.slashHitIds.add('lantern-warden');
-      if (this.warden.hit(2)) {
-        this.defeatMiniboss();
-      } else {
-        this.audio.play(AudioKey.EnemyHit);
-        this.fx.hitPause(55);
-        this.fx.burst(this.warden.x, this.warden.y, Palette.gold, 10);
-      }
-    }
-  }
-
-  private defeatMiniboss(): void {
-    this.minibossDefeated = true;
-    this.audio.play(AudioKey.MinibossDefeated);
-    this.fx.shake(0.007, 220);
-    this.fx.burst(this.warden.x, this.warden.y, Palette.gold, 34);
-    this.bossBarrier.disableBody(true, true);
-    this.gate.clearTint();
-    this.gate.setTint(Palette.gold);
-    this.collectibles.enableWardenReward();
   }
 
   private damagePlayer(rawDamage: number, sourceX: number): void {
@@ -402,7 +293,7 @@ export class Stage1Scene extends Phaser.Scene {
 
   private tryClearStage(): void {
     if (this.stageClear) return;
-    if (!this.minibossDefeated) {
+    if (!this.combat.defeated) {
       this.hud.setObjective('The Moon Gate is sealed.');
       return;
     }
@@ -457,10 +348,10 @@ export class Stage1Scene extends Phaser.Scene {
       scrolls: this.collectibles.scrollIds,
       seals: this.collectibles.sealCount,
       damageTaken: this.damageTaken,
-      minibossActive: this.minibossStarted && !this.minibossDefeated,
-      minibossDefeated: this.minibossDefeated,
-      minibossHealthRatio: this.warden?.active ? this.warden.healthRatio() : 0,
-      gateActive: this.minibossDefeated,
+      minibossActive: this.combat.started && !this.combat.defeated,
+      minibossDefeated: this.combat.defeated,
+      minibossHealthRatio: this.combat.healthRatio,
+      gateActive: this.combat.defeated,
       stageClear: this.stageClear,
       mobileControlsVisible: typeof document !== 'undefined' && document.body.dataset.touchControls === 'visible',
       elapsedMs: this.time.now - this.startedAt
