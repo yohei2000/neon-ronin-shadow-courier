@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T16:33:50.538Z",
+  "startedAt": "2026-06-25T16:53:57.681Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,14 +48,14 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 22764,
+      "elapsedMs": 22001,
       "milestones": [],
       "result": {
-        "elapsedMs": 22432.5,
+        "elapsedMs": 21665.800000000003,
         "rank": "C",
         "scrolls": [],
-        "damageTaken": 6,
-        "seals": 9
+        "damageTaken": 5,
+        "seals": 10
       }
     },
     {
@@ -66,11 +66,11 @@
         "maxDamageTaken": 8,
         "minSeals": 5
       },
-      "routeDurationMs": 22764,
-      "clearElapsedMs": 22432.5,
+      "routeDurationMs": 22001,
+      "clearElapsedMs": 21665.800000000003,
       "rank": "C",
-      "damageTaken": 6,
-      "seals": 9,
+      "damageTaken": 5,
+      "seals": 10,
       "passed": true
     },
     {
@@ -85,14 +85,14 @@
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 22764,
+    "elapsedMs": 22001,
     "milestones": [],
     "result": {
-      "elapsedMs": 22432.5,
+      "elapsedMs": 21665.800000000003,
       "rank": "C",
       "scrolls": [],
-      "damageTaken": 6,
-      "seals": 9
+      "damageTaken": 5,
+      "seals": 10
     }
   },
   "highContrast": {
@@ -119,11 +119,11 @@
       "maxDamageTaken": 8,
       "minSeals": 5
     },
-    "routeDurationMs": 22764,
-    "clearElapsedMs": 22432.5,
+    "routeDurationMs": 22001,
+    "clearElapsedMs": 21665.800000000003,
     "rank": "C",
-    "damageTaken": 6,
-    "seals": 9,
+    "damageTaken": 5,
+    "seals": 10,
     "passed": true
   },
   "mobile": {
@@ -132,6 +132,6 @@
     "afterRightX": 413.3333333333336,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T16:34:33.802Z",
-  "durationMs": 43264
+  "finishedAt": "2026-06-25T16:54:40.218Z",
+  "durationMs": 42537
 }

@@ -38,6 +38,7 @@ Latest quality passes added:
 - `StageCombat` so enemy spawning, miniboss state, gate/barrier handling, and slash hit resolution are isolated from `Stage1Scene`.
 - `StageCollectibles` so seal, health, energy, scroll, and miniboss scroll-reward state are isolated from `Stage1Scene`.
 - `StageHazards` so hazard sprite creation, contrast tinting, and damage overlaps are isolated from `Stage1Scene`.
+- `StageProgression` so checkpoints, tutorial markers, fall rescue, respawn, and current section lookup are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
 
 ## GitHub Reference Pass
@@ -62,6 +63,8 @@ Applied changes from that pass:
 - Split enemy/miniboss/gate orchestration and slash hit resolution into `StageCombat`.
 - Split collectibles and hazards into `StageCollectibles` and `StageHazards` so Stage1Scene owns less item/hazard state.
 - Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle` to verify app chunk size.
+- Split checkpoints, tutorial marker rendering, fall rescue, respawn, and section lookup into `StageProgression`.
+- Added pure progression helper tests, following the small gameplay-helper test pattern seen in `danipeck/squishroom`.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
@@ -157,6 +160,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Latest Art/UI Review: made high contrast mode produce visible in-stage outlines.
 - Latest Art/UI Review: separated HUD rendering into `StageHud`.
 - Latest Art/UI Review: split world/background/decor construction into `StageWorld`.
+- Latest Level Architecture Review: split checkpoints, tutorials, fall rescue, respawn, and section lookup into `StageProgression`.
 - Latest Art/UI Review: high contrast is now verified by sampling Stage 1 canvas pixels in E2E.
 - QA Automation Reviewer: required real Playwright browser evidence, screenshot artifacts, console reports, and keyboard clear proof.
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
@@ -166,6 +170,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
 - Latest Build Review: Phaser now builds as `vendor-phaser` and `qa:bundle` verifies app chunk size.
+- Latest Code Quality Review: progression helpers are covered by Vitest so checkpoint advancement and section lookup are no longer browser-only behavior.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
 ## Tradeoffs

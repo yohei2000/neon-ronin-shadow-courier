@@ -62,7 +62,7 @@ Recommended next cycle:
 
 1. Add a short human-playtest tuning note after checking Stage 1 manually.
 2. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
-3. If Stage1Scene grows again, split checkpoint/tutorial setup next.
+3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
 4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
 5. Keep bundle thresholds honest if Phaser or Vite versions change.
 
@@ -70,6 +70,8 @@ Recommended next cycle:
 
 Latest cycle improvements:
 
+- Split checkpoint activation, tutorial marker rendering, fall rescue, respawn, and current section lookup into `StageProgression`.
+- Added `tests/stageProgression.test.ts` for pure checkpoint and section progression helpers, following the gameplay-helper test pattern seen in `danipeck/squishroom`.
 - Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle`.
 - Added `artifacts/qa/bundle-report.json` to record chunk counts and largest app chunk size.
 - Split background, platform, high-contrast outlines, rain/parallax, and decor setup out of `Stage1Scene` into `StageWorld`.

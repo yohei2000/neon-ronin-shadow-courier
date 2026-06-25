@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T16:35:08.144Z
+Generated: 2026-06-25T16:55:13.667Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -76,12 +76,14 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - Gameplay Feel Reviewer: Preserved coyote time, jump buffer, variable jump, wall slide, wall kick, timed slash, damage cooldown, checkpoint retry, and fall rescue.
 - Gameplay Feel Reviewer: Added camera lead isolation and short hit pause on enemy/miniboss hits.
 - Gameplay Feel Reviewer: Added pure combat utility coverage for damage cooldown behavior.
+- Gameplay Feel Reviewer: Checkpoint, fall rescue, respawn, and current-section progression live in StageProgression.
 - Gameplay Feel Reviewer: Combat orchestration lives in StageCombat so scene flow and hit resolution stay separated.
 - Level Designer Reviewer: Stage data keeps a safe first screen, ordered named sections, optional scroll routes, fair hazard introduction, and a pre-gate miniboss.
 - Art/UI Director Reviewer: Procedural art uses layered silhouettes, neon accents, rain/parallax, UI panels, icons, and mobile control states instead of raw debug text.
 - Art/UI Director Reviewer: Background, platform, high-contrast outline, and decor construction live in StageWorld.
 - Art/UI Director Reviewer: High contrast mode now changes in-stage platform outlines and hazard tint.
 - Art/UI Director Reviewer: Split HUD/objective/section/boss-bar rendering into StageHud.
+- Level Architecture Reviewer: Tutorial markers and checkpoint activation are separated from Stage1Scene.
 - QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.
 - QA Automation Reviewer: E2E now records route health thresholds for route duration, damage, rank, and seals.
 - QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.

@@ -1,8 +1,7 @@
 import * as Phaser from 'phaser';
-import { AudioKey, SceneKey, TextureKey } from '../config/keys';
-import { Palette, PaletteCss } from '../config/palette';
+import { AudioKey, SceneKey } from '../config/keys';
+import { Palette } from '../config/palette';
 import stage1Data from '../data/stage1.json';
-import { PlayerBalance } from '../data/balance';
 import { Player } from '../entities/Player';
 import { AudioSystem } from '../systems/AudioSystem';
 import { CameraController } from '../systems/CameraController';
@@ -14,10 +13,11 @@ import { StageCombat } from '../systems/StageCombat';
 import { StageCollectibles } from '../systems/StageCollectibles';
 import { StageHazards } from '../systems/StageHazards';
 import { StageHud } from '../systems/StageHud';
+import { clampCheckpointIndex, stageSpawnPoint, StageProgression } from '../systems/StageProgression';
 import { StageWorld } from '../systems/StageWorld';
 import { TouchControls } from '../systems/TouchControls';
 import type { Stage1SceneData, StageClearSceneData } from '../types/flow';
-import type { Stage1Definition, SectionDefinition } from '../types/stage';
+import type { Stage1Definition } from '../types/stage';
 import { rankStage } from '../utils/math';
 import { markSceneStatus } from '../utils/sceneStatus';
 
@@ -32,7 +32,7 @@ export class Stage1Scene extends Phaser.Scene {
   private touchControls: TouchControls | null = null;
   private player!: Player;
   private platforms!: Phaser.Physics.Arcade.StaticGroup;
-  private checkpointIndex = 0;
+  private initialCheckpointIndex = 0;
   private startedAt = 0;
   private damageTaken = 0;
   private stageClear = false;
@@ -40,13 +40,14 @@ export class Stage1Scene extends Phaser.Scene {
   private combat!: StageCombat;
   private collectibles!: StageCollectibles;
   private hud!: StageHud;
+  private progression!: StageProgression;
 
   constructor() {
     super(SceneKey.Stage1);
   }
 
   init(data: Stage1SceneData = {}): void {
-    this.checkpointIndex = Math.max(0, Math.min(stage.checkpoints.length - 1, data.checkpointIndex ?? 0));
+    this.initialCheckpointIndex = clampCheckpointIndex(stage.checkpoints, data.checkpointIndex ?? 0);
     this.damageTaken = 0;
     this.stageClear = false;
     this.gameOverQueued = false;
@@ -66,8 +67,17 @@ export class Stage1Scene extends Phaser.Scene {
     ).create();
     this.collectibles = new StageCollectibles(this, stage, this.player, this.audio, this.fx);
     this.collectibles.create();
-    this.createCheckpoints();
-    this.createTutorials();
+    this.progression = new StageProgression(
+      this,
+      stage,
+      this.player,
+      this.audio,
+      this.fx,
+      this.initialCheckpointIndex,
+      (damage, sourceX) => this.damagePlayer(damage, sourceX),
+      (reason) => this.queueGameOver(reason)
+    );
+    this.progression.create();
     this.combat = new StageCombat(this, stage, this.player, this.platforms, this.audio, this.fx, {
       damagePlayer: (damage, sourceX) => this.damagePlayer(damage, sourceX),
       onGateTouched: () => this.tryClearStage(),
@@ -103,7 +113,7 @@ export class Stage1Scene extends Phaser.Scene {
     this.player.updatePlayer(input, time, delta);
     this.cameraController.update(delta);
     this.combat.update(time);
-    this.updateCheckpointByProgress();
+    this.progression.updateCheckpointByProgress();
     if (this.combat.defeated && this.player.x >= stage.goal.x - 22) {
       this.tryClearStage();
     }
@@ -113,45 +123,16 @@ export class Stage1Scene extends Phaser.Scene {
   }
 
   restartFromCheckpoint(): void {
-    this.scene.restart({ checkpointIndex: this.checkpointIndex } satisfies Stage1SceneData);
+    this.scene.restart({ checkpointIndex: this.currentCheckpointIndex() } satisfies Stage1SceneData);
   }
 
   restartStage(): void {
     this.scene.restart({ checkpointIndex: 0 } satisfies Stage1SceneData);
   }
 
-  private createCheckpoints(): void {
-    stage.checkpoints.forEach((checkpoint, index) => {
-      const sprite = this.physics.add.staticImage(checkpoint.x, checkpoint.y, TextureKey.Checkpoint);
-      sprite.setDepth(16);
-      sprite.refreshBody();
-      this.physics.add.overlap(this.player, sprite, () => {
-        if (index > this.checkpointIndex) {
-          this.checkpointIndex = index;
-          this.audio.play(AudioKey.Checkpoint);
-          this.fx.burst(sprite.x, sprite.y - 26, Palette.gold, 18);
-        }
-      });
-    });
-  }
-
-  private createTutorials(): void {
-    for (const marker of stage.tutorials) {
-      this.add.rectangle(marker.x, marker.y + 18, 178, 34, Palette.ink1, 0.84).setDepth(12);
-      this.add.text(marker.x, marker.y + 18, marker.text, {
-        fontFamily: 'monospace',
-        fontSize: '13px',
-        color: PaletteCss.white,
-        align: 'center',
-        fixedWidth: 166
-      }).setOrigin(0.5).setDepth(13);
-      this.add.line(marker.x, marker.y + 41, 0, 0, 0, 24, Palette.cyan, 0.48).setDepth(12);
-    }
-  }
-
   private createPlayer(): void {
-    const spawn = stage.checkpoints[this.checkpointIndex] ?? stage.playerSpawn;
-    this.player = new Player(this, spawn.x, spawn.y - 22, this.audio);
+    const spawn = stageSpawnPoint(stage, this.initialCheckpointIndex);
+    this.player = new Player(this, spawn.x, spawn.y, this.audio);
   }
 
   private bindCollisions(): void {
@@ -186,34 +167,11 @@ export class Stage1Scene extends Phaser.Scene {
   private queueGameOver(reason: 'defeated' | 'fall'): void {
     if (this.gameOverQueued || this.stageClear) return;
     this.gameOverQueued = true;
-    this.time.delayedCall(420, () => this.scene.start(SceneKey.GameOver, { checkpointIndex: this.checkpointIndex, reason }));
+    this.time.delayedCall(420, () => this.scene.start(SceneKey.GameOver, { checkpointIndex: this.currentCheckpointIndex(), reason }));
   }
 
   private handleFall(): void {
-    if (this.player.y <= PlayerBalance.fallDeathY) return;
-    if (this.saveSystem.data.settings.assist.fallRescue) {
-      this.damagePlayer(1, this.player.x);
-      this.respawnAtCheckpoint();
-      return;
-    }
-    this.queueGameOver('fall');
-  }
-
-  private respawnAtCheckpoint(): void {
-    const checkpoint = stage.checkpoints[this.checkpointIndex] ?? stage.checkpoints[0];
-    this.player.revive(checkpoint.x, checkpoint.y - 22);
-    this.fx.burst(checkpoint.x, checkpoint.y, Palette.cyan, 14);
-  }
-
-  private updateCheckpointByProgress(): void {
-    for (let index = this.checkpointIndex + 1; index < stage.checkpoints.length; index += 1) {
-      const checkpoint = stage.checkpoints[index];
-      if (this.player.x >= checkpoint.x - 18) {
-        this.checkpointIndex = index;
-        this.audio.play(AudioKey.Checkpoint);
-        this.fx.burst(checkpoint.x, checkpoint.y, Palette.gold, 16);
-      }
-    }
+    this.progression.handleFall(this.saveSystem.data.settings.assist.fallRescue);
   }
 
   private tryClearStage(): void {
@@ -232,7 +190,7 @@ export class Stage1Scene extends Phaser.Scene {
       scrolls,
       damageTaken: this.damageTaken,
       seals: this.collectibles.sealCount,
-      checkpointIndex: this.checkpointIndex
+      checkpointIndex: this.currentCheckpointIndex()
     };
     this.saveSystem.completeStage(result);
     this.audio.play(AudioKey.StageClear);
@@ -245,13 +203,12 @@ export class Stage1Scene extends Phaser.Scene {
     this.scene.launch(SceneKey.Pause);
   }
 
-  private currentSection(): SectionDefinition {
-    const x = this.player?.x ?? 0;
-    return (
-      [...stage.sections]
-        .filter((section) => x >= section.x && x <= section.x + section.width)
-        .sort((a, b) => b.x - a.x)[0] ?? stage.sections[0]
-    );
+  private currentSection() {
+    return this.progression.currentSection();
+  }
+
+  private currentCheckpointIndex(): number {
+    return this.progression?.checkpointIndex ?? this.initialCheckpointIndex;
   }
 
   private updateQaState(): void {
@@ -262,7 +219,7 @@ export class Stage1Scene extends Phaser.Scene {
       player: this.player.snapshot(this.time.now),
       sectionId: section.id,
       sectionName: section.name,
-      checkpointIndex: this.checkpointIndex,
+      checkpointIndex: this.currentCheckpointIndex(),
       scrolls: this.collectibles.scrollIds,
       seals: this.collectibles.sealCount,
       damageTaken: this.damageTaken,
