@@ -1,6 +1,6 @@
 # Stage 1 Playtest Tuning Note
 
-Generated: 2026-06-25T18:28:24.235Z
+Generated: 2026-06-25T18:40:12.862Z
 Status: PASS
 
 ## Method
@@ -12,6 +12,7 @@ Evidence-backed manual review of current QA screenshots plus automated route, le
 - `artifacts/qa/e2e-report.json`: title/settings flow, pause retry/restart, high-contrast pixels, keyboard clear, route health, and mobile input probes.
 - `artifacts/qa/level-report.json`: stage size, checkpoints, optional routes, scrolls, hazards, enemies, and pickup counts.
 - `artifacts/qa/dist-report.json`: production `dist/` boot from emitted assets.
+- `artifacts/qa/flow-report.json`: Credits and Game Over browser round trips.
 - `artifacts/qa/save-report.json`: corrupted-save recovery, settings persistence, and Stage Clear result persistence.
 - `artifacts/qa/stage-start.png`: reviewed.
 - `artifacts/qa/combat-encounter.png`: reviewed.
@@ -21,9 +22,10 @@ Evidence-backed manual review of current QA screenshots plus automated route, le
 
 ## Findings
 
-- The automated clear route reaches Stage Clear in 26s with 5 damage, leaving 3 damage before the route-health cap.
+- The automated clear route reaches Stage Clear in 26.1s with 6 damage, leaving 2 damage before the route-health cap.
 - The route collects 10/22 seals (45%) without pursuing optional scroll routes, so critical-path pickup density is adequate for a first clear.
 - Desktop screenshots show readable onboarding, first-combat spacing, Lantern Warden objective text, and Stage Clear results.
+- Support-scene flow QA verifies Credits and Game Over round trips, so failure and attribution routes remain reachable.
 - Mobile controls are visible, expose 7 QA-tracked buttons, keep jump/attack separated by 21.9px, and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.
 - Save QA passes corrupted-save recovery, settings reload persistence, and Stage Clear persistence, so tuning runs are not losing result data.
 

@@ -43,6 +43,7 @@ Required artifacts are committed under `artifacts/qa/`, including:
 - `e2e-report.json`
 - `bundle-report.json`
 - `dist-report.json`
+- `flow-report.json`
 - `save-report.json`
 - `playtest-tuning.md`
 - `stage1-acceptance-report.md`
@@ -67,12 +68,14 @@ Recommended next cycle:
 2. Keep pause/retry, high-contrast pixel, boss-route, dist-smoke, and playtest-note coverage stable if menu labels, layout, palette, or combat timing changes.
 3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
 4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
-5. Keep `qa:dist`, `qa:save`, and `qa:playtest` wired into local `qa:all`; keep `qa:dist` wired into the Pages workflow if deployment/build paths change.
+5. Keep `qa:dist`, `qa:flow`, `qa:save`, and `qa:playtest` wired into local `qa:all`; keep `qa:dist` wired into the Pages workflow if deployment/build paths change.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Added `npm run qa:flow` to verify Credits and Game Over support-scene round trips in a real browser.
+- Added `artifacts/qa/flow-report.json` and acceptance-report rows for support-scene navigation evidence.
 - Added `npm run qa:save` to verify corrupted localStorage recovery, settings reload persistence, and Stage Clear save persistence in a real browser.
 - Added `artifacts/qa/save-report.json` and acceptance-report rows for save/settings evidence.
 - Tuned the automated Lantern Warden route to retreat during boss lunge windows before attacking, improving E2E and save-QA repeatability without changing runtime balance.

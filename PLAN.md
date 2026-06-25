@@ -76,6 +76,7 @@ Required scripts:
 - `npm run qa:assets`
 - `npm run qa:bundle`
 - `npm run qa:dist`
+- `npm run qa:flow`
 - `npm run qa:save`
 - `npm run qa:screenshots`
 - `npm run qa:playtest`
@@ -100,6 +101,7 @@ Generated under `artifacts/qa/`:
 - `e2e-report.json`
 - `bundle-report.json`
 - `dist-report.json`
+- `flow-report.json`
 - `save-report.json`
 - `playtest-tuning.md`
 - `stage1-acceptance-report.md`
@@ -117,6 +119,7 @@ npm run qa:level
 npm run qa:assets
 npm run qa:bundle
 npm run qa:dist
+npm run qa:flow
 npm run qa:save
 npm run qa:screenshots
 npm run qa:playtest

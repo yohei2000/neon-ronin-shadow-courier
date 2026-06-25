@@ -42,6 +42,7 @@ npm run qa:level
 npm run qa:assets
 npm run qa:bundle
 npm run qa:dist
+npm run qa:flow
 npm run qa:save
 npm run qa:screenshots
 npm run qa:playtest
@@ -54,9 +55,11 @@ npm run qa:all
 
 `npm run qa:dist` serves the built `dist/` directory and verifies the production bundle boots from Title to Stage 1 without dev-server fallback. Set `QA_DIST_BASE=/repo-name/` to smoke a GitHub Pages-style base path.
 
+`npm run qa:flow` verifies Credits and Game Over support-scene round trips in a real browser.
+
 `npm run qa:save` verifies corrupted localStorage recovery, settings persistence after reload, and Stage Clear save persistence in a real browser.
 
-`npm run qa:playtest` writes an evidence-backed tuning note from current route-health, level, dist, save, mobile layout, and screenshot reports.
+`npm run qa:playtest` writes an evidence-backed tuning note from current route-health, level, dist, flow, save, mobile layout, and screenshot reports.
 
 ## QA Screenshots
 
@@ -85,6 +88,7 @@ Additional evidence:
 - `artifacts/qa/e2e-report.json`
 - `artifacts/qa/bundle-report.json`
 - `artifacts/qa/dist-report.json`
+- `artifacts/qa/flow-report.json`
 - `artifacts/qa/save-report.json`
 - `artifacts/qa/playtest-tuning.md`
 - `artifacts/qa/stage1-acceptance-report.md`

@@ -43,6 +43,8 @@ export async function writeAcceptanceReport(options = {}) {
   const bundlePass = commandStatus('npm run qa:bundle') === 'PASS' && bundleReport?.valid === true;
   const distReport = await readDistReport();
   const distPass = commandStatus('npm run qa:dist') === 'PASS' && distReport?.valid === true;
+  const flowReport = await readFlowReport();
+  const flowPass = commandStatus('npm run qa:flow') === 'PASS' && flowReport?.valid === true;
   const saveReport = await readSaveReport();
   const savePass = commandStatus('npm run qa:save') === 'PASS' && saveReport?.valid === true;
   const playtestPass = commandStatus('npm run qa:playtest') === 'PASS' && (await playtestNoteIsCurrent());
@@ -63,6 +65,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('Checkpoints work.', true),
     row('Retry checkpoint works.', true),
     row('Pause menu retry and restart are verified by E2E.', pauseRestartPass),
+    row('Credits and Game Over scene round trips are verified by flow QA.', flowPass),
     row('Stage can be cleared.', e2ePass),
     row('Automated route health stays inside tuning thresholds.', routeHealthPass),
     row('Miniboss can be defeated.', e2ePass),
@@ -106,6 +109,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('bundle split keeps app chunk below threshold.', bundlePass),
     row('production dist boots from built assets.', distPass),
     row('e2e passes.', e2ePass),
+    row('qa:flow passes.', flowPass),
     row('qa:save passes.', savePass),
     row('mobile virtual-control layout checks pass.', mobileLayoutPass),
     row('qa:level passes.', levelPass),
@@ -138,6 +142,7 @@ export async function writeAcceptanceReport(options = {}) {
     '- QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.',
     '- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.',
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
+    '- QA Automation Reviewer: qa:flow verifies Credits and Game Over scene round trips through browser-visible scene transitions.',
     '- QA Automation Reviewer: E2E now validates the seven-button mobile layout, action gap, lower control band, and upper-right pause safe area.',
     '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
     '- QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.',
@@ -169,6 +174,14 @@ async function readBundleReport() {
 async function readDistReport() {
   try {
     return JSON.parse(await readFile(path.join(qaDir, 'dist-report.json'), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+async function readFlowReport() {
+  try {
+    return JSON.parse(await readFile(path.join(qaDir, 'flow-report.json'), 'utf8'));
   } catch {
     return null;
   }

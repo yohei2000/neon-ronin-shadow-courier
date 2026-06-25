@@ -41,6 +41,7 @@ Latest quality passes added:
 - `StageProgression` so checkpoints, tutorial markers, fall rescue, respawn, and current section lookup are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
 - `src/utils/touchLayout.ts` so mobile virtual-control placement is shared by rendering, QA state, and Vitest coverage without depending on Phaser.
+- `npm run qa:flow` so Credits and Game Over support-scene round trips are verified in a real browser.
 - `npm run qa:save` so browser localStorage recovery, settings persistence, and Stage Clear save persistence are covered outside unit tests.
 - `.github/workflows/deploy.yml` uses current Node 24-era GitHub Actions majors for Pages deployment.
 
@@ -74,6 +75,7 @@ Applied changes from that pass:
 - Added pure touch-layout helper tests and exposed the virtual-control layout through read-only QA state.
 - Added Playwright checks for the seven-button mobile layout, left/right cluster separation, action gap, and upper-right pause safe area.
 - Added Playwright save QA for corrupted-save recovery, high-contrast setting persistence after reload, and Stage Clear result persistence.
+- Added Playwright flow QA for Title -> Credits -> Title and real-damage Stage 1 -> GameOver -> Title support-scene transitions.
 - Tuned the automated Lantern Warden route to retreat during boss lunge windows before attacking, reducing route flakiness in E2E and save QA.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Added Playwright canvas pixel sampling so high contrast mode is verified as a visible Stage 1 rendering change.
@@ -137,9 +139,10 @@ Scripts:
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
 - `npm run qa:bundle`: production bundle chunk checks after `npm run build`
 - `npm run qa:dist`: built `dist/` smoke test that serves emitted assets and verifies Title -> Stage 1 boot; CI reruns it with the GitHub Pages base path after the Pages build
+- `npm run qa:flow`: browser flow checks for Credits and Game Over support-scene round trips
 - `npm run qa:save`: browser save-system checks for corrupted localStorage recovery, settings reload persistence, and Stage Clear result persistence
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
-- `npm run qa:playtest`: evidence-backed tuning note generated from route-health, level, dist, save, and screenshot reports
+- `npm run qa:playtest`: evidence-backed tuning note generated from route-health, level, dist, flow, save, and screenshot reports
 - `npm run qa:all`: final gate runner
 
 Read-only browser QA state is exposed through `window.__NEON_RONIN_QA__` and `window.__NEON_RONIN_CLEAR__`, including the current mobile virtual-control layout. Tests do not teleport, mutate stage state, or call hidden clear functions.
@@ -155,12 +158,13 @@ Current verified commands during implementation:
 - `npm run qa:level`: PASS
 - `npm run qa:assets`: PASS
 - `npm run qa:dist`: PASS
+- `npm run qa:flow`: PASS
 - `npm run qa:save`: PASS
 - `npm run qa:screenshots`: PASS
 - `npm run qa:playtest`: PASS
 - `npm run qa:all`: PASS
 
-The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production dist smoke, E2E, save QA, level QA, screenshot QA, asset QA, and playtest-note generation successfully.
+The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production dist smoke, E2E, flow QA, save QA, level QA, screenshot QA, asset QA, and playtest-note generation successfully.
 
 ## Reviewer Passes
 
@@ -180,6 +184,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
 - Latest QA Automation Review: high contrast stage pixels are now asserted in Playwright E2E.
 - Latest QA Automation Review: pause menu Retry Checkpoint and Restart Stage are now asserted through real menu input.
+- Latest QA Automation Review: support-scene flow QA now verifies Credits and Game Over round trips in `artifacts/qa/flow-report.json`.
 - Latest QA Automation Review: route-health thresholds are now recorded in `e2e-report.json`.
 - Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.

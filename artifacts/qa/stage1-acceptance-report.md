@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T18:28:24.272Z
+Generated: 2026-06-25T18:40:12.905Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -13,6 +13,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: Checkpoints work.
 - PASS: Retry checkpoint works.
 - PASS: Pause menu retry and restart are verified by E2E.
+- PASS: Credits and Game Over scene round trips are verified by flow QA.
 - PASS: Stage can be cleared.
 - PASS: Automated route health stays inside tuning thresholds.
 - PASS: Miniboss can be defeated.
@@ -56,6 +57,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: bundle split keeps app chunk below threshold.
 - PASS: production dist boots from built assets.
 - PASS: e2e passes.
+- PASS: qa:flow passes.
 - PASS: qa:save passes.
 - PASS: mobile virtual-control layout checks pass.
 - PASS: qa:level passes.
@@ -98,6 +100,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.
 - QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.
 - QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.
+- QA Automation Reviewer: qa:flow verifies Credits and Game Over scene round trips through browser-visible scene transitions.
 - QA Automation Reviewer: E2E now validates the seven-button mobile layout, action gap, lower control band, and upper-right pause safe area.
 - QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.
 - QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.

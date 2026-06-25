@@ -11,6 +11,7 @@ function assert(condition, message) {
 const e2e = await readJson('e2e-report.json');
 const level = await readJson('level-report.json');
 const dist = await readJson('dist-report.json');
+const flow = await readJson('flow-report.json');
 const save = await readJson('save-report.json');
 const screenshotNames = [
   'stage-start.png',
@@ -24,6 +25,7 @@ assert(e2e?.valid === true, 'e2e-report.json is missing or invalid.');
 assert(e2e?.routeHealth?.passed === true, 'Stage 1 route health did not pass.');
 assert(level?.valid === true, 'level-report.json is missing or invalid.');
 assert(dist?.valid === true, 'dist-report.json is missing or invalid.');
+assert(flow?.valid === true, 'flow-report.json is missing or invalid.');
 assert(e2e?.mobile?.layout?.valid === true, 'Mobile touch layout QA did not pass.');
 assert(save?.valid === true, 'save-report.json is missing or invalid.');
 
@@ -46,6 +48,7 @@ const findings = [
   `The automated clear route reaches Stage Clear in ${routeSeconds}s with ${route.damageTaken ?? '?'} damage, leaving ${damageMargin} damage before the route-health cap.`,
   `The route collects ${clear.seals ?? 0}/${metrics.seals ?? '?'} seals (${sealCoverage}%) without pursuing optional scroll routes, so critical-path pickup density is adequate for a first clear.`,
   `Desktop screenshots show readable onboarding, first-combat spacing, Lantern Warden objective text, and Stage Clear results.`,
+  `Support-scene flow QA verifies Credits and Game Over round trips, so failure and attribution routes remain reachable.`,
   `Mobile controls are visible, expose ${mobileLayout.buttonCount ?? '?'} QA-tracked buttons, keep jump/attack separated by ${mobileLayout.actionGap ?? '?'}px, and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.`,
   `Save QA passes corrupted-save recovery, settings reload persistence, and Stage Clear persistence, so tuning runs are not losing result data.`
 ];
@@ -71,6 +74,7 @@ const lines = [
   '- `artifacts/qa/e2e-report.json`: title/settings flow, pause retry/restart, high-contrast pixels, keyboard clear, route health, and mobile input probes.',
   '- `artifacts/qa/level-report.json`: stage size, checkpoints, optional routes, scrolls, hazards, enemies, and pickup counts.',
   '- `artifacts/qa/dist-report.json`: production `dist/` boot from emitted assets.',
+  '- `artifacts/qa/flow-report.json`: Credits and Game Over browser round trips.',
   '- `artifacts/qa/save-report.json`: corrupted-save recovery, settings persistence, and Stage Clear result persistence.',
   ...screenshotNames.map((name) => `- \`artifacts/qa/${name}\`: ${screenshotStatus[name] ? 'reviewed' : 'missing'}.`),
   '',
