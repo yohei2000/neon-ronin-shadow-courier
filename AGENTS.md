@@ -57,21 +57,20 @@ GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
 
 Recommended next cycle:
 
-1. Add a small pure test around combat/damage cooldown or rank/clear result edge cases.
-2. Improve mobile portrait ergonomics by moving the pause button away from the attack cluster.
-3. Add a settings-flow E2E check that toggles high contrast and verifies it changes gameplay visuals.
-4. Add a short human-playtest tuning note after checking Stage 1 manually.
-5. Consider splitting `Stage1Scene` further into HUD, collectibles, and hazards if it grows.
+1. Add a short human-playtest tuning note after checking Stage 1 manually.
+2. Split collectibles/hazards out of `Stage1Scene` if it grows further.
+3. Add E2E coverage for pause menu retry checkpoint and restart stage.
+4. Consider a screenshot/pixel assertion for high contrast mode, not only saved-setting assertion.
+5. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
-- Added `CameraController` to isolate camera follow/lead logic from `Stage1Scene`.
-- Added physics hit pause on enemy/miniboss hit through `FXSystem.hitPause`.
-- Made high contrast visibly affect Stage 1 platform outlines and hazard tint.
-- Added this `AGENTS.md` so the next context-reset agent can resume without reading prior chat.
-- Tuned Lantern Warden HP to keep screenshot/E2E clear routes stable while preserving a readable elite fight.
+- Added `StageHud` to move HUD/objective/section/boss-bar responsibilities out of `Stage1Scene`.
+- Added pure combat helpers and `tests/combat.test.ts` for damage cooldown behavior.
+- Moved the mobile pause button away from the attack cluster to the upper-right safe area.
+- Previous cycle added `CameraController`, hit pause, high contrast stage outlines, and stable Lantern Warden tuning.
 
 Before handing off again:
 

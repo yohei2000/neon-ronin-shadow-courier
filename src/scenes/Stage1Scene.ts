@@ -14,10 +14,11 @@ import { FXSystem } from '../systems/FXSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { getAudioSystem, getSaveSystem } from '../systems/Registry';
 import { SaveSystem } from '../systems/SaveSystem';
+import { StageHud } from '../systems/StageHud';
 import { TouchControls } from '../systems/TouchControls';
 import type { Stage1SceneData, StageClearSceneData } from '../types/flow';
 import type { Stage1Definition, SectionDefinition } from '../types/stage';
-import { formatTime, rankStage } from '../utils/math';
+import { rankStage } from '../utils/math';
 import { markSceneStatus } from '../utils/sceneStatus';
 
 type PlatformVisualKind = 'floor' | 'wall' | 'roof' | 'edge';
@@ -52,11 +53,7 @@ export class Stage1Scene extends Phaser.Scene {
   private minibossDefeated = false;
   private stageClear = false;
   private gameOverQueued = false;
-  private sectionText!: Phaser.GameObjects.Text;
-  private objectiveText!: Phaser.GameObjects.Text;
-  private hudText!: Phaser.GameObjects.Text;
-  private bossBar!: Phaser.GameObjects.Graphics;
-  private lastSectionId = '';
+  private hud!: StageHud;
 
   constructor() {
     super(SceneKey.Stage1);
@@ -75,7 +72,6 @@ export class Stage1Scene extends Phaser.Scene {
     this.minibossDefeated = false;
     this.stageClear = false;
     this.gameOverQueued = false;
-    this.lastSectionId = '';
     this.enemies = [];
     this.enemyIds = new Map();
   }
@@ -98,7 +94,7 @@ export class Stage1Scene extends Phaser.Scene {
     this.createTutorials();
     this.createEnemies();
     this.createMinibossAndGate();
-    this.createHud();
+    this.hud = new StageHud(this);
     this.touchControls = new TouchControls(this, this.saveSystem.data.settings);
     this.inputSystem = new InputSystem(this, this.touchControls);
     this.cameraController = new CameraController(this, this.player, stage.width, stage.height);
@@ -315,7 +311,6 @@ export class Stage1Scene extends Phaser.Scene {
     this.gate.setDepth(14);
     this.gate.setTint(Palette.smoke);
     this.physics.add.overlap(this.player, this.gate, () => this.tryClearStage());
-    this.bossBar = this.add.graphics().setDepth(1002).setScrollFactor(0);
   }
 
   private createPlayer(): void {
@@ -328,41 +323,18 @@ export class Stage1Scene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.bossBarrier);
   }
 
-  private createHud(): void {
-    this.add.rectangle(BASE_WIDTH / 2, 26, BASE_WIDTH, 52, Palette.ink0, 0.64).setDepth(998).setScrollFactor(0);
-    this.hudText = this.add.text(18, 10, '', {
-      fontFamily: 'monospace',
-      fontSize: '17px',
-      color: PaletteCss.white
-    }).setDepth(1000).setScrollFactor(0);
-    this.sectionText = this.add.text(BASE_WIDTH / 2, 74, '', {
-      fontFamily: 'monospace',
-      fontSize: '20px',
-      color: PaletteCss.cyan,
-      align: 'center'
-    }).setOrigin(0.5).setDepth(1000).setScrollFactor(0);
-    this.objectiveText = this.add.text(BASE_WIDTH - 18, 12, '', {
-      fontFamily: 'monospace',
-      fontSize: '14px',
-      color: PaletteCss.gold,
-      align: 'right',
-      fixedWidth: 310
-    }).setOrigin(1, 0).setDepth(1000).setScrollFactor(0);
-  }
-
   private updateHud(time: number): void {
     const section = this.currentSection();
-    if (section.id !== this.lastSectionId) {
-      this.lastSectionId = section.id;
-      this.sectionText.setText(section.name);
-      this.sectionText.setAlpha(1);
-      this.tweens.add({ targets: this.sectionText, alpha: 0, duration: 1800, delay: 900 });
-    }
-    this.hudText.setText(
-      `HP ${this.player.hp}/${PlayerBalance.maxHp}  Time ${formatTime(time - this.startedAt)}  Seals ${this.seals}/22  Scrolls ${this.collectedScrolls.size}/3`
-    );
-    this.objectiveText.setText(this.objectiveForSection(section));
-    this.drawBossBar();
+    this.hud.update({
+      elapsedMs: time - this.startedAt,
+      hp: this.player.hp,
+      seals: this.seals,
+      scrolls: this.collectedScrolls.size,
+      section,
+      minibossStarted: this.minibossStarted,
+      minibossDefeated: this.minibossDefeated,
+      minibossHealthRatio: this.warden.healthRatio()
+    });
   }
 
   private updateMiniboss(time: number): void {
@@ -499,7 +471,7 @@ export class Stage1Scene extends Phaser.Scene {
   private tryClearStage(): void {
     if (this.stageClear) return;
     if (!this.minibossDefeated) {
-      this.objectiveText.setText('The Moon Gate is sealed.');
+      this.hud.setObjective('The Moon Gate is sealed.');
       return;
     }
     this.stageClear = true;
@@ -525,17 +497,6 @@ export class Stage1Scene extends Phaser.Scene {
     this.scene.launch(SceneKey.Pause);
   }
 
-  private drawBossBar(): void {
-    this.bossBar.clear();
-    if (!this.minibossStarted || this.minibossDefeated) return;
-    this.bossBar.fillStyle(Palette.ink0, 0.78);
-    this.bossBar.fillRoundedRect(312, 48, 336, 18, 5);
-    this.bossBar.fillStyle(Palette.red, 0.92);
-    this.bossBar.fillRoundedRect(316, 52, 328 * this.warden.healthRatio(), 10, 4);
-    this.bossBar.lineStyle(2, Palette.gold, 0.8);
-    this.bossBar.strokeRoundedRect(312, 48, 336, 18, 5);
-  }
-
   private currentSection(): SectionDefinition {
     const x = this.player?.x ?? 0;
     return (
@@ -543,20 +504,6 @@ export class Stage1Scene extends Phaser.Scene {
         .filter((section) => x >= section.x && x <= section.x + section.width)
         .sort((a, b) => b.x - a.x)[0] ?? stage.sections[0]
     );
-  }
-
-  private objectiveForSection(section: SectionDefinition): string {
-    if (section.id === 'lantern-warden-encounter') {
-      return this.minibossDefeated ? 'Moon Gate unsealed' : 'Defeat Lantern Warden';
-    }
-    if (section.id === 'moon-gate-finish') {
-      return this.minibossDefeated ? 'Enter the Moon Gate' : 'Return to the warden';
-    }
-    if (section.id.includes('hidden')) return 'Optional scroll route';
-    if (section.id.includes('checkpoint')) return 'Touch the shrine';
-    if (section.id.includes('wall')) return 'Climb the sign shaft';
-    if (section.id.includes('thorn')) return 'Cross the neon thorns';
-    return 'Deliver the shadow parcel';
   }
 
   private platformTexture(kind: PlatformVisualKind): TextureKey {

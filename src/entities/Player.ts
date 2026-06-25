@@ -5,6 +5,7 @@ import type { InputState } from '../types/input';
 import type { GameSettings } from '../types/save';
 import { applyDamageAssist } from '../systems/AssistSystem';
 import type { AudioSystem } from '../systems/AudioSystem';
+import { canAcceptDamage, nextInvulnerabilityUntil } from '../utils/combat';
 
 export interface PlayerSnapshot {
   readonly x: number;
@@ -112,12 +113,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   takeDamage(rawDamage: number, sourceX: number, time: number, settings: GameSettings): boolean {
-    if (this.dead || time < this.invulnerableUntil) {
+    if (!canAcceptDamage({ dead: this.dead, time, invulnerableUntil: this.invulnerableUntil })) {
       return false;
     }
     const damage = applyDamageAssist(rawDamage, settings);
     this.hp = Math.max(0, this.hp - damage);
-    this.invulnerableUntil = time + PlayerBalance.hurtInvulnerableMs;
+    this.invulnerableUntil = nextInvulnerabilityUntil(time, PlayerBalance.hurtInvulnerableMs);
     const body = this.body as Phaser.Physics.Arcade.Body;
     body.setVelocityX(sourceX < this.x ? PlayerBalance.knockbackX : -PlayerBalance.knockbackX);
     body.setVelocityY(-PlayerBalance.knockbackY);

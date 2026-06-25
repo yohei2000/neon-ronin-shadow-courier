@@ -74,7 +74,7 @@ export class TouchControls {
     this.addButton('down', 120, BASE_HEIGHT - 40, 38, 'v', opacity);
     this.addButton('jump', BASE_WIDTH - 235, BASE_HEIGHT - 90, 44, 'JMP', opacity);
     this.addButton('attack', BASE_WIDTH - 124, BASE_HEIGHT - 104, 46, 'ATK', opacity);
-    this.addButton('pause', BASE_WIDTH - 190, BASE_HEIGHT - 28, 30, 'II', opacity);
+    this.addButton('pause', BASE_WIDTH - 52, 54, 28, 'II', opacity);
   }
 
   private addButton(

@@ -30,7 +30,11 @@ Supporting screens:
 
 Stage 1 data lives in `src/data/stage1.json` and is checked by `scripts/qa-level.mjs`. Player, enemy, save, input, audio, touch controls, and FX logic are split into entity/system files so `Stage1Scene` orchestrates rather than owning every behavior.
 
-Latest quality pass added `CameraController` so camera lead/follow tuning is no longer embedded directly in `Stage1Scene`.
+Latest quality passes added:
+
+- `CameraController` so camera lead/follow tuning is no longer embedded directly in `Stage1Scene`.
+- `StageHud` so HUD, objective, section-title, and boss-bar rendering are isolated from `Stage1Scene`.
+- `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
 
 ## GitHub Reference Pass
 
@@ -48,6 +52,9 @@ Applied changes from that pass:
 - Added `FXSystem.hitPause()` and wired it into enemy/miniboss hit feedback.
 - Made high contrast mode visibly affect Stage 1 platform outlines and hazard tint.
 - Extended E2E to toggle and verify persisted high contrast settings.
+- Split HUD rendering into `StageHud`, following the scene/sprite/system separation seen in the reference projects.
+- Added combat utility tests for damage cooldown behavior.
+- Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 
 ## Player Feel
 
@@ -129,9 +136,11 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Producer / Scope Controller: removed broad campaign scope and kept the repository Stage 1 only.
 - Gameplay Feel Reviewer: required respawn fix, checkpoint stability, easier Lantern Warden tuning, and mobile input correction.
 - Latest Gameplay Feel Review: added hit pause and separated camera lead tuning.
+- Latest Gameplay Feel Review: added pure damage cooldown coverage and moved mobile pause away from the attack cluster.
 - Level Designer Reviewer: kept safe start, ordered tutorial beats, optional scroll sections, fair hazard introduction, and a rest checkpoint before the miniboss.
 - Art/UI Director Reviewer: required layered procedural art, title treatment, parallax/rain, HUD readability, panelized menus, and mobile visual controls.
 - Latest Art/UI Review: made high contrast mode produce visible in-stage outlines.
+- Latest Art/UI Review: separated HUD rendering into `StageHud`.
 - QA Automation Reviewer: required real Playwright browser evidence, screenshot artifacts, console reports, and keyboard clear proof.
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
