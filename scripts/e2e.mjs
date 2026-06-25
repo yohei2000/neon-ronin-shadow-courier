@@ -19,8 +19,9 @@ const report = {
   valid: false,
   startedAt: new Date().toISOString(),
   tests: [],
-  route: 'Title -> Controls -> Settings -> Stage 1 -> keyboard clear -> mobile control probes',
+  route: 'Title -> Controls -> Settings -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes',
   clear: null,
+  pause: null,
   mobile: null
 };
 
@@ -64,6 +65,36 @@ try {
 
   await startStageFromTitle(page);
   addTest('title-flow/start-stage', 'PASS');
+  const checkpointProbe = await keyboardClearRoute(page, {
+    stopWhen: (qa) => qa.checkpointIndex >= 1 && qa.player.x > 3480
+  });
+  if (!checkpointProbe.stopped || checkpointProbe.state.checkpointIndex < 1) {
+    throw new Error('Stage 1 route did not reach checkpoint before pause retry probe.');
+  }
+  await page.keyboard.press('Escape');
+  await waitForScene(page, 'PauseScene');
+  await clickGame(page, 480, 233);
+  await waitForScene(page, 'Stage1Scene');
+  await page.waitForFunction(() => window.__NEON_RONIN_QA__?.checkpointIndex >= 1);
+  const retryState = await qaState(page);
+  if (!retryState || retryState.player.x < 3400 || retryState.player.x > 3600) {
+    throw new Error(`Retry checkpoint did not respawn near the active checkpoint: ${JSON.stringify(retryState)}`);
+  }
+  await page.keyboard.press('Escape');
+  await waitForScene(page, 'PauseScene');
+  await clickGame(page, 480, 270);
+  await waitForScene(page, 'Stage1Scene');
+  await page.waitForFunction(() => window.__NEON_RONIN_QA__?.checkpointIndex === 0);
+  const restartState = await qaState(page);
+  if (!restartState || restartState.player.x > 260) {
+    throw new Error(`Restart stage did not return to the start checkpoint: ${JSON.stringify(restartState)}`);
+  }
+  report.pause = {
+    reachedCheckpoint: checkpointProbe.state.checkpointIndex,
+    retryX: retryState.player.x,
+    restartX: restartState.player.x
+  };
+  addTest('pause/retry-checkpoint-and-restart-stage', 'PASS', report.pause);
   const clear = await keyboardClearRoute(page);
   await waitForScene(page, 'StageClearScene');
   const clearState = await page.evaluate(() => window.__NEON_RONIN_CLEAR__ ?? null);

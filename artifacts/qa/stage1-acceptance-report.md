@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T15:04:55.449Z
+Generated: 2026-06-25T15:18:45.844Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -12,6 +12,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: Damage cooldown prevents instant repeated damage.
 - PASS: Checkpoints work.
 - PASS: Retry checkpoint works.
+- PASS: Pause menu retry and restart are verified by E2E.
 - PASS: Stage can be cleared.
 - PASS: Miniboss can be defeated.
 - PASS: No known softlocks in the automated route.
@@ -78,4 +79,5 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - Art/UI Director Reviewer: Split HUD/objective/section/boss-bar rendering into StageHud.
 - QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.
 - QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.
+- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.
 - Build Fixer: Final status is determined by npm run qa:all and the individual required commands.

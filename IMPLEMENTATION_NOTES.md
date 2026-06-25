@@ -55,6 +55,7 @@ Applied changes from that pass:
 - Split HUD rendering into `StageHud`, following the scene/sprite/system separation seen in the reference projects.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
+- Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 
 ## Player Feel
 
@@ -69,7 +70,7 @@ Current movement tuning:
 - Hurt invulnerability: 1000ms
 - Max HP: 6
 
-The E2E route exercises run, jump, wall kick, slash, damage, checkpoints, miniboss defeat, gate clear, and mobile input probes.
+The E2E route exercises run, jump, wall kick, slash, damage, checkpoints, pause retry/restart, miniboss defeat, gate clear, and mobile input probes.
 
 ## Stage 1 Room Breakdown
 
@@ -108,7 +109,7 @@ Audio is generated with WebAudio through `AudioSystem`; required SFX keys are tr
 
 Scripts:
 
-- `npm run e2e`: Playwright title flow, keyboard Stage 1 clear, Stage Clear assertion, and mobile virtual control probes
+- `npm run e2e`: Playwright title flow, pause retry/restart, keyboard Stage 1 clear, Stage Clear assertion, and mobile virtual control probes
 - `npm run qa:level`: stage data quality and coarse route checks
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
@@ -143,6 +144,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Latest Art/UI Review: separated HUD rendering into `StageHud`.
 - QA Automation Reviewer: required real Playwright browser evidence, screenshot artifacts, console reports, and keyboard clear proof.
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
+- Latest QA Automation Review: pause menu Retry Checkpoint and Restart Stage are now asserted through real menu input.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
 ## Tradeoffs

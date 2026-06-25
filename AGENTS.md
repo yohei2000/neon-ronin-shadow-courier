@@ -59,14 +59,16 @@ Recommended next cycle:
 
 1. Add a short human-playtest tuning note after checking Stage 1 manually.
 2. Split collectibles/hazards out of `Stage1Scene` if it grows further.
-3. Add E2E coverage for pause menu retry checkpoint and restart stage.
-4. Consider a screenshot/pixel assertion for high contrast mode, not only saved-setting assertion.
-5. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
+3. Consider a screenshot/pixel assertion for high contrast mode, not only saved-setting assertion.
+4. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
+5. Keep pause/retry coverage stable if menu labels or layout change.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
+- Updated the acceptance report to verify the pause/retry test from `artifacts/qa/e2e-report.json`.
 - Added `StageHud` to move HUD/objective/section/boss-bar responsibilities out of `Stage1Scene`.
 - Added pure combat helpers and `tests/combat.test.ts` for damage cooldown behavior.
 - Moved the mobile pause button away from the attack cluster to the upper-right safe area.

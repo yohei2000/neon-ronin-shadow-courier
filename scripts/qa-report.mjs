@@ -1,4 +1,4 @@
-import { stat, writeFile } from 'node:fs/promises';
+import { readFile, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { qaDir, requiredScreenshots } from './qa-browser.mjs';
 
@@ -26,6 +26,10 @@ export async function writeAcceptanceReport(options = {}) {
   const commandStatus = (name) => commandMap.get(name) ?? 'PENDING';
   const allScreenshots = Object.values(screenshotStatus).every(Boolean);
   const e2ePass = options.e2ePass ?? commandStatus('npm run e2e') === 'PASS';
+  const e2eReport = await readE2eReport();
+  const pauseRestartPass =
+    e2ePass &&
+    e2eReport?.tests?.some((test) => test.name === 'pause/retry-checkpoint-and-restart-stage' && test.status === 'PASS');
   const levelPass = options.levelPass ?? commandStatus('npm run qa:level') === 'PASS';
   const assetPass = options.assetPass ?? commandStatus('npm run qa:assets') === 'PASS';
 
@@ -44,6 +48,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('Damage cooldown prevents instant repeated damage.', true),
     row('Checkpoints work.', true),
     row('Retry checkpoint works.', true),
+    row('Pause menu retry and restart are verified by E2E.', pauseRestartPass),
     row('Stage can be cleared.', e2ePass),
     row('Miniboss can be defeated.', e2ePass),
     row('No known softlocks in the automated route.', e2ePass),
@@ -100,8 +105,17 @@ export async function writeAcceptanceReport(options = {}) {
     '- Art/UI Director Reviewer: Split HUD/objective/section/boss-bar rendering into StageHud.',
     '- QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.',
     '- QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.',
+    '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];
 
   await writeFile(path.join(qaDir, 'stage1-acceptance-report.md'), `${lines.join('\n')}\n`, 'utf8');
+}
+
+async function readE2eReport() {
+  try {
+    return JSON.parse(await readFile(path.join(qaDir, 'e2e-report.json'), 'utf8'));
+  } catch {
+    return null;
+  }
 }

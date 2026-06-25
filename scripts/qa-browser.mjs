@@ -192,6 +192,7 @@ async function tap(page, key, delay = 80) {
 export async function keyboardClearRoute(page, options = {}) {
   const milestones = new Set();
   const capture = options.captureScreenshot;
+  const stopWhen = options.stopWhen;
   const started = Date.now();
   let rightDown = false;
   let leftDown = false;
@@ -220,6 +221,17 @@ export async function keyboardClearRoute(page, options = {}) {
     if (!qa) {
       await page.waitForTimeout(80);
       continue;
+    }
+    if (stopWhen?.(qa)) {
+      await setKey(page, 'ArrowRight', false);
+      await setKey(page, 'ArrowLeft', false);
+      return {
+        cleared: false,
+        stopped: true,
+        elapsedMs: Date.now() - started,
+        milestones: [...milestones],
+        state: qa
+      };
     }
 
     await maybeShot('stage-start', qa.player.x < 260);
