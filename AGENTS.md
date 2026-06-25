@@ -64,12 +64,15 @@ Recommended next cycle:
 2. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
 3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
 4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
-5. Keep bundle thresholds honest if Phaser or Vite versions change.
+5. Keep GitHub Actions versions current if Pages starts emitting runtime deprecation annotations again.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Updated GitHub Pages deployment to current Node 24-era action majors: `checkout@v7`, `setup-node@v6`, `configure-pages@v6`, `upload-pages-artifact@v5`, and `deploy-pages@v5`.
+- Added `.nvmrc` with Node 24 and switched the workflow to `node-version-file`.
+- Set Pages workflow concurrency to cancel stale in-progress deploys after a newer push.
 - Split checkpoint activation, tutorial marker rendering, fall rescue, respawn, and current section lookup into `StageProgression`.
 - Added `tests/stageProgression.test.ts` for pure checkpoint and section progression helpers, following the gameplay-helper test pattern seen in `danipeck/squishroom`.
 - Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle`.

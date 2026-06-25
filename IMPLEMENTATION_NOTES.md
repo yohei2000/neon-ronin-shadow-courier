@@ -40,6 +40,7 @@ Latest quality passes added:
 - `StageHazards` so hazard sprite creation, contrast tinting, and damage overlaps are isolated from `Stage1Scene`.
 - `StageProgression` so checkpoints, tutorial markers, fall rescue, respawn, and current section lookup are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
+- `.github/workflows/deploy.yml` uses current Node 24-era GitHub Actions majors for Pages deployment.
 
 ## GitHub Reference Pass
 
@@ -65,6 +66,7 @@ Applied changes from that pass:
 - Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle` to verify app chunk size.
 - Split checkpoints, tutorial marker rendering, fall rescue, respawn, and section lookup into `StageProgression`.
 - Added pure progression helper tests, following the small gameplay-helper test pattern seen in `danipeck/squishroom`.
+- Updated the Pages deployment workflow to `checkout@v7`, `setup-node@v6`, `configure-pages@v6`, `upload-pages-artifact@v5`, and `deploy-pages@v5`, following the current action generation used by `remarkablegames/phaser-platformer`.
 - Added combat utility tests for damage cooldown behavior.
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
@@ -146,7 +148,7 @@ Current verified commands during implementation:
 - `npm run qa:screenshots`: PASS
 - `npm run qa:all`: PASS
 
-The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screenshot QA, and asset QA successfully.
+The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, E2E, level QA, screenshot QA, and asset QA successfully.
 
 ## Reviewer Passes
 
@@ -171,6 +173,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
 - Latest Build Review: Phaser now builds as `vendor-phaser` and `qa:bundle` verifies app chunk size.
 - Latest Code Quality Review: progression helpers are covered by Vitest so checkpoint advancement and section lookup are no longer browser-only behavior.
+- Latest CI Review: Pages deployment now reads `.nvmrc` with Node 24 and uses current major GitHub Actions versions.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
 ## Tradeoffs
@@ -182,4 +185,4 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 
 ## Next Recommended Step
 
-Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, split checkpoint/tutorial setup out of `Stage1Scene` before adding new gameplay.
+Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, keep shared menu/settings behavior and the GitHub Pages workflow under the same QA/deploy gate.

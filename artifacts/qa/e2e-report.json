@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T16:53:57.681Z",
+  "startedAt": "2026-06-25T17:05:19.800Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,13 +48,13 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 22001,
+      "elapsedMs": 23080,
       "milestones": [],
       "result": {
-        "elapsedMs": 21665.800000000003,
+        "elapsedMs": 22915.699999999997,
         "rank": "C",
         "scrolls": [],
-        "damageTaken": 5,
+        "damageTaken": 4,
         "seals": 10
       }
     },
@@ -66,10 +66,10 @@
         "maxDamageTaken": 8,
         "minSeals": 5
       },
-      "routeDurationMs": 22001,
-      "clearElapsedMs": 21665.800000000003,
+      "routeDurationMs": 23080,
+      "clearElapsedMs": 22915.699999999997,
       "rank": "C",
-      "damageTaken": 5,
+      "damageTaken": 4,
       "seals": 10,
       "passed": true
     },
@@ -85,13 +85,13 @@
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 22001,
+    "elapsedMs": 23080,
     "milestones": [],
     "result": {
-      "elapsedMs": 21665.800000000003,
+      "elapsedMs": 22915.699999999997,
       "rank": "C",
       "scrolls": [],
-      "damageTaken": 5,
+      "damageTaken": 4,
       "seals": 10
     }
   },
@@ -119,10 +119,10 @@
       "maxDamageTaken": 8,
       "minSeals": 5
     },
-    "routeDurationMs": 22001,
-    "clearElapsedMs": 21665.800000000003,
+    "routeDurationMs": 23080,
+    "clearElapsedMs": 22915.699999999997,
     "rank": "C",
-    "damageTaken": 5,
+    "damageTaken": 4,
     "seals": 10,
     "passed": true
   },
@@ -132,6 +132,6 @@
     "afterRightX": 413.3333333333336,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T16:54:40.218Z",
-  "durationMs": 42537
+  "finishedAt": "2026-06-25T17:06:03.713Z",
+  "durationMs": 43913
 }

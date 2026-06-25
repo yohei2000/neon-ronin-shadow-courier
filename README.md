@@ -6,6 +6,8 @@ The current build contains one complete stage only: **Stage 1 — Neon Alley: Fi
 
 ## Run
 
+Use Node 24, matching `.nvmrc` and the GitHub Pages workflow.
+
 ```bash
 npm install
 npm run dev

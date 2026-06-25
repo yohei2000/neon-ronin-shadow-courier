@@ -57,6 +57,7 @@ The player must:
 - Vite
 - TypeScript strict
 - npm
+- Node 24 through `.nvmrc` for CI and local parity
 - Vitest
 - Playwright
 - No React/Vue/Svelte
