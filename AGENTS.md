@@ -71,6 +71,7 @@ Latest cycle improvements:
 
 - Split collectibles and hazards out of `Stage1Scene` into `StageCollectibles` and `StageHazards`.
 - Added Playwright canvas pixel sampling to verify high contrast mode affects visible Stage 1 pixels.
+- Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Updated the acceptance report to verify the pause/retry test from `artifacts/qa/e2e-report.json`.
 - Added `StageHud` to move HUD/objective/section/boss-bar responsibilities out of `Stage1Scene`.

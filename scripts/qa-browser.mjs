@@ -372,8 +372,8 @@ export async function keyboardClearRoute(page, options = {}) {
     const x = qa.player.x;
 
     if (qa.minibossActive && !qa.minibossDefeated) {
-      wantRight = x < 6380;
-      wantLeft = x > 6450;
+      wantRight = x < 6410 || qa.player.facing < 0;
+      wantLeft = x > 6480 && qa.player.facing > 0;
     }
     if (qa.minibossDefeated) {
       wantRight = true;
@@ -408,7 +408,18 @@ export async function keyboardClearRoute(page, options = {}) {
       (x > 5420 && x < 5620) ||
       (qa.minibossActive && !qa.minibossDefeated);
     if (shouldAttack && now >= attackCooldown) {
-      attackCooldown = now + 330;
+      if (qa.minibossActive && !qa.minibossDefeated && qa.player.facing < 0) {
+        if (leftDown) {
+          leftDown = false;
+          await setKey(page, 'ArrowLeft', false);
+        }
+        if (!rightDown) {
+          rightDown = true;
+          await setKey(page, 'ArrowRight', true);
+        }
+        await page.waitForTimeout(55);
+      }
+      attackCooldown = now + (qa.minibossActive && !qa.minibossDefeated ? 285 : 330);
       await tap(page, 'z', 65);
     }
 

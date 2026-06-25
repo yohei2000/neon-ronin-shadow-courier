@@ -61,6 +61,7 @@ Applied changes from that pass:
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Added Playwright canvas pixel sampling so high contrast mode is verified as a visible Stage 1 rendering change.
+- Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.
 
 ## Player Feel
 
@@ -152,6 +153,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
 - Latest QA Automation Review: high contrast stage pixels are now asserted in Playwright E2E.
 - Latest QA Automation Review: pause menu Retry Checkpoint and Restart Stage are now asserted through real menu input.
+- Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
 ## Tradeoffs
