@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T17:20:46.657Z
+Generated: 2026-06-25T17:31:26.309Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -54,6 +54,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: qa:level passes.
 - PASS: qa:assets passes.
 - PASS: qa:screenshots passes.
+- PASS: playtest tuning note exists.
 - PASS: screenshots exist.
 - PASS: console report has no errors.
 - PASS: README updated with screenshots and commands.
@@ -92,5 +93,6 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.
 - QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.
 - QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.
+- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, and screenshot reports.
 - Build Fixer: Phaser is split into a vendor chunk and qa:bundle verifies app chunk size.
 - Build Fixer: Final status is determined by npm run qa:all and the individual required commands.

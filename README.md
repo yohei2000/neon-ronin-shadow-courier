@@ -43,6 +43,7 @@ npm run qa:assets
 npm run qa:bundle
 npm run qa:dist
 npm run qa:screenshots
+npm run qa:playtest
 npm run qa:all
 ```
 
@@ -51,6 +52,8 @@ npm run qa:all
 `npm run qa:screenshots` regenerates the browser evidence under `artifacts/qa/`.
 
 `npm run qa:dist` serves the built `dist/` directory and verifies the production bundle boots from Title to Stage 1 without dev-server fallback. Set `QA_DIST_BASE=/repo-name/` to smoke a GitHub Pages-style base path.
+
+`npm run qa:playtest` writes an evidence-backed tuning note from current route-health, level, dist, and screenshot reports.
 
 ## QA Screenshots
 
@@ -79,6 +82,7 @@ Additional evidence:
 - `artifacts/qa/e2e-report.json`
 - `artifacts/qa/bundle-report.json`
 - `artifacts/qa/dist-report.json`
+- `artifacts/qa/playtest-tuning.md`
 - `artifacts/qa/stage1-acceptance-report.md`
 
 ## Stage 1 Contents

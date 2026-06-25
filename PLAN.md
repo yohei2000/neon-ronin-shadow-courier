@@ -77,6 +77,7 @@ Required scripts:
 - `npm run qa:bundle`
 - `npm run qa:dist`
 - `npm run qa:screenshots`
+- `npm run qa:playtest`
 - `npm run qa:all`
 
 ## Required QA Artifacts
@@ -98,6 +99,7 @@ Generated under `artifacts/qa/`:
 - `e2e-report.json`
 - `bundle-report.json`
 - `dist-report.json`
+- `playtest-tuning.md`
 - `stage1-acceptance-report.md`
 
 ## Completion Gate
@@ -114,6 +116,7 @@ npm run qa:assets
 npm run qa:bundle
 npm run qa:dist
 npm run qa:screenshots
+npm run qa:playtest
 npm run qa:all
 ```
 

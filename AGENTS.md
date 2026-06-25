@@ -43,6 +43,7 @@ Required artifacts are committed under `artifacts/qa/`, including:
 - `e2e-report.json`
 - `bundle-report.json`
 - `dist-report.json`
+- `playtest-tuning.md`
 - `stage1-acceptance-report.md`
 
 GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
@@ -61,16 +62,18 @@ GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
 
 Recommended next cycle:
 
-1. Add a short human-playtest tuning note after checking Stage 1 manually.
-2. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
+1. Run a physical-device human playtest focused on mobile HUD scale, input reach, boss readability, and optional scroll discoverability.
+2. Keep pause/retry, high-contrast pixel, boss-route, dist-smoke, and playtest-note coverage stable if menu labels, layout, palette, or combat timing changes.
 3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
 4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
-5. Keep `qa:dist` wired into both local `qa:all` and the Pages workflow if deployment/build paths change.
+5. Keep `qa:dist` and `qa:playtest` wired into local `qa:all`; keep `qa:dist` wired into the Pages workflow if deployment/build paths change.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Added `npm run qa:playtest` to generate `artifacts/qa/playtest-tuning.md` from current route-health, level, dist, and screenshot evidence.
+- Captured current tuning decisions: keep enemy spacing/hazard damage/boss HP stable, avoid tuning optional scrolls from the optimized route alone, and make mobile HUD/input ergonomics the next physical-phone check.
 - Added `npm run qa:dist` to serve built `dist/` output and verify production Title -> Stage 1 boot from emitted assets.
 - Added `artifacts/qa/dist-report.json` and an acceptance-report row for production dist smoke coverage.
 - Added a Pages post-build smoke step with `QA_DIST_BASE=/${{ github.event.repository.name }}/`, following the production page-test pattern seen in `remarkablegames/phaser-platformer`.

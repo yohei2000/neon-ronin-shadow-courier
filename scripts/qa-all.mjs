@@ -12,7 +12,8 @@ const commands = [
   { name: 'npm run e2e', args: ['run', 'e2e'] },
   { name: 'npm run qa:level', args: ['run', 'qa:level'] },
   { name: 'npm run qa:screenshots', args: ['run', 'qa:screenshots'] },
-  { name: 'npm run qa:assets', args: ['run', 'qa:assets'], env: { QA_EXPECT_SCREENSHOTS: '1' } }
+  { name: 'npm run qa:assets', args: ['run', 'qa:assets'], env: { QA_EXPECT_SCREENSHOTS: '1' } },
+  { name: 'npm run qa:playtest', args: ['run', 'qa:playtest'] }
 ];
 
 const results = [];

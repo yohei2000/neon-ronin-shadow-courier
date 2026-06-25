@@ -41,6 +41,7 @@ export async function writeAcceptanceReport(options = {}) {
   const bundlePass = commandStatus('npm run qa:bundle') === 'PASS' && bundleReport?.valid === true;
   const distReport = await readDistReport();
   const distPass = commandStatus('npm run qa:dist') === 'PASS' && distReport?.valid === true;
+  const playtestPass = commandStatus('npm run qa:playtest') === 'PASS' && (await playtestNoteIsCurrent());
 
   const lines = [
     '# Stage 1 Acceptance Report',
@@ -99,6 +100,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('qa:level passes.', levelPass),
     row('qa:assets passes.', assetPass),
     row('qa:screenshots passes.', commandStatus('npm run qa:screenshots') === 'PASS'),
+    row('playtest tuning note exists.', playtestPass),
     row('screenshots exist.', allScreenshots),
     row('console report has no errors.', options.consoleClean ?? e2ePass),
     row('README updated with screenshots and commands.', options.readmeUpdated ?? false),
@@ -127,6 +129,7 @@ export async function writeAcceptanceReport(options = {}) {
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
     '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
     '- QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.',
+    '- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, and screenshot reports.',
     '- Build Fixer: Phaser is split into a vendor chunk and qa:bundle verifies app chunk size.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];
@@ -155,5 +158,14 @@ async function readDistReport() {
     return JSON.parse(await readFile(path.join(qaDir, 'dist-report.json'), 'utf8'));
   } catch {
     return null;
+  }
+}
+
+async function playtestNoteIsCurrent() {
+  try {
+    const note = await readFile(path.join(qaDir, 'playtest-tuning.md'), 'utf8');
+    return note.includes('Status: PASS') && note.includes('## Tuning Decisions') && note.includes('physical-phone playtest');
+  } catch {
+    return false;
   }
 }

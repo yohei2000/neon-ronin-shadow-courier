@@ -132,6 +132,7 @@ Scripts:
 - `npm run qa:bundle`: production bundle chunk checks after `npm run build`
 - `npm run qa:dist`: built `dist/` smoke test that serves emitted assets and verifies Title -> Stage 1 boot; CI reruns it with the GitHub Pages base path after the Pages build
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
+- `npm run qa:playtest`: evidence-backed tuning note generated from route-health, level, dist, and screenshot reports
 - `npm run qa:all`: final gate runner
 
 Read-only browser QA state is exposed through `window.__NEON_RONIN_QA__` and `window.__NEON_RONIN_CLEAR__`. Tests do not teleport, mutate stage state, or call hidden clear functions.
@@ -148,9 +149,10 @@ Current verified commands during implementation:
 - `npm run qa:assets`: PASS
 - `npm run qa:dist`: PASS
 - `npm run qa:screenshots`: PASS
+- `npm run qa:playtest`: PASS
 - `npm run qa:all`: PASS
 
-The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production dist smoke, E2E, level QA, screenshot QA, and asset QA successfully.
+The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production dist smoke, E2E, level QA, screenshot QA, asset QA, and playtest-note generation successfully.
 
 ## Reviewer Passes
 
@@ -174,6 +176,7 @@ The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production
 - Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
 - Latest QA Automation Review: production `dist/` output is now served and smoke-tested locally and with the Pages base path in CI.
+- Latest Playtest Review: generated `playtest-tuning.md` from route-health, level, dist, and screenshot evidence; current tuning stays stable and next human check is physical-phone HUD/input ergonomics plus optional-scroll discoverability.
 - Latest Build Review: Phaser now builds as `vendor-phaser` and `qa:bundle` verifies app chunk size.
 - Latest Code Quality Review: progression helpers are covered by Vitest so checkpoint advancement and section lookup are no longer browser-only behavior.
 - Latest CI Review: Pages deployment now reads `.nvmrc` with Node 24 and uses current major GitHub Actions versions.

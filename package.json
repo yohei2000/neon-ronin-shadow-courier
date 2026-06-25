@@ -15,6 +15,7 @@
     "qa:bundle": "node scripts/qa-bundle.mjs",
     "qa:dist": "node scripts/qa-dist.mjs",
     "qa:screenshots": "node scripts/qa-screenshots.mjs",
+    "qa:playtest": "node scripts/qa-playtest.mjs",
     "qa:all": "node scripts/qa-all.mjs"
   },
   "dependencies": {
