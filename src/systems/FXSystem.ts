@@ -3,6 +3,8 @@ import { Palette } from '../config/palette';
 import type { GameSettings } from '../types/save';
 
 export class FXSystem {
+  private hitPauseActive = false;
+
   constructor(
     private readonly scene: Phaser.Scene,
     private readonly getSettings: () => GameSettings
@@ -74,5 +76,19 @@ export class FXSystem {
     }
     const camera = this.scene.cameras.main;
     camera.shake(duration, intensity);
+  }
+
+  hitPause(durationMs = 50): void {
+    if (this.hitPauseActive) {
+      return;
+    }
+    const world = this.scene.physics.world;
+    const previousTimeScale = world.timeScale;
+    this.hitPauseActive = true;
+    world.timeScale = 0.12;
+    this.scene.time.delayedCall(durationMs, () => {
+      world.timeScale = previousTimeScale;
+      this.hitPauseActive = false;
+    });
   }
 }

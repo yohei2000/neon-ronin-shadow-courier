@@ -50,6 +50,15 @@ try {
   await clickGame(page, 480, 320);
   await waitForScene(page, 'SettingsScene');
   addTest('title-flow/settings-opens', 'PASS');
+  await clickGame(page, 480, 287);
+  const highContrastSaved = await page.evaluate(() => {
+    const raw = window.localStorage.getItem('neon-ronin-shadow-courier-save');
+    return raw ? JSON.parse(raw).settings?.highContrast === true : false;
+  });
+  if (!highContrastSaved) {
+    throw new Error('High contrast setting did not persist after toggling.');
+  }
+  addTest('settings/high-contrast-toggle', 'PASS');
   await clickGame(page, 480, 419);
   await waitForScene(page, 'TitleScene');
 

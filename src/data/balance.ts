@@ -23,7 +23,7 @@ export const PlayerBalance = {
 export const EnemyBalance = {
   inkCrawler: { hp: 2, damage: 1, speed: 54 },
   kiteWraith: { hp: 2, damage: 1, speed: 42 },
-  lanternWarden: { hp: 8, damage: 1, speed: 70 }
+  lanternWarden: { hp: 6, damage: 1, speed: 70 }
 } as const;
 
 export const RankThresholds = {

@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T14:17:26.254Z",
+  "startedAt": "2026-06-25T14:49:12.598Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -15,6 +15,10 @@
       "status": "PASS"
     },
     {
+      "name": "settings/high-contrast-toggle",
+      "status": "PASS"
+    },
+    {
       "name": "title-flow/start-stage",
       "status": "PASS"
     },
@@ -22,14 +26,14 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 23594,
+      "elapsedMs": 24118,
       "milestones": [],
       "result": {
-        "elapsedMs": 26205.6,
+        "elapsedMs": 27275.2,
         "rank": "C",
         "scrolls": [],
-        "damageTaken": 5,
-        "seals": 6
+        "damageTaken": 6,
+        "seals": 10
       }
     },
     {
@@ -37,29 +41,29 @@
       "status": "PASS",
       "visible": true,
       "startX": 160,
-      "afterRightX": 413.3333333333336,
+      "afterRightX": 420.5000000000003,
       "attackActive": true
     }
   ],
   "route": "Title -> Controls -> Settings -> Stage 1 -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 23594,
+    "elapsedMs": 24118,
     "milestones": [],
     "result": {
-      "elapsedMs": 26205.6,
+      "elapsedMs": 27275.2,
       "rank": "C",
       "scrolls": [],
-      "damageTaken": 5,
-      "seals": 6
+      "damageTaken": 6,
+      "seals": 10
     }
   },
   "mobile": {
     "visible": true,
     "startX": 160,
-    "afterRightX": 413.3333333333336,
+    "afterRightX": 420.5000000000003,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T14:17:57.743Z",
-  "durationMs": 31489
+  "finishedAt": "2026-06-25T14:49:45.885Z",
+  "durationMs": 33287
 }

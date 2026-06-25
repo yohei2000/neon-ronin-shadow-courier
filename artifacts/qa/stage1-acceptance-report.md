@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T14:18:32.443Z
+Generated: 2026-06-25T14:50:20.623Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -68,8 +68,12 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 
 ## Reviewer Notes
 - Producer / Scope Controller: Removed broad campaign assumptions, world map, final boss, unused abilities, and future-stage menus.
+- Producer / Scope Controller: Added AGENTS.md to preserve Stage 1-only handoff rules after context reset.
 - Gameplay Feel Reviewer: Preserved coyote time, jump buffer, variable jump, wall slide, wall kick, timed slash, damage cooldown, checkpoint retry, and fall rescue.
+- Gameplay Feel Reviewer: Added camera lead isolation and short hit pause on enemy/miniboss hits.
 - Level Designer Reviewer: Stage data keeps a safe first screen, ordered named sections, optional scroll routes, fair hazard introduction, and a pre-gate miniboss.
 - Art/UI Director Reviewer: Procedural art uses layered silhouettes, neon accents, rain/parallax, UI panels, icons, and mobile control states instead of raw debug text.
+- Art/UI Director Reviewer: High contrast mode now changes in-stage platform outlines and hazard tint.
 - QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.
+- QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.
 - Build Fixer: Final status is determined by npm run qa:all and the individual required commands.

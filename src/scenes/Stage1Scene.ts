@@ -9,6 +9,7 @@ import { KiteWraith } from '../entities/enemies/KiteWraith';
 import { LanternWarden } from '../entities/enemies/LanternWarden';
 import { Player } from '../entities/Player';
 import { AudioSystem } from '../systems/AudioSystem';
+import { CameraController } from '../systems/CameraController';
 import { FXSystem } from '../systems/FXSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { getAudioSystem, getSaveSystem } from '../systems/Registry';
@@ -29,6 +30,7 @@ export class Stage1Scene extends Phaser.Scene {
   private audio!: AudioSystem;
   private fx!: FXSystem;
   private inputSystem!: InputSystem;
+  private cameraController!: CameraController;
   private touchControls: TouchControls | null = null;
   private player!: Player;
   private platforms!: Phaser.Physics.Arcade.StaticGroup;
@@ -85,7 +87,6 @@ export class Stage1Scene extends Phaser.Scene {
     this.fx = new FXSystem(this, () => this.saveSystem.data.settings);
     this.startedAt = this.time.now;
     this.physics.world.setBounds(0, 0, stage.width, stage.height + 140);
-    this.cameras.main.setBounds(0, 0, stage.width, stage.height);
     this.createBackground();
     this.platforms = this.physics.add.staticGroup();
     this.createPlatforms();
@@ -100,7 +101,7 @@ export class Stage1Scene extends Phaser.Scene {
     this.createHud();
     this.touchControls = new TouchControls(this, this.saveSystem.data.settings);
     this.inputSystem = new InputSystem(this, this.touchControls);
-    this.cameras.main.startFollow(this.player, true, 0.09, 0.11, -95, 52);
+    this.cameraController = new CameraController(this, this.player, stage.width, stage.height);
     this.bindCollisions();
     this.input.keyboard?.on('keydown-ESC', () => this.openPause());
     this.input.keyboard?.on('keydown-P', () => this.openPause());
@@ -124,6 +125,7 @@ export class Stage1Scene extends Phaser.Scene {
       return;
     }
     this.player.updatePlayer(input, time, delta);
+    this.cameraController.update(delta);
     this.enemies.forEach((enemy) => {
       if (enemy.active) {
         if (enemy instanceof KiteWraith) enemy.updateEnemy(time);
@@ -189,6 +191,12 @@ export class Stage1Scene extends Phaser.Scene {
       const visual = this.add
         .tileSprite(platform.x + platform.width / 2, platform.y + platform.height / 2, platform.width, platform.height, texture)
         .setDepth(platform.kind === 'wall' ? 5 : 4);
+      if (this.saveSystem.data.settings.highContrast) {
+        visual.setTint(platform.kind === 'wall' ? Palette.magenta : Palette.white);
+        const outline = this.add.graphics().setDepth(visual.depth + 0.1);
+        outline.lineStyle(2, platform.kind === 'wall' ? Palette.magenta : Palette.cyan, 0.95);
+        outline.strokeRect(platform.x, platform.y, platform.width, platform.height);
+      }
       this.platforms.add(visual);
       const body = visual.body as Phaser.Physics.Arcade.StaticBody;
       body.setSize(platform.width, platform.height);
@@ -219,6 +227,9 @@ export class Stage1Scene extends Phaser.Scene {
       const sprite = this.physics.add.staticImage(hazard.x + hazard.width / 2, hazard.y + hazard.height / 2, texture);
       sprite.setDisplaySize(hazard.width, hazard.height).refreshBody();
       sprite.setDepth(hazard.kind === 'thorn' ? 9 : 13);
+      if (this.saveSystem.data.settings.highContrast) {
+        sprite.setTint(Palette.red);
+      }
       this.physics.add.overlap(this.player, sprite, () => {
         this.damagePlayer(hazard.safeIntro ? 1 : 1, sprite.x);
       });
@@ -386,6 +397,7 @@ export class Stage1Scene extends Phaser.Scene {
         this.slashHitIds.add(id);
         const defeated = enemy.hit(1);
         this.audio.play(defeated ? AudioKey.EnemyDefeat : AudioKey.EnemyHit);
+        this.fx.hitPause(defeated ? 70 : 45);
         this.fx.burst(enemy.x, enemy.y, defeated ? Palette.magenta : Palette.cyan, defeated ? 16 : 9);
       }
     }
@@ -395,6 +407,7 @@ export class Stage1Scene extends Phaser.Scene {
         this.defeatMiniboss();
       } else {
         this.audio.play(AudioKey.EnemyHit);
+        this.fx.hitPause(55);
         this.fx.burst(this.warden.x, this.warden.y, Palette.gold, 10);
       }
     }
