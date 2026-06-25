@@ -1,11 +1,10 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
+import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette, PaletteCss } from '../config/palette';
-import { TitleCopy } from '../data/copy';
-import { StageIds } from '../types/game';
 import { getAudioSystem, getSaveSystem } from '../systems/Registry';
 import { MenuList } from '../systems/MenuList';
-import { SaveSystem } from '../systems/SaveSystem';
+import { formatTime } from '../utils/math';
 import { markSceneStatus } from '../utils/sceneStatus';
 
 export class TitleScene extends Phaser.Scene {
@@ -17,94 +16,65 @@ export class TitleScene extends Phaser.Scene {
 
   create(): void {
     markSceneStatus(SceneKey.Title);
-    const save = getSaveSystem(this);
     const audio = getAudioSystem(this);
+    const save = getSaveSystem(this);
     this.input.once('pointerdown', () => audio.unlock());
-    this.drawBackground();
-    this.add
-      .text(480, 102, TitleCopy.title, {
-        fontFamily: 'monospace',
-        fontSize: '58px',
-        color: PaletteCss.cyan
-      })
-      .setOrigin(0.5);
-    this.add
-      .text(480, 158, TitleCopy.subtitle, {
-        fontFamily: 'monospace',
-        fontSize: '34px',
-        color: PaletteCss.magenta
-      })
-      .setOrigin(0.5);
-    this.add
-      .text(480, 204, TitleCopy.prompt, {
-        fontFamily: 'monospace',
-        fontSize: '17px',
-        color: PaletteCss.moon
-      })
-      .setOrigin(0.5);
-    const highestStage = Math.max(...save.data.unlockedStages) as 1 | 2 | 3 | 4 | 5;
-    this.menu = new MenuList(this, 480, 275, [
+    this.input.keyboard?.once('keydown', () => audio.unlock());
+    this.drawBackdrop();
+    this.add.text(BASE_WIDTH / 2, 76, 'Neon Ronin', {
+      fontFamily: 'monospace',
+      fontSize: '54px',
+      color: PaletteCss.white,
+      align: 'center'
+    }).setOrigin(0.5);
+    this.add.text(BASE_WIDTH / 2, 126, 'Shadow Courier: Stage 1', {
+      fontFamily: 'monospace',
+      fontSize: '21px',
+      color: PaletteCss.cyan,
+      align: 'center'
+    }).setOrigin(0.5);
+    const bestTime = save.data.stage1.bestTimeMs === null ? '--:--' : formatTime(save.data.stage1.bestTimeMs);
+    const bestRank = save.data.stage1.bestRank ?? '-';
+    this.add.text(BASE_WIDTH / 2, 176, `Neon Alley: First Delivery   Best ${bestTime} / ${bestRank}   Scrolls ${save.data.stage1.scrolls.length}/3`, {
+      fontFamily: 'monospace',
+      fontSize: '16px',
+      color: PaletteCss.gold,
+      align: 'center'
+    }).setOrigin(0.5);
+    this.menu = new MenuList(this, BASE_WIDTH / 2, 246, [
       {
-        label: 'New Game',
+        label: save.data.stage1.cleared ? 'Replay Stage 1' : 'Start Stage 1',
+        action: () => this.scene.start(SceneKey.Stage1, { checkpointIndex: 0 })
+      },
+      { label: 'Controls', action: () => this.scene.start(SceneKey.Controls) },
+      { label: 'Settings', action: () => this.scene.start(SceneKey.Settings, { returnScene: SceneKey.Title }) },
+      { label: 'Credits', action: () => this.scene.start(SceneKey.Credits, { creditsOnly: true }) },
+      {
+        label: 'Reset Save',
         action: () => {
           save.reset();
-          audio.play('confirm');
-          this.scene.start(SceneKey.Game, { stageId: 1 });
+          this.scene.restart();
         }
-      },
-      {
-        label: `Continue Stage ${highestStage}`,
-        action: () => {
-          audio.play('confirm');
-          this.scene.start(SceneKey.Game, { stageId: highestStage });
-        }
-      },
-      {
-        label: 'World Map',
-        action: () => {
-          audio.play('confirm');
-          this.scene.start(SceneKey.WorldMap);
-        }
-      },
-      {
-        label: 'Settings',
-        action: () => this.scene.start(SceneKey.Settings, { returnScene: SceneKey.Title })
-      },
-      {
-        label: 'Controls',
-        action: () => this.scene.start(SceneKey.Controls)
-      },
-      {
-        label: 'Credits',
-        action: () => this.scene.start(SceneKey.Ending, { creditsOnly: true })
       }
     ]);
-    this.add
-      .text(480, 510, `Unlocked stages: ${StageIds.filter((id) => save.data.unlockedStages.includes(id)).join(', ')}`, {
-        fontFamily: 'monospace',
-        fontSize: '14px',
-        color: PaletteCss.smoke
-      })
-      .setOrigin(0.5);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.menu?.destroy());
   }
 
   update(): void {
     this.menu?.update();
   }
 
-  private drawBackground(): void {
-    const g = this.add.graphics();
-    g.fillGradientStyle(Palette.ink0, Palette.ink0, Palette.ink1, Palette.ink2, 1);
-    g.fillRect(0, 0, 960, 540);
-    g.fillStyle(Palette.moon, 0.85);
-    g.fillCircle(750, 110, 48);
-    g.lineStyle(2, Palette.cyan, 0.28);
-    for (let x = 0; x < 960; x += 80) {
-      g.lineBetween(x, 380 + Math.sin(x) * 10, x + 60, 270);
+  private drawBackdrop(): void {
+    this.add.rectangle(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, Palette.ink0);
+    this.add.circle(720, 90, 62, Palette.moon, 0.18);
+    for (let i = 0; i < 12; i += 1) {
+      const x = i * 90 + 20;
+      const height = 130 + (i % 5) * 38;
+      this.add.rectangle(x, BASE_HEIGHT - height / 2, 64, height, i % 2 ? Palette.ink1 : Palette.ink2, 0.86);
+      if (i % 3 === 0) {
+        this.add.rectangle(x, BASE_HEIGHT - height + 42, 48, 8, i % 2 ? Palette.magenta : Palette.cyan, 0.68);
+      }
     }
-    g.fillStyle(Palette.magenta, 0.28);
-    g.fillRect(0, 442, 960, 4);
-    g.fillStyle(Palette.cyan, 0.2);
-    g.fillRect(0, 456, 960, 2);
+    this.add.line(BASE_WIDTH / 2, 212, 0, 0, 740, 0, Palette.cyan, 0.42);
   }
 }

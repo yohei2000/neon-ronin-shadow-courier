@@ -33,9 +33,7 @@ const actionNames: readonly ActionName[] = [
   'up',
   'down',
   'jump',
-  'dash',
   'attack',
-  'art',
   'confirm',
   'pause'
 ];

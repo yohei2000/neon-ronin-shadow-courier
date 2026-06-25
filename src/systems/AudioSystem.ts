@@ -9,17 +9,16 @@ const sfxShape: Record<AudioKey, { readonly frequency: number; readonly duration
   cancel: { frequency: 220, duration: 0.08, type: 'sine' },
   jump: { frequency: 480, duration: 0.12, type: 'square' },
   'wall-jump': { frequency: 540, duration: 0.14, type: 'triangle' },
-  dash: { frequency: 760, duration: 0.09, type: 'sawtooth' },
   slash: { frequency: 640, duration: 0.07, type: 'triangle' },
-  'charged-slash': { frequency: 920, duration: 0.18, type: 'sawtooth' },
-  projectile: { frequency: 700, duration: 0.11, type: 'sine' },
   'enemy-hit': { frequency: 360, duration: 0.08, type: 'square' },
   'enemy-defeat': { frequency: 180, duration: 0.18, type: 'triangle' },
   'player-hurt': { frequency: 140, duration: 0.16, type: 'sawtooth' },
-  pickup: { frequency: 880, duration: 0.1, type: 'triangle' },
+  'pickup-seal': { frequency: 820, duration: 0.08, type: 'triangle' },
+  'pickup-scroll': { frequency: 980, duration: 0.16, type: 'sine' },
   checkpoint: { frequency: 520, duration: 0.22, type: 'sine' },
+  'miniboss-start': { frequency: 150, duration: 0.28, type: 'sawtooth' },
+  'miniboss-defeated': { frequency: 720, duration: 0.24, type: 'triangle' },
   'stage-clear': { frequency: 990, duration: 0.28, type: 'triangle' },
-  'boss-phase': { frequency: 120, duration: 0.28, type: 'sawtooth' },
   victory: { frequency: 1040, duration: 0.38, type: 'triangle' }
 };
 

@@ -1,10 +1,10 @@
 import * as Phaser from 'phaser';
 import { SceneKey, type SceneKey as SceneKeyType } from '../config/keys';
+import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette, PaletteCss } from '../config/palette';
-import { getAudioSystem, getSaveSystem } from '../systems/Registry';
-import { MenuList, type MenuItemDefinition } from '../systems/MenuList';
 import type { GameSettings, TouchUiMode } from '../types/save';
-import { clamp } from '../utils/math';
+import { getSaveSystem } from '../systems/Registry';
+import { MenuList } from '../systems/MenuList';
 import { markSceneStatus } from '../utils/sceneStatus';
 
 interface SettingsSceneData {
@@ -12,108 +12,90 @@ interface SettingsSceneData {
 }
 
 export class SettingsScene extends Phaser.Scene {
-  private menu: MenuList | null = null;
   private returnScene: SceneKeyType = SceneKey.Title;
+  private menu: MenuList | null = null;
 
   constructor() {
     super(SceneKey.Settings);
   }
 
-  init(data: SettingsSceneData): void {
+  init(data: SettingsSceneData = {}): void {
     this.returnScene = data.returnScene ?? SceneKey.Title;
   }
 
   create(): void {
     markSceneStatus(SceneKey.Settings);
-    this.render();
+    this.draw();
+    this.input.keyboard?.on('keydown-ESC', () => this.goBack());
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.menu?.destroy());
   }
 
   update(): void {
     this.menu?.update();
   }
 
-  private render(): void {
+  private draw(): void {
     this.children.removeAll();
-    this.cameras.main.setBackgroundColor(Palette.ink0);
+    this.add.rectangle(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, Palette.ink0);
+    this.add.text(BASE_WIDTH / 2, 54, 'Settings', {
+      fontFamily: 'monospace',
+      fontSize: '36px',
+      color: PaletteCss.white
+    }).setOrigin(0.5);
     const save = getSaveSystem(this);
     const settings = save.data.settings;
-    this.add
-      .text(480, 36, 'Settings', {
-        fontFamily: 'monospace',
-        fontSize: '34px',
-        color: PaletteCss.cyan
-      })
-      .setOrigin(0.5);
-    const items: MenuItemDefinition[] = [
-      { label: `Master Volume ${Math.round(settings.masterVolume * 100)}%`, action: () => this.stepVolume('masterVolume', 0.1) },
-      { label: `SFX Volume ${Math.round(settings.sfxVolume * 100)}%`, action: () => this.stepVolume('sfxVolume', 0.1) },
+    this.menu?.destroy();
+    this.menu = new MenuList(this, BASE_WIDTH / 2, 122, [
+      { label: `Master Volume ${Math.round(settings.masterVolume * 100)}%`, action: () => this.stepVolume('masterVolume') },
+      { label: `SFX Volume ${Math.round(settings.sfxVolume * 100)}%`, action: () => this.stepVolume('sfxVolume') },
       { label: `Mute ${settings.muted ? 'On' : 'Off'}`, action: () => this.toggle('muted') },
       { label: `Reduced Shake ${settings.reducedShake ? 'On' : 'Off'}`, action: () => this.toggle('reducedShake') },
       { label: `Reduced Particles ${settings.reducedParticles ? 'On' : 'Off'}`, action: () => this.toggle('reducedParticles') },
       { label: `High Contrast ${settings.highContrast ? 'On' : 'Off'}`, action: () => this.toggle('highContrast') },
-      { label: `Touch UI ${settings.touchUiMode}`, action: () => this.cycleTouchMode(settings.touchUiMode) },
-      { label: `Touch Opacity ${Math.round(settings.touchUiOpacity * 100)}%`, action: () => this.stepVolume('touchUiOpacity', 0.1) },
-      {
-        label: `Assist: Longer Invulnerability ${settings.assist.longerInvulnerability ? 'On' : 'Off'}`,
-        action: () => this.toggleAssist('longerInvulnerability')
-      },
-      {
-        label: `Assist: Reduced Damage ${settings.assist.reducedDamage ? 'On' : 'Off'}`,
-        action: () => this.toggleAssist('reducedDamage')
-      },
-      {
-        label: `Assist: Fall Rescue ${settings.assist.fallRescue ? 'On' : 'Off'}`,
-        action: () => this.toggleAssist('fallRescue')
-      },
-      {
-        label: `Assist: Checkpoint Heal ${settings.assist.checkpointHeal ? 'On' : 'Off'}`,
-        action: () => this.toggleAssist('checkpointHeal')
-      },
-      { label: 'Back', action: () => this.scene.start(this.returnScene) }
-    ];
-    this.menu?.destroy();
-    this.menu = new MenuList(this, 480, 86, items, 19);
-    this.add
-      .text(480, 515, 'Click or use Up/Down + Enter. Volume and opacity wrap at 100%.', {
-        fontFamily: 'monospace',
-        fontSize: '13px',
-        color: PaletteCss.smoke
-      })
-      .setOrigin(0.5);
+      { label: `Touch UI ${settings.touchUiMode}`, action: () => this.cycleTouchMode() },
+      { label: `Touch Opacity ${Math.round(settings.touchUiOpacity * 100)}%`, action: () => this.stepTouchOpacity() },
+      { label: `Fall Rescue ${settings.assist.fallRescue ? 'On' : 'Off'}`, action: () => this.toggleFallRescue() },
+      { label: 'Back', action: () => this.goBack() }
+    ], 20);
   }
 
-  private stepVolume(field: 'masterVolume' | 'sfxVolume' | 'touchUiOpacity', amount: number): void {
+  private stepVolume(field: 'masterVolume' | 'sfxVolume'): void {
     const save = getSaveSystem(this);
     const current = save.data.settings[field];
-    const next = current >= 0.99 ? 0 : clamp(current + amount, 0, 1);
+    const next = current >= 1 ? 0 : Math.min(1, current + 0.1);
     save.updateSettings({ [field]: next } as Partial<GameSettings>);
-    getAudioSystem(this).play('confirm');
-    this.render();
+    this.draw();
+  }
+
+  private stepTouchOpacity(): void {
+    const save = getSaveSystem(this);
+    const current = save.data.settings.touchUiOpacity;
+    const next = current >= 1 ? 0.35 : Math.min(1, current + 0.1);
+    save.updateSettings({ touchUiOpacity: next });
+    this.draw();
+  }
+
+  private cycleTouchMode(): void {
+    const save = getSaveSystem(this);
+    const modes: readonly TouchUiMode[] = ['auto', 'on', 'off'];
+    const index = modes.indexOf(save.data.settings.touchUiMode);
+    save.updateSettings({ touchUiMode: modes[(index + 1) % modes.length] });
+    this.draw();
   }
 
   private toggle(field: 'muted' | 'reducedShake' | 'reducedParticles' | 'highContrast'): void {
     const save = getSaveSystem(this);
     save.updateSettings({ [field]: !save.data.settings[field] } as Partial<GameSettings>);
-    getAudioSystem(this).play('confirm');
-    this.render();
+    this.draw();
   }
 
-  private toggleAssist(field: keyof GameSettings['assist']): void {
+  private toggleFallRescue(): void {
     const save = getSaveSystem(this);
-    save.updateSettings({
-      assist: {
-        ...save.data.settings.assist,
-        [field]: !save.data.settings.assist[field]
-      }
-    });
-    getAudioSystem(this).play('confirm');
-    this.render();
+    save.updateSettings({ assist: { fallRescue: !save.data.settings.assist.fallRescue } });
+    this.draw();
   }
 
-  private cycleTouchMode(current: TouchUiMode): void {
-    const next: TouchUiMode = current === 'auto' ? 'on' : current === 'on' ? 'off' : 'auto';
-    getSaveSystem(this).updateSettings({ touchUiMode: next });
-    getAudioSystem(this).play('confirm');
-    this.render();
+  private goBack(): void {
+    this.scene.start(this.returnScene);
   }
 }

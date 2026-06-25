@@ -1,14 +1,14 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
+import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette, PaletteCss } from '../config/palette';
 import { MenuList } from '../systems/MenuList';
 import type { GameOverSceneData } from '../types/flow';
-import type { StageId } from '../types/game';
 import { markSceneStatus } from '../utils/sceneStatus';
 
 export class GameOverScene extends Phaser.Scene {
-  private stageId: StageId = 1;
   private checkpointIndex = 0;
+  private reason: GameOverSceneData['reason'] = 'defeated';
   private menu: MenuList | null = null;
 
   constructor() {
@@ -16,40 +16,30 @@ export class GameOverScene extends Phaser.Scene {
   }
 
   init(data: GameOverSceneData): void {
-    this.stageId = data.stageId;
-    this.checkpointIndex = data.checkpointIndex;
+    this.checkpointIndex = data.checkpointIndex ?? 0;
+    this.reason = data.reason ?? 'defeated';
   }
 
   create(): void {
     markSceneStatus(SceneKey.GameOver);
-    const g = this.add.graphics();
-    g.fillStyle(Palette.black, 0.74);
-    g.fillRect(0, 0, 960, 540);
-    this.add
-      .text(480, 120, 'Courier Down', {
-        fontFamily: 'monospace',
-        fontSize: '40px',
-        color: PaletteCss.red
-      })
-      .setOrigin(0.5);
-    this.menu = new MenuList(this, 480, 210, [
-      {
-        label: 'Retry Checkpoint',
-        action: () => this.scene.start(SceneKey.Game, { stageId: this.stageId, checkpointIndex: this.checkpointIndex })
-      },
-      {
-        label: 'Retry Stage',
-        action: () => this.scene.start(SceneKey.Game, { stageId: this.stageId, checkpointIndex: 0 })
-      },
-      {
-        label: 'World Map',
-        action: () => this.scene.start(SceneKey.WorldMap)
-      },
-      {
-        label: 'Title',
-        action: () => this.scene.start(SceneKey.Title)
-      }
+    this.add.rectangle(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, Palette.ink0);
+    this.add.text(BASE_WIDTH / 2, 124, 'Courier Down', {
+      fontFamily: 'monospace',
+      fontSize: '40px',
+      color: PaletteCss.red
+    }).setOrigin(0.5);
+    this.add.text(BASE_WIDTH / 2, 178, this.reason === 'fall' ? 'The alley swallowed the route.' : 'The delivery can still be recovered.', {
+      fontFamily: 'monospace',
+      fontSize: '17px',
+      color: PaletteCss.white
+    }).setOrigin(0.5);
+    this.menu = new MenuList(this, BASE_WIDTH / 2, 248, [
+      { label: 'Retry Checkpoint', action: () => this.scene.start(SceneKey.Stage1, { checkpointIndex: this.checkpointIndex }) },
+      { label: 'Restart Stage', action: () => this.scene.start(SceneKey.Stage1, { checkpointIndex: 0 }) },
+      { label: 'Title', action: () => this.scene.start(SceneKey.Title) }
     ]);
+    this.input.keyboard?.on('keydown-ESC', () => this.scene.start(SceneKey.Title));
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.menu?.destroy());
   }
 
   update(): void {

@@ -1,14 +1,9 @@
-import { AbilityUnlockByStage } from '../data/abilities';
-import type { AbilityId, StageId } from '../types/game';
-import { StageIds } from '../types/game';
 import type {
   AssistSettings,
-  CompletionStats,
   GameSettings,
   SaveData,
   StageClearResult,
-  StageStats,
-  StageStatsRecord
+  StageStats
 } from '../types/save';
 import type { StorageLike } from '../utils/storage';
 import { getBrowserStorage } from '../utils/storage';
@@ -18,10 +13,7 @@ export const SAVE_KEY = 'neon-ronin-shadow-courier-save';
 export const SAVE_SCHEMA_VERSION = 1;
 
 const defaultAssist: AssistSettings = {
-  longerInvulnerability: false,
-  reducedDamage: false,
-  fallRescue: true,
-  checkpointHeal: true
+  fallRescue: true
 };
 
 const defaultSettings: GameSettings = {
@@ -36,56 +28,21 @@ const defaultSettings: GameSettings = {
   assist: defaultAssist
 };
 
-const defaultCompletionStats: CompletionStats = {
-  totalClears: 0,
-  totalDefeats: 0,
-  totalDamageTaken: 0,
-  totalSeals: 0
-};
-
 function defaultStageStats(): StageStats {
   return {
     bestTimeMs: null,
     bestRank: null,
     scrolls: [],
-    clears: 0
-  };
-}
-
-function createStageStatsRecord(): StageStatsRecord {
-  return {
-    1: defaultStageStats(),
-    2: defaultStageStats(),
-    3: defaultStageStats(),
-    4: defaultStageStats(),
-    5: defaultStageStats()
+    cleared: false
   };
 }
 
 export function createDefaultSave(): SaveData {
   return {
     schemaVersion: SAVE_SCHEMA_VERSION,
-    unlockedStages: [1],
-    unlockedAbilities: [],
-    stageStats: createStageStatsRecord(),
-    settings: defaultSettings,
-    hasClearedGame: false,
-    completionStats: defaultCompletionStats
+    stage1: defaultStageStats(),
+    settings: defaultSettings
   };
-}
-
-function isStageId(value: unknown): value is StageId {
-  return typeof value === 'number' && StageIds.includes(value as StageId);
-}
-
-function isAbilityId(value: unknown): value is AbilityId {
-  return (
-    value === 'wallKick' ||
-    value === 'dash' ||
-    value === 'projectile' ||
-    value === 'chargedSlash' ||
-    value === 'ultimateArt'
-  );
 }
 
 function mergeSettings(value: unknown): GameSettings {
@@ -106,48 +63,23 @@ function mergeSettings(value: unknown): GameSettings {
     touchUiMode: mode,
     touchUiOpacity: clamp(Number(source.touchUiOpacity ?? defaultSettings.touchUiOpacity), 0.25, 1),
     assist: {
-      longerInvulnerability: Boolean(
-        assistSource.longerInvulnerability ?? defaultAssist.longerInvulnerability
-      ),
-      reducedDamage: Boolean(assistSource.reducedDamage ?? defaultAssist.reducedDamage),
-      fallRescue: Boolean(assistSource.fallRescue ?? defaultAssist.fallRescue),
-      checkpointHeal: Boolean(assistSource.checkpointHeal ?? defaultAssist.checkpointHeal)
+      fallRescue: Boolean(assistSource.fallRescue ?? defaultAssist.fallRescue)
     }
   };
 }
 
-function mergeStageStats(value: unknown): StageStatsRecord {
-  const result = createStageStatsRecord();
-  const source = typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
-  for (const stageId of StageIds) {
-    const raw = source[String(stageId)];
-    if (typeof raw !== 'object' || raw === null) {
-      continue;
-    }
-    const stats = raw as Partial<StageStats>;
-    result[stageId] = {
-      bestTimeMs: typeof stats.bestTimeMs === 'number' ? Math.max(0, stats.bestTimeMs) : null,
-      bestRank:
-        stats.bestRank === 'S' || stats.bestRank === 'A' || stats.bestRank === 'B' || stats.bestRank === 'C'
-          ? stats.bestRank
-          : null,
-      scrolls: Array.isArray(stats.scrolls)
-        ? [...new Set(stats.scrolls.filter((item): item is string => typeof item === 'string'))]
-        : [],
-      clears: typeof stats.clears === 'number' ? Math.max(0, Math.floor(stats.clears)) : 0
-    };
-  }
-  return result;
-}
-
-function mergeCompletionStats(value: unknown): CompletionStats {
-  const source =
-    typeof value === 'object' && value !== null ? (value as Partial<CompletionStats>) : {};
+function mergeStageStats(value: unknown): StageStats {
+  const source = typeof value === 'object' && value !== null ? (value as Partial<StageStats>) : {};
   return {
-    totalClears: Math.max(0, Math.floor(Number(source.totalClears ?? 0))),
-    totalDefeats: Math.max(0, Math.floor(Number(source.totalDefeats ?? 0))),
-    totalDamageTaken: Math.max(0, Math.floor(Number(source.totalDamageTaken ?? 0))),
-    totalSeals: Math.max(0, Math.floor(Number(source.totalSeals ?? 0)))
+    bestTimeMs: typeof source.bestTimeMs === 'number' ? Math.max(0, source.bestTimeMs) : null,
+    bestRank:
+      source.bestRank === 'S' || source.bestRank === 'A' || source.bestRank === 'B' || source.bestRank === 'C'
+        ? source.bestRank
+        : null,
+    scrolls: Array.isArray(source.scrolls)
+      ? [...new Set(source.scrolls.filter((item): item is string => typeof item === 'string'))]
+      : [],
+    cleared: Boolean(source.cleared)
   };
 }
 
@@ -156,22 +88,10 @@ export function normalizeSave(value: unknown): SaveData {
     return createDefaultSave();
   }
   const source = value as Partial<SaveData>;
-  const unlockedStages: StageId[] = Array.isArray(source.unlockedStages)
-    ? [...new Set(source.unlockedStages.filter(isStageId))]
-    : [1];
-  if (!unlockedStages.includes(1)) {
-    unlockedStages.unshift(1);
-  }
   return {
     schemaVersion: SAVE_SCHEMA_VERSION,
-    unlockedStages: unlockedStages.sort((a, b) => a - b),
-    unlockedAbilities: Array.isArray(source.unlockedAbilities)
-      ? [...new Set(source.unlockedAbilities.filter(isAbilityId))]
-      : [],
-    stageStats: mergeStageStats(source.stageStats),
-    settings: mergeSettings(source.settings),
-    hasClearedGame: Boolean(source.hasClearedGame),
-    completionStats: mergeCompletionStats(source.completionStats)
+    stage1: mergeStageStats(source.stage1),
+    settings: mergeSettings(source.settings)
   };
 }
 
@@ -221,58 +141,18 @@ export class SaveSystem {
     });
   }
 
-  unlockAbility(ability: AbilityId): void {
-    if (this.save.unlockedAbilities.includes(ability)) {
-      return;
-    }
-    this.write({
-      ...this.save,
-      unlockedAbilities: [...this.save.unlockedAbilities, ability]
-    });
-  }
-
-  unlockStage(stageId: StageId): void {
-    if (this.save.unlockedStages.includes(stageId)) {
-      return;
-    }
-    this.write({
-      ...this.save,
-      unlockedStages: [...this.save.unlockedStages, stageId].sort((a, b) => a - b)
-    });
-  }
-
   completeStage(result: StageClearResult): void {
-    const stats = this.save.stageStats[result.stageId];
+    const stats = this.save.stage1;
     const mergedScrolls = [...new Set([...stats.scrolls, ...result.scrolls])];
     const bestTimeMs =
       stats.bestTimeMs === null ? result.elapsedMs : Math.min(stats.bestTimeMs, result.elapsedMs);
-    const nextStage = (result.stageId + 1) as StageId;
-    const unlockedStages = new Set(this.save.unlockedStages);
-    if (isStageId(nextStage)) {
-      unlockedStages.add(nextStage);
-    }
-    const unlockedAbilities = new Set(this.save.unlockedAbilities);
-    unlockedAbilities.add(AbilityUnlockByStage[result.stageId]);
-    const nextStats: StageStatsRecord = {
-      ...this.save.stageStats,
-      [result.stageId]: {
+    this.write({
+      ...this.save,
+      stage1: {
         bestTimeMs,
         bestRank: chooseBestRank(stats.bestRank, result.rank),
         scrolls: mergedScrolls,
-        clears: stats.clears + 1
-      }
-    };
-    this.write({
-      ...this.save,
-      unlockedStages: [...unlockedStages].sort((a, b) => a - b),
-      unlockedAbilities: [...unlockedAbilities],
-      stageStats: nextStats,
-      hasClearedGame: this.save.hasClearedGame || result.stageId === 5,
-      completionStats: {
-        totalClears: this.save.completionStats.totalClears + 1,
-        totalDefeats: this.save.completionStats.totalDefeats + result.defeats,
-        totalDamageTaken: this.save.completionStats.totalDamageTaken + result.damageTaken,
-        totalSeals: this.save.completionStats.totalSeals + result.seals
+        cleared: true
       }
     });
   }

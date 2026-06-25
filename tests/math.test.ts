@@ -24,9 +24,9 @@ describe('math utilities', () => {
   });
 
   it('ranks deterministically', () => {
-    expect(rankStage(120000, 3, 0)).toBe('S');
-    expect(rankStage(240000, 2, 4)).toBe('A');
-    expect(rankStage(360000, 1, 8)).toBe('B');
+    expect(rankStage(85000, 3, 0)).toBe('S');
+    expect(rankStage(120000, 2, 2)).toBe('A');
+    expect(rankStage(210000, 1, 5)).toBe('B');
     expect(rankStage(700000, 0, 20)).toBe('C');
   });
 });

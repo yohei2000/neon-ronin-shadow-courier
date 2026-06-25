@@ -5,6 +5,13 @@ import { Palette } from '../config/palette';
 import type { GameSettings } from '../types/save';
 
 type TouchState = Record<TouchControlName, boolean>;
+interface TouchHitArea {
+  readonly name: TouchControlName;
+  readonly x: number;
+  readonly y: number;
+  readonly radius: number;
+  readonly circle: Phaser.GameObjects.Arc;
+}
 
 export class TouchControls {
   private readonly state: TouchState = Object.fromEntries(
@@ -12,6 +19,7 @@ export class TouchControls {
   ) as TouchState;
   private readonly container: Phaser.GameObjects.Container;
   private readonly buttons: Phaser.GameObjects.GameObject[] = [];
+  private readonly hitAreas: TouchHitArea[] = [];
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -19,6 +27,9 @@ export class TouchControls {
   ) {
     this.container = scene.add.container(0, 0).setDepth(2000).setScrollFactor(0);
     this.build();
+    scene.input.on('pointerdown', this.handlePointerDown, this);
+    scene.input.on('pointerup', this.releaseAll, this);
+    scene.input.on('pointerupoutside', this.releaseAll, this);
     this.setVisible(this.shouldShow());
   }
 
@@ -37,6 +48,9 @@ export class TouchControls {
     if (typeof document !== 'undefined') {
       delete document.body.dataset.touchControls;
     }
+    this.scene.input.off('pointerdown', this.handlePointerDown, this);
+    this.scene.input.off('pointerup', this.releaseAll, this);
+    this.scene.input.off('pointerupoutside', this.releaseAll, this);
     this.container.destroy(true);
   }
 
@@ -58,10 +72,9 @@ export class TouchControls {
     this.addButton('right', 168, BASE_HEIGHT - 88, 44, '>', opacity);
     this.addButton('up', 120, BASE_HEIGHT - 136, 38, '^', opacity);
     this.addButton('down', 120, BASE_HEIGHT - 40, 38, 'v', opacity);
-    this.addButton('jump', BASE_WIDTH - 258, BASE_HEIGHT - 96, 42, 'JMP', opacity);
-    this.addButton('attack', BASE_WIDTH - 162, BASE_HEIGHT - 120, 42, 'ATK', opacity);
-    this.addButton('dash', BASE_WIDTH - 198, BASE_HEIGHT - 42, 39, 'DSH', opacity);
-    this.addButton('art', BASE_WIDTH - 82, BASE_HEIGHT - 70, 42, 'ART', opacity);
+    this.addButton('jump', BASE_WIDTH - 235, BASE_HEIGHT - 90, 44, 'JMP', opacity);
+    this.addButton('attack', BASE_WIDTH - 124, BASE_HEIGHT - 104, 46, 'ATK', opacity);
+    this.addButton('pause', BASE_WIDTH - 190, BASE_HEIGHT - 28, 30, 'II', opacity);
   }
 
   private addButton(
@@ -81,8 +94,8 @@ export class TouchControls {
         color: '#f8fbff'
       })
       .setOrigin(0.5);
-    circle.setInteractive(new Phaser.Geom.Circle(0, 0, radius), Phaser.Geom.Circle.Contains);
-    circle.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+    const hitZone = this.scene.add.zone(x, y, radius * 2, radius * 2).setInteractive({ useHandCursor: true });
+    hitZone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       pointer.event?.preventDefault();
       this.state[name] = true;
       circle.setFillStyle(Palette.magenta, Math.min(1, opacity + 0.15));
@@ -91,10 +104,35 @@ export class TouchControls {
       this.state[name] = false;
       circle.setFillStyle(Palette.ink2, opacity);
     };
-    circle.on('pointerup', release);
-    circle.on('pointerout', release);
-    circle.on('pointerupoutside', release);
-    this.container.add([circle, text]);
-    this.buttons.push(circle, text);
+    hitZone.on('pointerup', release);
+    hitZone.on('pointerout', release);
+    hitZone.on('pointerupoutside', release);
+    this.container.add([circle, text, hitZone]);
+    this.buttons.push(circle, text, hitZone);
+    this.hitAreas.push({ name, x, y, radius: radius * 1.2, circle });
+  }
+
+  private handlePointerDown(pointer: Phaser.Input.Pointer): void {
+    if (!this.container.visible) return;
+    const area = this.hitAreas.find((hitArea) => {
+      const dx = pointer.x - hitArea.x;
+      const dy = pointer.y - hitArea.y;
+      return dx * dx + dy * dy <= hitArea.radius * hitArea.radius;
+    });
+    if (!area) return;
+    pointer.event?.preventDefault();
+    this.state[area.name] = true;
+    area.circle.setFillStyle(Palette.magenta, Math.min(1, this.settings.touchUiOpacity + 0.15));
+  }
+
+  private releaseAll(): void {
+    for (const name of TouchControlNames) {
+      this.state[name] = false;
+    }
+    for (const gameObject of this.buttons) {
+      if (gameObject instanceof Phaser.GameObjects.Arc) {
+        gameObject.setFillStyle(Palette.ink2, this.settings.touchUiOpacity);
+      }
+    }
   }
 }

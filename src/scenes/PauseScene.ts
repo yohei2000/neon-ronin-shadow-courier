@@ -1,10 +1,10 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
+import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette, PaletteCss } from '../config/palette';
 import { MenuList } from '../systems/MenuList';
-import { getAudioSystem } from '../systems/Registry';
-import type { GameScene } from './GameScene';
 import { markSceneStatus } from '../utils/sceneStatus';
+import type { Stage1Scene } from './Stage1Scene';
 
 export class PauseScene extends Phaser.Scene {
   private menu: MenuList | null = null;
@@ -15,60 +15,49 @@ export class PauseScene extends Phaser.Scene {
 
   create(): void {
     markSceneStatus(SceneKey.Pause);
-    const gameScene = this.scene.get(SceneKey.Game) as GameScene;
-    const g = this.add.graphics();
-    g.fillStyle(Palette.black, 0.68);
-    g.fillRect(0, 0, 960, 540);
-    this.add
-      .text(480, 108, 'Paused', {
-        fontFamily: 'monospace',
-        fontSize: '40px',
-        color: PaletteCss.cyan
-      })
-      .setOrigin(0.5);
-    this.menu = new MenuList(this, 480, 182, [
+    const stageScene = this.scene.get(SceneKey.Stage1) as Stage1Scene;
+    this.add.rectangle(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, Palette.ink0, 0.72);
+    this.add.text(BASE_WIDTH / 2, 118, 'Paused', {
+      fontFamily: 'monospace',
+      fontSize: '38px',
+      color: PaletteCss.white
+    }).setOrigin(0.5);
+    this.menu = new MenuList(this, BASE_WIDTH / 2, 196, [
       {
         label: 'Resume',
         action: () => {
-          getAudioSystem(this).play('confirm');
           this.scene.stop();
-          this.scene.resume(SceneKey.Game);
-          gameScene.resumeFromPause();
+          this.scene.resume(SceneKey.Stage1);
         }
       },
       {
         label: 'Retry Checkpoint',
         action: () => {
           this.scene.stop();
-          gameScene.restartFromCheckpoint();
+          stageScene.restartFromCheckpoint();
         }
       },
       {
         label: 'Restart Stage',
         action: () => {
           this.scene.stop();
-          gameScene.restartStage();
+          stageScene.restartStage();
         }
       },
-      {
-        label: 'Settings',
-        action: () => this.scene.start(SceneKey.Settings, { returnScene: SceneKey.Pause })
-      },
-      {
-        label: 'World Map',
-        action: () => {
-          this.scene.stop(SceneKey.Game);
-          this.scene.start(SceneKey.WorldMap);
-        }
-      },
+      { label: 'Settings', action: () => this.scene.start(SceneKey.Settings, { returnScene: SceneKey.Pause }) },
       {
         label: 'Title',
         action: () => {
-          this.scene.stop(SceneKey.Game);
+          this.scene.stop(SceneKey.Stage1);
           this.scene.start(SceneKey.Title);
         }
       }
     ]);
+    this.input.keyboard?.on('keydown-ESC', () => {
+      this.scene.stop();
+      this.scene.resume(SceneKey.Stage1);
+    });
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.menu?.destroy());
   }
 
   update(): void {

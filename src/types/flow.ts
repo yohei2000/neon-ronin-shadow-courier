@@ -1,8 +1,6 @@
-import type { StageId } from './game';
 import type { StageClearResult } from './save';
 
-export interface GameSceneData {
-  readonly stageId?: StageId;
+export interface Stage1SceneData {
   readonly checkpointIndex?: number;
 }
 
@@ -11,11 +9,11 @@ export interface StageClearSceneData extends StageClearResult {
 }
 
 export interface GameOverSceneData {
-  readonly stageId: StageId;
   readonly checkpointIndex: number;
+  readonly reason?: 'defeated' | 'fall';
 }
 
-export interface EndingSceneData {
+export interface CreditsSceneData {
   readonly result?: StageClearResult;
   readonly creditsOnly?: boolean;
 }

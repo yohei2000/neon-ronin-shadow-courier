@@ -1,115 +1,105 @@
 # Neon Ronin: Shadow Courier
 
-Neon Ronin: Shadow Courier is a 2D side-scrolling ninja action platformer built with Vite, Phaser 3.90, and strict TypeScript. The game uses a sumi-e ink plus neon look, generated entirely in code: no image, audio, font, tilemap, or remote assets are required.
+Stage 1 vertical slice for a browser-based 2D ninja action platformer.
 
-Screenshot placeholder: run the game locally with `npm run dev` and capture the title or world map from the browser.
+The current build contains one complete stage only: **Stage 1 — Neon Alley: First Delivery**. The player carries a sealed message through a rain-lit cyber alley, learns jump timing, wall kick, slash combat, checkpoints, optional scroll routes, a hazard run, and the Lantern Warden miniboss before reaching the Moon Gate.
 
-## Setup
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-The dev server prints a local URL. Open it in a desktop or mobile browser.
-
-## Commands
+The dev server prints a local Vite URL. Production preview:
 
 ```bash
-npm run dev
-npm run typecheck
-npm run test
 npm run build
 npm run preview
 ```
 
-`dev`, `build`, and `preview` use Vite's Node API with `configFile: false`. This avoids a Windows path/config-loader issue in this workspace while still using Vite for serving and bundling.
-
 ## Controls
 
-Keyboard:
-
 - Move: `A/D` or arrow keys
-- Jump: `W`, `Space`, or `ArrowUp`
-- Dash: `Shift` or `L`
-- Attack: `J` or `Z`
-- Art: `K` or `X`
+- Jump / wall kick: `W`, `Up`, or `Space`
+- Slash: `J` or `Z`
 - Pause: `Esc` or `P`
 
-Mobile:
+Mobile uses the same input system through virtual controls: left/right/up/down on the left pad, jump/attack/pause on the right.
 
-- Left virtual D-pad: left, right, up, down
-- Right virtual buttons: Jump, Attack, Dash, Art
-- Touch UI appears automatically on touch/narrow screens and can be forced on/off in settings.
+## Quality Gates
 
-## Features
-
-- Title, controls, settings, world map, pause, game over, stage clear, and ending flows
-- 5 selectable stages with persistent unlocks
-- Stage 5 final boss, Aogane no Onmyo-Core, with 3 phases
-- Player movement: run, variable jump, coyote time, jump buffer, wall slide, wall jump, dash
-- Combat: melee slash, projectile art, charged slash, ultimate art, hurt/knockback/invulnerability
-- Enemy types: ShadowCrawler, KiteWraith, GearSentinel, NeonArcher, PulseJumper
-- Hazards, checkpoints, moving platforms, falling platforms, wind zones, seals, health, energy, hidden scrolls
-- Exactly 3 hidden scrolls per stage
-- HUD for HP, energy, stage, timer, seals, scrolls, assist status, and boss health
-- Procedural textures, particles, screen shake, and WebAudio SFX
-- Save/settings persistence with corrupted-save fallback
-- Assist/accessibility settings for longer invulnerability, reduced damage, fall rescue, checkpoint heal, reduced shake, reduced particles, high contrast, touch opacity, and volume
-
-## Stage List
-
-1. Neon Alley Tutorial: movement, wall kick, basic combat
-2. Rain-Slick Rooftops: dash, rooftops, moving platforms, flying threats
-3. Bamboo Circuit Shrine: projectile art, shield enemies, wind lanes
-4. Clockwork Castle Wall: charged slash, heavier enemy mixes, falling platforms
-5. Inner Data Keep: ultimate art, mixed gauntlet, final boss
-
-## Architecture
-
-- `src/config`: dimensions, keys, palette, controls, Phaser game config
-- `src/data`: levels, ability copy, balance constants
-- `src/types`: shared contracts for stages, saves, input, levels, scene flow
-- `src/systems`: save, input, touch controls, audio, FX, menu, registry helpers
-- `src/entities`: player, enemy, boss, projectile
-- `src/scenes`: boot/preload/title/UI/gameplay flow
-- `tests`: Vitest tests for level validation, save migration, and pure utilities
-
-Levels are hand-authored as typed DSL drafts in `src/data/levels.ts`, then converted into validated tile rows and entity metadata.
-
-## Deployment
-
-GitHub Pages deployment is defined in `.github/workflows/deploy.yml`.
-
-For a repository page, set `VITE_BASE` to the repository path:
+Required checks:
 
 ```bash
-VITE_BASE=/your-repo-name/ npm run build
+npm run typecheck
+npm run test
+npm run build
+npm run e2e
+npm run qa:level
+npm run qa:assets
+npm run qa:screenshots
+npm run qa:all
 ```
 
-The workflow sets this automatically from the repository name, then runs typecheck, tests, and build before deploying.
+`npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, clears Stage 1 with keyboard controls, verifies Stage Clear data, and probes mobile virtual controls in a 390x844 viewport.
 
-## Asset Policy
+`npm run qa:screenshots` regenerates the browser evidence under `artifacts/qa/`.
 
-All visuals and audio are original code-generated placeholders/assets. No external image/audio/font files are included or required. Reference repositories were used only for architectural and API inspiration, not for copied assets, names, code, layouts, or proprietary/trademarked material.
+## QA Screenshots
 
-## Testing
+![Title](artifacts/qa/title.png)
 
-The test suite covers:
+![Stage start](artifacts/qa/stage-start.png)
 
-- Real level validation and failure cases
-- Save defaults, corrupted save fallback, unlock persistence, settings migration
-- Pure math/time/rank helpers
+![Combat encounter](artifacts/qa/combat-encounter.png)
+
+![Wall kick shaft](artifacts/qa/wall-kick-shaft.png)
+
+![Checkpoint](artifacts/qa/checkpoint.png)
+
+![Miniboss](artifacts/qa/miniboss.png)
+
+![Stage clear](artifacts/qa/stage-clear.png)
+
+![Mobile controls](artifacts/qa/mobile-controls-390x844.png)
+
+Additional evidence:
+
+- `artifacts/qa/controls.png`
+- `artifacts/qa/settings.png`
+- `artifacts/qa/movement-tutorial.png`
+- `artifacts/qa/console-report.json`
+- `artifacts/qa/e2e-report.json`
+- `artifacts/qa/stage1-acceptance-report.md`
+
+## Stage 1 Contents
+
+- 10 named sections, including Rain Lantern Start, First Slash Alley, Wall-Kick Sign Shaft, Checkpoint Shrine Plaza, Neon Thorn Run, Lantern Warden Encounter, and Moon Gate Finish
+- 3 checkpoints
+- 3 hidden scrolls
+- 22 seal pickups
+- 5 regular enemy encounters
+- Lantern Warden miniboss
+- Neon thorns, spark/falling sign hazards, and fall rescue
+- Stage 1 best time, rank, scrolls, cleared flag, and settings saved locally
+
+## Asset And Audio Policy
+
+No external runtime assets are used. Visuals are generated in Phaser from local procedural drawing code. SFX are generated with WebAudio and controlled by the saved volume/mute settings.
+
+If external assets are added later, they must be permissively licensed, committed locally, and documented before use.
 
 ## Known Limitations
 
-- The implemented stages are compact browser-game stages rather than full 4-7 minute commercial-length levels.
-- Procedural SFX are intentionally lightweight oscillator tones.
-- Art is generated placeholder-style pixel/ink geometry, not hand-drawn production art.
+- This is a Stage 1 vertical slice, not a full multi-stage campaign.
+- Procedural art is polished enough for QA evidence but not final hand-drawn production art.
+- Music is not implemented; only distinct SFX are present.
+- The automated clear route is optimized and faster than a first-time human route.
 
-## Future Work
+## Future Roadmap
 
-- Longer alternate routes and optional challenge rooms
-- More boss telegraphs and arena decorations
-- Expanded music layer using procedural sequencing
-- Screenshot automation for README imagery
+- Replace procedural character art with authored sprite sheets.
+- Add richer enemy animation frames and ambient audio.
+- Tune a second-stage concept only after Stage 1 remains stable under the QA gates.
+- Expand accessibility options after validating the current mobile control layout with real devices.

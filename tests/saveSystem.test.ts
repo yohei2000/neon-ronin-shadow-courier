@@ -3,10 +3,11 @@ import { createDefaultSave, normalizeSave, SAVE_KEY, SaveSystem } from '../src/s
 import { MemoryStorage } from '../src/utils/storage';
 
 describe('SaveSystem', () => {
-  it('creates valid default save data', () => {
+  it('creates valid Stage 1 default save data', () => {
     const save = createDefaultSave();
-    expect(save.unlockedStages).toEqual([1]);
-    expect(save.stageStats[1].scrolls).toEqual([]);
+    expect(save.stage1.cleared).toBe(false);
+    expect(save.stage1.scrolls).toEqual([]);
+    expect(save.stage1.bestRank).toBeNull();
     expect(save.settings.assist.fallRescue).toBe(true);
   });
 
@@ -14,26 +15,35 @@ describe('SaveSystem', () => {
     const storage = new MemoryStorage();
     storage.setItem(SAVE_KEY, '{not-json');
     const saveSystem = new SaveSystem(storage);
-    expect(saveSystem.data.unlockedStages).toEqual([1]);
+    expect(saveSystem.data.stage1.cleared).toBe(false);
   });
 
-  it('persists stage unlocks and clear results', () => {
+  it('persists Stage 1 clear results and merges best stats', () => {
     const storage = new MemoryStorage();
     const saveSystem = new SaveSystem(storage);
     saveSystem.completeStage({
-      stageId: 1,
       elapsedMs: 120000,
-      rank: 'S',
-      scrolls: ['1-a', '1-b'],
+      rank: 'A',
+      scrolls: ['scroll-wall-route', 'scroll-hidden-sign'],
       damageTaken: 1,
-      defeats: 0,
-      seals: 4
+      seals: 12
+    });
+    saveSystem.completeStage({
+      elapsedMs: 150000,
+      rank: 'S',
+      scrolls: ['scroll-warden-reward'],
+      damageTaken: 0,
+      seals: 8
     });
     const loaded = new SaveSystem(storage);
-    expect(loaded.data.unlockedStages).toContain(2);
-    expect(loaded.data.unlockedAbilities).toContain('wallKick');
-    expect(loaded.data.stageStats[1].bestRank).toBe('S');
-    expect(loaded.data.stageStats[1].scrolls).toEqual(['1-a', '1-b']);
+    expect(loaded.data.stage1.cleared).toBe(true);
+    expect(loaded.data.stage1.bestTimeMs).toBe(120000);
+    expect(loaded.data.stage1.bestRank).toBe('S');
+    expect(loaded.data.stage1.scrolls).toEqual([
+      'scroll-wall-route',
+      'scroll-hidden-sign',
+      'scroll-warden-reward'
+    ]);
   });
 
   it('merges old or partial settings safely', () => {
@@ -41,14 +51,13 @@ describe('SaveSystem', () => {
       settings: {
         masterVolume: 2,
         touchUiOpacity: -5,
-        assist: {
-          reducedDamage: true
-        }
+        touchUiMode: 'always',
+        assist: {}
       }
     });
     expect(save.settings.masterVolume).toBe(1);
     expect(save.settings.touchUiOpacity).toBe(0.25);
-    expect(save.settings.assist.reducedDamage).toBe(true);
+    expect(save.settings.touchUiMode).toBe('auto');
     expect(save.settings.assist.fallRescue).toBe(true);
   });
 });

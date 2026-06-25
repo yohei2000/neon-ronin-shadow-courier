@@ -5,12 +5,11 @@ import { PreloadScene } from '../scenes/PreloadScene';
 import { TitleScene } from '../scenes/TitleScene';
 import { ControlsScene } from '../scenes/ControlsScene';
 import { SettingsScene } from '../scenes/SettingsScene';
-import { WorldMapScene } from '../scenes/WorldMapScene';
-import { GameScene } from '../scenes/GameScene';
+import { Stage1Scene } from '../scenes/Stage1Scene';
 import { PauseScene } from '../scenes/PauseScene';
 import { GameOverScene } from '../scenes/GameOverScene';
 import { StageClearScene } from '../scenes/StageClearScene';
-import { EndingScene } from '../scenes/EndingScene';
+import { CreditsScene } from '../scenes/CreditsScene';
 import { BASE_HEIGHT, BASE_WIDTH } from './dimensions';
 
 export { BASE_HEIGHT, BASE_WIDTH, TILE_SIZE } from './dimensions';
@@ -40,12 +39,11 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     TitleScene,
     ControlsScene,
     SettingsScene,
-    WorldMapScene,
-    GameScene,
+    Stage1Scene,
     PauseScene,
     GameOverScene,
     StageClearScene,
-    EndingScene
+    CreditsScene
   ],
   title: 'Neon Ronin: Shadow Courier',
   banner: false

@@ -1,105 +1,126 @@
 # Implementation Notes
 
-## Implemented
+## Replaced Scope
 
-Neon Ronin: Shadow Courier is implemented as a complete Phaser 3.90 + Vite + strict TypeScript browser game. It boots from title to world map, supports settings/controls, plays through 5 stages, persists progress, and reaches an ending after the 3-phase final boss.
+The previous broad direction was removed. The repository now targets one Stage 1 vertical slice only.
 
-Core features include:
+Deleted or replaced:
 
-- 5 hand-authored stages with exactly 3 hidden scrolls each
-- World map unlock flow and localStorage save data
-- Mobile virtual controls sharing the same `InputSystem` state as keyboard input
-- Player movement, dash, wall kick, projectile art, charged slash, ultimate art
-- 5 enemy types plus boss patterns, minion summons, and boss health UI
-- Checkpoints, hazards, pickups, moving/falling platforms, wind zones, stage gates
-- Pause, retry checkpoint, restart stage, game over, stage clear, settings, controls, ending
-- Procedural textures, particles, shake, and WebAudio SFX
-- Vitest coverage for level validation, save logic, and pure utilities
+- Five-stage level data and validation
+- Campaign unlock assumptions
+- Unused abilities such as dash, projectile, charged slash, and ultimate art
+- Unused regular enemies and final boss code
+- Old world-selection flow
+- Old README claims about a larger campaign
+- Tests that validated the old multi-stage DSL instead of the playable Stage 1 product
 
-## Main Systems
+## Architecture
 
-- `src/scenes/GameScene.ts`: stage runtime, collision wiring, HUD, boss trigger, clear/game-over flow
-- `src/entities/Player.ts`: movement, jump polish, dash, combat intent, damage, respawn
-- `src/entities/Enemy.ts`: all 5 enemy behaviors
-- `src/entities/Boss.ts`: Aogane no Onmyo-Core, 3 phases, projectile/minion patterns
-- `src/systems/InputSystem.ts`: keyboard/touch input merging
-- `src/systems/TouchControls.ts`: mobile D-pad and Jump/Attack/Dash/Art overlay
-- `src/systems/SaveSystem.ts`: schema defaults, migration, corrupted-save fallback, stage completion
-- `src/utils/levelValidation.ts`: level and stage-order validation
-- `src/scenes/PreloadScene.ts`: generated textures for all visuals
-- `src/systems/AudioSystem.ts`: generated WebAudio SFX
+Runtime flow:
 
-## Level DSL
+`BootScene -> PreloadScene -> TitleScene -> Stage1Scene -> StageClearScene`
 
-Levels live in `src/data/levels.ts`. Each stage is defined as a typed draft with:
+Supporting screens:
 
-- dimensions and theme
-- platform rectangles that generate tile rows
-- player spawn, goal, checkpoints
-- scrolls, pickups, hazards, enemies, moving platforms, falling platforms, wind zones
-- required abilities and stage unlock ability
-- optional boss definition
+- `ControlsScene`
+- `SettingsScene`
+- `PauseScene`
+- `GameOverScene`
+- `CreditsScene`
 
-The public `LevelDefinition` still contains concrete tile rows, so validation can check unknown symbols, dimensions, goal markers, boss triggers, bounds, scroll count, and ability gate ordering.
+Stage 1 data lives in `src/data/stage1.json` and is checked by `scripts/qa-level.mjs`. Player, enemy, save, input, audio, touch controls, and FX logic are split into entity/system files so `Stage1Scene` orchestrates rather than owning every behavior.
 
-## Save Schema
+## Player Feel
 
-`SaveData` includes:
+Current movement tuning:
 
-- `schemaVersion`
-- `unlockedStages`
-- `unlockedAbilities`
-- per-stage best time, best rank, scroll IDs, clear count
-- settings and assist flags
-- `hasClearedGame`
-- aggregate completion stats
+- Coyote time: 115ms
+- Jump buffer: 120ms
+- Variable jump cut multiplier: 0.46
+- Wall slide speed: 92
+- Wall kick push: 280 horizontal, 430 vertical
+- Slash timing: startup, active, and recovery windows
+- Hurt invulnerability: 1000ms
+- Max HP: 6
 
-`normalizeSave` merges missing or old fields safely, clamps numeric settings, and falls back to defaults for corrupted JSON.
+The E2E route exercises run, jump, wall kick, slash, damage, checkpoints, miniboss defeat, gate clear, and mobile input probes.
 
-## Validation Status
+## Stage 1 Room Breakdown
 
-Validated commands:
+- Rain Lantern Start: safe movement and jump introduction
+- First Slash Alley: first Ink Crawler and attack spacing
+- Wall-Kick Sign Shaft: generous wall slide/kick climb with paint marker
+- Rooftop Gap Line: guided jump route and seal trail
+- Hidden Scroll Route A: wall-route scroll
+- Hidden Scroll Route B: exploration/combat scroll
+- Checkpoint Shrine Plaza: safe checkpoint and pacing reset
+- Neon Thorn Run: thorns, sparks, falling sign, and recovery before the elite fight
+- Lantern Warden Encounter: miniboss with health bar and telegraphed lunges
+- Moon Gate Finish: gate activates after miniboss defeat and transitions to Stage Clear
 
-- `npm run typecheck`
-- `npm run test`
-- `npm run build`
+## Enemies And Miniboss
 
-The test script uses Vitest's Node API with `config: false` because CLI config loading in this Windows path failed before tests could run.
+- Ink Crawler: ground patrol, low HP, contact damage, hurt flash, defeat burst
+- Kite Wraith: slow floating motion, contact damage, air-slash/avoidance teaching
+- Lantern Warden: elite encounter with start telegraph, lunge windows, hurt feedback, health bar, and Moon Gate activation on defeat
 
-## Tuning Notes
+The Lantern Warden takes 2 damage per slash so the first-stage fight remains readable and short enough for a 60-120 second optimized route.
 
-- Assist fall rescue is enabled by default to support fair first-time clears.
-- Stage ability unlocks occur at stage start so each stage can immediately teach its new mechanic.
-- Replay keeps later abilities available in earlier stages.
-- GearSentinel blocks weak frontal hits and is easier to handle with projectiles or charged slash.
-- Ultimate Art spends high energy, clears hostile projectiles, damages nearby enemies, and chunks the boss.
+## Asset Pipeline
 
-## Simplifications
+No remote assets are used. `PreloadScene` generates all textures with layered Phaser graphics:
 
-- Stages are shorter than the 4-7 minute target but each is completable and includes its required mechanics.
-- Procedural audio is SFX-only, not a music system.
-- One-way platforms are represented as thin solid platforms for implementation stability.
-- High contrast is saved and affects UI intent, but core generated texture palette remains the same after preload.
+- 12 player states, including 4 run frames and 3 slash frames
+- 4 enemy/miniboss textures
+- 12 tile/decor textures
+- UI icons and mobile control textures
+- Pickup, checkpoint, hazard, and gate textures
 
-## Add a Stage
+Audio is generated with WebAudio through `AudioSystem`; required SFX keys are tracked in `src/data/assetManifest.json` and verified by `npm run qa:assets`.
 
-1. Add a `makeLevel` draft to `src/data/levels.ts`.
-2. Use a new `StageId` only after extending `StageId`, `StageIds`, and save stats.
-3. Place exactly 3 scrolls.
-4. Add checkpoint and goal coordinates.
-5. Add required abilities that are available before the stage.
-6. Run `npm run test` to verify `validateAllLevels`.
+## QA And E2E Design
 
-## Add an Enemy
+Scripts:
 
-1. Extend `EnemyType` in `src/types/game.ts`.
-2. Add balance values in `src/data/balance.ts`.
-3. Add a texture key and generated texture in `PreloadScene`.
-4. Add behavior in `src/entities/Enemy.ts`.
-5. Use the type in a level spawn.
+- `npm run e2e`: Playwright title flow, keyboard Stage 1 clear, Stage Clear assertion, and mobile virtual control probes
+- `npm run qa:level`: stage data quality and coarse route checks
+- `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
+- `npm run qa:screenshots`: automated screenshot capture for required scenes
+- `npm run qa:all`: final gate runner
 
-## Known Risks
+Read-only browser QA state is exposed through `window.__NEON_RONIN_QA__` and `window.__NEON_RONIN_CLEAR__`. Tests do not teleport, mutate stage state, or call hidden clear functions.
 
-- Phaser Arcade moving platforms are intentionally simple and may not handle every edge case of high-speed player collision.
-- Browser audio starts only after user gesture, by platform policy.
-- The game is designed for product-complete local play, not for advanced code splitting; Phaser keeps the JS bundle large.
+## Commands Run
+
+Current verified commands during implementation:
+
+- `npm run typecheck`: PASS
+- `npm run test`: PASS
+- `npm run build`: PASS
+- `npm run e2e`: PASS
+- `npm run qa:level`: PASS
+- `npm run qa:assets`: PASS
+- `npm run qa:screenshots`: PASS
+- `npm run qa:all`: PASS
+
+The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screenshot QA, and asset QA successfully.
+
+## Reviewer Passes
+
+- Producer / Scope Controller: removed broad campaign scope and kept the repository Stage 1 only.
+- Gameplay Feel Reviewer: required respawn fix, checkpoint stability, easier Lantern Warden tuning, and mobile input correction.
+- Level Designer Reviewer: kept safe start, ordered tutorial beats, optional scroll sections, fair hazard introduction, and a rest checkpoint before the miniboss.
+- Art/UI Director Reviewer: required layered procedural art, title treatment, parallax/rain, HUD readability, panelized menus, and mobile visual controls.
+- QA Automation Reviewer: required real Playwright browser evidence, screenshot artifacts, console reports, and keyboard clear proof.
+- Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
+
+## Tradeoffs
+
+- Procedural art is intentionally local and reproducible; it is not a substitute for final authored art.
+- The mobile portrait view uses the 960x540 game canvas scaled into a 390x844 viewport. Controls are visible and tested, but real-device ergonomic tuning should continue.
+- The automated route prioritizes proof of clearability; it does not collect all scrolls.
+- Music is omitted to keep the slice focused on input, combat, layout, and QA evidence.
+
+## Next Recommended Step
+
+Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work.

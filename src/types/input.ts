@@ -10,9 +10,7 @@ export interface InputState {
   readonly up: ButtonState;
   readonly down: ButtonState;
   readonly jump: ButtonState;
-  readonly dash: ButtonState;
   readonly attack: ButtonState;
-  readonly art: ButtonState;
   readonly confirm: ButtonState;
   readonly pause: ButtonState;
   readonly horizontal: number;
@@ -31,9 +29,7 @@ export const emptyInputState: InputState = {
   up: emptyButton,
   down: emptyButton,
   jump: emptyButton,
-  dash: emptyButton,
   attack: emptyButton,
-  art: emptyButton,
   confirm: emptyButton,
   pause: emptyButton,
   horizontal: 0,

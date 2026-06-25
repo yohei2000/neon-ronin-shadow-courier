@@ -1,15 +1,22 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
+import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { Palette, PaletteCss } from '../config/palette';
-import { getAudioSystem, getSaveSystem } from '../systems/Registry';
+import { getSaveSystem } from '../systems/Registry';
 import { MenuList } from '../systems/MenuList';
 import type { StageClearSceneData } from '../types/flow';
-import type { StageId } from '../types/game';
 import { formatTime } from '../utils/math';
 import { markSceneStatus } from '../utils/sceneStatus';
 
 export class StageClearScene extends Phaser.Scene {
-  private dataIn!: StageClearSceneData;
+  private dataIn: StageClearSceneData = {
+    elapsedMs: 0,
+    rank: 'C',
+    scrolls: [],
+    damageTaken: 0,
+    seals: 0,
+    checkpointIndex: 0
+  };
   private menu: MenuList | null = null;
 
   constructor() {
@@ -22,56 +29,48 @@ export class StageClearScene extends Phaser.Scene {
 
   create(): void {
     markSceneStatus(SceneKey.StageClear);
-    getSaveSystem(this).completeStage(this.dataIn);
-    getAudioSystem(this).play('stage-clear');
-    this.cameras.main.setBackgroundColor(Palette.ink0);
-    const g = this.add.graphics();
-    g.fillStyle(Palette.cyan, 0.2);
-    g.fillCircle(480, 250, 170);
-    this.add
-      .text(480, 82, `Stage ${this.dataIn.stageId} Clear`, {
+    if (typeof window !== 'undefined') {
+      window.__NEON_RONIN_CLEAR__ = {
+        elapsedMs: this.dataIn.elapsedMs,
+        rank: this.dataIn.rank,
+        scrolls: this.dataIn.scrolls,
+        damageTaken: this.dataIn.damageTaken,
+        seals: this.dataIn.seals
+      };
+    }
+    const save = getSaveSystem(this);
+    this.add.rectangle(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, Palette.ink0);
+    this.add.circle(724, 94, 66, Palette.gold, 0.16);
+    this.add.text(BASE_WIDTH / 2, 68, 'Delivery Complete', {
+      fontFamily: 'monospace',
+      fontSize: '38px',
+      color: PaletteCss.white
+    }).setOrigin(0.5);
+    this.add.text(BASE_WIDTH / 2, 128, `Rank ${this.dataIn.rank}`, {
+      fontFamily: 'monospace',
+      fontSize: '46px',
+      color: this.dataIn.rank === 'S' ? PaletteCss.gold : PaletteCss.cyan
+    }).setOrigin(0.5);
+    const rows = [
+      `Time ${formatTime(this.dataIn.elapsedMs)}`,
+      `Scrolls ${this.dataIn.scrolls.length}/3`,
+      `Seals ${this.dataIn.seals}/22`,
+      `Damage Taken ${this.dataIn.damageTaken}`,
+      `Best ${save.data.stage1.bestTimeMs === null ? '--:--' : formatTime(save.data.stage1.bestTimeMs)} / ${save.data.stage1.bestRank ?? '-'}`
+    ];
+    rows.forEach((row, index) => {
+      this.add.text(BASE_WIDTH / 2, 196 + index * 30, row, {
         fontFamily: 'monospace',
-        fontSize: '38px',
-        color: PaletteCss.gold
-      })
-      .setOrigin(0.5);
-    this.add
-      .text(
-        480,
-        180,
-        [
-          `Time ${formatTime(this.dataIn.elapsedMs)}`,
-          `Scrolls ${this.dataIn.scrolls.length}/3`,
-          `Damage Taken ${this.dataIn.damageTaken}`,
-          `Defeats ${this.dataIn.defeats}`,
-          `Seals ${this.dataIn.seals}`,
-          `Rank ${this.dataIn.rank}`
-        ],
-        {
-          fontFamily: 'monospace',
-          fontSize: '23px',
-          color: PaletteCss.white,
-          align: 'center',
-          lineSpacing: 8
-        }
-      )
-      .setOrigin(0.5);
-    const nextStage = (this.dataIn.stageId + 1) as StageId;
-    this.menu = new MenuList(this, 480, 348, [
-      {
-        label: 'Next Stage',
-        disabled: this.dataIn.stageId >= 5,
-        action: () => this.scene.start(SceneKey.Game, { stageId: nextStage })
-      },
-      {
-        label: 'World Map',
-        action: () => this.scene.start(SceneKey.WorldMap)
-      },
-      {
-        label: 'Title',
-        action: () => this.scene.start(SceneKey.Title)
-      }
+        fontSize: '18px',
+        color: index === 4 ? PaletteCss.gold : PaletteCss.white
+      }).setOrigin(0.5);
+    });
+    this.menu = new MenuList(this, BASE_WIDTH / 2, 378, [
+      { label: 'Replay Stage 1', action: () => this.scene.start(SceneKey.Stage1, { checkpointIndex: 0 }) },
+      { label: 'Credits', action: () => this.scene.start(SceneKey.Credits, { result: this.dataIn }) },
+      { label: 'Title', action: () => this.scene.start(SceneKey.Title) }
     ]);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.menu?.destroy());
   }
 
   update(): void {

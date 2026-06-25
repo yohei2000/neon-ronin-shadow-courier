@@ -28,24 +28,24 @@ export class FXSystem {
     }
   }
 
-  slash(x: number, y: number, facing: number, charged: boolean): void {
+  slash(x: number, y: number, facing: number, wide: boolean): void {
     const arc = this.scene.add.arc(
       x,
       y,
-      charged ? 50 : 34,
+      wide ? 50 : 34,
       facing > 0 ? 310 : 130,
       facing > 0 ? 40 : 220,
       false,
-      charged ? Palette.gold : Palette.magenta,
+      wide ? Palette.gold : Palette.magenta,
       0.45
     );
-    arc.setStrokeStyle(charged ? 7 : 4, charged ? Palette.gold : Palette.cyan, 0.9);
+    arc.setStrokeStyle(wide ? 7 : 4, wide ? Palette.gold : Palette.cyan, 0.9);
     arc.setDepth(50);
     this.scene.tweens.add({
       targets: arc,
       alpha: 0,
       scale: 1.35,
-      duration: charged ? 180 : 120,
+      duration: wide ? 180 : 120,
       onComplete: () => arc.destroy()
     });
   }
