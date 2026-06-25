@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T18:11:26.809Z",
+  "startedAt": "2026-06-25T18:26:54.389Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,14 +48,14 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 25478,
+      "elapsedMs": 25964,
       "milestones": [],
       "result": {
-        "elapsedMs": 25149.1,
+        "elapsedMs": 25632.4,
         "rank": "C",
         "scrolls": [],
-        "damageTaken": 6,
-        "seals": 7
+        "damageTaken": 5,
+        "seals": 10
       }
     },
     {
@@ -66,11 +66,11 @@
         "maxDamageTaken": 8,
         "minSeals": 5
       },
-      "routeDurationMs": 25478,
-      "clearElapsedMs": 25149.1,
+      "routeDurationMs": 25964,
+      "clearElapsedMs": 25632.4,
       "rank": "C",
-      "damageTaken": 6,
-      "seals": 7,
+      "damageTaken": 5,
+      "seals": 10,
       "passed": true
     },
     {
@@ -109,14 +109,14 @@
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 25478,
+    "elapsedMs": 25964,
     "milestones": [],
     "result": {
-      "elapsedMs": 25149.1,
+      "elapsedMs": 25632.4,
       "rank": "C",
       "scrolls": [],
-      "damageTaken": 6,
-      "seals": 7
+      "damageTaken": 5,
+      "seals": 10
     }
   },
   "highContrast": {
@@ -143,11 +143,11 @@
       "maxDamageTaken": 8,
       "minSeals": 5
     },
-    "routeDurationMs": 25478,
-    "clearElapsedMs": 25149.1,
+    "routeDurationMs": 25964,
+    "clearElapsedMs": 25632.4,
     "rank": "C",
-    "damageTaken": 6,
-    "seals": 7,
+    "damageTaken": 5,
+    "seals": 10,
     "passed": true
   },
   "mobile": {
@@ -167,6 +167,6 @@
     "afterRightX": 413.3333333333336,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T18:12:11.688Z",
-  "durationMs": 44880
+  "finishedAt": "2026-06-25T18:27:40.230Z",
+  "durationMs": 45841
 }

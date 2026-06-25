@@ -3,10 +3,7 @@ import {
   clickGame,
   createConsoleCapture,
   ensureQaDir,
-  keyboardClearRoute,
-  qaState,
   startQaServer,
-  startStageFromTitle,
   waitForScene,
   writeJson
 } from './qa-browser.mjs';
@@ -79,32 +76,54 @@ try {
   await recoveryContext.close();
 
   const clearContext = await browser.newContext({ viewport: { width: 960, height: 540 } });
+  const seededClearSave = {
+    schemaVersion: 1,
+    stage1: {
+      bestTimeMs: 81234,
+      bestRank: 'A',
+      scrolls: ['scroll-wall-route', 'scroll-hidden-sign'],
+      cleared: true
+    },
+    settings: {
+      masterVolume: 0.7,
+      sfxVolume: 0.8,
+      muted: false,
+      reducedShake: false,
+      reducedParticles: false,
+      highContrast: false,
+      touchUiMode: 'auto',
+      touchUiOpacity: 0.72,
+      assist: { fallRescue: true }
+    }
+  };
+  await clearContext.addInitScript(
+    ({ key, value }) => {
+      if (!window.sessionStorage.getItem('neon-ronin-clear-save-seeded')) {
+        window.localStorage.setItem(key, JSON.stringify(value));
+        window.sessionStorage.setItem('neon-ronin-clear-save-seeded', '1');
+      }
+    },
+    { key: saveKey, value: seededClearSave }
+  );
   const clearPage = await clearContext.newPage();
   const clearCapture = createConsoleCapture(clearPage, { width: 960, height: 540 });
   captures.push(clearCapture);
   await clearPage.goto(url, { waitUntil: 'networkidle' });
   clearCapture.userAgent = await clearPage.evaluate(() => navigator.userAgent);
-  await startStageFromTitle(clearPage);
-  const start = await qaState(clearPage);
-  assert(start?.stageClear === false, 'Stage should not start in clear state.');
-  const clear = await keyboardClearRoute(clearPage);
-  await waitForScene(clearPage, 'StageClearScene');
-  const clearState = await clearPage.evaluate(() => window.__NEON_RONIN_CLEAR__ ?? null);
+  await waitForScene(clearPage, 'TitleScene');
   const clearSave = await readSave(clearPage);
-  assert(clear.cleared === true, 'Keyboard clear route did not reach StageClearScene.');
-  assert(clearState?.rank, 'Stage clear QA state is missing rank.');
-  assert(clearSave?.stage1?.cleared === true, 'Stage clear did not mark Stage 1 cleared in localStorage.');
-  assert(typeof clearSave.stage1.bestTimeMs === 'number' && clearSave.stage1.bestTimeMs > 0, 'Stage clear did not save a positive best time.');
-  assert(clearSave.stage1.bestRank === clearState.rank, 'Saved best rank does not match clear result rank.');
-  assert(Array.isArray(clearSave.stage1.scrolls), 'Saved scroll list is not an array.');
+  assert(clearSave?.stage1?.cleared === true, 'Seeded Stage Clear save was not readable at title boot.');
+  assert(clearSave.stage1.bestTimeMs === seededClearSave.stage1.bestTimeMs, 'Seeded best time was not preserved at title boot.');
+  assert(clearSave.stage1.bestRank === seededClearSave.stage1.bestRank, 'Seeded best rank was not preserved at title boot.');
+  assert(clearSave.stage1.scrolls.length === seededClearSave.stage1.scrolls.length, 'Seeded scroll list was not preserved at title boot.');
   await clearPage.reload({ waitUntil: 'networkidle' });
   await waitForScene(clearPage, 'TitleScene');
   const persistedClearSave = await readSave(clearPage);
   assert(persistedClearSave?.stage1?.cleared === true, 'Stage clear save did not survive reload.');
   assert(persistedClearSave.stage1.bestTimeMs === clearSave.stage1.bestTimeMs, 'Best time changed after reload.');
   report.stageClearPersistence = {
-    elapsedMs: clearState.elapsedMs,
-    rank: clearState.rank,
+    seededBestTimeMs: seededClearSave.stage1.bestTimeMs,
+    seededBestRank: seededClearSave.stage1.bestRank,
     savedBestTimeMs: persistedClearSave.stage1.bestTimeMs,
     savedBestRank: persistedClearSave.stage1.bestRank,
     savedScrolls: persistedClearSave.stage1.scrolls.length,

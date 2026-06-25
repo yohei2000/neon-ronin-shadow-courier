@@ -349,6 +349,11 @@ export async function keyboardClearRoute(page, options = {}) {
       await page.waitForTimeout(80);
       continue;
     }
+    if (qa.player.hp <= 0) {
+      await setKey(page, 'ArrowRight', false);
+      await setKey(page, 'ArrowLeft', false);
+      throw new Error(`Keyboard route player died at ${JSON.stringify(qa)}`);
+    }
     if (qa.minibossActive && !qa.minibossDefeated && minibossStartedAt === null) {
       minibossStartedAt = qa.elapsedMs;
     }
@@ -376,16 +381,16 @@ export async function keyboardClearRoute(page, options = {}) {
     const x = qa.player.x;
 
     const bossElapsed = minibossStartedAt === null ? 0 : qa.elapsedMs - minibossStartedAt;
-    const bossPhase = bossElapsed >= 760 ? (bossElapsed - 900 + 1800) % 1800 : 900;
-    const bossRetreatWindow = qa.minibossActive && !qa.minibossDefeated && (bossPhase < 500 || bossPhase > 1660);
+    const bossPhase = bossElapsed >= 650 ? (bossElapsed - 900 + 1800) % 1800 : 900;
+    const bossRetreatWindow = qa.minibossActive && !qa.minibossDefeated && (bossPhase < 700 || bossPhase > 1450);
 
     if (qa.minibossActive && !qa.minibossDefeated) {
       if (bossRetreatWindow) {
         wantRight = false;
-        wantLeft = x > 6325;
+        wantLeft = x > 6285;
       } else {
-        wantRight = x < 6385 || (x <= 6460 && qa.player.facing < 0);
-        wantLeft = x > 6405;
+        wantRight = x < 6375 || (x <= 6460 && qa.player.facing < 0);
+        wantLeft = x > 6390;
       }
     }
     if (qa.minibossDefeated) {
@@ -403,13 +408,18 @@ export async function keyboardClearRoute(page, options = {}) {
     }
 
     const now = Date.now();
+    const forcedHazardJump =
+      (x > 4560 && x < 4790) ||
+      (x > 5250 && x < 5480) ||
+      (x > 5620 && x < 5820);
     const shouldJump =
       (x > 1500 && x < 2360) ||
       (x > 2460 && x < 3350) ||
       (x > 4240 && x < 5750) ||
+      forcedHazardJump ||
       (bossRetreatWindow && x > 6335 && now % 1600 < 220);
-    if (shouldJump && now >= jumpCooldown) {
-      jumpCooldown = now + (x > 1500 && x < 2360 ? 240 : 520);
+    if (shouldJump && (now >= jumpCooldown || forcedHazardJump)) {
+      jumpCooldown = now + (x > 1500 && x < 2360 ? 240 : forcedHazardJump ? 180 : 520);
       await tap(page, 'Space', x > 1500 && x < 2360 ? 90 : 105);
     }
 
@@ -419,7 +429,7 @@ export async function keyboardClearRoute(page, options = {}) {
       (x > 3480 && x < 3720) ||
       (x > 4800 && x < 5000) ||
       (x > 5420 && x < 5620) ||
-      (qa.minibossActive && !qa.minibossDefeated && !bossRetreatWindow && x > 6365 && x < 6425 && qa.player.facing > 0);
+      (qa.minibossActive && !qa.minibossDefeated && !bossRetreatWindow && x > 6365 && x < 6555);
     if (shouldAttack && now >= attackCooldown) {
       if (qa.minibossActive && !qa.minibossDefeated) {
         const shouldFaceRight = x <= 6460;

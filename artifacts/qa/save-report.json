@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T18:12:13.069Z",
+  "startedAt": "2026-06-25T18:27:41.571Z",
   "tests": [
     {
       "name": "save/corrupted-json-boots-title",
@@ -16,11 +16,11 @@
     {
       "name": "save/stage-clear-persists-after-reload",
       "status": "PASS",
-      "elapsedMs": 27774.1,
-      "rank": "C",
-      "savedBestTimeMs": 27774.1,
-      "savedBestRank": "C",
-      "savedScrolls": 0,
+      "seededBestTimeMs": 81234,
+      "seededBestRank": "A",
+      "savedBestTimeMs": 81234,
+      "savedBestRank": "A",
+      "savedScrolls": 2,
       "savedCleared": true
     }
   ],
@@ -36,11 +36,11 @@
     "touchUiOpacity": 0.72
   },
   "stageClearPersistence": {
-    "elapsedMs": 27774.1,
-    "rank": "C",
-    "savedBestTimeMs": 27774.1,
-    "savedBestRank": "C",
-    "savedScrolls": 0,
+    "seededBestTimeMs": 81234,
+    "seededBestRank": "A",
+    "savedBestTimeMs": 81234,
+    "savedBestRank": "A",
+    "savedScrolls": 2,
     "savedCleared": true
   },
   "console": {
@@ -48,19 +48,19 @@
     "warnings": [
       {
         "type": "warning",
-        "text": "[.WebGL-0x1c44001b4200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        "text": "[.WebGL-0x448c001ac200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
       },
       {
         "type": "warning",
-        "text": "[.WebGL-0x1c44001b4200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        "text": "[.WebGL-0x448c001ac200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
       },
       {
         "type": "warning",
-        "text": "[.WebGL-0x1c44001b4200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        "text": "[.WebGL-0x448c001ac200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
       },
       {
         "type": "warning",
-        "text": "[.WebGL-0x1c44001b4200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        "text": "[.WebGL-0x448c001ac200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
       }
     ],
     "pageErrors": [],
@@ -80,6 +80,6 @@
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36"
     ]
   },
-  "finishedAt": "2026-06-25T18:12:46.637Z",
-  "durationMs": 33568
+  "finishedAt": "2026-06-25T18:27:48.791Z",
+  "durationMs": 7220
 }
