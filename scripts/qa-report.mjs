@@ -43,6 +43,8 @@ export async function writeAcceptanceReport(options = {}) {
   const bundlePass = commandStatus('npm run qa:bundle') === 'PASS' && bundleReport?.valid === true;
   const distReport = await readDistReport();
   const distPass = commandStatus('npm run qa:dist') === 'PASS' && distReport?.valid === true;
+  const saveReport = await readSaveReport();
+  const savePass = commandStatus('npm run qa:save') === 'PASS' && saveReport?.valid === true;
   const playtestPass = commandStatus('npm run qa:playtest') === 'PASS' && (await playtestNoteIsCurrent());
 
   const lines = [
@@ -92,6 +94,11 @@ export async function writeAcceptanceReport(options = {}) {
     row('Volume/mute settings work through saved settings.', true),
     row('Audio unlock after user gesture is implemented.', true),
     '',
+    '## Save And Settings',
+    row('Corrupted localStorage save boots safely to the title screen.', savePass && saveReport?.corruptedRecovery?.sceneAfterBoot === 'TitleScene'),
+    row('Settings persist after save repair and reload.', savePass && saveReport?.settingsPersistence?.highContrast === true),
+    row('Stage clear best result persists after reload.', savePass && saveReport?.stageClearPersistence?.savedCleared === true),
+    '',
     '## QA',
     row('typecheck passes.', commandStatus('npm run typecheck') === 'PASS'),
     row('unit tests pass.', commandStatus('npm run test') === 'PASS'),
@@ -99,6 +106,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('bundle split keeps app chunk below threshold.', bundlePass),
     row('production dist boots from built assets.', distPass),
     row('e2e passes.', e2ePass),
+    row('qa:save passes.', savePass),
     row('mobile virtual-control layout checks pass.', mobileLayoutPass),
     row('qa:level passes.', levelPass),
     row('qa:assets passes.', assetPass),
@@ -133,7 +141,8 @@ export async function writeAcceptanceReport(options = {}) {
     '- QA Automation Reviewer: E2E now validates the seven-button mobile layout, action gap, lower control band, and upper-right pause safe area.',
     '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
     '- QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.',
-    '- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, and screenshot reports.',
+    '- QA Automation Reviewer: qa:save verifies corrupted-save recovery, settings persistence, and Stage Clear result persistence in a real browser.',
+    '- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, save, and screenshot reports.',
     '- Build Fixer: Phaser is split into a vendor chunk and qa:bundle verifies app chunk size.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];
@@ -160,6 +169,14 @@ async function readBundleReport() {
 async function readDistReport() {
   try {
     return JSON.parse(await readFile(path.join(qaDir, 'dist-report.json'), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+async function readSaveReport() {
+  try {
+    return JSON.parse(await readFile(path.join(qaDir, 'save-report.json'), 'utf8'));
   } catch {
     return null;
   }

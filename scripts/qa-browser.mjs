@@ -324,6 +324,7 @@ export async function keyboardClearRoute(page, options = {}) {
   let leftDown = false;
   let attackCooldown = 0;
   let jumpCooldown = 0;
+  let minibossStartedAt = null;
 
   const maybeShot = async (name, condition) => {
     if (!capture || milestones.has(name) || !condition) return;
@@ -348,6 +349,9 @@ export async function keyboardClearRoute(page, options = {}) {
       await page.waitForTimeout(80);
       continue;
     }
+    if (qa.minibossActive && !qa.minibossDefeated && minibossStartedAt === null) {
+      minibossStartedAt = qa.elapsedMs;
+    }
     if (stopWhen?.(qa)) {
       await setKey(page, 'ArrowRight', false);
       await setKey(page, 'ArrowLeft', false);
@@ -371,9 +375,18 @@ export async function keyboardClearRoute(page, options = {}) {
     let wantLeft = false;
     const x = qa.player.x;
 
+    const bossElapsed = minibossStartedAt === null ? 0 : qa.elapsedMs - minibossStartedAt;
+    const bossPhase = bossElapsed >= 760 ? (bossElapsed - 900 + 1800) % 1800 : 900;
+    const bossRetreatWindow = qa.minibossActive && !qa.minibossDefeated && (bossPhase < 500 || bossPhase > 1660);
+
     if (qa.minibossActive && !qa.minibossDefeated) {
-      wantRight = x < 6425 || (x <= 6460 && qa.player.facing < 0);
-      wantLeft = x > 6540 || (x > 6460 && qa.player.facing > 0);
+      if (bossRetreatWindow) {
+        wantRight = false;
+        wantLeft = x > 6325;
+      } else {
+        wantRight = x < 6385 || (x <= 6460 && qa.player.facing < 0);
+        wantLeft = x > 6405;
+      }
     }
     if (qa.minibossDefeated) {
       wantRight = true;
@@ -394,7 +407,7 @@ export async function keyboardClearRoute(page, options = {}) {
       (x > 1500 && x < 2360) ||
       (x > 2460 && x < 3350) ||
       (x > 4240 && x < 5750) ||
-      (qa.minibossActive && !qa.minibossDefeated && now % 1200 < 260);
+      (bossRetreatWindow && x > 6335 && now % 1600 < 220);
     if (shouldJump && now >= jumpCooldown) {
       jumpCooldown = now + (x > 1500 && x < 2360 ? 240 : 520);
       await tap(page, 'Space', x > 1500 && x < 2360 ? 90 : 105);
@@ -406,7 +419,7 @@ export async function keyboardClearRoute(page, options = {}) {
       (x > 3480 && x < 3720) ||
       (x > 4800 && x < 5000) ||
       (x > 5420 && x < 5620) ||
-      (qa.minibossActive && !qa.minibossDefeated && x > 6405 && x < 6555);
+      (qa.minibossActive && !qa.minibossDefeated && !bossRetreatWindow && x > 6365 && x < 6425 && qa.player.facing > 0);
     if (shouldAttack && now >= attackCooldown) {
       if (qa.minibossActive && !qa.minibossDefeated) {
         const shouldFaceRight = x <= 6460;

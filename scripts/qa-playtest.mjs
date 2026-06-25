@@ -11,6 +11,7 @@ function assert(condition, message) {
 const e2e = await readJson('e2e-report.json');
 const level = await readJson('level-report.json');
 const dist = await readJson('dist-report.json');
+const save = await readJson('save-report.json');
 const screenshotNames = [
   'stage-start.png',
   'combat-encounter.png',
@@ -24,6 +25,7 @@ assert(e2e?.routeHealth?.passed === true, 'Stage 1 route health did not pass.');
 assert(level?.valid === true, 'level-report.json is missing or invalid.');
 assert(dist?.valid === true, 'dist-report.json is missing or invalid.');
 assert(e2e?.mobile?.layout?.valid === true, 'Mobile touch layout QA did not pass.');
+assert(save?.valid === true, 'save-report.json is missing or invalid.');
 
 const screenshotStatus = {};
 for (const name of screenshotNames) {
@@ -44,7 +46,8 @@ const findings = [
   `The automated clear route reaches Stage Clear in ${routeSeconds}s with ${route.damageTaken ?? '?'} damage, leaving ${damageMargin} damage before the route-health cap.`,
   `The route collects ${clear.seals ?? 0}/${metrics.seals ?? '?'} seals (${sealCoverage}%) without pursuing optional scroll routes, so critical-path pickup density is adequate for a first clear.`,
   `Desktop screenshots show readable onboarding, first-combat spacing, Lantern Warden objective text, and Stage Clear results.`,
-  `Mobile controls are visible, expose ${mobileLayout.buttonCount ?? '?'} QA-tracked buttons, keep jump/attack separated by ${mobileLayout.actionGap ?? '?'}px, and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.`
+  `Mobile controls are visible, expose ${mobileLayout.buttonCount ?? '?'} QA-tracked buttons, keep jump/attack separated by ${mobileLayout.actionGap ?? '?'}px, and pass input probes; HUD/control density on a 390x844 screenshot should still be checked on a physical phone before adding inputs or denser UI.`,
+  `Save QA passes corrupted-save recovery, settings reload persistence, and Stage Clear persistence, so tuning runs are not losing result data.`
 ];
 
 const decisions = [
@@ -61,13 +64,14 @@ const lines = [
   '',
   '## Method',
   '',
-  'Evidence-backed manual review of current QA screenshots plus automated route, level, and production-dist reports. This is not a substitute for a physical-device human playtest.',
+  'Evidence-backed manual review of current QA screenshots plus automated route, level, production-dist, and save reports. This is not a substitute for a physical-device human playtest.',
   '',
   '## Evidence',
   '',
   '- `artifacts/qa/e2e-report.json`: title/settings flow, pause retry/restart, high-contrast pixels, keyboard clear, route health, and mobile input probes.',
   '- `artifacts/qa/level-report.json`: stage size, checkpoints, optional routes, scrolls, hazards, enemies, and pickup counts.',
   '- `artifacts/qa/dist-report.json`: production `dist/` boot from emitted assets.',
+  '- `artifacts/qa/save-report.json`: corrupted-save recovery, settings persistence, and Stage Clear result persistence.',
   ...screenshotNames.map((name) => `- \`artifacts/qa/${name}\`: ${screenshotStatus[name] ? 'reviewed' : 'missing'}.`),
   '',
   '## Findings',

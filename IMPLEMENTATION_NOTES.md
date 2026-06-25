@@ -41,6 +41,7 @@ Latest quality passes added:
 - `StageProgression` so checkpoints, tutorial markers, fall rescue, respawn, and current section lookup are isolated from `Stage1Scene`.
 - `src/utils/combat.ts` so damage cooldown gating can be unit-tested without Phaser.
 - `src/utils/touchLayout.ts` so mobile virtual-control placement is shared by rendering, QA state, and Vitest coverage without depending on Phaser.
+- `npm run qa:save` so browser localStorage recovery, settings persistence, and Stage Clear save persistence are covered outside unit tests.
 - `.github/workflows/deploy.yml` uses current Node 24-era GitHub Actions majors for Pages deployment.
 
 ## GitHub Reference Pass
@@ -72,6 +73,8 @@ Applied changes from that pass:
 - Moved mobile pause away from jump/attack buttons for better portrait ergonomics.
 - Added pure touch-layout helper tests and exposed the virtual-control layout through read-only QA state.
 - Added Playwright checks for the seven-button mobile layout, left/right cluster separation, action gap, and upper-right pause safe area.
+- Added Playwright save QA for corrupted-save recovery, high-contrast setting persistence after reload, and Stage Clear result persistence.
+- Tuned the automated Lantern Warden route to retreat during boss lunge windows before attacking, reducing route flakiness in E2E and save QA.
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Added Playwright canvas pixel sampling so high contrast mode is verified as a visible Stage 1 rendering change.
 - Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.
@@ -134,8 +137,9 @@ Scripts:
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
 - `npm run qa:bundle`: production bundle chunk checks after `npm run build`
 - `npm run qa:dist`: built `dist/` smoke test that serves emitted assets and verifies Title -> Stage 1 boot; CI reruns it with the GitHub Pages base path after the Pages build
+- `npm run qa:save`: browser save-system checks for corrupted localStorage recovery, settings reload persistence, and Stage Clear result persistence
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
-- `npm run qa:playtest`: evidence-backed tuning note generated from route-health, level, dist, and screenshot reports
+- `npm run qa:playtest`: evidence-backed tuning note generated from route-health, level, dist, save, and screenshot reports
 - `npm run qa:all`: final gate runner
 
 Read-only browser QA state is exposed through `window.__NEON_RONIN_QA__` and `window.__NEON_RONIN_CLEAR__`, including the current mobile virtual-control layout. Tests do not teleport, mutate stage state, or call hidden clear functions.
@@ -151,11 +155,12 @@ Current verified commands during implementation:
 - `npm run qa:level`: PASS
 - `npm run qa:assets`: PASS
 - `npm run qa:dist`: PASS
+- `npm run qa:save`: PASS
 - `npm run qa:screenshots`: PASS
 - `npm run qa:playtest`: PASS
 - `npm run qa:all`: PASS
 
-The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production dist smoke, E2E, level QA, screenshot QA, asset QA, and playtest-note generation successfully.
+The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production dist smoke, E2E, save QA, level QA, screenshot QA, asset QA, and playtest-note generation successfully.
 
 ## Reviewer Passes
 
@@ -180,6 +185,8 @@ The latest `npm run qa:all` reran typecheck, tests, build, bundle QA, production
 - Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
 - Latest QA Automation Review: production `dist/` output is now served and smoke-tested locally and with the Pages base path in CI.
 - Latest QA Automation Review: mobile virtual controls now expose layout metrics and fail E2E if the seven-button layout, lower control band, action spacing, or upper-right pause placement regresses.
+- Latest QA Automation Review: browser save QA now verifies corrupted localStorage recovery, settings persistence after reload, and Stage Clear persistence in `artifacts/qa/save-report.json`.
+- Latest QA Automation Review: the keyboard boss route now retreats during Lantern Warden lunge windows before attacking, improving QA repeatability without changing game balance.
 - Latest Playtest Review: generated `playtest-tuning.md` from route-health, level, dist, and screenshot evidence; current tuning stays stable and next human check is physical-phone HUD/input ergonomics plus optional-scroll discoverability.
 - Latest Build Review: Phaser now builds as `vendor-phaser` and `qa:bundle` verifies app chunk size.
 - Latest Code Quality Review: progression helpers are covered by Vitest so checkpoint advancement and section lookup are no longer browser-only behavior.

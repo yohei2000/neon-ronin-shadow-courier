@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T17:48:54.541Z",
+  "startedAt": "2026-06-25T18:11:26.809Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,14 +48,14 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 22243,
+      "elapsedMs": 25478,
       "milestones": [],
       "result": {
-        "elapsedMs": 21999.1,
+        "elapsedMs": 25149.1,
         "rank": "C",
         "scrolls": [],
         "damageTaken": 6,
-        "seals": 11
+        "seals": 7
       }
     },
     {
@@ -66,11 +66,11 @@
         "maxDamageTaken": 8,
         "minSeals": 5
       },
-      "routeDurationMs": 22243,
-      "clearElapsedMs": 21999.1,
+      "routeDurationMs": 25478,
+      "clearElapsedMs": 25149.1,
       "rank": "C",
       "damageTaken": 6,
-      "seals": 11,
+      "seals": 7,
       "passed": true
     },
     {
@@ -102,21 +102,21 @@
         }
       },
       "startX": 160,
-      "afterRightX": 427.66666666666697,
+      "afterRightX": 413.3333333333336,
       "attackActive": true
     }
   ],
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 22243,
+    "elapsedMs": 25478,
     "milestones": [],
     "result": {
-      "elapsedMs": 21999.1,
+      "elapsedMs": 25149.1,
       "rank": "C",
       "scrolls": [],
       "damageTaken": 6,
-      "seals": 11
+      "seals": 7
     }
   },
   "highContrast": {
@@ -143,11 +143,11 @@
       "maxDamageTaken": 8,
       "minSeals": 5
     },
-    "routeDurationMs": 22243,
-    "clearElapsedMs": 21999.1,
+    "routeDurationMs": 25478,
+    "clearElapsedMs": 25149.1,
     "rank": "C",
     "damageTaken": 6,
-    "seals": 11,
+    "seals": 7,
     "passed": true
   },
   "mobile": {
@@ -164,9 +164,9 @@
       }
     },
     "startX": 160,
-    "afterRightX": 427.66666666666697,
+    "afterRightX": 413.3333333333336,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T17:49:37.791Z",
-  "durationMs": 43250
+  "finishedAt": "2026-06-25T18:12:11.688Z",
+  "durationMs": 44880
 }

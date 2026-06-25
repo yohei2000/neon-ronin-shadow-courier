@@ -1,6 +1,6 @@
 # Stage 1 Acceptance Report
 
-Generated: 2026-06-25T17:50:12.521Z
+Generated: 2026-06-25T18:13:23.017Z
 Viewport evidence: desktop 960x540, mobile 390x844
 Route: Automated keyboard clear through normal controls; no teleport/debug mutation.
 
@@ -44,6 +44,11 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: Volume/mute settings work through saved settings.
 - PASS: Audio unlock after user gesture is implemented.
 
+## Save And Settings
+- PASS: Corrupted localStorage save boots safely to the title screen.
+- PASS: Settings persist after save repair and reload.
+- PASS: Stage clear best result persists after reload.
+
 ## QA
 - PASS: typecheck passes.
 - PASS: unit tests pass.
@@ -51,6 +56,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - PASS: bundle split keeps app chunk below threshold.
 - PASS: production dist boots from built assets.
 - PASS: e2e passes.
+- PASS: qa:save passes.
 - PASS: mobile virtual-control layout checks pass.
 - PASS: qa:level passes.
 - PASS: qa:assets passes.
@@ -95,6 +101,7 @@ Route: Automated keyboard clear through normal controls; no teleport/debug mutat
 - QA Automation Reviewer: E2E now validates the seven-button mobile layout, action gap, lower control band, and upper-right pause safe area.
 - QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.
 - QA Automation Reviewer: qa:dist serves built production assets and verifies Title -> Stage 1 boot without dev server fallback.
-- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, and screenshot reports.
+- QA Automation Reviewer: qa:save verifies corrupted-save recovery, settings persistence, and Stage Clear result persistence in a real browser.
+- QA Automation Reviewer: qa:playtest records evidence-backed tuning decisions from route, level, dist, save, and screenshot reports.
 - Build Fixer: Phaser is split into a vendor chunk and qa:bundle verifies app chunk size.
 - Build Fixer: Final status is determined by npm run qa:all and the individual required commands.
