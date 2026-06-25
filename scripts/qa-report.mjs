@@ -33,6 +33,8 @@ export async function writeAcceptanceReport(options = {}) {
   const highContrastPixelPass =
     e2ePass &&
     e2eReport?.tests?.some((test) => test.name === 'settings/high-contrast-stage-pixel' && test.status === 'PASS');
+  const routeHealthPass =
+    e2ePass && e2eReport?.tests?.some((test) => test.name === 'stage1-route-health' && test.status === 'PASS');
   const levelPass = options.levelPass ?? commandStatus('npm run qa:level') === 'PASS';
   const assetPass = options.assetPass ?? commandStatus('npm run qa:assets') === 'PASS';
 
@@ -53,6 +55,7 @@ export async function writeAcceptanceReport(options = {}) {
     row('Retry checkpoint works.', true),
     row('Pause menu retry and restart are verified by E2E.', pauseRestartPass),
     row('Stage can be cleared.', e2ePass),
+    row('Automated route health stays inside tuning thresholds.', routeHealthPass),
     row('Miniboss can be defeated.', e2ePass),
     row('No known softlocks in the automated route.', e2ePass),
     '',
@@ -103,14 +106,18 @@ export async function writeAcceptanceReport(options = {}) {
     '- Gameplay Feel Reviewer: Preserved coyote time, jump buffer, variable jump, wall slide, wall kick, timed slash, damage cooldown, checkpoint retry, and fall rescue.',
     '- Gameplay Feel Reviewer: Added camera lead isolation and short hit pause on enemy/miniboss hits.',
     '- Gameplay Feel Reviewer: Added pure combat utility coverage for damage cooldown behavior.',
+    '- Gameplay Feel Reviewer: Combat orchestration lives in StageCombat so scene flow and hit resolution stay separated.',
     '- Level Designer Reviewer: Stage data keeps a safe first screen, ordered named sections, optional scroll routes, fair hazard introduction, and a pre-gate miniboss.',
     '- Art/UI Director Reviewer: Procedural art uses layered silhouettes, neon accents, rain/parallax, UI panels, icons, and mobile control states instead of raw debug text.',
+    '- Art/UI Director Reviewer: Background, platform, high-contrast outline, and decor construction live in StageWorld.',
     '- Art/UI Director Reviewer: High contrast mode now changes in-stage platform outlines and hazard tint.',
     '- Art/UI Director Reviewer: Split HUD/objective/section/boss-bar rendering into StageHud.',
     '- QA Automation Reviewer: Playwright route clears the stage through keyboard controls and captures the required screenshots.',
+    '- QA Automation Reviewer: E2E now records route health thresholds for route duration, damage, rank, and seals.',
     '- QA Automation Reviewer: E2E now toggles and verifies persisted high contrast settings.',
     '- QA Automation Reviewer: E2E now samples the Stage 1 canvas to verify high contrast platform pixels.',
     '- QA Automation Reviewer: E2E now verifies pause menu Retry Checkpoint and Restart Stage through real menu input.',
+    '- QA Automation Reviewer: Miniboss screenshot capture occurs before active combat timing so route input stays stable.',
     '- Build Fixer: Final status is determined by npm run qa:all and the individual required commands.'
   ];
 

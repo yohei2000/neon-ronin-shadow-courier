@@ -34,6 +34,7 @@ Latest quality passes added:
 
 - `CameraController` so camera lead/follow tuning is no longer embedded directly in `Stage1Scene`.
 - `StageHud` so HUD, objective, section-title, and boss-bar rendering are isolated from `Stage1Scene`.
+- `StageWorld` so background, parallax/rain, platform visuals/colliders, high-contrast outlines, and decor are isolated from `Stage1Scene`.
 - `StageCombat` so enemy spawning, miniboss state, gate/barrier handling, and slash hit resolution are isolated from `Stage1Scene`.
 - `StageCollectibles` so seal, health, energy, scroll, and miniboss scroll-reward state are isolated from `Stage1Scene`.
 - `StageHazards` so hazard sprite creation, contrast tinting, and damage overlaps are isolated from `Stage1Scene`.
@@ -57,6 +58,7 @@ Applied changes from that pass:
 - Made high contrast mode visibly affect Stage 1 platform outlines and hazard tint.
 - Extended E2E to toggle and verify persisted high contrast settings.
 - Split HUD rendering into `StageHud`, following the scene/sprite/system separation seen in the reference projects.
+- Split world/background/platform/decor setup into `StageWorld`.
 - Split enemy/miniboss/gate orchestration and slash hit resolution into `StageCombat`.
 - Split collectibles and hazards into `StageCollectibles` and `StageHazards` so Stage1Scene owns less item/hazard state.
 - Added combat utility tests for damage cooldown behavior.
@@ -64,6 +66,7 @@ Applied changes from that pass:
 - Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
 - Added Playwright canvas pixel sampling so high contrast mode is verified as a visible Stage 1 rendering change.
 - Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.
+- Moved the miniboss screenshot trigger to the pre-fight encounter view to avoid pausing input during active combat.
 
 ## Player Feel
 
@@ -117,7 +120,7 @@ Audio is generated with WebAudio through `AudioSystem`; required SFX keys are tr
 
 Scripts:
 
-- `npm run e2e`: Playwright title flow, visible high contrast pixel assertion, pause retry/restart, keyboard Stage 1 clear, Stage Clear assertion, and mobile virtual control probes
+- `npm run e2e`: Playwright title flow, visible high contrast pixel assertion, pause retry/restart, keyboard Stage 1 clear, route-health thresholds, Stage Clear assertion, and mobile virtual control probes
 - `npm run qa:level`: stage data quality and coarse route checks
 - `npm run qa:assets`: texture/state/SFX manifest checks, plus screenshot presence when requested
 - `npm run qa:screenshots`: automated screenshot capture for required scenes
@@ -151,12 +154,15 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 - Art/UI Director Reviewer: required layered procedural art, title treatment, parallax/rain, HUD readability, panelized menus, and mobile visual controls.
 - Latest Art/UI Review: made high contrast mode produce visible in-stage outlines.
 - Latest Art/UI Review: separated HUD rendering into `StageHud`.
+- Latest Art/UI Review: split world/background/decor construction into `StageWorld`.
 - Latest Art/UI Review: high contrast is now verified by sampling Stage 1 canvas pixels in E2E.
 - QA Automation Reviewer: required real Playwright browser evidence, screenshot artifacts, console reports, and keyboard clear proof.
 - Latest QA Automation Review: high contrast toggle is now asserted in Playwright E2E.
 - Latest QA Automation Review: high contrast stage pixels are now asserted in Playwright E2E.
 - Latest QA Automation Review: pause menu Retry Checkpoint and Restart Stage are now asserted through real menu input.
+- Latest QA Automation Review: route-health thresholds are now recorded in `e2e-report.json`.
 - Latest QA Automation Review: screenshot capture route now forces the player to face the Lantern Warden before automated boss attacks.
+- Latest QA Automation Review: miniboss screenshot capture now occurs before active combat timing starts.
 - Build Fixer: resolved TypeScript/test failures, E2E route failures, fall rescue bug, gate overlap issue, and touch control hit detection.
 
 ## Tradeoffs
@@ -168,4 +174,4 @@ The latest `npm run qa:all` reran typecheck, tests, build, E2E, level QA, screen
 
 ## Next Recommended Step
 
-Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, split background/decor or checkpoint/tutorial setup out of `Stage1Scene` before adding new gameplay.
+Do a short human playtest pass on Stage 1 only, then tune enemy spacing, pickup placement, and mobile button ergonomics before considering any new stage work. If code structure work continues first, split checkpoint/tutorial setup out of `Stage1Scene` before adding new gameplay.

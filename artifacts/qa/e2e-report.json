@@ -1,6 +1,6 @@
 {
   "valid": true,
-  "startedAt": "2026-06-25T15:58:29.064Z",
+  "startedAt": "2026-06-25T16:20:21.074Z",
   "tests": [
     {
       "name": "title-flow/title-visible",
@@ -48,40 +48,51 @@
       "name": "stage1-keyboard-clear",
       "status": "PASS",
       "cleared": true,
-      "elapsedMs": 36679,
+      "elapsedMs": 23993,
       "milestones": [],
       "result": {
-        "elapsedMs": 36331.899999999994,
-        "rank": "B",
-        "scrolls": [
-          "scroll-warden-reward"
-        ],
-        "damageTaken": 6,
-        "seals": 12
+        "elapsedMs": 23682.4,
+        "rank": "C",
+        "scrolls": [],
+        "damageTaken": 5,
+        "seals": 6
       }
+    },
+    {
+      "name": "stage1-route-health",
+      "status": "PASS",
+      "thresholds": {
+        "maxRouteDurationMs": 90000,
+        "maxDamageTaken": 8,
+        "minSeals": 5
+      },
+      "routeDurationMs": 23993,
+      "clearElapsedMs": 23682.4,
+      "rank": "C",
+      "damageTaken": 5,
+      "seals": 6,
+      "passed": true
     },
     {
       "name": "mobile-controls",
       "status": "PASS",
       "visible": true,
       "startX": 160,
-      "afterRightX": 413.3333333333336,
+      "afterRightX": 420.5000000000003,
       "attackActive": true
     }
   ],
   "route": "Title -> Controls -> Settings -> visible high contrast -> Stage 1 pause retry/restart -> keyboard clear -> mobile control probes",
   "clear": {
     "cleared": true,
-    "elapsedMs": 36679,
+    "elapsedMs": 23993,
     "milestones": [],
     "result": {
-      "elapsedMs": 36331.899999999994,
-      "rank": "B",
-      "scrolls": [
-        "scroll-warden-reward"
-      ],
-      "damageTaken": 6,
-      "seals": 12
+      "elapsedMs": 23682.4,
+      "rank": "C",
+      "scrolls": [],
+      "damageTaken": 5,
+      "seals": 6
     }
   },
   "highContrast": {
@@ -102,12 +113,25 @@
     "retryX": 3510,
     "restartX": 160
   },
+  "routeHealth": {
+    "thresholds": {
+      "maxRouteDurationMs": 90000,
+      "maxDamageTaken": 8,
+      "minSeals": 5
+    },
+    "routeDurationMs": 23993,
+    "clearElapsedMs": 23682.4,
+    "rank": "C",
+    "damageTaken": 5,
+    "seals": 6,
+    "passed": true
+  },
   "mobile": {
     "visible": true,
     "startX": 160,
-    "afterRightX": 413.3333333333336,
+    "afterRightX": 420.5000000000003,
     "attackActive": true
   },
-  "finishedAt": "2026-06-25T15:59:25.699Z",
-  "durationMs": 56635
+  "finishedAt": "2026-06-25T16:21:05.548Z",
+  "durationMs": 44474
 }

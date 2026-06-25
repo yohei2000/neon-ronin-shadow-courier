@@ -24,7 +24,14 @@ const report = {
   clear: null,
   highContrast: null,
   pause: null,
+  routeHealth: null,
   mobile: null
+};
+
+const routeHealthThresholds = {
+  maxRouteDurationMs: 90000,
+  maxDamageTaken: 8,
+  minSeals: 5
 };
 
 function addTest(name, status, details = {}) {
@@ -112,6 +119,22 @@ try {
   }
   report.clear = { ...clear, result: clearState };
   addTest('stage1-keyboard-clear', 'PASS', report.clear);
+  report.routeHealth = {
+    thresholds: routeHealthThresholds,
+    routeDurationMs: clear.elapsedMs,
+    clearElapsedMs: clearState.elapsedMs,
+    rank: clearState.rank,
+    damageTaken: clearState.damageTaken,
+    seals: clearState.seals,
+    passed:
+      clear.elapsedMs <= routeHealthThresholds.maxRouteDurationMs &&
+      clearState.damageTaken <= routeHealthThresholds.maxDamageTaken &&
+      clearState.seals >= routeHealthThresholds.minSeals
+  };
+  if (!report.routeHealth.passed) {
+    throw new Error(`Stage 1 route health regressed: ${JSON.stringify(report.routeHealth)}`);
+  }
+  addTest('stage1-route-health', 'PASS', report.routeHealth);
   await desktop.close();
 
   const mobile = await browser.newContext({

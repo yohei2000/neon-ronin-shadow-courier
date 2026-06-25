@@ -365,15 +365,15 @@ export async function keyboardClearRoute(page, options = {}) {
     await maybeShot('combat-encounter', qa.player.x > 900 && qa.player.x < 1320);
     await maybeShot('wall-kick-shaft', qa.sectionId === 'wall-kick-sign-shaft');
     await maybeShot('checkpoint', qa.checkpointIndex >= 1);
-    await maybeShot('miniboss', qa.minibossActive);
+    await maybeShot('miniboss', qa.sectionId === 'lantern-warden-encounter' && qa.player.x > 6000);
 
     let wantRight = true;
     let wantLeft = false;
     const x = qa.player.x;
 
     if (qa.minibossActive && !qa.minibossDefeated) {
-      wantRight = x < 6410 || qa.player.facing < 0;
-      wantLeft = x > 6480 && qa.player.facing > 0;
+      wantRight = x < 6425 || (x <= 6460 && qa.player.facing < 0);
+      wantLeft = x > 6540 || (x > 6460 && qa.player.facing > 0);
     }
     if (qa.minibossDefeated) {
       wantRight = true;
@@ -406,18 +406,22 @@ export async function keyboardClearRoute(page, options = {}) {
       (x > 3480 && x < 3720) ||
       (x > 4800 && x < 5000) ||
       (x > 5420 && x < 5620) ||
-      (qa.minibossActive && !qa.minibossDefeated);
+      (qa.minibossActive && !qa.minibossDefeated && x > 6405 && x < 6555);
     if (shouldAttack && now >= attackCooldown) {
-      if (qa.minibossActive && !qa.minibossDefeated && qa.player.facing < 0) {
-        if (leftDown) {
-          leftDown = false;
-          await setKey(page, 'ArrowLeft', false);
+      if (qa.minibossActive && !qa.minibossDefeated) {
+        const shouldFaceRight = x <= 6460;
+        const facingAway = shouldFaceRight ? qa.player.facing < 0 : qa.player.facing > 0;
+        if (facingAway) {
+          if (leftDown !== !shouldFaceRight) {
+            leftDown = !shouldFaceRight;
+            await setKey(page, 'ArrowLeft', leftDown);
+          }
+          if (rightDown !== shouldFaceRight) {
+            rightDown = shouldFaceRight;
+            await setKey(page, 'ArrowRight', rightDown);
+          }
+          await page.waitForTimeout(120);
         }
-        if (!rightDown) {
-          rightDown = true;
-          await setKey(page, 'ArrowRight', true);
-        }
-        await page.waitForTimeout(55);
       }
       attackCooldown = now + (qa.minibossActive && !qa.minibossDefeated ? 285 : 330);
       await tap(page, 'z', 65);

@@ -62,13 +62,16 @@ Recommended next cycle:
 1. Add a short human-playtest tuning note after checking Stage 1 manually.
 2. Evaluate bundle splitting only if deployment or load time becomes a measurable issue.
 3. Keep pause/retry, high-contrast pixel, and boss-route coverage stable if menu labels, layout, palette, or combat timing changes.
-4. Consider adding a tiny route-health summary to `e2e-report.json` if playtest tuning changes damage or rank.
-5. If Stage1Scene grows again, split background/decor or checkpoint/tutorial setup next.
+4. If Stage1Scene grows again, split checkpoint/tutorial setup next.
+5. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
 
 ## Handoff Notes From Latest Cycle
 
 Latest cycle improvements:
 
+- Split background, platform, high-contrast outlines, rain/parallax, and decor setup out of `Stage1Scene` into `StageWorld`.
+- Added `stage1-route-health` to E2E with route duration, damage, rank, seal count, and thresholds in `artifacts/qa/e2e-report.json`.
+- Moved the miniboss screenshot trigger to the pre-fight encounter view so screenshot capture does not stall combat timing.
 - Split enemy, miniboss, gate, boss barrier, and slash-hit orchestration out of `Stage1Scene` into `StageCombat`.
 - Reduced `Stage1Scene` to scene flow, stage setup, player/checkpoint state, HUD, and clear/game-over transitions.
 - Split collectibles and hazards out of `Stage1Scene` into `StageCollectibles` and `StageHazards`.
