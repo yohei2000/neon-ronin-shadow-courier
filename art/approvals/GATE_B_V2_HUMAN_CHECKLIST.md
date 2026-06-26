@@ -1,0 +1,33 @@
+# Gate B v2 Human Checklist
+
+- [ ] title impact
+- [ ] player identity
+- [ ] 64px readability
+- [ ] 48px readability
+- [ ] 32px readability
+- [ ] busy background readability
+- [ ] player animation consistency
+- [ ] UI not debug-like
+- [ ] mobile controls usable and visually integrated
+- [ ] Ink Crawler quality
+- [ ] Kite Wraith quality
+- [ ] Lantern Warden quality
+- [ ] slash four-phase clarity
+- [ ] Lantern Warden telegraph clarity
+- [ ] sign density discipline
+- [ ] seven-layer parallax
+- [ ] lighting preset quality
+- [ ] high contrast mode
+- [ ] reduced FX mode
+- [ ] reference A compliance
+- [ ] reference B compliance
+- [ ] reference C compliance
+- [ ] reference D compliance
+- [ ] reference E compliance
+- [ ] reference F compliance
+- [ ] reference G compliance
+- [ ] reference H compliance
+- [ ] no old Gate B v1 final art used as final
+- [ ] no procedural primitive final art
+- [ ] screenshots are from runtime
+- [ ] console report clean

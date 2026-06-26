@@ -1,28 +1,32 @@
 # Reference Compliance Matrix
 
-Status: Gate B package ready for explicit human review. Gate B is not approved yet.
+Status: Gate B v1 rejected. Gate B v2 image-generated package is in progress/pending explicit human approval.
 
-| Ref | Requirement | Implementation Files | Runtime State / Screenshot | Automated Check | Status |
+| Ref | Requirement | Gate B v2 Implementation Files | Runtime State / Screenshot | Automated Check | Status |
 |---|---|---|---|---|---|
-| A | Ink outlines, dry-brush edges, paper texture, brush kit | `art/final/assets/brush-kit.png`, `art/final/reference-a-brush-contact-sheet.png`, `art/final/reference-a-game-scale-test.png` | `art/final/artlab-neutral.png`, `art/final/artlab-busy.png` | `art:validate-assets` | Implemented |
-| B | Three rainy-night lighting presets, rain/fog/reflections, reduced-FX | `art/final/assets/lighting-*.png`, `art/final/reference-b-lighting-presets.png`, `art/final/reduced-fx-comparison.png` | `art/final/lighting-moonlight-lantern-gold.png`, `art/final/lighting-cyan-magenta-neon.png`, `art/final/lighting-warm-cool-alley.png`, `art/final/reduced-fx.png` | `art:screenshots`, `art:validate-assets` | Implemented |
-| C | Signage density and modular sign kit | `art/final/assets/sign-atlas.png`, `art/sign-density-scenes.json`, `art/final/reference-c-sign-density.png` | `art/final/sign-density-annotated.png` | `art:validate-sign-density` | Implemented |
-| D | Shadow Courier identity and complete animation set | `art/final/assets/player-master.png`, `art/final/assets/player-spritesheet.png`, `art/animation-manifest.json` | `art/final/player-animation-contact-sheet.png`, `art/final/player-five-core-poses.png`, `art/final/player-scale.png`, `art/final/player-grayscale-contrast.png` | `art:validate-animations`, `art:validate-assets` | Implemented |
-| E | Seven-layer parallax composition | `art/final/assets/layer-*.png`, `art/final/reference-e-seven-layer-parallax.png` | `art/final/seven-layer-parallax-breakdown.png` | `art:screenshots`, `art:validate-assets` | Implemented |
-| F | HUD/menu/mobile-control material families and touch presentation | `art/final/assets/ui-kit.png`, `art/final/ui-desktop-contact-sheet.png`, `art/final/ui-mobile-390x844.png`, `art/final/contrast-report.json` | `art/final/ui-desktop.png`, `art/final/ui-mobile.png`, `art/final/mobile-controls.png` | `art:validate-assets` | Implemented |
-| G | Four-phase slash with magenta core, ink edge, cyan sparks, bounded particles | `art/final/assets/slash-flipbook.png`, `art/vfx-manifest.json`, `art/final/reference-g-slash-timeline.png` | `art/final/slash-four-phases.png`, `art/final/slash-dark.png`, `art/final/slash-bright.png` | `art:validate-vfx` | Implemented |
-| H | Six-phase heavy and fast enemy telegraphs with recover windows | `art/final/assets/telegraph-flipbook.png`, `art/telegraph-manifest.json`, `art/final/lantern-warden-telegraph-contact-sheet.png` | `art/final/telegraph-standard.png`, `art/final/telegraph-fast.png`, `art/final/lantern-warden-states.png` | `art:validate-telegraphs` | Implemented |
+| A | Ink outlines, dry-brush edges, paper texture, brush impact language | `art/generated/impact-vfx/raw/impact-pickup-vfx-raw-001.png`, `art/final-v2/assets/brush-kit.png`, `art/final-v2/reference-a-brush-contact-sheet.png` | `art/final-v2/artlab-neutral.png`, `art/final-v2/artlab-busy.png` | `art:validate-generated`, `art:validate-assets` | Implemented for Gate B v2 review |
+| B | Rain, fog, wet reflections, warm/cool lighting presets | `art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png`, `art/generated/title/raw/title-composition-raw-001.png`, `art/final-v2/assets/lighting-*.png` | `art/final-v2/lighting-moonlight-lantern-gold.png`, `art/final-v2/lighting-cyan-magenta-neon.png`, `art/final-v2/lighting-warm-cool-alley.png` | `art:screenshots`, `art:validate-assets` | Implemented for Gate B v2 review |
+| C | Sign-density discipline, one hero landmark, protected readability zone | `art/generated/environment-key/environment-key-candidates.png`, `art/generated/environment-kit/raw/environment-kit-raw-001.png`, `art/sign-density-scenes.json` | `art/final-v2/sign-density-annotated.png` | `art:validate-sign-density` | Implemented for Gate B v2 review |
+| D | Shadow Courier identity, magenta scarf, cyan eye, satchel, scale readability | `art/generated/player/player-candidates.png`, `art/generated/player/raw/player-master-refinement-pass-02.png`, `art/source/player/player-master.png`, `art/final-v2/assets/player-spritesheet.png` | `art/final-v2/player-animation-contact-sheet.png`, `art/final-v2/player-scale.png`, `art/final-v2/player-grayscale-contrast.png` | `art:validate-generated`, `art:validate-animations` | Implemented for Gate B v2 review |
+| E | Seven distinct parallax roles | `art/generated/parallax/raw/parallax-layer-sheet-raw-001.png`, `art/source/environment/layer-*.png`, `art/final-v2/assets/layer-*.png` | `art/final-v2/seven-layer-parallax-breakdown.png` | `art:screenshots`, `art:validate-assets` | Implemented for Gate B v2 review |
+| F | HUD/menu/mobile-control material families | `art/generated/ui/raw/ui-candidate-board-raw-001.png`, `art/source/ui/ui-kit.png`, `art/source/ui/mobile-controls-kit.png`, `art/final-v2/assets/ui-kit.png`, `art/final-v2/assets/mobile-controls-kit.png` | `art/final-v2/ui-desktop.png`, `art/final-v2/ui-mobile.png`, `art/final-v2/mobile-controls.png` | `art:validate-generated`, `art:validate-assets` | Implemented for Gate B v2 review |
+| G | Four-phase slash VFX | `art/generated/vfx-slash/raw/slash-candidate-board-raw-001.png`, `art/source/vfx/slash-flipbook.png`, `art/vfx-manifest.json` | `art/final-v2/reference-g-slash-timeline.png`, `art/final-v2/slash-four-phases.png`, `art/final-v2/slash-dark.png`, `art/final-v2/slash-bright.png` | `art:validate-vfx` | Implemented for Gate B v2 review |
+| H | Six-phase enemy telegraph language and recovery windows | `art/generated/telegraph/raw/telegraph-candidate-board-raw-001.png`, `art/source/vfx/telegraph-flipbook.png`, `art/telegraph-manifest.json` | `art/final-v2/telegraph-standard.png`, `art/final-v2/telegraph-fast.png`, `art/final-v2/lantern-warden-telegraph-contact-sheet.png` | `art:validate-telegraphs` | Implemented for Gate B v2 review |
 
 ## Gate Evidence
 
-- Gate A approval status: `art/approvals/GATE_A_STATUS.json`
-- Gate B request: `art/approvals/GATE_B_REQUEST.md`
-- Gate B package report: `art/reviews/gate-b/gate-b-package-report.md`
-- Final scorecard: `art/reviews/final-scorecard.md`
-- Screenshot matrix: `art/final/screenshot-report.json`
-- Console report: `art/final/console-report.json`
-- Revision rounds: `art/reviews/round-01/`, `art/reviews/round-02/`, `art/reviews/round-03/`
+- Gate B v1 rejection: `art/approvals/GATE_B_V1_REJECTION.md`
+- Gate B v2 status: `art/approvals/GATE_B_V2_STATUS.json`
+- Image generation capability: `art/IMAGE_GENERATION_CAPABILITY_REPORT.md`
+- Generation log: `art/generated/GENERATION_LOG.md`
+- Gate B v2 request: `art/approvals/GATE_B_V2_REQUEST.md`
+- Gate B v2 screenshot links: `art/approvals/GATE_B_V2_SCREENSHOT_LINKS.md`
+- Gate B v2 package report: `art/reviews/gate-b-v2/gate-b-v2-package-report.md`
+- Final v2 scorecard: `art/reviews/gate-b-v2/final-scorecard.md`
+- Screenshot matrix: `art/final-v2/screenshot-report.json`
+- Console report: `art/final-v2/console-report.json`
+- Revision rounds: `art/reviews/gate-b-v2/round-01/`, `round-02/`, `round-03/`
 
 ## Remaining Gate
 
-Gate B requires explicit human approval with `Approve Gate B`. Until then, this is a completed review package, not an approved final Art Lock.
+Gate B v2 requires explicit human approval with `Approve Gate B v2`. Until then, this is a review package, not an approved final Art Lock.

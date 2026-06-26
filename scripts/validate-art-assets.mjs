@@ -9,18 +9,22 @@ const requiredFiles = [
   'art/telegraph-manifest.json',
   'art/sign-density-scenes.json',
   'art/license-manifest.json',
-  'art/final/atlas-manifest.json',
-  'art/final/contact-sheet-report.json',
-  'art/final/console-report.json',
-  'art/final/screenshot-report.json',
-  'art/final/performance-report.md',
-  'art/final/player-master.png',
-  'art/final/reference-a-brush-contact-sheet.png',
-  'art/final/reference-b-lighting-presets.png',
-  'art/final/reference-c-sign-density.png',
-  'art/final/reference-e-seven-layer-parallax.png',
-  'art/final/reference-g-slash-timeline.png',
-  'art/final/ui-mobile-390x844.png',
+  'art/final-v2/atlas-manifest.json',
+  'art/final-v2/contact-sheet-report.json',
+  'art/final-v2/console-report.json',
+  'art/final-v2/screenshot-report.json',
+  'art/final-v2/performance-report.md',
+  'art/final-v2/player-master.png',
+  'art/final-v2/reference-a-brush-contact-sheet.png',
+  'art/final-v2/reference-b-lighting-presets.png',
+  'art/final-v2/reference-c-sign-density.png',
+  'art/final-v2/reference-e-seven-layer-parallax.png',
+  'art/final-v2/reference-g-slash-timeline.png',
+  'art/final-v2/ui-mobile-390x844.png',
+  'art/final-v2/generated-validation-report.json',
+  'art/generated/GENERATION_LOG.json',
+  'art/approvals/GATE_B_V1_REJECTION.md',
+  'art/approvals/GATE_B_V2_STATUS.json',
   'art/approvals/GATE_A_STATUS.json',
   'art/approvals/GATE_B_STATUS.json'
 ];
@@ -66,7 +70,7 @@ for (const file of requiredFiles) {
 }
 
 const assetManifest = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'asset-manifest.json'), 'utf8'));
-if (assetManifest.phase !== 'gate-b-final-art-lock-review') {
+if (assetManifest.phase !== 'gate-b-v2-image-generated-art-lock-review') {
   errors.push(`asset-manifest phase is ${assetManifest.phase}.`);
 }
 if (!assetManifest.noRemoteRuntimeDependencies) {
@@ -104,17 +108,19 @@ for (const key of requiredAssetKeys) {
 for (const asset of assetManifest.assets) {
   if (/^https?:\/\//.test(asset.file)) errors.push(`${asset.key} uses a remote URL.`);
   if (asset.file.includes('art/references/')) errors.push(`${asset.key} points at a reference sheet.`);
+  if (!asset.file.includes('art/final-v2/assets/')) errors.push(`${asset.key} is not loaded from final-v2 assets.`);
+  if (!asset.source?.startsWith('art/generated/')) errors.push(`${asset.key} does not map back to generated raw evidence.`);
   await requireFile(asset.file);
   if (!asset.references?.length) errors.push(`${asset.key} has no reference mapping.`);
   if (!asset.license) errors.push(`${asset.key} has no license ownership entry.`);
 }
 
-const screenshotReport = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'final', 'screenshot-report.json'), 'utf8'));
+const screenshotReport = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'final-v2', 'screenshot-report.json'), 'utf8'));
 if (!screenshotReport.valid) errors.push('screenshot-report is not valid.');
 if ((screenshotReport.screenshots?.length ?? 0) < 24) errors.push('screenshot-report has fewer than 24 deterministic captures.');
 
 for (let round = 1; round <= 3; round += 1) {
-  const dir = `art/reviews/round-${String(round).padStart(2, '0')}`;
+  const dir = `art/reviews/gate-b-v2/round-${String(round).padStart(2, '0')}`;
   for (const file of requiredRoundFiles) {
     await requireFile(`${dir}/${file}`);
   }
@@ -125,6 +131,8 @@ if (gateA.status !== 'approved' || gateA.approved !== true) errors.push('Gate A 
 
 const gateB = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'approvals', 'GATE_B_STATUS.json'), 'utf8'));
 if (gateB.status !== 'pending' || gateB.approved !== false) errors.push('Gate B status must remain pending before explicit approval.');
+const gateBv2 = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'approvals', 'GATE_B_V2_STATUS.json'), 'utf8'));
+if (gateBv2.approved !== false || gateBv2.approvalPhrase !== 'Approve Gate B v2') errors.push('Gate B v2 status must remain pending with exact approval phrase.');
 
 const runtimeText = await fs.readFile(path.join(rootDir, 'src', 'scenes', 'ArtLabScene.ts'), 'utf8');
 const titleRuntimeText = await fs.readFile(path.join(rootDir, 'src', 'scenes', 'TitleScene.ts'), 'utf8');
@@ -136,7 +144,7 @@ if (titleRuntimeText.includes('backgroundColor:')) errors.push('TitleScene uses 
 if (!titleRuntimeText.includes('ArtAssetKey.TitleMenuPanel')) errors.push('TitleScene does not use the authored title menu panel asset.');
 if (!runtimeText.includes('ArtAssetKey.MobileControlsKit')) errors.push('ArtLabScene does not use the authored mobile controls kit asset.');
 
-await writeJson(path.join(rootDir, 'art', 'final', 'asset-validation-report.json'), {
+await writeJson(path.join(rootDir, 'art', 'final-v2', 'asset-validation-report.json'), {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   checkedFiles,

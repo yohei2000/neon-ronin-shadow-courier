@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-06-26T15:48:28.804Z",
+  "valid": true,
+  "files": [
+    {
+      "file": "art/final-v2/reference-a-brush-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 704155
+    },
+    {
+      "file": "art/final-v2/reference-a-game-scale-test.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 688404
+    },
+    {
+      "file": "art/final-v2/reference-b-lighting-presets.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 787516
+    },
+    {
+      "file": "art/final-v2/reference-c-sign-density.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 889486
+    },
+    {
+      "file": "art/final-v2/player-animation-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 348409
+    },
+    {
+      "file": "art/final-v2/player-five-core-poses.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 348409
+    },
+    {
+      "file": "art/final-v2/player-background-contrast-test.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 688404
+    },
+    {
+      "file": "art/final-v2/player-grayscale-test.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 688404
+    },
+    {
+      "file": "art/final-v2/player-64-48-32-test.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 688404
+    },
+    {
+      "file": "art/final-v2/reference-e-seven-layer-parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 825961
+    },
+    {
+      "file": "art/final-v2/ui-desktop-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 783110
+    },
+    {
+      "file": "art/final-v2/ui-material-swatches.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 783110
+    },
+    {
+      "file": "art/final-v2/ui-state-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 783110
+    },
+    {
+      "file": "art/final-v2/ui-mobile-390x844.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 185941
+    },
+    {
+      "file": "art/final-v2/reference-g-slash-timeline.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 674409
+    },
+    {
+      "file": "art/final-v2/enemy-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 721304
+    },
+    {
+      "file": "art/final-v2/lantern-warden-telegraph-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 666824
+    },
+    {
+      "file": "art/final-v2/environment-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 889486
+    },
+    {
+      "file": "art/final-v2/wet-reflection-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 787516
+    },
+    {
+      "file": "art/final-v2/fog-depth-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 787516
+    },
+    {
+      "file": "art/final-v2/reduced-fx-comparison.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 875550
+    }
+  ],
+  "errors": []
+}

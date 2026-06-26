@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-06-26T11:29:35.044Z",
+  "generatedAt": "2026-06-26T15:48:27.236Z",
+  "phase": "gate-b-v2",
   "scenes": [
     {
-      "id": "artlab-sign-density",
+      "id": "artlab-sign-density-v2",
       "viewport": {
         "width": 960,
         "height": 540
@@ -21,7 +22,7 @@
       ]
     },
     {
-      "id": "mobile-reduced-density",
+      "id": "mobile-reduced-density-v2",
       "viewport": {
         "width": 390,
         "height": 844

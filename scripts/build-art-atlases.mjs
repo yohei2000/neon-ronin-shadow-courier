@@ -3,7 +3,7 @@ import path from 'node:path';
 import { ensureDir, readPngInfo, rootDir, writeJson } from './art-lib.mjs';
 
 const manifestPath = path.join(rootDir, 'art', 'asset-manifest.json');
-const finalDir = path.join(rootDir, 'art', 'final');
+const finalDir = path.join(rootDir, 'art', 'final-v2');
 const reportPath = path.join(finalDir, 'atlas-manifest.json');
 
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));

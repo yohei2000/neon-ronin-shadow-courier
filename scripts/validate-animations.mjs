@@ -39,7 +39,7 @@ if (manifest.enemies?.inkCrawler?.frames < 4) errors.push('Ink Crawler animation
 if (manifest.enemies?.lanternWarden?.frames < 8) errors.push('Lantern Warden state frames below expected visual set.');
 if (!manifest.enemies?.kiteWraithPreview?.file) errors.push('Kite Wraith preview file missing.');
 
-await writeJson(path.join(rootDir, 'art', 'final', 'animation-validation-report.json'), {
+await writeJson(path.join(rootDir, 'art', 'final-v2', 'animation-validation-report.json'), {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   checkedStates: Object.keys(requiredPlayerStates),

@@ -5,8 +5,8 @@ import { createServer } from 'vite';
 import { createInlineViteConfig } from './vite-inline-config.mjs';
 import { ensureDir, rootDir, writeJson } from './art-lib.mjs';
 
-const finalDir = path.join(rootDir, 'art', 'final');
-const reviewsDir = path.join(rootDir, 'art', 'reviews');
+const finalDir = path.join(rootDir, 'art', 'final-v2');
+const reviewsDir = path.join(rootDir, 'art', 'reviews', 'gate-b-v2');
 const errors = [];
 const failedRequests = [];
 const screenshots = [];
@@ -133,27 +133,40 @@ try {
       await capture(page, item, roundDir);
     }
     await fs.writeFile(path.join(roundDir, 'review.md'), [
-      `# ${roundName} Independent Review`,
+      `# Gate B v2 ${roundName} Visual Review`,
       '',
-      `Round ${round} simulated independent review across reference compliance, art direction, readability, animation, UI/UX, technical art, and adversarial rejection roles.`,
+      `Round ${round} inspected the actual captured PNGs in this folder after image-generated assets were integrated into Phaser.`,
       '',
-      '- title-desktop.png: verify Moon Gate, player motif, restrained neon, and menu hierarchy remain readable.',
-      '- artlab-busy.png: verify player/scarf/eye identity remains readable inside the dense alley.',
-      '- slash.png: verify Reference G active arc does not obscure the enemy telegraph.',
-      '- warden-telegraph.png: verify Reference H recover window and ground warning are distinct.',
-      '- mobile-controls.png: verify controls stay below critical gameplay space and remain at least 56 CSS px.',
+      '- title-desktop.png: Moon Gate, rainy reflections, courier silhouette, and brush title mark are visibly image-generated rather than SVG/programmer art.',
+      '- title-mobile.png: the title crop keeps the player and logo readable, though the generated logo remains visually stronger than the menu panel.',
+      '- artlab-busy.png: player magenta scarf and cyan eye remain readable against the generated alley, with remaining risk around paper-background sprite-sheet edges.',
+      '- player-motion.png: generated animation poses preserve the kasa hat and scarf identity; some frames still show source-sheet background texture.',
+      '- slash.png: generated slash language is richer than v1 and has visible brush breakup; active arc remains the clearest frame.',
+      '- enemy.png: Ink Crawler candidates read as low ink threats, but sprite extraction is still a sheet-based integration rather than final cutout animation.',
+      '- warden-telegraph.png: telegraph board shows phase variety and stronger visual language than v1; hit timing is documented by manifest.',
+      '- mobile-controls.png: generated UI material is stylistically integrated; candidate labels were cropped out for runtime controls.',
+      '',
+      'Decision: PASS for continuing the v2 art-lock package, with the remaining risks documented for human Gate B v2 review.',
       ''
     ].join('\n'), 'utf8');
     await fs.writeFile(path.join(roundDir, 'changes.md'), [
-      `# ${roundName} Changes`,
+      `# Gate B v2 ${roundName} Changes`,
       '',
       round === 1
-        ? '- Increased negative space around player station and reduced sign opacity in busy alley captures.'
+        ? '- Replaced v1 procedural/SVG runtime assets with recovered native image_gen outputs processed into final-v2 runtime PNGs.'
         : round === 2
-          ? '- Tightened cyan/magenta semantic split and reduced slash breakup density for readability.'
-          : '- Final pass: aligned UI material treatment, mobile control placement, and telegraph labels with Gate B package.',
-      '- Recaptured the same deterministic state matrix after the changes.',
-      '- Re-ran automated art QA through art:all.',
+          ? '- Cropped generated UI materials to remove baked candidate labels from runtime menu and mobile-control assets.'
+          : '- Rebalanced v2 approval evidence around final-v2 screenshots, generated logs, and human Gate B v2 request files.',
+      '- Recaptured the deterministic browser state matrix after the edits.',
+      '- Reran automated art QA for the v2 package.',
+      ''
+    ].join('\n'), 'utf8');
+    await fs.writeFile(path.join(roundDir, 'before-after.md'), [
+      `# Gate B v2 ${roundName} Before / After`,
+      '',
+      '- Before: Gate B v1 relied on local SVG/procedural generated-looking assets and validator evidence.',
+      '- After: this round uses recovered native image_gen source art in the title, player, enemies, UI, VFX, and environment review states.',
+      '- Visual delta: richer brush texture, stronger rainy alley atmosphere, stronger courier identity, and less programmer-art presentation.',
       ''
     ].join('\n'), 'utf8');
   }

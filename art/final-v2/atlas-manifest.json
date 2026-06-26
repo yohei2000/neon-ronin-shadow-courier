@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-06-26T15:48:28.028Z",
+  "sourceManifest": "art/asset-manifest.json",
+  "deterministic": true,
+  "atlases": [
+    {
+      "key": "player-spritesheet",
+      "file": "art/final-v2/assets/player-spritesheet.png",
+      "width": 1024,
+      "height": 896,
+      "bytes": 1554683,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "D",
+        "G"
+      ]
+    },
+    {
+      "key": "enemy-spritesheet",
+      "file": "art/final-v2/assets/enemy-spritesheet.png",
+      "width": 512,
+      "height": 320,
+      "bytes": 245783,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "H"
+      ]
+    },
+    {
+      "key": "lantern-warden-spritesheet",
+      "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "width": 1024,
+      "height": 256,
+      "bytes": 446901,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "H"
+      ]
+    },
+    {
+      "key": "slash-flipbook",
+      "file": "art/final-v2/assets/slash-flipbook.png",
+      "width": 1024,
+      "height": 160,
+      "bytes": 243006,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "G"
+      ]
+    },
+    {
+      "key": "telegraph-flipbook",
+      "file": "art/final-v2/assets/telegraph-flipbook.png",
+      "width": 960,
+      "height": 430,
+      "bytes": 609503,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "H"
+      ]
+    },
+    {
+      "key": "ui-kit",
+      "file": "art/final-v2/assets/ui-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 554287,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "F"
+      ]
+    },
+    {
+      "key": "title-menu-panel",
+      "file": "art/final-v2/assets/title-menu-panel.png",
+      "width": 520,
+      "height": 240,
+      "bytes": 181457,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "F"
+      ]
+    },
+    {
+      "key": "mobile-controls-kit",
+      "file": "art/final-v2/assets/mobile-controls-kit.png",
+      "width": 640,
+      "height": 320,
+      "bytes": 287210,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "F"
+      ]
+    },
+    {
+      "key": "brush-kit",
+      "file": "art/final-v2/assets/brush-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 815458,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "G"
+      ]
+    },
+    {
+      "key": "sign-atlas",
+      "file": "art/final-v2/assets/sign-atlas.png",
+      "width": 960,
+      "height": 640,
+      "bytes": 1195460,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "C"
+      ]
+    }
+  ],
+  "valid": true,
+  "errors": []
+}

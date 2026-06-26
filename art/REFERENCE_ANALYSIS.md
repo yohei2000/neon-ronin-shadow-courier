@@ -4,6 +4,8 @@ Authority: `art/references/neon_ronin_art_refs_impl_ready/`.
 
 The A-H reference package was read from Markdown and visually inspected from PNG sheets. The `.md` files are treated as implementation rules; PNGs are visual examples, not runtime assets.
 
+Gate B v1 is rejected as visually below product level. Gate B v2 uses native image-generated source assets preserved under `art/generated/`, selected/refined source assets under `art/source/`, and browser evidence under `art/final-v2/`.
+
 ## A - Ink, Brush, Paper
 
 The runtime visual language must start from strong closed silhouettes, then add dry-brush fray only on selected edges. Paper grain is a low-opacity material layer, not global noise. Splatter is short-lived impact/checkpoint/landing language and must not become gore or permanent clutter.
@@ -26,7 +28,7 @@ Gate A evidence: `art/reviews/candidates/environment.png`, `art/reviews/candidat
 
 The player identity is a black side-view courier silhouette with magenta scarf/sash, cyan eye, and cyan satchel emblem. It must hold at 64px, 48px, and 32px and remain readable on white, gray, dark, black, and busy scenes.
 
-Selected direction: player Candidate 2 for consistent body/satchel language, borrowing only limited silhouette flavor from Candidate 3 if animation stability survives.
+Gate B v2 selected direction: generated player candidate P02, refined twice into `art/source/player/player-master.png`, with animation-sheet evidence in `art/generated/player-animation/raw/player-animation-sheet-raw-001.png`.
 
 Gate A evidence: `art/reviews/candidates/player.png`, `art/player-silhouette-study.png`, `art/value-study.png`.
 

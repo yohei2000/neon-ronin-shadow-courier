@@ -1,4 +1,4 @@
-export const ArtLockPhase = 'gate-b-final-art-lock-review' as const;
+export const ArtLockPhase = 'gate-b-v2-image-generated-art-lock-review' as const;
 export const GateAApprovalStatus = 'APPROVED_2026-06-26' as const;
 export const GateBApprovalStatus = 'PENDING_HUMAN_APPROVAL' as const;
 
@@ -28,12 +28,12 @@ export const GateAEvidenceFiles = [
 ] as const;
 
 export const SelectedDirection = {
-  player: 'Candidate 2 body consistency; Candidate 3 hat silhouette only if production frames remain stable.',
-  title: 'Candidate 1 Moon Gate title composition.',
-  environment: 'Candidate 1 seven-layer rainy alley.',
-  inkCrawler: 'Candidate 1 low readable crawler.',
-  kiteWraith: 'Candidate 3 forward fast-threat silhouette.',
-  lanternWarden: 'Candidate 2 readable vertical warden with restrained Candidate 3 weight.',
-  ui: 'Candidate 3 paper readability plus Candidate 2 cyan semantic discipline.',
-  landmark: 'Moon Gate Candidate 1.'
+  player: 'Gate B v2 generated Player candidate P02 refined twice into the selected courier master.',
+  title: 'Gate B v2 generated Moon Gate rainy-alley title composition.',
+  environment: 'Gate B v2 generated Neon Alley key art plus separated parallax source sheet.',
+  inkCrawler: 'Gate B v2 generated low horizontal Ink Crawler candidate IC03.',
+  kiteWraith: 'Gate B v2 generated floating paper/cloth Kite Wraith candidate KW04.',
+  lanternWarden: 'Gate B v2 generated lantern-core miniboss candidate LW07.',
+  ui: 'Gate B v2 generated paper/lacquer UI material family with mobile controls extracted into runtime assets.',
+  landmark: 'Gate B v2 generated Moon Gate title/environment motif.'
 } as const;

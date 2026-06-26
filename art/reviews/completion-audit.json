@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-26T11:50:27.942Z",
+  "generatedAt": "2026-06-26T15:52:06.731Z",
   "complete": false,
-  "blockingRequirement": "Gate B explicit human approval is still required.",
+  "blockingRequirement": "Gate B v2 explicit human approval is still required.",
   "errors": [],
   "requirements": [
     {
@@ -28,6 +28,13 @@
     {
       "id": "command-script-art:refs",
       "description": "package.json exposes npm script art:refs",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:generate",
+      "description": "package.json exposes npm script art:generate",
       "evidence": "package.json",
       "achieved": true,
       "status": "passed"
@@ -89,6 +96,13 @@
       "status": "passed"
     },
     {
+      "id": "command-script-art:validate-generated",
+      "description": "package.json exposes npm script art:validate-generated",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
       "id": "command-script-art:screenshots",
       "description": "package.json exposes npm script art:screenshots",
       "evidence": "package.json",
@@ -117,9 +131,16 @@
       "status": "passed"
     },
     {
-      "id": "gate-b-approved",
-      "description": "Gate B received explicit human approval",
-      "evidence": "art/approvals/GATE_B_STATUS.json",
+      "id": "gate-b-v1-rejected",
+      "description": "Gate B v1 is explicitly rejected",
+      "evidence": "art/approvals/GATE_B_V1_REJECTION.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "gate-b-v2-approved",
+      "description": "Gate B v2 received explicit human approval",
+      "evidence": "art/approvals/GATE_B_V2_STATUS.json",
       "achieved": false,
       "status": "pending-human-approval"
     },
@@ -271,6 +292,13 @@
       "status": "passed"
     },
     {
+      "id": "evidence-IMAGE_GENERATION_CAPABILITY_REPORT.md",
+      "description": "Required evidence file exists: art/IMAGE_GENERATION_CAPABILITY_REPORT.md",
+      "evidence": "art/IMAGE_GENERATION_CAPABILITY_REPORT.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
       "id": "evidence-asset-manifest.json",
       "description": "Required evidence file exists: art/asset-manifest.json",
       "evidence": "art/asset-manifest.json",
@@ -314,428 +342,470 @@
     },
     {
       "id": "evidence-asset-validation-report.json",
-      "description": "Required evidence file exists: art/final/asset-validation-report.json",
-      "evidence": "art/final/asset-validation-report.json",
+      "description": "Required evidence file exists: art/final-v2/asset-validation-report.json",
+      "evidence": "art/final-v2/asset-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-generated-validation-report.json",
+      "description": "Required evidence file exists: art/final-v2/generated-validation-report.json",
+      "evidence": "art/final-v2/generated-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-sign-density-validation-report.json",
-      "description": "Required evidence file exists: art/final/sign-density-validation-report.json",
-      "evidence": "art/final/sign-density-validation-report.json",
+      "description": "Required evidence file exists: art/final-v2/sign-density-validation-report.json",
+      "evidence": "art/final-v2/sign-density-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-animation-validation-report.json",
-      "description": "Required evidence file exists: art/final/animation-validation-report.json",
-      "evidence": "art/final/animation-validation-report.json",
+      "description": "Required evidence file exists: art/final-v2/animation-validation-report.json",
+      "evidence": "art/final-v2/animation-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-vfx-validation-report.json",
-      "description": "Required evidence file exists: art/final/vfx-validation-report.json",
-      "evidence": "art/final/vfx-validation-report.json",
+      "description": "Required evidence file exists: art/final-v2/vfx-validation-report.json",
+      "evidence": "art/final-v2/vfx-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-telegraph-validation-report.json",
-      "description": "Required evidence file exists: art/final/telegraph-validation-report.json",
-      "evidence": "art/final/telegraph-validation-report.json",
+      "description": "Required evidence file exists: art/final-v2/telegraph-validation-report.json",
+      "evidence": "art/final-v2/telegraph-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-console-report.json",
-      "description": "Required evidence file exists: art/final/console-report.json",
-      "evidence": "art/final/console-report.json",
+      "description": "Required evidence file exists: art/final-v2/console-report.json",
+      "evidence": "art/final-v2/console-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-screenshot-report.json",
-      "description": "Required evidence file exists: art/final/screenshot-report.json",
-      "evidence": "art/final/screenshot-report.json",
+      "description": "Required evidence file exists: art/final-v2/screenshot-report.json",
+      "evidence": "art/final-v2/screenshot-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-GENERATION_LOG.json",
+      "description": "Required evidence file exists: art/generated/GENERATION_LOG.json",
+      "evidence": "art/generated/GENERATION_LOG.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "evidence-final-scorecard.json",
-      "description": "Required evidence file exists: art/reviews/final-scorecard.json",
-      "evidence": "art/reviews/final-scorecard.json",
+      "description": "Required evidence file exists: art/reviews/gate-b-v2/final-scorecard.json",
+      "evidence": "art/reviews/gate-b-v2/final-scorecard.json",
       "achieved": true,
       "status": "passed"
     },
     {
-      "id": "evidence-gate-b-package-report.json",
-      "description": "Required evidence file exists: art/reviews/gate-b/gate-b-package-report.json",
-      "evidence": "art/reviews/gate-b/gate-b-package-report.json",
+      "id": "evidence-gate-b-v2-package-report.json",
+      "description": "Required evidence file exists: art/reviews/gate-b-v2/gate-b-v2-package-report.json",
+      "evidence": "art/reviews/gate-b-v2/gate-b-v2-package-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-asset-validation-report.json",
-      "description": "Report is valid: art/final/asset-validation-report.json",
-      "evidence": "art/final/asset-validation-report.json",
+      "description": "Report is valid: art/final-v2/asset-validation-report.json",
+      "evidence": "art/final-v2/asset-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-generated-validation-report.json",
+      "description": "Report is valid: art/final-v2/generated-validation-report.json",
+      "evidence": "art/final-v2/generated-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-sign-density-validation-report.json",
-      "description": "Report is valid: art/final/sign-density-validation-report.json",
-      "evidence": "art/final/sign-density-validation-report.json",
+      "description": "Report is valid: art/final-v2/sign-density-validation-report.json",
+      "evidence": "art/final-v2/sign-density-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-animation-validation-report.json",
-      "description": "Report is valid: art/final/animation-validation-report.json",
-      "evidence": "art/final/animation-validation-report.json",
+      "description": "Report is valid: art/final-v2/animation-validation-report.json",
+      "evidence": "art/final-v2/animation-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-vfx-validation-report.json",
-      "description": "Report is valid: art/final/vfx-validation-report.json",
-      "evidence": "art/final/vfx-validation-report.json",
+      "description": "Report is valid: art/final-v2/vfx-validation-report.json",
+      "evidence": "art/final-v2/vfx-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-telegraph-validation-report.json",
-      "description": "Report is valid: art/final/telegraph-validation-report.json",
-      "evidence": "art/final/telegraph-validation-report.json",
+      "description": "Report is valid: art/final-v2/telegraph-validation-report.json",
+      "evidence": "art/final-v2/telegraph-validation-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-console-report.json",
-      "description": "Report is valid: art/final/console-report.json",
-      "evidence": "art/final/console-report.json",
+      "description": "Report is valid: art/final-v2/console-report.json",
+      "evidence": "art/final-v2/console-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "report-valid-screenshot-report.json",
-      "description": "Report is valid: art/final/screenshot-report.json",
-      "evidence": "art/final/screenshot-report.json",
+      "description": "Report is valid: art/final-v2/screenshot-report.json",
+      "evidence": "art/final-v2/screenshot-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
-      "id": "report-valid-gate-b-package-report.json",
-      "description": "Report is valid: art/reviews/gate-b/gate-b-package-report.json",
-      "evidence": "art/reviews/gate-b/gate-b-package-report.json",
+      "id": "report-valid-gate-b-v2-package-report.json",
+      "description": "Report is valid: art/reviews/gate-b-v2/gate-b-v2-package-report.json",
+      "evidence": "art/reviews/gate-b-v2/gate-b-v2-package-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "scorecard-thresholds",
-      "description": "Reviewer scores satisfy all configured thresholds",
-      "evidence": "art/reviews/final-scorecard.json",
+      "description": "Gate B v2 reviewer scores satisfy all configured thresholds",
+      "evidence": "art/reviews/gate-b-v2/final-scorecard.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "screenshot-matrix",
-      "description": "Deterministic screenshot matrix includes required final states and three revision rounds",
-      "evidence": "art/final/screenshot-report.json",
+      "description": "Gate B v2 deterministic screenshot matrix includes required final states and three revision rounds",
+      "evidence": "art/final-v2/screenshot-report.json",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-title-desktop.png",
       "description": "Revision round 1 contains title-desktop.png",
-      "evidence": "art/reviews/round-01/title-desktop.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/title-desktop.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-title-mobile.png",
       "description": "Revision round 1 contains title-mobile.png",
-      "evidence": "art/reviews/round-01/title-mobile.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/title-mobile.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-artlab-neutral.png",
       "description": "Revision round 1 contains artlab-neutral.png",
-      "evidence": "art/reviews/round-01/artlab-neutral.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/artlab-neutral.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-artlab-busy.png",
       "description": "Revision round 1 contains artlab-busy.png",
-      "evidence": "art/reviews/round-01/artlab-busy.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/artlab-busy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-player-motion.png",
       "description": "Revision round 1 contains player-motion.png",
-      "evidence": "art/reviews/round-01/player-motion.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/player-motion.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-player-contrast.png",
       "description": "Revision round 1 contains player-contrast.png",
-      "evidence": "art/reviews/round-01/player-contrast.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/player-contrast.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-slash.png",
       "description": "Revision round 1 contains slash.png",
-      "evidence": "art/reviews/round-01/slash.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/slash.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-enemy.png",
       "description": "Revision round 1 contains enemy.png",
-      "evidence": "art/reviews/round-01/enemy.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/enemy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-warden-telegraph.png",
       "description": "Revision round 1 contains warden-telegraph.png",
-      "evidence": "art/reviews/round-01/warden-telegraph.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/warden-telegraph.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-parallax.png",
       "description": "Revision round 1 contains parallax.png",
-      "evidence": "art/reviews/round-01/parallax.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/parallax.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-hud.png",
       "description": "Revision round 1 contains hud.png",
-      "evidence": "art/reviews/round-01/hud.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/hud.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-mobile-controls.png",
       "description": "Revision round 1 contains mobile-controls.png",
-      "evidence": "art/reviews/round-01/mobile-controls.png",
+      "evidence": "art/reviews/gate-b-v2/round-01/mobile-controls.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-review.md",
       "description": "Revision round 1 contains review.md",
-      "evidence": "art/reviews/round-01/review.md",
+      "evidence": "art/reviews/gate-b-v2/round-01/review.md",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-1-changes.md",
       "description": "Revision round 1 contains changes.md",
-      "evidence": "art/reviews/round-01/changes.md",
+      "evidence": "art/reviews/gate-b-v2/round-01/changes.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-before-after.md",
+      "description": "Revision round 1 contains before-after.md",
+      "evidence": "art/reviews/gate-b-v2/round-01/before-after.md",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-title-desktop.png",
       "description": "Revision round 2 contains title-desktop.png",
-      "evidence": "art/reviews/round-02/title-desktop.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/title-desktop.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-title-mobile.png",
       "description": "Revision round 2 contains title-mobile.png",
-      "evidence": "art/reviews/round-02/title-mobile.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/title-mobile.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-artlab-neutral.png",
       "description": "Revision round 2 contains artlab-neutral.png",
-      "evidence": "art/reviews/round-02/artlab-neutral.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/artlab-neutral.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-artlab-busy.png",
       "description": "Revision round 2 contains artlab-busy.png",
-      "evidence": "art/reviews/round-02/artlab-busy.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/artlab-busy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-player-motion.png",
       "description": "Revision round 2 contains player-motion.png",
-      "evidence": "art/reviews/round-02/player-motion.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/player-motion.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-player-contrast.png",
       "description": "Revision round 2 contains player-contrast.png",
-      "evidence": "art/reviews/round-02/player-contrast.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/player-contrast.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-slash.png",
       "description": "Revision round 2 contains slash.png",
-      "evidence": "art/reviews/round-02/slash.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/slash.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-enemy.png",
       "description": "Revision round 2 contains enemy.png",
-      "evidence": "art/reviews/round-02/enemy.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/enemy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-warden-telegraph.png",
       "description": "Revision round 2 contains warden-telegraph.png",
-      "evidence": "art/reviews/round-02/warden-telegraph.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/warden-telegraph.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-parallax.png",
       "description": "Revision round 2 contains parallax.png",
-      "evidence": "art/reviews/round-02/parallax.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/parallax.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-hud.png",
       "description": "Revision round 2 contains hud.png",
-      "evidence": "art/reviews/round-02/hud.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/hud.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-mobile-controls.png",
       "description": "Revision round 2 contains mobile-controls.png",
-      "evidence": "art/reviews/round-02/mobile-controls.png",
+      "evidence": "art/reviews/gate-b-v2/round-02/mobile-controls.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-review.md",
       "description": "Revision round 2 contains review.md",
-      "evidence": "art/reviews/round-02/review.md",
+      "evidence": "art/reviews/gate-b-v2/round-02/review.md",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-2-changes.md",
       "description": "Revision round 2 contains changes.md",
-      "evidence": "art/reviews/round-02/changes.md",
+      "evidence": "art/reviews/gate-b-v2/round-02/changes.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-before-after.md",
+      "description": "Revision round 2 contains before-after.md",
+      "evidence": "art/reviews/gate-b-v2/round-02/before-after.md",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-title-desktop.png",
       "description": "Revision round 3 contains title-desktop.png",
-      "evidence": "art/reviews/round-03/title-desktop.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/title-desktop.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-title-mobile.png",
       "description": "Revision round 3 contains title-mobile.png",
-      "evidence": "art/reviews/round-03/title-mobile.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/title-mobile.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-artlab-neutral.png",
       "description": "Revision round 3 contains artlab-neutral.png",
-      "evidence": "art/reviews/round-03/artlab-neutral.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/artlab-neutral.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-artlab-busy.png",
       "description": "Revision round 3 contains artlab-busy.png",
-      "evidence": "art/reviews/round-03/artlab-busy.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/artlab-busy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-player-motion.png",
       "description": "Revision round 3 contains player-motion.png",
-      "evidence": "art/reviews/round-03/player-motion.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/player-motion.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-player-contrast.png",
       "description": "Revision round 3 contains player-contrast.png",
-      "evidence": "art/reviews/round-03/player-contrast.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/player-contrast.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-slash.png",
       "description": "Revision round 3 contains slash.png",
-      "evidence": "art/reviews/round-03/slash.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/slash.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-enemy.png",
       "description": "Revision round 3 contains enemy.png",
-      "evidence": "art/reviews/round-03/enemy.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/enemy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-warden-telegraph.png",
       "description": "Revision round 3 contains warden-telegraph.png",
-      "evidence": "art/reviews/round-03/warden-telegraph.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/warden-telegraph.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-parallax.png",
       "description": "Revision round 3 contains parallax.png",
-      "evidence": "art/reviews/round-03/parallax.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/parallax.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-hud.png",
       "description": "Revision round 3 contains hud.png",
-      "evidence": "art/reviews/round-03/hud.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/hud.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-mobile-controls.png",
       "description": "Revision round 3 contains mobile-controls.png",
-      "evidence": "art/reviews/round-03/mobile-controls.png",
+      "evidence": "art/reviews/gate-b-v2/round-03/mobile-controls.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-review.md",
       "description": "Revision round 3 contains review.md",
-      "evidence": "art/reviews/round-03/review.md",
+      "evidence": "art/reviews/gate-b-v2/round-03/review.md",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "revision-3-changes.md",
       "description": "Revision round 3 contains changes.md",
-      "evidence": "art/reviews/round-03/changes.md",
+      "evidence": "art/reviews/gate-b-v2/round-03/changes.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-before-after.md",
+      "description": "Revision round 3 contains before-after.md",
+      "evidence": "art/reviews/gate-b-v2/round-03/before-after.md",
       "achieved": true,
       "status": "passed"
     },
@@ -762,29 +832,29 @@
     },
     {
       "id": "png-title-desktop.png",
-      "description": "Review PNG is non-empty and readable: art/final/title-desktop.png",
-      "evidence": "art/final/title-desktop.png",
+      "description": "Review PNG is non-empty and readable: art/final-v2/title-desktop.png",
+      "evidence": "art/final-v2/title-desktop.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "png-title-mobile.png",
-      "description": "Review PNG is non-empty and readable: art/final/title-mobile.png",
-      "evidence": "art/final/title-mobile.png",
+      "description": "Review PNG is non-empty and readable: art/final-v2/title-mobile.png",
+      "evidence": "art/final-v2/title-mobile.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "png-artlab-busy.png",
-      "description": "Review PNG is non-empty and readable: art/final/artlab-busy.png",
-      "evidence": "art/final/artlab-busy.png",
+      "description": "Review PNG is non-empty and readable: art/final-v2/artlab-busy.png",
+      "evidence": "art/final-v2/artlab-busy.png",
       "achieved": true,
       "status": "passed"
     },
     {
       "id": "png-mobile-controls.png",
-      "description": "Review PNG is non-empty and readable: art/final/mobile-controls.png",
-      "evidence": "art/final/mobile-controls.png",
+      "description": "Review PNG is non-empty and readable: art/final-v2/mobile-controls.png",
+      "evidence": "art/final-v2/mobile-controls.png",
       "achieved": true,
       "status": "passed"
     }

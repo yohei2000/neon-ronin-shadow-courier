@@ -7,6 +7,7 @@ const commands = [
   ['run', 'art:contact-sheets'],
   ['run', 'art:gate-status'],
   ['run', 'art:screenshots'],
+  ['run', 'art:validate-generated'],
   ['run', 'art:validate-assets'],
   ['run', 'art:validate-sign-density'],
   ['run', 'art:validate-animations'],

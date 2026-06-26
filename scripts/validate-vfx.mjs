@@ -23,7 +23,7 @@ if (slash?.flipbook) {
   if (info.width > 1024 || info.height > 512) errors.push('Slash flipbook texture is too large.');
 }
 
-await writeJson(path.join(rootDir, 'art', 'final', 'vfx-validation-report.json'), {
+await writeJson(path.join(rootDir, 'art', 'final-v2', 'vfx-validation-report.json'), {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   slash,

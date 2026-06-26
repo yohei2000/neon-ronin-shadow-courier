@@ -1,6 +1,6 @@
 # Neon Ronin Art Bible
 
-Status: frozen after Gate A approval. Changes now happen in assets and implementation, not by broadening the style.
+Status: Gate A style language remains binding. Gate B v1 was rejected as visually below product level. Gate B v2 implements the same style language through native image-generated source assets rather than procedural/SVG programmer art.
 
 ## Core Identity
 
@@ -34,7 +34,7 @@ No new accent color is allowed without updating `art/palette.json`, this bible, 
 
 ### A - Ink, Brush, Paper
 
-Start with closed readable silhouettes. Use brush fray at selected edges only. Paper grain remains low opacity. Splatter is short-lived and non-gory. Runtime evidence: `art/final/reference-a-brush-contact-sheet.png`.
+Start with closed readable silhouettes. Use brush fray at selected edges only. Paper grain remains low opacity. Splatter is short-lived and non-gory. Gate B v2 runtime evidence: `art/final-v2/reference-a-brush-contact-sheet.png`.
 
 ### B - Rainy-Night Lighting
 

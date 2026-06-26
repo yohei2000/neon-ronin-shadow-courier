@@ -1,120 +1,150 @@
 {
-  "generatedAt": "2026-06-26T11:29:35.046Z",
+  "generatedAt": "2026-06-26T15:48:27.237Z",
+  "phase": "gate-b-v2",
   "runtimeAssets": [
     {
-      "file": "art/final/assets/player-spritesheet.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/player-spritesheet.png",
+      "source": "art/generated/player-animation/raw/player-animation-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/player-master.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/player-master.png",
+      "source": "art/generated/player/raw/player-master-refinement-pass-02.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/enemy-spritesheet.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/enemy-spritesheet.png",
+      "source": "art/generated/ink-crawler/raw/ink-crawler-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/lantern-warden-spritesheet.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "source": "art/generated/lantern-warden/raw/lantern-warden-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/kite-wraith-preview.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
+      "source": "art/generated/kite-wraith/raw/kite-wraith-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/slash-flipbook.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/slash-flipbook.png",
+      "source": "art/generated/vfx-slash/raw/slash-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/telegraph-flipbook.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/telegraph-flipbook.png",
+      "source": "art/generated/telegraph/raw/telegraph-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/ui-kit.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/ui-kit.png",
+      "source": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/title-menu-panel.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/title-menu-panel.png",
+      "source": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/mobile-controls-kit.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/mobile-controls-kit.png",
+      "source": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/brush-kit.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/brush-kit.png",
+      "source": "art/generated/impact-vfx/raw/impact-pickup-vfx-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/sign-atlas.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/sign-atlas.png",
+      "source": "art/generated/environment-kit/raw/environment-kit-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/title-composition.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/title-composition.png",
+      "source": "art/generated/title/raw/title-composition-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-far-sky.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/environment-key.png",
+      "source": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-distant-skyline.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-far-sky.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-mid-roofs-signs.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-distant-skyline.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-gameplay-layer.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-mid-roofs-signs.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-near-props.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-gameplay-layer.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-near-props-front.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-near-props.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/layer-foreground-occlusion.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-near-props-front.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/lighting-moonlight-lantern-gold.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/layer-foreground-occlusion.png",
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/lighting-cyan-magenta-neon.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/lighting-moonlight-lantern-gold.png",
+      "source": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     },
     {
-      "file": "art/final/assets/lighting-warm-cool-alley.png",
-      "owner": "project-owned",
-      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+      "file": "art/final-v2/assets/lighting-cyan-magenta-neon.png",
+      "source": "art/generated/title/raw/title-composition-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
+    },
+    {
+      "file": "art/final-v2/assets/lighting-warm-cool-alley.png",
+      "source": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "owner": "project-owned generated asset",
+      "license": "generated for this repository through native Codex image_gen"
     }
   ],
   "references": "art/references/neon_ronin_art_refs_impl_ready are user-provided specification sheets and are never loaded at runtime.",

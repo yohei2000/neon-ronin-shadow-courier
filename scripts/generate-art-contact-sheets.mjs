@@ -2,27 +2,27 @@ import path from 'node:path';
 import { readPngInfo, rootDir, writeJson } from './art-lib.mjs';
 
 const requiredContactSheets = [
-  'art/final/reference-a-brush-contact-sheet.png',
-  'art/final/reference-a-game-scale-test.png',
-  'art/final/reference-b-lighting-presets.png',
-  'art/final/reference-c-sign-density.png',
-  'art/final/player-animation-contact-sheet.png',
-  'art/final/player-five-core-poses.png',
-  'art/final/player-background-contrast-test.png',
-  'art/final/player-grayscale-test.png',
-  'art/final/player-64-48-32-test.png',
-  'art/final/reference-e-seven-layer-parallax.png',
-  'art/final/ui-desktop-contact-sheet.png',
-  'art/final/ui-material-swatches.png',
-  'art/final/ui-state-contact-sheet.png',
-  'art/final/ui-mobile-390x844.png',
-  'art/final/reference-g-slash-timeline.png',
-  'art/final/enemy-contact-sheet.png',
-  'art/final/lantern-warden-telegraph-contact-sheet.png',
-  'art/final/environment-contact-sheet.png',
-  'art/final/wet-reflection-contact-sheet.png',
-  'art/final/fog-depth-contact-sheet.png',
-  'art/final/reduced-fx-comparison.png'
+  'art/final-v2/reference-a-brush-contact-sheet.png',
+  'art/final-v2/reference-a-game-scale-test.png',
+  'art/final-v2/reference-b-lighting-presets.png',
+  'art/final-v2/reference-c-sign-density.png',
+  'art/final-v2/player-animation-contact-sheet.png',
+  'art/final-v2/player-five-core-poses.png',
+  'art/final-v2/player-background-contrast-test.png',
+  'art/final-v2/player-grayscale-test.png',
+  'art/final-v2/player-64-48-32-test.png',
+  'art/final-v2/reference-e-seven-layer-parallax.png',
+  'art/final-v2/ui-desktop-contact-sheet.png',
+  'art/final-v2/ui-material-swatches.png',
+  'art/final-v2/ui-state-contact-sheet.png',
+  'art/final-v2/ui-mobile-390x844.png',
+  'art/final-v2/reference-g-slash-timeline.png',
+  'art/final-v2/enemy-contact-sheet.png',
+  'art/final-v2/lantern-warden-telegraph-contact-sheet.png',
+  'art/final-v2/environment-contact-sheet.png',
+  'art/final-v2/wet-reflection-contact-sheet.png',
+  'art/final-v2/fog-depth-contact-sheet.png',
+  'art/final-v2/reduced-fx-comparison.png'
 ];
 
 const files = [];
@@ -41,7 +41,7 @@ for (const file of requiredContactSheets) {
   }
 }
 
-await writeJson(path.join(rootDir, 'art', 'final', 'contact-sheet-report.json'), {
+await writeJson(path.join(rootDir, 'art', 'final-v2', 'contact-sheet-report.json'), {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   files,

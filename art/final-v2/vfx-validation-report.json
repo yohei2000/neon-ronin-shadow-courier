@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-06-26T15:52:04.286Z",
+  "valid": true,
+  "slash": {
+    "source": "art/source/vfx/slash-flipbook.png",
+    "flipbook": "art/final-v2/assets/slash-flipbook.png",
+    "totalDurationSeconds": 0.4,
+    "phases": [
+      {
+        "id": "anticipation",
+        "start": 0,
+        "end": 0.06
+      },
+      {
+        "id": "active",
+        "start": 0.06,
+        "end": 0.2
+      },
+      {
+        "id": "breakup",
+        "start": 0.2,
+        "end": 0.32
+      },
+      {
+        "id": "fade-out",
+        "start": 0.32,
+        "end": 0.4
+      }
+    ],
+    "layers": [
+      "magenta core ribbon",
+      "thick black ink-brush edge",
+      "cyan accent sparks",
+      "magenta breakup shards",
+      "restrained soft glow"
+    ],
+    "particlePool": {
+      "maxFullFx": 64,
+      "maxReducedFx": 24,
+      "unboundedEmitters": false
+    },
+    "reducedFxVariant": true
+  },
+  "errors": []
+}

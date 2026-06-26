@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-06-26T15:52:02.492Z",
+  "valid": true,
+  "scenes": [
+    {
+      "id": "artlab-sign-density-v2",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "heroSigns": 1,
+      "mediumSigns": 4,
+      "smallSigns": 7,
+      "heroOverlapsProtectedPlayerZone": false,
+      "negativeSpaceZones": [
+        {
+          "x": 220,
+          "y": 250,
+          "width": 240,
+          "height": 160
+        }
+      ]
+    },
+    {
+      "id": "mobile-reduced-density-v2",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "heroSigns": 1,
+      "mediumSigns": 3,
+      "smallSigns": 5,
+      "heroOverlapsProtectedPlayerZone": false,
+      "negativeSpaceZones": [
+        {
+          "x": 86,
+          "y": 340,
+          "width": 210,
+          "height": 150
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

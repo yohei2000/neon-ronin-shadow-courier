@@ -1,37 +1,38 @@
-# Neon Ronin: Shadow Courier - Art Lock Build
+# Neon Ronin: Shadow Courier - Gate B v2 Art Lock
 
-This repository is governed by `ART_LOCK_GOAL.md`.
+This repository is an Art Lock build, not a complete Stage 1 campaign.
 
-It is not a complete Stage 1 campaign. The current deliverable is a reference-driven Art Lock build: a production-style title screen, a deterministic Art Lab review scene, final visual asset kits, manifests, validators, screenshots, three revision rounds, scorecards, and explicit human approval gates.
+Gate B v1 has been rejected as structurally complete but visually below product level. Gate B v2 replaces the final art path with native image-generated source assets while preserving the useful QA infrastructure.
 
 ## References
 
-The visual authority is:
+Visual authority:
 
 ```text
 art/references/neon_ronin_art_refs_impl_ready/
 ```
 
-The A-H PNG/Markdown files define ink treatment, rainy lighting, sign density, player identity, seven-layer parallax, UI/mobile controls, slash VFX, and enemy telegraphs. These sheets are specifications only. They are not loaded or pasted into the runtime.
+The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, player identity, seven-layer parallax, UI/mobile controls, slash VFX, and enemy telegraphs. They are specification sheets only and are not loaded into the runtime.
 
 ## Gate Status
 
-- Gate A: approved via the exact phrase `Approve Gate A` on 2026-06-26.
-- Gate B: pending explicit human approval.
+- Gate A: approved via `Approve Gate A` on 2026-06-26.
+- Gate B v1: rejected.
+- Gate B v2: pending explicit human approval.
 
-Gate B request:
+To approve Gate B v2 after reviewing the evidence, reply exactly:
 
 ```text
-art/approvals/GATE_B_REQUEST.md
+Approve Gate B v2
 ```
-
-To approve the final Art Lock after review, reply with exactly `Approve Gate B`.
 
 ## Runtime
 
-- Default route: final animated title screen.
+- Default route: image-generated Gate B v2 title screen.
 - Art Lab route: `?scene=artlab&state=neutral`
-- Deterministic states include `busy`, `player-motion`, `player-contrast`, `player-scale`, `enemy`, `kite-wraith`, `warden-telegraph`, `slash`, `parallax`, `sign-density`, `ui-desktop`, `ui-mobile`, `lighting-moonlight`, `lighting-neon`, `lighting-warm`, `high-contrast`, `reduced-fx`, and `grayscale`.
+- Mobile controls review: `?scene=artlab&state=mobile-controls`
+
+Runtime states include `busy`, `player-motion`, `player-contrast`, `player-scale`, `enemy`, `kite-wraith`, `warden-telegraph`, `slash`, `parallax`, `sign-density`, `ui-desktop`, `ui-mobile`, `lighting-moonlight`, `lighting-neon`, `lighting-warm`, `high-contrast`, `reduced-fx`, and `grayscale`.
 
 ## Commands
 
@@ -42,6 +43,7 @@ npm.cmd run typecheck
 npm.cmd run test
 npm.cmd run build
 npm.cmd run art:refs
+npm.cmd run art:generate
 npm.cmd run art:process
 npm.cmd run art:atlas
 npm.cmd run art:contact-sheets
@@ -50,33 +52,40 @@ npm.cmd run art:validate-sign-density
 npm.cmd run art:validate-animations
 npm.cmd run art:validate-vfx
 npm.cmd run art:validate-telegraphs
+npm.cmd run art:validate-generated
 npm.cmd run art:screenshots
 npm.cmd run art:review-report
+npm.cmd run art:audit
 npm.cmd run art:all
 ```
 
-`art:all` regenerates final art assets, builds atlas/contact-sheet reports, captures screenshots/revision rounds, runs validators, and assembles the Gate B package.
+`art:generate` validates native image-generation evidence. The actual native `image_gen` calls were performed through Codex and preserved under `art/generated/`.
 
 ## Key Review Files
 
-- `art/final/title-desktop.png`
-- `art/final/title-mobile.png`
-- `art/final/artlab-neutral.png`
-- `art/final/artlab-busy.png`
-- `art/final/player-animation-contact-sheet.png`
-- `art/final/enemy-contact-sheet.png`
-- `art/final/lantern-warden-telegraph-contact-sheet.png`
-- `art/final/ui-desktop-contact-sheet.png`
-- `art/final/ui-mobile-390x844.png`
-- `art/final/reference-g-slash-timeline.png`
-- `art/reviews/final-scorecard.md`
+- `art/approvals/GATE_B_V1_REJECTION.md`
+- `art/approvals/GATE_B_V2_REQUEST.md`
+- `art/approvals/GATE_B_V2_SCREENSHOT_LINKS.md`
+- `art/approvals/GATE_B_V2_HUMAN_CHECKLIST.md`
+- `art/generated/GENERATION_LOG.md`
+- `art/final-v2/title-desktop.png`
+- `art/final-v2/title-mobile.png`
+- `art/final-v2/artlab-busy.png`
+- `art/final-v2/player-animation-contact-sheet.png`
+- `art/final-v2/enemy-contact-sheet.png`
+- `art/final-v2/lantern-warden-telegraph-contact-sheet.png`
+- `art/final-v2/ui-mobile-390x844.png`
+- `art/reviews/gate-b-v2/final-scorecard.md`
 
 ## Asset Ownership
 
-Runtime assets under `art/final/assets/` are project-owned PNGs generated from local authored SVG source through Playwright Chromium. The reference package is user-provided visual specification material and is not used as runtime art.
+Gate B v2 runtime assets under `art/final-v2/assets/` are project-owned outputs processed from native Codex `image_gen` results stored under `art/generated/` and selected/refined source files under `art/source/`.
+
+The reference package is user-provided specification material and is not runtime art.
 
 ## Known Limitations
 
-- This is an Art Lock build, not the five-stage game.
-- Gate B is not approved yet.
-- Stage 1 integration should start only after Gate B approval and should use this locked visual system without changing style.
+- This remains an Art Lock package, not the five-stage game.
+- Gate B v2 is not approved yet.
+- Some generated sprite sheets still need future alpha/cutout cleanup before Stage 1 gameplay integration.
+- Stage 1 integration should start only after Gate B v2 approval.

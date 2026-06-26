@@ -24,7 +24,7 @@ for (const [id, expected] of Object.entries({ heavy: expectedHeavy, fast: expect
 if (manifest.sequences?.heavy?.color !== '#FF2E7A') errors.push('Heavy telegraph must use magenta danger language.');
 if (manifest.sequences?.fast?.color !== '#00E5FF') errors.push('Fast telegraph must use cyan mobility/range language.');
 
-await writeJson(path.join(rootDir, 'art', 'final', 'telegraph-validation-report.json'), {
+await writeJson(path.join(rootDir, 'art', 'final-v2', 'telegraph-validation-report.json'), {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   sequences: manifest.sequences,

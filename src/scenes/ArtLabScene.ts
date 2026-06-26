@@ -85,7 +85,7 @@ export class ArtLabScene extends Phaser.Scene {
       color: PaletteHex.paleMoonMist
     });
 
-    this.add.text(690, 30, `Gate A approved / Gate B pending`, {
+    this.add.text(620, 30, `Gate B v1 rejected / v2 pending`, {
       fontFamily: 'Consolas, monospace',
       fontSize: '13px',
       color: PaletteHex.paleMoonMist

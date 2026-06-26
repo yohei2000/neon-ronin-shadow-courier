@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-06-26T11:29:35.040Z",
+  "generatedAt": "2026-06-26T15:48:27.233Z",
+  "phase": "gate-b-v2",
   "player": {
-    "spritesheet": "art/final/assets/player-spritesheet.png",
+    "spritesheet": "art/final-v2/assets/player-spritesheet.png",
     "frameSize": {
       "width": 128,
       "height": 128
@@ -10,7 +11,6 @@
       "x": 0.5,
       "y": 0.78
     },
-    "tolerancePx": 2,
     "states": {
       "idle": {
         "frames": 6,
@@ -33,7 +33,7 @@
       "apex": {
         "frames": 2,
         "start": 17,
-        "frameDurationSeconds": 0.12,
+        "frameDurationSeconds": 0.1,
         "stableOrigin": true
       },
       "fall": {
@@ -82,38 +82,34 @@
   },
   "enemies": {
     "inkCrawler": {
-      "frames": 4,
-      "frameSize": {
-        "width": 128,
-        "height": 160
-      },
-      "states": [
-        "idle",
-        "telegraph",
-        "release",
-        "recover"
-      ]
+      "source": "art/source/enemies/ink-crawler-sheet.png",
+      "frames": 6,
+      "movementFrames": 6,
+      "hurtFrames": 3,
+      "defeatFrames": 6,
+      "warningPose": true
+    },
+    "kiteWraith": {
+      "source": "art/source/enemies/kite-wraith-preview-sheet.png",
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
+      "previewFrames": 4
+    },
+    "kiteWraithPreview": {
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
+      "previewFrames": 4
     },
     "lanternWarden": {
+      "source": "art/source/enemies/lantern-warden-sheet.png",
       "frames": 8,
-      "frameSize": {
-        "width": 128,
-        "height": 256
-      },
       "states": [
         "closed",
-        "glow",
-        "aim",
-        "ground",
-        "windup",
-        "release",
+        "open",
+        "telegraph-1",
+        "telegraph-2",
+        "telegraph-3",
         "recover",
         "defeat"
       ]
-    },
-    "kiteWraithPreview": {
-      "frames": 1,
-      "file": "art/final/assets/kite-wraith-preview.png"
     }
   }
 }

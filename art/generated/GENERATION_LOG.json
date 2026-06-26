@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-06-26T15:48:27.259Z",
+  "route": "native Codex image_gen",
+  "entries": [
+    {
+      "timestamp": "2026-06-26T14:03:04.079Z",
+      "assetFamily": "player",
+      "candidateId": "player-board-001",
+      "prompt": "See art/generated/player/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/player/raw/player-master-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "P02"
+      ],
+      "rejectedReason": "Rejected candidates with weaker side-view clarity, excess costume noise, or less readable satchel/scarf identity."
+    },
+    {
+      "timestamp": "2026-06-26T14:06:25.692Z",
+      "assetFamily": "environment-key",
+      "candidateId": "environment-key-board-001",
+      "prompt": "See art/generated/environment-key/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "E01",
+        "title-composition"
+      ],
+      "rejectedReason": "Rejected candidates with excessive signage, weak protected player space, or flattened depth."
+    },
+    {
+      "timestamp": "2026-06-26T14:07:21.563Z",
+      "assetFamily": "ink-crawler",
+      "candidateId": "ink-crawler-board-001",
+      "prompt": "See art/generated/ink-crawler/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/ink-crawler/raw/ink-crawler-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1774,
+        "height": 887
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "IC03"
+      ],
+      "rejectedReason": "Rejected candidates that read too humanoid, too noisy, or too close to player silhouette."
+    },
+    {
+      "timestamp": "2026-06-26T14:08:44.347Z",
+      "assetFamily": "kite-wraith",
+      "candidateId": "kite-wraith-board-001",
+      "prompt": "See art/generated/kite-wraith/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/kite-wraith/raw/kite-wraith-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "KW04"
+      ],
+      "rejectedReason": "Rejected candidates that looked like signs instead of enemies or lacked directionality."
+    },
+    {
+      "timestamp": "2026-06-26T14:09:58.931Z",
+      "assetFamily": "lantern-warden",
+      "candidateId": "lantern-warden-board-001",
+      "prompt": "See art/generated/lantern-warden/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/lantern-warden/raw/lantern-warden-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "LW07"
+      ],
+      "rejectedReason": "Rejected candidates with weak closed/open state potential or overly busy armor detail."
+    },
+    {
+      "timestamp": "2026-06-26T14:11:15.345Z",
+      "assetFamily": "ui",
+      "candidateId": "ui-board-001",
+      "prompt": "See art/generated/ui/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "UI material family 6"
+      ],
+      "rejectedReason": "Rejected UI candidates with baked labels, generic sci-fi panels, or weak mobile affordances."
+    },
+    {
+      "timestamp": "2026-06-26T14:12:29.843Z",
+      "assetFamily": "vfx-slash",
+      "candidateId": "vfx-slash-board-001",
+      "prompt": "See art/generated/vfx-slash/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/vfx-slash/raw/slash-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "SL04"
+      ],
+      "rejectedReason": "Rejected slash candidates that were too explosive, too thin, or unclear across four phases."
+    },
+    {
+      "timestamp": "2026-06-26T14:13:55.480Z",
+      "assetFamily": "telegraph",
+      "candidateId": "telegraph-board-001",
+      "prompt": "See art/generated/telegraph/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/telegraph/raw/telegraph-candidate-board-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "TG05"
+      ],
+      "rejectedReason": "Rejected telegraphs with ambiguous hit timing or over-bright clutter."
+    },
+    {
+      "timestamp": "2026-06-26T14:23:13.350Z",
+      "assetFamily": "environment-kit",
+      "candidateId": "environment-kit-board-001",
+      "prompt": "See art/generated/environment-kit/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/environment-kit/raw/environment-kit-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "generated atlas"
+      ],
+      "rejectedReason": "Rejected tiny fake text and repeated color-only variants during source extraction."
+    },
+    {
+      "timestamp": "2026-06-26T14:24:39.072Z",
+      "assetFamily": "parallax",
+      "candidateId": "parallax-board-001",
+      "prompt": "See art/generated/parallax/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "seven generated layer strips"
+      ],
+      "rejectedReason": "Rejected flattened use; layers are separated into seven runtime textures."
+    },
+    {
+      "timestamp": "2026-06-26T14:26:06.594Z",
+      "assetFamily": "title",
+      "candidateId": "title-board-001",
+      "prompt": "See art/generated/title/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/title/raw/title-composition-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "title composition"
+      ],
+      "rejectedReason": "Used as selected title key art; extra generated sign glyphs are treated as abstract emission shapes."
+    },
+    {
+      "timestamp": "2026-06-26T14:27:34.094Z",
+      "assetFamily": "impact-vfx",
+      "candidateId": "impact-vfx-board-001",
+      "prompt": "See art/generated/impact-vfx/prompts.md",
+      "negativePrompt": "no copyrighted characters, no watermark, no logos, no gore, no raw debug UI, no pasted reference sheets",
+      "imageReferencesUsed": "Reference A-H rules summarized into prompt text; direct local reference-image input not exposed by native image_gen route",
+      "outputPath": "art/generated/impact-vfx/raw/impact-pickup-vfx-raw-001.png",
+      "toolModelName": "native Codex image_gen; model not exposed by tool",
+      "size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "transparency": "not exposed by tool; generated on opaque review background",
+      "selected": [
+        "generated vfx sheet"
+      ],
+      "rejectedReason": "Rejected full-screen burst usage; kept compact VFX elements only."
+    }
+  ]
+}

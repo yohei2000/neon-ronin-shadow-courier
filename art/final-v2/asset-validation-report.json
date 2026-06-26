@@ -1,0 +1,524 @@
+{
+  "generatedAt": "2026-06-26T15:52:01.526Z",
+  "valid": true,
+  "checkedFiles": [
+    {
+      "file": "art/asset-manifest.json",
+      "bytes": 9494
+    },
+    {
+      "file": "art/animation-manifest.json",
+      "bytes": 2611
+    },
+    {
+      "file": "art/vfx-manifest.json",
+      "bytes": 1224
+    },
+    {
+      "file": "art/telegraph-manifest.json",
+      "bytes": 1159
+    },
+    {
+      "file": "art/sign-density-scenes.json",
+      "bytes": 866
+    },
+    {
+      "file": "art/license-manifest.json",
+      "bytes": 7075
+    },
+    {
+      "file": "art/final-v2/atlas-manifest.json",
+      "bytes": 3048
+    },
+    {
+      "file": "art/final-v2/contact-sheet-report.json",
+      "bytes": 2958
+    },
+    {
+      "file": "art/final-v2/console-report.json",
+      "bytes": 171
+    },
+    {
+      "file": "art/final-v2/screenshot-report.json",
+      "bytes": 210492
+    },
+    {
+      "file": "art/final-v2/performance-report.md",
+      "bytes": 296
+    },
+    {
+      "file": "art/final-v2/player-master.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 688404
+    },
+    {
+      "file": "art/final-v2/reference-a-brush-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 704155
+    },
+    {
+      "file": "art/final-v2/reference-b-lighting-presets.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 787516
+    },
+    {
+      "file": "art/final-v2/reference-c-sign-density.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 889486
+    },
+    {
+      "file": "art/final-v2/reference-e-seven-layer-parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 825961
+    },
+    {
+      "file": "art/final-v2/reference-g-slash-timeline.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 674409
+    },
+    {
+      "file": "art/final-v2/ui-mobile-390x844.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 185941
+    },
+    {
+      "file": "art/final-v2/generated-validation-report.json",
+      "bytes": 14569
+    },
+    {
+      "file": "art/generated/GENERATION_LOG.json",
+      "bytes": 11716
+    },
+    {
+      "file": "art/approvals/GATE_B_V1_REJECTION.md",
+      "bytes": 917
+    },
+    {
+      "file": "art/approvals/GATE_B_V2_STATUS.json",
+      "bytes": 591
+    },
+    {
+      "file": "art/approvals/GATE_A_STATUS.json",
+      "bytes": 762
+    },
+    {
+      "file": "art/approvals/GATE_B_STATUS.json",
+      "bytes": 501
+    },
+    {
+      "file": "art/final-v2/assets/player-spritesheet.png",
+      "width": 1024,
+      "height": 896,
+      "bytes": 1554683
+    },
+    {
+      "file": "art/final-v2/assets/player-master.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 397989
+    },
+    {
+      "file": "art/final-v2/assets/enemy-spritesheet.png",
+      "width": 512,
+      "height": 320,
+      "bytes": 245783
+    },
+    {
+      "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "width": 1024,
+      "height": 256,
+      "bytes": 446901
+    },
+    {
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
+      "width": 512,
+      "height": 256,
+      "bytes": 194618
+    },
+    {
+      "file": "art/final-v2/assets/slash-flipbook.png",
+      "width": 1024,
+      "height": 160,
+      "bytes": 243006
+    },
+    {
+      "file": "art/final-v2/assets/telegraph-flipbook.png",
+      "width": 960,
+      "height": 430,
+      "bytes": 609503
+    },
+    {
+      "file": "art/final-v2/assets/ui-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 554287
+    },
+    {
+      "file": "art/final-v2/assets/title-menu-panel.png",
+      "width": 520,
+      "height": 240,
+      "bytes": 181457
+    },
+    {
+      "file": "art/final-v2/assets/mobile-controls-kit.png",
+      "width": 640,
+      "height": 320,
+      "bytes": 287210
+    },
+    {
+      "file": "art/final-v2/assets/brush-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 815458
+    },
+    {
+      "file": "art/final-v2/assets/sign-atlas.png",
+      "width": 960,
+      "height": 640,
+      "bytes": 1195460
+    },
+    {
+      "file": "art/final-v2/assets/title-composition.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 875416
+    },
+    {
+      "file": "art/final-v2/assets/environment-key.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 910200
+    },
+    {
+      "file": "art/final-v2/assets/layer-far-sky.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 837256
+    },
+    {
+      "file": "art/final-v2/assets/layer-distant-skyline.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 892489
+    },
+    {
+      "file": "art/final-v2/assets/layer-mid-roofs-signs.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 936007
+    },
+    {
+      "file": "art/final-v2/assets/layer-gameplay-layer.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 1009919
+    },
+    {
+      "file": "art/final-v2/assets/layer-near-props.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 849568
+    },
+    {
+      "file": "art/final-v2/assets/layer-near-props-front.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 849685
+    },
+    {
+      "file": "art/final-v2/assets/layer-foreground-occlusion.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 909209
+    },
+    {
+      "file": "art/final-v2/assets/lighting-moonlight-lantern-gold.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 733407
+    },
+    {
+      "file": "art/final-v2/assets/lighting-cyan-magenta-neon.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 875416
+    },
+    {
+      "file": "art/final-v2/assets/lighting-warm-cool-alley.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 734755
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/title-desktop.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 878298
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/title-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 168380
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/artlab-neutral.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 701318
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/artlab-busy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 787944
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/player-motion.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 633649
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/player-contrast.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 448413
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/slash.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 627349
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/enemy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 646036
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/warden-telegraph.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 687746
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 690886
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/hud.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 621917
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/mobile-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 146976
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/review.md",
+      "bytes": 1422
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-01/changes.md",
+      "bytes": 266
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/title-desktop.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 878298
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/title-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 168380
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/artlab-neutral.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 701318
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/artlab-busy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 786461
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/player-motion.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 633649
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/player-contrast.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 448413
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/slash.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 627349
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/enemy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 646036
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/warden-telegraph.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 687746
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 690886
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/hud.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 621917
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/mobile-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 146976
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/review.md",
+      "bytes": 1422
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-02/changes.md",
+      "bytes": 255
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/title-desktop.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 878298
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/title-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 168380
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/artlab-neutral.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 701318
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/artlab-busy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 787944
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/player-motion.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 625628
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/player-contrast.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 448413
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/slash.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 627349
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/enemy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 646036
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/warden-telegraph.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 687746
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 690886
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/hud.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 621917
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/mobile-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 146976
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/review.md",
+      "bytes": 1422
+    },
+    {
+      "file": "art/reviews/gate-b-v2/round-03/changes.md",
+      "bytes": 258
+    }
+  ],
+  "requiredAssetKeys": [
+    "player-spritesheet",
+    "player-master",
+    "enemy-spritesheet",
+    "lantern-warden-spritesheet",
+    "kite-wraith-preview",
+    "slash-flipbook",
+    "telegraph-flipbook",
+    "ui-kit",
+    "title-menu-panel",
+    "mobile-controls-kit",
+    "brush-kit",
+    "sign-atlas",
+    "title-composition",
+    "layer-far-sky",
+    "layer-distant-skyline",
+    "layer-mid-roofs-signs",
+    "layer-gameplay-layer",
+    "layer-near-props",
+    "layer-near-props-front",
+    "layer-foreground-occlusion"
+  ],
+  "runtimeImageRefs": 18,
+  "errors": []
+}

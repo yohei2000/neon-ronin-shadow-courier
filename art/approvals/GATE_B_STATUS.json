@@ -7,6 +7,7 @@
   "requestFile": "art/approvals/GATE_B_REQUEST.md",
   "notes": [
     "Gate B requires explicit human approval after reviewing final screenshots, contact sheets, scorecards, and QA reports.",
-    "Passing automated commands does not approve Gate B."
+    "Passing automated commands does not approve Gate B.",
+    "Superseded by Gate B v2 rework: Gate B v1 is rejected as visually below product level and must not be approved."
   ]
 }

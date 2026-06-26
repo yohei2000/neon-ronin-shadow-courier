@@ -1,6 +1,9 @@
 {
   "project": "Neon Ronin: Shadow Courier",
-  "phase": "gate-a-style-lock",
+  "phase": "gate-b-v2-image-generated-art-lock-review",
+  "gateBv1": "rejected as visually below product level",
+  "gateBv2Approval": "pending explicit human approval",
+  "sourcePipeline": "native Codex image_gen raw outputs -> art/generated -> art/source -> art/final-v2 runtime PNGs",
   "logicalResolution": {
     "width": 960,
     "height": 540
@@ -73,13 +76,13 @@
     }
   ],
   "selectedDirection": {
-    "player": "Candidate 2 body consistency plus Candidate 3 hat-silhouette restraint only if animation remains stable.",
-    "title": "Candidate 1 moon-gate title composition with Candidate 3 impact reduced to local accents.",
-    "environment": "Candidate 1 seven-layer alley with controlled sign density.",
-    "inkCrawler": "Candidate 1 low crawler silhouette with Reference H telegraph overlays.",
-    "kiteWraith": "Candidate 3 forward-facing fast silhouette for future preview.",
-    "lanternWarden": "Candidate 2 vertical readable warden with some Candidate 3 weight.",
-    "ui": "Candidate 3 paper readability with cyan/magenta semantics from Reference F.",
-    "landmark": "Moon Gate Candidate 1."
+    "player": "Gate B v2 generated candidate P02 refined twice into the selected courier master.",
+    "title": "Gate B v2 generated Moon Gate rainy alley title composition.",
+    "environment": "Gate B v2 generated Neon Alley key art and parallax layer sheet.",
+    "inkCrawler": "Gate B v2 generated low crawler silhouette family with Reference H telegraph overlays.",
+    "kiteWraith": "Gate B v2 generated floating paper/cloth wraith preview.",
+    "lanternWarden": "Gate B v2 generated lantern-core elite/miniboss family.",
+    "ui": "Gate B v2 generated paper/lacquer UI material family, cropped to avoid baked candidate labels in runtime.",
+    "landmark": "Gate B v2 generated Moon Gate motif."
   }
 }

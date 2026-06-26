@@ -1,12 +1,13 @@
 {
-  "generatedAt": "2026-06-26T11:29:35.038Z",
-  "phase": "gate-b-final-art-lock-review",
-  "sourcePipeline": "scripts/process-art-assets.mjs -> SVG -> Playwright Chromium raster PNG",
+  "generatedAt": "2026-06-26T15:48:27.230Z",
+  "phase": "gate-b-v2-image-generated-art-lock-review",
+  "sourcePipeline": "native Codex image_gen -> art/generated raw archives -> scripts/process-generated-v2.mjs -> final-v2 runtime PNGs",
   "noRemoteRuntimeDependencies": true,
+  "oldGateBV1FinalArtRejected": true,
   "assets": [
     {
       "key": "player-spritesheet",
-      "file": "art/final/assets/player-spritesheet.png",
+      "file": "art/final-v2/assets/player-spritesheet.png",
       "width": 1024,
       "height": 896,
       "references": [
@@ -16,11 +17,12 @@
       ],
       "type": "spritesheet",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/player-animation/raw/player-animation-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "player-master",
-      "file": "art/final/assets/player-master.png",
+      "file": "art/final-v2/assets/player-master.png",
       "width": 512,
       "height": 512,
       "references": [
@@ -28,11 +30,12 @@
       ],
       "type": "master",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/player/raw/player-master-refinement-pass-02.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "enemy-spritesheet",
-      "file": "art/final/assets/enemy-spritesheet.png",
+      "file": "art/final-v2/assets/enemy-spritesheet.png",
       "width": 512,
       "height": 320,
       "references": [
@@ -41,11 +44,12 @@
       ],
       "type": "spritesheet",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/ink-crawler/raw/ink-crawler-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "lantern-warden-spritesheet",
-      "file": "art/final/assets/lantern-warden-spritesheet.png",
+      "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
       "width": 1024,
       "height": 256,
       "references": [
@@ -54,11 +58,12 @@
       ],
       "type": "spritesheet",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/lantern-warden/raw/lantern-warden-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "kite-wraith-preview",
-      "file": "art/final/assets/kite-wraith-preview.png",
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
       "width": 512,
       "height": 256,
       "references": [
@@ -66,11 +71,12 @@
       ],
       "type": "preview",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/kite-wraith/raw/kite-wraith-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "slash-flipbook",
-      "file": "art/final/assets/slash-flipbook.png",
+      "file": "art/final-v2/assets/slash-flipbook.png",
       "width": 1024,
       "height": 160,
       "references": [
@@ -78,11 +84,12 @@
       ],
       "type": "flipbook",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/vfx-slash/raw/slash-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "telegraph-flipbook",
-      "file": "art/final/assets/telegraph-flipbook.png",
+      "file": "art/final-v2/assets/telegraph-flipbook.png",
       "width": 960,
       "height": 430,
       "references": [
@@ -90,11 +97,12 @@
       ],
       "type": "timeline",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/telegraph/raw/telegraph-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "ui-kit",
-      "file": "art/final/assets/ui-kit.png",
+      "file": "art/final-v2/assets/ui-kit.png",
       "width": 960,
       "height": 540,
       "references": [
@@ -102,11 +110,12 @@
       ],
       "type": "ui",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "title-menu-panel",
-      "file": "art/final/assets/title-menu-panel.png",
+      "file": "art/final-v2/assets/title-menu-panel.png",
       "width": 520,
       "height": 240,
       "references": [
@@ -114,11 +123,12 @@
       ],
       "type": "ui",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "mobile-controls-kit",
-      "file": "art/final/assets/mobile-controls-kit.png",
+      "file": "art/final-v2/assets/mobile-controls-kit.png",
       "width": 640,
       "height": 320,
       "references": [
@@ -126,23 +136,26 @@
       ],
       "type": "ui",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "brush-kit",
-      "file": "art/final/assets/brush-kit.png",
+      "file": "art/final-v2/assets/brush-kit.png",
       "width": 960,
       "height": 540,
       "references": [
-        "A"
+        "A",
+        "G"
       ],
       "type": "brush",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/impact-vfx/raw/impact-pickup-vfx-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "sign-atlas",
-      "file": "art/final/assets/sign-atlas.png",
+      "file": "art/final-v2/assets/sign-atlas.png",
       "width": 960,
       "height": 640,
       "references": [
@@ -150,11 +163,12 @@
       ],
       "type": "atlas",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/environment-kit/raw/environment-kit-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "title-composition",
-      "file": "art/final/assets/title-composition.png",
+      "file": "art/final-v2/assets/title-composition.png",
       "width": 960,
       "height": 540,
       "references": [
@@ -163,17 +177,31 @@
         "C",
         "D",
         "E",
-        "F",
-        "G",
-        "H"
+        "F"
       ],
       "type": "composition",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/title/raw/title-composition-raw-001.png",
+      "license": "project-owned generated asset"
+    },
+    {
+      "key": "environment-key",
+      "file": "art/final-v2/assets/environment-key.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "B",
+        "C",
+        "E"
+      ],
+      "type": "composition",
+      "runtime": true,
+      "source": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-far-sky",
-      "file": "art/final/assets/layer-far-sky.png",
+      "file": "art/final-v2/assets/layer-far-sky.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -181,11 +209,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-distant-skyline",
-      "file": "art/final/assets/layer-distant-skyline.png",
+      "file": "art/final-v2/assets/layer-distant-skyline.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -193,11 +222,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-mid-roofs-signs",
-      "file": "art/final/assets/layer-mid-roofs-signs.png",
+      "file": "art/final-v2/assets/layer-mid-roofs-signs.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -205,11 +235,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-gameplay-layer",
-      "file": "art/final/assets/layer-gameplay-layer.png",
+      "file": "art/final-v2/assets/layer-gameplay-layer.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -217,11 +248,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-near-props",
-      "file": "art/final/assets/layer-near-props.png",
+      "file": "art/final-v2/assets/layer-near-props.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -229,11 +261,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-near-props-front",
-      "file": "art/final/assets/layer-near-props-front.png",
+      "file": "art/final-v2/assets/layer-near-props-front.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -241,11 +274,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "layer-foreground-occlusion",
-      "file": "art/final/assets/layer-foreground-occlusion.png",
+      "file": "art/final-v2/assets/layer-foreground-occlusion.png",
       "width": 1920,
       "height": 540,
       "references": [
@@ -253,11 +287,12 @@
       ],
       "type": "parallax-layer",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "lighting-moonlight-lantern-gold",
-      "file": "art/final/assets/lighting-moonlight-lantern-gold.png",
+      "file": "art/final-v2/assets/lighting-moonlight-lantern-gold.png",
       "width": 960,
       "height": 540,
       "references": [
@@ -265,11 +300,12 @@
       ],
       "type": "lighting-preset",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "lighting-cyan-magenta-neon",
-      "file": "art/final/assets/lighting-cyan-magenta-neon.png",
+      "file": "art/final-v2/assets/lighting-cyan-magenta-neon.png",
       "width": 960,
       "height": 540,
       "references": [
@@ -277,11 +313,12 @@
       ],
       "type": "lighting-preset",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/title/raw/title-composition-raw-001.png",
+      "license": "project-owned generated asset"
     },
     {
       "key": "lighting-warm-cool-alley",
-      "file": "art/final/assets/lighting-warm-cool-alley.png",
+      "file": "art/final-v2/assets/lighting-warm-cool-alley.png",
       "width": 960,
       "height": 540,
       "references": [
@@ -289,7 +326,8 @@
       ],
       "type": "lighting-preset",
       "runtime": true,
-      "license": "project-owned"
+      "source": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "license": "project-owned generated asset"
     }
   ]
 }

@@ -17,7 +17,7 @@ if ((manifest.scenes?.length ?? 0) < 2) {
   errors.push('Sign-density manifest must include desktop and mobile/reduced-density scenes.');
 }
 
-await writeJson(path.join(rootDir, 'art', 'final', 'sign-density-validation-report.json'), {
+await writeJson(path.join(rootDir, 'art', 'final-v2', 'sign-density-validation-report.json'), {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   scenes: manifest.scenes,

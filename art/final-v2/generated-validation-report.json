@@ -1,0 +1,609 @@
+{
+  "generatedAt": "2026-06-26T15:52:36.892Z",
+  "valid": true,
+  "totalCandidates": 180,
+  "rawFamilies": [
+    {
+      "family": "player",
+      "count": 12,
+      "file": "art/generated/player/raw/player-master-candidate-board-raw-001.png"
+    },
+    {
+      "family": "player-refinement-1",
+      "count": 1,
+      "file": "art/generated/player/raw/player-master-refinement-pass-01.png"
+    },
+    {
+      "family": "player-refinement-2",
+      "count": 1,
+      "file": "art/generated/player/raw/player-master-refinement-pass-02.png"
+    },
+    {
+      "family": "player-animation",
+      "count": 9,
+      "file": "art/generated/player-animation/raw/player-animation-sheet-raw-001.png"
+    },
+    {
+      "family": "ink-crawler",
+      "count": 8,
+      "file": "art/generated/ink-crawler/raw/ink-crawler-candidate-board-raw-001.png"
+    },
+    {
+      "family": "kite-wraith",
+      "count": 8,
+      "file": "art/generated/kite-wraith/raw/kite-wraith-candidate-board-raw-001.png"
+    },
+    {
+      "family": "lantern-warden",
+      "count": 12,
+      "file": "art/generated/lantern-warden/raw/lantern-warden-candidate-board-raw-001.png"
+    },
+    {
+      "family": "environment-key",
+      "count": 12,
+      "file": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png"
+    },
+    {
+      "family": "parallax",
+      "count": 7,
+      "file": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png"
+    },
+    {
+      "family": "environment-kit",
+      "count": 78,
+      "file": "art/generated/environment-kit/raw/environment-kit-raw-001.png"
+    },
+    {
+      "family": "ui",
+      "count": 8,
+      "file": "art/generated/ui/raw/ui-candidate-board-raw-001.png"
+    },
+    {
+      "family": "vfx-slash",
+      "count": 8,
+      "file": "art/generated/vfx-slash/raw/slash-candidate-board-raw-001.png"
+    },
+    {
+      "family": "impact-vfx",
+      "count": 7,
+      "file": "art/generated/impact-vfx/raw/impact-pickup-vfx-raw-001.png"
+    },
+    {
+      "family": "telegraph",
+      "count": 8,
+      "file": "art/generated/telegraph/raw/telegraph-candidate-board-raw-001.png"
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "file": "art/generated/title/raw/title-composition-raw-001.png"
+    }
+  ],
+  "checked": [
+    {
+      "file": "art/generated/player/raw/player-master-candidate-board-raw-001.png",
+      "bytes": 3019623,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/player/player-candidates.png",
+      "bytes": 745531,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/player/raw/player-master-refinement-pass-01.png",
+      "bytes": 2732345,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/player/raw/player-master-refinement-pass-02.png",
+      "bytes": 2778458,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/player-animation/raw/player-animation-sheet-raw-001.png",
+      "bytes": 3039937,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "file": "art/generated/ink-crawler/raw/ink-crawler-candidate-board-raw-001.png",
+      "bytes": 2499759,
+      "width": 1774,
+      "height": 887
+    },
+    {
+      "file": "art/generated/ink-crawler/ink-crawler-candidates.png",
+      "bytes": 702346,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/kite-wraith/raw/kite-wraith-candidate-board-raw-001.png",
+      "bytes": 2890872,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/kite-wraith/kite-wraith-candidates.png",
+      "bytes": 706227,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/lantern-warden/raw/lantern-warden-candidate-board-raw-001.png",
+      "bytes": 3118865,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/lantern-warden/lantern-warden-candidates.png",
+      "bytes": 784293,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/environment-key/raw/environment-key-candidate-board-raw-001.png",
+      "bytes": 2826698,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/environment-key/environment-key-candidates.png",
+      "bytes": 746478,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/parallax/raw/parallax-layer-sheet-raw-001.png",
+      "bytes": 3177534,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/environment-kit/raw/environment-kit-raw-001.png",
+      "bytes": 3347727,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/ui/raw/ui-candidate-board-raw-001.png",
+      "bytes": 2974427,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/ui/ui-candidates.png",
+      "bytes": 744221,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/vfx-slash/raw/slash-candidate-board-raw-001.png",
+      "bytes": 2522823,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/vfx-slash/vfx-slash-candidates.png",
+      "bytes": 641759,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/impact-vfx/raw/impact-pickup-vfx-raw-001.png",
+      "bytes": 2753084,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/telegraph/raw/telegraph-candidate-board-raw-001.png",
+      "bytes": 2627321,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/generated/telegraph/telegraph-candidates.png",
+      "bytes": 631762,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/generated/title/raw/title-composition-raw-001.png",
+      "bytes": 2531827,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "file": "art/generated/GENERATION_LOG.md",
+      "bytes": 4045
+    },
+    {
+      "file": "art/generated/GENERATION_LOG.json",
+      "bytes": 11716
+    },
+    {
+      "file": "art/generated/player/prompts.md",
+      "bytes": 398
+    },
+    {
+      "file": "art/generated/player/rejections.md",
+      "bytes": 227
+    },
+    {
+      "file": "art/generated/player-animation/consistency-failures.md",
+      "bytes": 238
+    },
+    {
+      "file": "art/generated/environment-key/prompts.md",
+      "bytes": 437
+    },
+    {
+      "file": "art/generated/ui/rejections.md",
+      "bytes": 202
+    },
+    {
+      "file": "art/source/player/player-master.png",
+      "bytes": 2778458,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/source/player/player-master-readability.png",
+      "bytes": 688404,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/source/player/player-idle-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-run-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-jump-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-fall-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-wall-slide-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-wall-kick-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-ground-slash-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-air-slash-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/player/player-hurt-sheet.png",
+      "bytes": 443554,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/source/enemies/ink-crawler-sheet.png",
+      "bytes": 2499759,
+      "width": 1774,
+      "height": 887
+    },
+    {
+      "file": "art/source/enemies/kite-wraith-preview-sheet.png",
+      "bytes": 2890872,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/source/enemies/lantern-warden-sheet.png",
+      "bytes": 3118865,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/source/enemies/lantern-warden-telegraph-sheet.png",
+      "bytes": 2627321,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/source/environment/neon-alley-key-art.png",
+      "bytes": 2826698,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "art/source/environment/layer-far-sky.png",
+      "bytes": 837256,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/environment/layer-distant-skyline.png",
+      "bytes": 892489,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/environment/layer-mid-buildings-signs.png",
+      "bytes": 936007,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/environment/layer-gameplay-architecture.png",
+      "bytes": 1009919,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/environment/layer-near-props.png",
+      "bytes": 849568,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/environment/layer-foreground-occlusion.png",
+      "bytes": 849685,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/environment/layer-rain-fog-light.png",
+      "bytes": 909209,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/source/ui/title-logo.png",
+      "bytes": 2531827,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "file": "art/source/ui/ui-kit.png",
+      "bytes": 554287,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/source/ui/mobile-controls-kit.png",
+      "bytes": 287210,
+      "width": 640,
+      "height": 320
+    },
+    {
+      "file": "art/source/ui/icons.png",
+      "bytes": 441244,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "art/source/vfx/slash-flipbook.png",
+      "bytes": 243006,
+      "width": 1024,
+      "height": 160
+    },
+    {
+      "file": "art/source/vfx/telegraph-flipbook.png",
+      "bytes": 609503,
+      "width": 960,
+      "height": 430
+    },
+    {
+      "file": "art/source/vfx/hit-spark-flipbook.png",
+      "bytes": 193949,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/source/vfx/ink-dissolve-flipbook.png",
+      "bytes": 193949,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/source/vfx/wall-kick-burst.png",
+      "bytes": 193949,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/source/vfx/pickup-flash.png",
+      "bytes": 193949,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/source/vfx/checkpoint-pulse.png",
+      "bytes": 193949,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/source/vfx/stage-clear-burst.png",
+      "bytes": 193949,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/final-v2/assets/player-spritesheet.png",
+      "bytes": 1554683,
+      "width": 1024,
+      "height": 896
+    },
+    {
+      "file": "art/final-v2/assets/player-master.png",
+      "bytes": 397989,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "art/final-v2/assets/enemy-spritesheet.png",
+      "bytes": 245783,
+      "width": 512,
+      "height": 320
+    },
+    {
+      "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "bytes": 446901,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
+      "bytes": 194618,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "file": "art/final-v2/assets/slash-flipbook.png",
+      "bytes": 243006,
+      "width": 1024,
+      "height": 160
+    },
+    {
+      "file": "art/final-v2/assets/telegraph-flipbook.png",
+      "bytes": 609503,
+      "width": 960,
+      "height": 430
+    },
+    {
+      "file": "art/final-v2/assets/ui-kit.png",
+      "bytes": 554287,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/title-menu-panel.png",
+      "bytes": 181457,
+      "width": 520,
+      "height": 240
+    },
+    {
+      "file": "art/final-v2/assets/mobile-controls-kit.png",
+      "bytes": 287210,
+      "width": 640,
+      "height": 320
+    },
+    {
+      "file": "art/final-v2/assets/brush-kit.png",
+      "bytes": 815458,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/sign-atlas.png",
+      "bytes": 1195460,
+      "width": 960,
+      "height": 640
+    },
+    {
+      "file": "art/final-v2/assets/title-composition.png",
+      "bytes": 875416,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/environment-key.png",
+      "bytes": 910200,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-far-sky.png",
+      "bytes": 837256,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-distant-skyline.png",
+      "bytes": 892489,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-mid-roofs-signs.png",
+      "bytes": 936007,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-gameplay-layer.png",
+      "bytes": 1009919,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-near-props.png",
+      "bytes": 849568,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-near-props-front.png",
+      "bytes": 849685,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/layer-foreground-occlusion.png",
+      "bytes": 909209,
+      "width": 1920,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/lighting-moonlight-lantern-gold.png",
+      "bytes": 733407,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/lighting-cyan-magenta-neon.png",
+      "bytes": 875416,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/final-v2/assets/lighting-warm-cool-alley.png",
+      "bytes": 734755,
+      "width": 960,
+      "height": 540
+    },
+    {
+      "file": "art/approvals/GATE_B_V1_REJECTION.md",
+      "bytes": 917
+    }
+  ],
+  "errors": []
+}
