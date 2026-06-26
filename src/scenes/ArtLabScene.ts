@@ -260,12 +260,7 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawMobileStation(): void {
     this.add.image(480, 260, ArtAssetKey.UiKit).setScale(0.48).setAlpha(0.78);
-    this.add.circle(150, 438, 62, Palette.inkBlack, 0.88).setStrokeStyle(5, Palette.neonCyan, 0.9);
-    this.add.circle(760, 420, 54, Palette.inkBlack, 0.88).setStrokeStyle(5, Palette.neonMagenta, 0.9);
-    this.add.circle(838, 308, 50, Palette.inkBlack, 0.88).setStrokeStyle(5, Palette.neonCyan, 0.9);
-    this.add.text(126, 448, 'MOVE', { fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '18px', color: PaletteHex.neonCyan });
-    this.add.text(738, 430, 'SL', { fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '20px', color: PaletteHex.neonMagenta });
-    this.add.text(818, 318, 'JP', { fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '20px', color: PaletteHex.neonCyan });
+    this.add.image(480, 402, ArtAssetKey.MobileControlsKit).setScale(0.78).setAlpha(0.95);
     this.caption('Mobile controls station: visible art is smaller than the hit target and does not cover critical gameplay space.');
   }
 

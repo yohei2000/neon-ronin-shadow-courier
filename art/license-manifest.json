@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T10:51:06.924Z",
+  "generatedAt": "2026-06-26T11:16:05.985Z",
   "runtimeAssets": [
     {
       "file": "art/final/assets/player-spritesheet.png",
@@ -38,6 +38,16 @@
     },
     {
       "file": "art/final/assets/ui-kit.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/title-menu-panel.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/mobile-controls-kit.png",
       "owner": "project-owned",
       "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
     },

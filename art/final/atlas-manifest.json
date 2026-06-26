@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T10:51:26.271Z",
+  "generatedAt": "2026-06-26T11:16:26.492Z",
   "sourceManifest": "art/asset-manifest.json",
   "deterministic": true,
   "atlases": [
@@ -78,6 +78,32 @@
       "width": 960,
       "height": 540,
       "bytes": 270845,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "F"
+      ]
+    },
+    {
+      "key": "title-menu-panel",
+      "file": "art/final/assets/title-menu-panel.png",
+      "width": 520,
+      "height": 240,
+      "bytes": 14761,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "F"
+      ]
+    },
+    {
+      "key": "mobile-controls-kit",
+      "file": "art/final/assets/mobile-controls-kit.png",
+      "width": 640,
+      "height": 320,
+      "bytes": 31236,
       "paddingPx": 4,
       "extrusionPx": 1,
       "mobileSafe": true,

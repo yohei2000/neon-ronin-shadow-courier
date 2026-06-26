@@ -82,6 +82,8 @@ const requiredAssetKeys = [
   'slash-flipbook',
   'telegraph-flipbook',
   'ui-kit',
+  'title-menu-panel',
+  'mobile-controls-kit',
   'brush-kit',
   'sign-atlas',
   'title-composition',
@@ -125,9 +127,14 @@ const gateB = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'approvals'
 if (gateB.status !== 'pending' || gateB.approved !== false) errors.push('Gate B status must remain pending before explicit approval.');
 
 const runtimeText = await fs.readFile(path.join(rootDir, 'src', 'scenes', 'ArtLabScene.ts'), 'utf8');
+const titleRuntimeText = await fs.readFile(path.join(rootDir, 'src', 'scenes', 'TitleScene.ts'), 'utf8');
 const runtimeImageRefs = (runtimeText.match(/this\.add\.image/g) ?? []).length;
 if (runtimeImageRefs < 8) errors.push('ArtLabScene does not visibly use enough raster runtime assets.');
 if (runtimeText.includes('art/references/neon_ronin_art_refs_impl_ready')) errors.push('Runtime references specification sheets directly.');
+if (runtimeText.includes('this.add.circle')) errors.push('ArtLabScene still uses visible primitive circles for final UI/mobile controls.');
+if (titleRuntimeText.includes('backgroundColor:')) errors.push('TitleScene uses raw text backgroundColor instead of authored button/panel assets.');
+if (!titleRuntimeText.includes('ArtAssetKey.TitleMenuPanel')) errors.push('TitleScene does not use the authored title menu panel asset.');
+if (!runtimeText.includes('ArtAssetKey.MobileControlsKit')) errors.push('ArtLabScene does not use the authored mobile controls kit asset.');
 
 await writeJson(path.join(rootDir, 'art', 'final', 'asset-validation-report.json'), {
   generatedAt: new Date().toISOString(),

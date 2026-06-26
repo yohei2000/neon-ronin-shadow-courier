@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="240" viewBox="0 0 520 240">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="520" height="240" fill="transparent"/>
+    <path d="M 32 22
+    C 56 16, 414 24, 436 22
+    L 442 200
+    C 402 213, 64 206, 31 209
+    L 26 28 Z"
+    fill="#080A0F" stroke="#050508" stroke-width="3" opacity="1"/>
+    <path d="M 70 54
+    C 94 48, 340 56, 362 54
+    L 368 102
+    C 328 115, 102 108, 69 111
+    L 64 60 Z"
+    fill="#E8DDC6" stroke="#FF2E7A" stroke-width="3" opacity="1"/>
+    <path d="M 70 130
+    C 94 124, 340 132, 362 130
+    L 368 178
+    C 328 191, 102 184, 69 187
+    L 64 136 Z"
+    fill="#0D1118" stroke="#00E5FF" stroke-width="3" opacity="1"/>
+    <path d="M 88 82 l20 -16 l0 32 Z" fill="#050508"/>
+    <path d="M 90 157 h28 M104 143 v28" stroke="#00E5FF" stroke-width="7" stroke-linecap="round"/>
+    <text x="142" y="90" font-family="Arial Black, Arial, sans-serif" font-size="25" fill="#050508">START REVIEW</text>
+    <text x="142" y="166" font-family="Arial Black, Arial, sans-serif" font-size="25" fill="#00E5FF">ART LAB</text>
+    <path d="M 390 42 C 430 82, 430 150, 390 196" fill="none" stroke="#F0A64A" stroke-width="5" opacity="0.72"/>
+  
+</svg>

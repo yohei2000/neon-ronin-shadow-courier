@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-26T10:54:28.695Z",
+  "generatedAt": "2026-06-26T11:19:40.240Z",
   "valid": true,
   "checkedFiles": [
     {
       "file": "art/asset-manifest.json",
-      "bytes": 6165
+      "bytes": 6693
     },
     {
       "file": "art/animation-manifest.json",
@@ -24,11 +24,11 @@
     },
     {
       "file": "art/license-manifest.json",
-      "bytes": 5153
+      "bytes": 5618
     },
     {
       "file": "art/final/atlas-manifest.json",
-      "bytes": 2434
+      "bytes": 2996
     },
     {
       "file": "art/final/contact-sheet-report.json",
@@ -40,7 +40,7 @@
     },
     {
       "file": "art/final/screenshot-report.json",
-      "bytes": 195328
+      "bytes": 199360
     },
     {
       "file": "art/final/performance-report.md",
@@ -86,7 +86,7 @@
       "file": "art/final/ui-mobile-390x844.png",
       "width": 390,
       "height": 844,
-      "bytes": 212929
+      "bytes": 222707
     },
     {
       "file": "art/approvals/GATE_A_STATUS.json",
@@ -143,6 +143,18 @@
       "width": 960,
       "height": 540,
       "bytes": 270845
+    },
+    {
+      "file": "art/final/assets/title-menu-panel.png",
+      "width": 520,
+      "height": 240,
+      "bytes": 14761
+    },
+    {
+      "file": "art/final/assets/mobile-controls-kit.png",
+      "width": 640,
+      "height": 320,
+      "bytes": 31236
     },
     {
       "file": "art/final/assets/brush-kit.png",
@@ -226,13 +238,13 @@
       "file": "art/reviews/round-01/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 247159
+      "bytes": 218451
     },
     {
       "file": "art/reviews/round-01/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 63590
+      "bytes": 57605
     },
     {
       "file": "art/reviews/round-01/artlab-neutral.png",
@@ -292,7 +304,7 @@
       "file": "art/reviews/round-01/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 73992
+      "bytes": 70962
     },
     {
       "file": "art/reviews/round-01/review.md",
@@ -306,13 +318,13 @@
       "file": "art/reviews/round-02/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 247226
+      "bytes": 218174
     },
     {
       "file": "art/reviews/round-02/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 63566
+      "bytes": 57569
     },
     {
       "file": "art/reviews/round-02/artlab-neutral.png",
@@ -372,7 +384,7 @@
       "file": "art/reviews/round-02/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 73992
+      "bytes": 70962
     },
     {
       "file": "art/reviews/round-02/review.md",
@@ -386,13 +398,13 @@
       "file": "art/reviews/round-03/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 247127
+      "bytes": 217653
     },
     {
       "file": "art/reviews/round-03/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 63530
+      "bytes": 57446
     },
     {
       "file": "art/reviews/round-03/artlab-neutral.png",
@@ -452,7 +464,7 @@
       "file": "art/reviews/round-03/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 73992
+      "bytes": 70962
     },
     {
       "file": "art/reviews/round-03/review.md",
@@ -472,6 +484,8 @@
     "slash-flipbook",
     "telegraph-flipbook",
     "ui-kit",
+    "title-menu-panel",
+    "mobile-controls-kit",
     "brush-kit",
     "sign-atlas",
     "title-composition",
@@ -483,6 +497,6 @@
     "layer-near-props-front",
     "layer-foreground-occlusion"
   ],
-  "runtimeImageRefs": 17,
+  "runtimeImageRefs": 18,
   "errors": []
 }

@@ -237,6 +237,44 @@ function uiKitSvg() {
     </g>`);
 }
 
+function titleMenuPanelSvg() {
+  return svgShell(520, 240, `<rect width="520" height="240" fill="transparent"/>
+    ${brushRect(24, 20, 420, 188, '#080A0F', palette.inkBlack)}
+    ${brushRect(62, 52, 308, 58, palette.warmPaper, palette.neonMagenta)}
+    ${brushRect(62, 128, 308, 58, '#0D1118', palette.neonCyan)}
+    <path d="M 88 82 l20 -16 l0 32 Z" fill="${palette.inkBlack}"/>
+    <path d="M 90 157 h28 M104 143 v28" stroke="${palette.neonCyan}" stroke-width="7" stroke-linecap="round"/>
+    ${text(142, 90, 'START REVIEW', 25, palette.inkBlack, 'Arial Black, Arial, sans-serif')}
+    ${text(142, 166, 'ART LAB', 25, palette.neonCyan, 'Arial Black, Arial, sans-serif')}
+    <path d="M 390 42 C 430 82, 430 150, 390 196" fill="none" stroke="${palette.lanternGold}" stroke-width="5" opacity="0.72"/>
+  `);
+}
+
+function mobileControlsKitBody() {
+  return `<g transform="translate(28 48)">
+      <circle cx="106" cy="106" r="94" fill="#090B10" stroke="${palette.neonCyan}" stroke-width="8" opacity="0.95"/>
+      <circle cx="106" cy="106" r="42" fill="#11151C" stroke="${palette.neutralGray}" stroke-width="5"/>
+      <path d="M 106 36 L 84 72 H 128 Z M 106 176 L 84 140 H 128 Z M 36 106 L 72 84 V 128 Z M 176 106 L 140 84 V 128 Z"
+        fill="${palette.neonCyan}" opacity="0.86"/>
+      ${text(64, 242, 'MOVE', 25, palette.neonCyan, 'Arial Black, Arial, sans-serif')}
+    </g>
+    <g transform="translate(360 34)">
+      <circle cx="110" cy="190" r="68" fill="#090B10" stroke="${palette.neonMagenta}" stroke-width="8"/>
+      <path d="M 70 190 C 104 140, 154 146, 184 186 C 142 176, 104 190, 72 226 Z" fill="${palette.neonMagenta}" opacity="0.85"/>
+      ${text(82, 200, 'SL', 29, palette.warmPaper, 'Arial Black, Arial, sans-serif')}
+      <circle cx="210" cy="82" r="62" fill="#090B10" stroke="${palette.neonCyan}" stroke-width="8"/>
+      <path d="M 180 96 L 210 48 L 240 96" fill="none" stroke="${palette.neonCyan}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      ${text(188, 92, 'JP', 26, palette.warmPaper, 'Arial Black, Arial, sans-serif')}
+      <circle cx="58" cy="72" r="42" fill="#090B10" stroke="${palette.lanternGold}" stroke-width="6"/>
+      <rect x="44" y="52" width="8" height="38" fill="${palette.lanternGold}"/>
+      <rect x="64" y="52" width="8" height="38" fill="${palette.lanternGold}"/>
+    </g>`;
+}
+
+function mobileControlsKitSvg() {
+  return svgShell(640, 320, `<rect width="640" height="320" fill="transparent"/>${mobileControlsKitBody()}`);
+}
+
 function brushKitSvg() {
   const rows = Array.from({ length: 6 }, (_, index) => {
     const y = 98 + index * 66;
@@ -295,6 +333,8 @@ async function main() {
   await renderAsset('slash-flipbook.png', slashSheetSvg(), 1024, 160, ['G'], 'flipbook');
   await renderAsset('telegraph-flipbook.png', telegraphSheetSvg(), 960, 430, ['H'], 'timeline');
   await renderAsset('ui-kit.png', uiKitSvg(), 960, 540, ['F'], 'ui');
+  await renderAsset('title-menu-panel.png', titleMenuPanelSvg(), 520, 240, ['F'], 'ui');
+  await renderAsset('mobile-controls-kit.png', mobileControlsKitSvg(), 640, 320, ['F'], 'ui');
   await renderAsset('brush-kit.png', brushKitSvg(), 960, 540, ['A'], 'brush');
   await renderAsset('sign-atlas.png', signAtlasSvg(), 960, 640, ['C'], 'atlas');
   await renderAsset('title-composition.png', runtimeSceneSvg(960, 540, 'warm-cool-alley', { slash: true }), 960, 540, references, 'composition');
@@ -440,7 +480,7 @@ async function main() {
     ['ui-desktop-contact-sheet.png', uiKitSvg(), 960, 540],
     ['ui-material-swatches.png', uiKitSvg(), 960, 540],
     ['ui-state-contact-sheet.png', uiKitSvg(), 960, 540],
-    ['ui-mobile-390x844.png', svgShell(390, 844, `${paperBackdrop(390, 844)}${title(24, 56, 'Mobile UI', 28)}${brushRect(30, 94, 330, 82, palette.warmPaper, palette.inkBlack)}${text(58, 144, 'Objective panel clear of controls', 20, palette.inkBlack)}<circle cx="92" cy="716" r="68" fill="#090B10" stroke="${palette.neonCyan}" stroke-width="5"/><circle cx="286" cy="712" r="56" fill="#090B10" stroke="${palette.neonMagenta}" stroke-width="5"/><circle cx="286" cy="584" r="52" fill="#090B10" stroke="${palette.neonCyan}" stroke-width="5"/>`), 390, 844],
+    ['ui-mobile-390x844.png', svgShell(390, 844, `${paperBackdrop(390, 844)}${title(24, 56, 'Mobile UI', 28)}${brushRect(30, 94, 330, 82, palette.warmPaper, palette.inkBlack)}${text(58, 144, 'Objective panel clear of controls', 20, palette.inkBlack)}<g transform="translate(10 526) scale(0.58)">${mobileControlsKitBody()}</g>`), 390, 844],
     ['reference-g-slash-timeline.png', slashSheetSvg(), 1024, 160],
     ['enemy-contact-sheet.png', enemySheetSvg(), 512, 320],
     ['lantern-warden-telegraph-contact-sheet.png', telegraphSheetSvg(), 960, 430],

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T10:51:06.917Z",
+  "generatedAt": "2026-06-26T11:16:05.978Z",
   "phase": "gate-b-final-art-lock-review",
   "sourcePipeline": "scripts/process-art-assets.mjs -> SVG -> Playwright Chromium raster PNG",
   "noRemoteRuntimeDependencies": true,
@@ -97,6 +97,30 @@
       "file": "art/final/assets/ui-kit.png",
       "width": 960,
       "height": 540,
+      "references": [
+        "F"
+      ],
+      "type": "ui",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "title-menu-panel",
+      "file": "art/final/assets/title-menu-panel.png",
+      "width": 520,
+      "height": 240,
+      "references": [
+        "F"
+      ],
+      "type": "ui",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "mobile-controls-kit",
+      "file": "art/final/assets/mobile-controls-kit.png",
+      "width": 640,
+      "height": 320,
       "references": [
         "F"
       ],

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T10:51:27.072Z",
+  "generatedAt": "2026-06-26T11:16:27.325Z",
   "valid": true,
   "files": [
     {
@@ -84,7 +84,7 @@
       "file": "art/final/ui-mobile-390x844.png",
       "width": 390,
       "height": 844,
-      "bytes": 212929
+      "bytes": 222707
     },
     {
       "file": "art/final/reference-g-slash-timeline.png",

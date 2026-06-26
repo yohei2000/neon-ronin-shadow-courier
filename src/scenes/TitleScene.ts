@@ -87,38 +87,15 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private drawMenu(): void {
-    this.add.image(204, 426, ArtAssetKey.UiKit).setScale(0.34).setAlpha(0.64);
-    const start = this.makeButton(74, 366, 'START REVIEW', () => this.scene.start(SceneKey.ArtLab));
-    const lab = this.makeButton(74, 428, 'ART LAB', () => this.scene.start(SceneKey.ArtLab, { state: 'neutral' }));
-    start.setData('defaultColor', PaletteHex.inkBlack);
-    lab.setData('defaultColor', PaletteHex.neonCyan);
+    this.add.image(236, 414, ArtAssetKey.TitleMenuPanel).setScale(0.82).setAlpha(0.96);
+    this.add.zone(210, 384, 260, 52).setInteractive({ useHandCursor: true }).on('pointerup', () => this.scene.start(SceneKey.ArtLab));
+    this.add.zone(210, 446, 260, 52).setInteractive({ useHandCursor: true }).on('pointerup', () => this.scene.start(SceneKey.ArtLab, { state: 'neutral' }));
 
     this.add.text(60, 500, 'Gate A approved. Gate B pending explicit human approval.', {
       fontFamily: 'Consolas, monospace',
       fontSize: '13px',
       color: PaletteHex.paleMoonMist
     });
-  }
-
-  private makeButton(x: number, y: number, label: string, onClick: () => void): Phaser.GameObjects.Text {
-    const text = this.add.text(x, y, label, {
-      fontFamily: 'Arial Black, Arial, sans-serif',
-      fontSize: '25px',
-      color: label === 'START REVIEW' ? PaletteHex.inkBlack : PaletteHex.neonCyan,
-      backgroundColor: label === 'START REVIEW' ? PaletteHex.warmPaper : '#090C12',
-      padding: { x: 18, y: 9 }
-    });
-
-    text.setInteractive({ useHandCursor: true })
-      .on('pointerover', () => text.setColor(PaletteHex.neonMagenta))
-      .on('pointerout', () => text.setColor(text.getData('defaultColor') as string))
-      .on('pointerdown', () => text.setScale(0.97))
-      .on('pointerup', () => {
-        text.setScale(1);
-        onClick();
-      });
-
-    return text;
   }
 
   private publishQaState(): void {
