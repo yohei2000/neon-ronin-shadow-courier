@@ -1,6 +1,6 @@
 # Art Lock Completion Audit
 
-Generated: 2026-06-26T15:52:06.731Z
+Generated: 2026-06-26T16:21:49.337Z
 
 Complete: no
 
@@ -14,7 +14,7 @@ Blocking requirement: Gate B v2 explicit human approval is still required.
 
 - Gate A: approved, approved=true
 - Gate B v1: pending, approved=false
-- Gate B v2: in_progress, approved=false
+- Gate B v2: pending_human_approval, approved=false
 
 ## Requirement Summary
 

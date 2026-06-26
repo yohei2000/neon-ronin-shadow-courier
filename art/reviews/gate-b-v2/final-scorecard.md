@@ -1,6 +1,6 @@
 # Gate B v2 Final Scorecard
 
-Generated: 2026-06-26T15:52:05.970Z
+Generated: 2026-06-26T16:21:48.533Z
 
 - Gate B v1: REJECTED
 - Gate B v2: PENDING HUMAN APPROVAL

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T15:52:01.526Z",
+  "generatedAt": "2026-06-26T16:21:44.544Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -102,7 +102,7 @@
     },
     {
       "file": "art/approvals/GATE_B_V2_STATUS.json",
-      "bytes": 591
+      "bytes": 602
     },
     {
       "file": "art/approvals/GATE_A_STATUS.json",
@@ -358,7 +358,7 @@
       "file": "art/reviews/gate-b-v2/round-02/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 786461
+      "bytes": 787944
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/player-motion.png",
@@ -444,7 +444,7 @@
       "file": "art/reviews/gate-b-v2/round-03/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 625628
+      "bytes": 633649
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/player-contrast.png",
