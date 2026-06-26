@@ -20,12 +20,12 @@
 
 ## Still Weak
 
-- The runtime sprite sheet still carries paper-background texture because native transparency was not exposed.
-- Frame extraction is sheet-based and needs future cutout cleanup before Stage 1 gameplay integration.
+- The runtime sprite sheet now passes alpha cutout validation, but generated-frame alignment still needs a Stage 1 gameplay cleanup pass.
+- Frame extraction is sheet-based, so animation polish is weaker than the static master.
 
 ## Rejection Risks
 
-- Potential rejection if transparent sprite quality is considered mandatory for this approval.
+- Potential rejection if animation-frame alignment is considered mandatory for this approval.
 - Potential rejection if some animation frames are judged too inconsistent for final lock.
 
 ## Reference A-H Compliance Notes

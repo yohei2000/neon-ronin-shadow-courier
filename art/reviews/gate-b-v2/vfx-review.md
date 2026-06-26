@@ -21,11 +21,11 @@
 ## Still Weak
 
 - Some candidate-board numbering or spacing is still present in raw review sheets but not intended as runtime VFX.
-- Precise transparent cutout cleanup remains future work.
+- Runtime VFX matte cleanup is improved, but generated sheet layout is still visible in raw evidence files.
 
 ## Rejection Risks
 
-- Potential rejection if human reviewer requires final alpha-separated VFX frames now.
+- Potential rejection if human reviewer requires hand-authored VFX frames now.
 
 ## Reference A-H Compliance Notes
 

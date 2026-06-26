@@ -20,12 +20,12 @@
 
 ## Still Weak
 
-- Runtime extraction still uses board-based texture processing.
-- Lantern Warden closed/open/defeat states need more exact cutout cleanup in a future integration pass.
+- Runtime extraction now removes the visible paper matte, but state separation is still board-derived.
+- Lantern Warden closed/open/defeat states need more exact per-frame cleanup in a future integration pass.
 
 ## Rejection Risks
 
-- Potential rejection if the reviewer requires per-state transparent production sprites now.
+- Potential rejection if the reviewer requires hand-separated per-state production sprites now.
 
 ## Reference A-H Compliance Notes
 

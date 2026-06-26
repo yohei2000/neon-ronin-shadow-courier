@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { chromium } from '@playwright/test';
 import { readPngInfo, rootDir, writeJson } from './art-lib.mjs';
 
 const requiredFiles = [
@@ -48,6 +49,7 @@ const requiredRoundFiles = [
 
 const errors = [];
 const checkedFiles = [];
+let alphaBrowser;
 
 async function requireFile(relative) {
   try {
@@ -62,6 +64,80 @@ async function requireFile(relative) {
     }
   } catch (error) {
     errors.push(`${relative} missing or unreadable: ${error.message}`);
+  }
+}
+
+async function getAlphaBrowser() {
+  if (!alphaBrowser) alphaBrowser = await chromium.launch({ headless: true });
+  return alphaBrowser;
+}
+
+async function inspectAlpha(relative) {
+  const filePath = path.join(rootDir, relative);
+  const bytes = await fs.readFile(filePath);
+  const dataUrl = `data:image/png;base64,${bytes.toString('base64')}`;
+  const info = await readPngInfo(filePath);
+  const browser = await getAlphaBrowser();
+  const page = await browser.newPage({ viewport: { width: info.width, height: info.height }, deviceScaleFactor: 1 });
+  try {
+    return await page.evaluate(
+      async ({ dataUrl, width, height }) => {
+        const img = await new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = () => reject(new Error('Unable to load PNG for alpha inspection.'));
+          image.src = dataUrl;
+        });
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, width, height);
+        context.drawImage(img, 0, 0);
+        const data = context.getImageData(0, 0, width, height).data;
+        const pixelCount = width * height;
+        let transparentPixels = 0;
+        let opaquePaperPixels = 0;
+        let maxCornerAlpha = 0;
+        const isPaperLike = (r, g, b) => {
+          const max = Math.max(r, g, b);
+          const min = Math.min(r, g, b);
+          const range = max - min;
+          const neutralLight = r > 206 && g > 200 && b > 184 && range < 58;
+          const warmPaper = r > 184 && g > 170 && b > 135 && r >= g - 8 && g >= b - 18 && range < 82;
+          const grayPaper = r > 180 && g > 178 && b > 172 && range < 38;
+          const cyanAccent = g > 132 && b > 150 && r < 110;
+          const magentaAccent = r > 125 && b > 92 && g < 120;
+          const lanternGold = r > 170 && g > 118 && b < 122 && r - b > 58;
+          return (neutralLight || warmPaper || grayPaper) && !cyanAccent && !magentaAccent && !lanternGold;
+        };
+        const cornerIndices = [
+          0,
+          width - 1,
+          (height - 1) * width,
+          height * width - 1
+        ];
+        for (let index = 0; index < pixelCount; index += 1) {
+          const offset = index * 4;
+          const alpha = data[offset + 3];
+          if (alpha < 16) transparentPixels += 1;
+          if (alpha > 220 && isPaperLike(data[offset], data[offset + 1], data[offset + 2])) opaquePaperPixels += 1;
+        }
+        for (const index of cornerIndices) {
+          maxCornerAlpha = Math.max(maxCornerAlpha, data[index * 4 + 3]);
+        }
+        return {
+          width,
+          height,
+          maxCornerAlpha,
+          transparentRatio: transparentPixels / pixelCount,
+          opaquePaperRatio: opaquePaperPixels / pixelCount
+        };
+      },
+      { dataUrl, width: info.width, height: info.height }
+    );
+  } finally {
+    await page.close();
   }
 }
 
@@ -100,6 +176,17 @@ const requiredAssetKeys = [
   'layer-foreground-occlusion'
 ];
 
+const requiredTransparentAssetKeys = new Set([
+  'player-spritesheet',
+  'player-master',
+  'enemy-spritesheet',
+  'lantern-warden-spritesheet',
+  'kite-wraith-preview',
+  'slash-flipbook',
+  'telegraph-flipbook',
+  'brush-kit'
+]);
+
 const assetKeys = new Set(assetManifest.assets.map((asset) => asset.key));
 for (const key of requiredAssetKeys) {
   if (!assetKeys.has(key)) errors.push(`Required runtime asset key missing: ${key}.`);
@@ -113,6 +200,13 @@ for (const asset of assetManifest.assets) {
   await requireFile(asset.file);
   if (!asset.references?.length) errors.push(`${asset.key} has no reference mapping.`);
   if (!asset.license) errors.push(`${asset.key} has no license ownership entry.`);
+  if (requiredTransparentAssetKeys.has(asset.key)) {
+    const alpha = await inspectAlpha(asset.file);
+    checkedFiles.push({ file: asset.file, alpha });
+    if (alpha.maxCornerAlpha > 24) errors.push(`${asset.key} does not have transparent corners after cutout processing.`);
+    if (alpha.transparentRatio < 0.12) errors.push(`${asset.key} has too little transparency for a cutout sprite/effect asset.`);
+    if (alpha.opaquePaperRatio > 0.08) errors.push(`${asset.key} still has too much opaque paper/white background.`);
+  }
 }
 
 const screenshotReport = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'final-v2', 'screenshot-report.json'), 'utf8'));
@@ -153,9 +247,13 @@ await writeJson(path.join(rootDir, 'art', 'final-v2', 'asset-validation-report.j
   errors
 });
 
-if (errors.length > 0) {
-  console.error(JSON.stringify({ errors }, null, 2));
-  process.exit(1);
-}
+try {
+  if (errors.length > 0) {
+    console.error(JSON.stringify({ errors }, null, 2));
+    process.exit(1);
+  }
 
-console.log(`art:validate-assets PASS ${JSON.stringify({ files: checkedFiles.length, runtimeImageRefs })}`);
+  console.log(`art:validate-assets PASS ${JSON.stringify({ files: checkedFiles.length, runtimeImageRefs })}`);
+} finally {
+  if (alphaBrowser) await alphaBrowser.close();
+}

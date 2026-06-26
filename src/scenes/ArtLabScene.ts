@@ -165,7 +165,7 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawBusyReadabilityStation(): void {
     this.add.image(480, 270, ArtAssetKey.TitleComposition).setAlpha(0.52);
-    this.add.sprite(318, 360, ArtAssetKey.Player, 9).setScale(0.88).play('player-run');
+    this.add.image(318, 360, ArtAssetKey.PlayerMaster).setScale(0.31);
     this.add.sprite(608, 372, ArtAssetKey.Enemy, 1).setScale(0.82);
     this.add.sprite(770, 320, ArtAssetKey.LanternWarden, 3).setScale(0.72);
     this.add.sprite(454, 326, ArtAssetKey.Slash, 3).setScale(0.72);

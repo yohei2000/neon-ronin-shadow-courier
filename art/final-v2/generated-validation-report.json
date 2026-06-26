@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T16:21:50.388Z",
+  "generatedAt": "2026-06-26T20:24:01.718Z",
   "valid": true,
   "totalCandidates": 180,
   "rawFamilies": [
@@ -248,7 +248,7 @@
     },
     {
       "file": "art/source/player/player-master.png",
-      "bytes": 2778458,
+      "bytes": 706221,
       "width": 1536,
       "height": 1024
     },
@@ -260,79 +260,79 @@
     },
     {
       "file": "art/source/player/player-idle-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-run-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-jump-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-fall-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-wall-slide-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-wall-kick-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-ground-slash-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-air-slash-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/player/player-hurt-sheet.png",
-      "bytes": 443554,
+      "bytes": 190579,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/source/enemies/ink-crawler-sheet.png",
-      "bytes": 2499759,
+      "bytes": 923498,
       "width": 1774,
       "height": 887
     },
     {
       "file": "art/source/enemies/kite-wraith-preview-sheet.png",
-      "bytes": 2890872,
+      "bytes": 1037694,
       "width": 1536,
       "height": 1024
     },
     {
       "file": "art/source/enemies/lantern-warden-sheet.png",
-      "bytes": 3118865,
+      "bytes": 1611625,
       "width": 1536,
       "height": 1024
     },
     {
       "file": "art/source/enemies/lantern-warden-telegraph-sheet.png",
-      "bytes": 2627321,
+      "bytes": 3270246,
       "width": 1536,
       "height": 1024
     },
@@ -410,91 +410,91 @@
     },
     {
       "file": "art/source/vfx/slash-flipbook.png",
-      "bytes": 243006,
+      "bytes": 77692,
       "width": 1024,
       "height": 160
     },
     {
       "file": "art/source/vfx/telegraph-flipbook.png",
-      "bytes": 609503,
+      "bytes": 590430,
       "width": 960,
       "height": 430
     },
     {
       "file": "art/source/vfx/hit-spark-flipbook.png",
-      "bytes": 193949,
+      "bytes": 62660,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/source/vfx/ink-dissolve-flipbook.png",
-      "bytes": 193949,
+      "bytes": 62660,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/source/vfx/wall-kick-burst.png",
-      "bytes": 193949,
+      "bytes": 62660,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/source/vfx/pickup-flash.png",
-      "bytes": 193949,
+      "bytes": 62660,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/source/vfx/checkpoint-pulse.png",
-      "bytes": 193949,
+      "bytes": 62660,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/source/vfx/stage-clear-burst.png",
-      "bytes": 193949,
+      "bytes": 62660,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/final-v2/assets/player-spritesheet.png",
-      "bytes": 1554683,
+      "bytes": 689262,
       "width": 1024,
       "height": 896
     },
     {
       "file": "art/final-v2/assets/player-master.png",
-      "bytes": 397989,
+      "bytes": 185801,
       "width": 512,
       "height": 512
     },
     {
       "file": "art/final-v2/assets/enemy-spritesheet.png",
-      "bytes": 245783,
+      "bytes": 124436,
       "width": 512,
       "height": 320
     },
     {
       "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
-      "bytes": 446901,
+      "bytes": 257032,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/final-v2/assets/kite-wraith-preview.png",
-      "bytes": 194618,
+      "bytes": 102142,
       "width": 512,
       "height": 256
     },
     {
       "file": "art/final-v2/assets/slash-flipbook.png",
-      "bytes": 243006,
+      "bytes": 77692,
       "width": 1024,
       "height": 160
     },
     {
       "file": "art/final-v2/assets/telegraph-flipbook.png",
-      "bytes": 609503,
+      "bytes": 590430,
       "width": 960,
       "height": 430
     },
@@ -518,7 +518,7 @@
     },
     {
       "file": "art/final-v2/assets/brush-kit.png",
-      "bytes": 815458,
+      "bytes": 240285,
       "width": 960,
       "height": 540
     },

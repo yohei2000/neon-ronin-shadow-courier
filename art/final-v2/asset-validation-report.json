@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T16:21:44.544Z",
+  "generatedAt": "2026-06-26T20:24:03.905Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -28,7 +28,7 @@
     },
     {
       "file": "art/final-v2/atlas-manifest.json",
-      "bytes": 3048
+      "bytes": 3046
     },
     {
       "file": "art/final-v2/contact-sheet-report.json",
@@ -90,7 +90,7 @@
     },
     {
       "file": "art/final-v2/generated-validation-report.json",
-      "bytes": 14569
+      "bytes": 14558
     },
     {
       "file": "art/generated/GENERATION_LOG.json",
@@ -116,43 +116,113 @@
       "file": "art/final-v2/assets/player-spritesheet.png",
       "width": 1024,
       "height": 896,
-      "bytes": 1554683
+      "bytes": 689262
+    },
+    {
+      "file": "art/final-v2/assets/player-spritesheet.png",
+      "alpha": {
+        "width": 1024,
+        "height": 896,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.7922439575195312,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/player-master.png",
       "width": 512,
       "height": 512,
-      "bytes": 397989
+      "bytes": 185801
+    },
+    {
+      "file": "art/final-v2/assets/player-master.png",
+      "alpha": {
+        "width": 512,
+        "height": 512,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.7604217529296875,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/enemy-spritesheet.png",
       "width": 512,
       "height": 320,
-      "bytes": 245783
+      "bytes": 124436
+    },
+    {
+      "file": "art/final-v2/assets/enemy-spritesheet.png",
+      "alpha": {
+        "width": 512,
+        "height": 320,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.7892333984375,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
       "width": 1024,
       "height": 256,
-      "bytes": 446901
+      "bytes": 257032
+    },
+    {
+      "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "alpha": {
+        "width": 1024,
+        "height": 256,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.7144889831542969,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/kite-wraith-preview.png",
       "width": 512,
       "height": 256,
-      "bytes": 194618
+      "bytes": 102142
+    },
+    {
+      "file": "art/final-v2/assets/kite-wraith-preview.png",
+      "alpha": {
+        "width": 512,
+        "height": 256,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.7746505737304688,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/slash-flipbook.png",
       "width": 1024,
       "height": 160,
-      "bytes": 243006
+      "bytes": 77692
+    },
+    {
+      "file": "art/final-v2/assets/slash-flipbook.png",
+      "alpha": {
+        "width": 1024,
+        "height": 160,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.91551513671875,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/telegraph-flipbook.png",
       "width": 960,
       "height": 430,
-      "bytes": 609503
+      "bytes": 590430
+    },
+    {
+      "file": "art/final-v2/assets/telegraph-flipbook.png",
+      "alpha": {
+        "width": 960,
+        "height": 430,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.526031976744186,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/ui-kit.png",
@@ -176,7 +246,17 @@
       "file": "art/final-v2/assets/brush-kit.png",
       "width": 960,
       "height": 540,
-      "bytes": 815458
+      "bytes": 240285
+    },
+    {
+      "file": "art/final-v2/assets/brush-kit.png",
+      "alpha": {
+        "width": 960,
+        "height": 540,
+        "maxCornerAlpha": 0,
+        "transparentRatio": 0.9216975308641975,
+        "opaquePaperRatio": 0
+      }
     },
     {
       "file": "art/final-v2/assets/sign-atlas.png",
@@ -272,61 +352,61 @@
       "file": "art/reviews/gate-b-v2/round-01/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 701318
+      "bytes": 690142
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 787944
+      "bytes": 797524
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 633649
+      "bytes": 620057
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/player-contrast.png",
       "width": 960,
       "height": 540,
-      "bytes": 448413
+      "bytes": 427319
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/slash.png",
       "width": 960,
       "height": 540,
-      "bytes": 627349
+      "bytes": 624216
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 646036
+      "bytes": 635760
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 687746
+      "bytes": 764933
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/parallax.png",
       "width": 960,
       "height": 540,
-      "bytes": 690886
+      "bytes": 690202
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/hud.png",
       "width": 960,
       "height": 540,
-      "bytes": 621917
+      "bytes": 618924
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 146976
+      "bytes": 147286
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/review.md",
@@ -352,61 +432,61 @@
       "file": "art/reviews/gate-b-v2/round-02/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 701318
+      "bytes": 690142
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 787944
+      "bytes": 797524
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 633649
+      "bytes": 620057
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/player-contrast.png",
       "width": 960,
       "height": 540,
-      "bytes": 448413
+      "bytes": 427319
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/slash.png",
       "width": 960,
       "height": 540,
-      "bytes": 627349
+      "bytes": 624216
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 646036
+      "bytes": 635760
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 687746
+      "bytes": 764933
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/parallax.png",
       "width": 960,
       "height": 540,
-      "bytes": 690886
+      "bytes": 690202
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/hud.png",
       "width": 960,
       "height": 540,
-      "bytes": 621917
+      "bytes": 618924
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 146976
+      "bytes": 147286
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/review.md",
@@ -432,61 +512,61 @@
       "file": "art/reviews/gate-b-v2/round-03/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 701318
+      "bytes": 690142
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 787944
+      "bytes": 797524
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 633649
+      "bytes": 620057
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/player-contrast.png",
       "width": 960,
       "height": 540,
-      "bytes": 448413
+      "bytes": 427319
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/slash.png",
       "width": 960,
       "height": 540,
-      "bytes": 627349
+      "bytes": 624216
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 646036
+      "bytes": 635760
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 687746
+      "bytes": 764933
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/parallax.png",
       "width": 960,
       "height": 540,
-      "bytes": 690886
+      "bytes": 690202
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/hud.png",
       "width": 960,
       "height": 540,
-      "bytes": 621917
+      "bytes": 618924
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 146976
+      "bytes": 147286
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/review.md",
@@ -519,6 +599,6 @@
     "layer-near-props-front",
     "layer-foreground-occlusion"
   ],
-  "runtimeImageRefs": 18,
+  "runtimeImageRefs": 19,
   "errors": []
 }

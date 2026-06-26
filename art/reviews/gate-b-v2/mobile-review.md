@@ -18,7 +18,7 @@
 
 ## Still Weak
 
-- The generated control crop needs future exact hit-area and transparency cleanup.
+- The generated control crop still needs future exact hit-area tuning.
 
 ## Rejection Risks
 

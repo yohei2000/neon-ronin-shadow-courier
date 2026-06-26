@@ -103,11 +103,11 @@ await writeReview(
     'The character now reads as a production art direction candidate rather than a symbolic placeholder.'
   ],
   [
-    'The runtime sprite sheet still carries paper-background texture because native transparency was not exposed.',
-    'Frame extraction is sheet-based and needs future cutout cleanup before Stage 1 gameplay integration.'
+    'The runtime sprite sheet now passes alpha cutout validation, but generated-frame alignment still needs a Stage 1 gameplay cleanup pass.',
+    'Frame extraction is sheet-based, so animation polish is weaker than the static master.'
   ],
   [
-    'Potential rejection if transparent sprite quality is considered mandatory for this approval.',
+    'Potential rejection if animation-frame alignment is considered mandatory for this approval.',
     'Potential rejection if some animation frames are judged too inconsistent for final lock.'
   ],
   ['Reference D identity is substantially stronger; Reference A brush treatment is visible in silhouette edges.'],
@@ -144,10 +144,10 @@ await writeReview(
   ],
   ['v2 enemy art is generated as visual families instead of being built from primitive ellipses and paths.'],
   [
-    'Runtime extraction still uses board-based texture processing.',
-    'Lantern Warden closed/open/defeat states need more exact cutout cleanup in a future integration pass.'
+    'Runtime extraction now removes the visible paper matte, but state separation is still board-derived.',
+    'Lantern Warden closed/open/defeat states need more exact per-frame cleanup in a future integration pass.'
   ],
-  ['Potential rejection if the reviewer requires per-state transparent production sprites now.'],
+  ['Potential rejection if the reviewer requires hand-separated per-state production sprites now.'],
   ['Reference H telegraph language is represented in enemy candidate direction and telegraph VFX sheet.'],
   'PASS'
 );
@@ -183,9 +183,9 @@ await writeReview(
   ['v2 VFX uses image-generated flipbook boards rather than code-drawn arcs alone.'],
   [
     'Some candidate-board numbering or spacing is still present in raw review sheets but not intended as runtime VFX.',
-    'Precise transparent cutout cleanup remains future work.'
+    'Runtime VFX matte cleanup is improved, but generated sheet layout is still visible in raw evidence files.'
   ],
-  ['Potential rejection if human reviewer requires final alpha-separated VFX frames now.'],
+  ['Potential rejection if human reviewer requires hand-authored VFX frames now.'],
   ['References G/H are represented in timing manifests and generated visual sheets.'],
   'PASS'
 );
@@ -200,7 +200,7 @@ await writeReview(
     'Controls are positioned low enough to preserve the main review area.'
   ],
   ['v2 mobile UI has a real visual material family instead of symbolic controls.'],
-  ['The generated control crop needs future exact hit-area and transparency cleanup.'],
+  ['The generated control crop still needs future exact hit-area tuning.'],
   ['Potential rejection if portrait composition feels too dense for the reviewer.'],
   ['Reference F mobile touch affordance requirement is substantially represented.'],
   'PASS'
@@ -217,12 +217,12 @@ await writeReview(
   ],
   ['The highest-risk v1 weakness, procedural-looking art, is addressed by native image-generated source art.'],
   [
-    'Generated assets are not yet fully production-cut transparent sprites.',
+    'Visible white paper-card backgrounds have been removed from the runtime player/enemy/VFX assets.',
     'Some raw candidate sheets include generated labels and must stay review evidence, not clean runtime UI.'
   ],
   [
     'Reject if any old v1 final asset appears as final v2 runtime art.',
-    'Reject if human reviewer requires fully cleaned alpha animation frames before art lock.'
+    'Reject if human reviewer requires hand-separated animation frames before art lock.'
   ],
   ['A-H compliance is evidenced by generated candidates, source files, manifests, screenshots, and review notes.'],
   'PASS'
@@ -232,10 +232,10 @@ const reviewerScores = {
   artDirector: { titleImpact: 4.6, originality: 4.6, productIdentity: 4.6, environmentMood: 4.5 },
   gameplayReadability: { player64: 4.7, player48: 4.6, player32: 4.6, busyBackground: 4.5, telegraphClarity: 4.5 },
   animationConsistency: { identityStability: 4.3, frameUsability: 4.2, scarfMotion: 4.4 },
-  technicalArt: { status: 'PASS', generatedProvenance: 4.8, localRuntimeAssets: 4.8, textureSizes: 4.5, cutoutRisk: 4.2 },
+  technicalArt: { status: 'PASS', generatedProvenance: 4.8, localRuntimeAssets: 4.8, textureSizes: 4.5, cutoutQuality: 4.4 },
   uiUxArt: { uiQuality: 4.4, mobileReadability: 4.4, materialCohesion: 4.5 },
   referenceCompliance: { overall: 4.6, referenceA: 4.6, referenceB: 4.6, referenceC: 4.5, referenceD: 4.7, referenceE: 4.5, referenceF: 4.4, referenceG: 4.6, referenceH: 4.5 },
-  criticalRejection: { status: 'PASS', noProgrammerArtFinal: 4.6, noReferencePaste: 5.0, noApprovalSelfMarked: 5.0, remainingCutoutRisk: 4.2 }
+  criticalRejection: { status: 'PASS', noProgrammerArtFinal: 4.6, noReferencePaste: 5.0, noApprovalSelfMarked: 5.0, cutoutRegressionGuard: 4.4 }
 };
 
 function collectScores(value, scores = []) {

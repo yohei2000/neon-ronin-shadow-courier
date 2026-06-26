@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { chromium } from '@playwright/test';
 import { ensureDir, readPngInfo, renderSvgToPng, rootDir, writeJson } from './art-lib.mjs';
 
 const artDir = path.join(rootDir, 'art');
@@ -134,6 +135,147 @@ async function copyPng(fromRelative, toRelative) {
   return toRelative.replaceAll('\\', '/');
 }
 
+let cutoutBrowser;
+
+async function getCutoutBrowser() {
+  if (!cutoutBrowser) cutoutBrowser = await chromium.launch({ headless: true });
+  return cutoutBrowser;
+}
+
+async function closeCutoutBrowser() {
+  if (cutoutBrowser) {
+    await cutoutBrowser.close();
+    cutoutBrowser = undefined;
+  }
+}
+
+async function renderCutout(relative, source, width, height, options = {}) {
+  const target = path.join(rootDir, relative);
+  await ensureDir(path.dirname(target));
+  const sourcePath = path.join(rootDir, source);
+  const bytes = await fs.readFile(sourcePath);
+  const info = await readPngInfo(sourcePath);
+  const sourceDataUrl = `data:image/png;base64,${bytes.toString('base64')}`;
+  const browser = await getCutoutBrowser();
+  const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+  try {
+    const pngDataUrl = await page.evaluate(
+      async ({ sourceDataUrl, sourceWidth, sourceHeight, width, height, options }) => {
+        const img = await new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = () => reject(new Error('Unable to load image for cutout processing.'));
+          image.src = sourceDataUrl;
+        });
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, width, height);
+
+        const crop = options.crop ?? { x: 0, y: 0, w: 1, h: 1 };
+        const sx = crop.x * sourceWidth;
+        const sy = crop.y * sourceHeight;
+        const sw = crop.w * sourceWidth;
+        const sh = crop.h * sourceHeight;
+        const mode = options.mode ?? 'slice';
+        const baseScale = mode === 'meet'
+          ? Math.min(width / sw, height / sh)
+          : Math.max(width / sw, height / sh);
+        const padding = options.padding ?? 0;
+        const scale = baseScale * Math.max(0.1, 1 - padding * 2);
+        const dw = sw * scale;
+        const dh = sh * scale;
+        const dx = (width - dw) / 2;
+        const dy = (height - dh) / 2;
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = 'high';
+        context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+
+        const imageData = context.getImageData(0, 0, width, height);
+        const data = imageData.data;
+        const pixelCount = width * height;
+        const removable = new Uint8Array(pixelCount);
+        const visited = new Uint8Array(pixelCount);
+        const queue = [];
+
+        const isPaperLike = (index) => {
+          const offset = index * 4;
+          const alpha = data[offset + 3];
+          if (alpha < 4) return false;
+          const r = data[offset];
+          const g = data[offset + 1];
+          const b = data[offset + 2];
+          const max = Math.max(r, g, b);
+          const min = Math.min(r, g, b);
+          const range = max - min;
+          const neutralLight = r > 206 && g > 200 && b > 184 && range < 58;
+          const warmPaper = r > 184 && g > 170 && b > 135 && r >= g - 8 && g >= b - 18 && range < 82;
+          const grayPaper = r > 180 && g > 178 && b > 172 && range < 38;
+          const cyanAccent = g > 132 && b > 150 && r < 110;
+          const magentaAccent = r > 125 && b > 92 && g < 120;
+          const lanternGold = r > 170 && g > 118 && b < 122 && r - b > 58;
+          const darkMatte = options.removeDark && r < 58 && g < 58 && b < 58 && range < 34;
+          return ((neutralLight || warmPaper || grayPaper) && !cyanAccent && !magentaAccent && !lanternGold) || darkMatte;
+        };
+
+        const enqueue = (index) => {
+          if (index < 0 || index >= pixelCount || visited[index] || !isPaperLike(index)) return;
+          visited[index] = 1;
+          removable[index] = 1;
+          queue.push(index);
+        };
+
+        for (let x = 0; x < width; x += 1) {
+          enqueue(x);
+          enqueue((height - 1) * width + x);
+        }
+        for (let y = 0; y < height; y += 1) {
+          enqueue(y * width);
+          enqueue(y * width + width - 1);
+        }
+
+        for (let cursor = 0; cursor < queue.length; cursor += 1) {
+          const index = queue[cursor];
+          const x = index % width;
+          const y = Math.floor(index / width);
+          if (x > 0) enqueue(index - 1);
+          if (x < width - 1) enqueue(index + 1);
+          if (y > 0) enqueue(index - width);
+          if (y < height - 1) enqueue(index + width);
+        }
+
+        const touchesRemoved = (index) => {
+          const x = index % width;
+          const y = Math.floor(index / width);
+          return (x > 0 && removable[index - 1])
+            || (x < width - 1 && removable[index + 1])
+            || (y > 0 && removable[index - width])
+            || (y < height - 1 && removable[index + width]);
+        };
+
+        for (let index = 0; index < pixelCount; index += 1) {
+          const offset = index * 4;
+          if (removable[index] || (options.removeAllPaper && isPaperLike(index))) {
+            data[offset + 3] = 0;
+          } else if (isPaperLike(index) && touchesRemoved(index)) {
+            data[offset + 3] = Math.min(data[offset + 3], 80);
+          }
+        }
+
+        context.putImageData(imageData, 0, 0);
+        return canvas.toDataURL('image/png');
+      },
+      { sourceDataUrl, sourceWidth: info.width, sourceHeight: info.height, width, height, options }
+    );
+    const base64 = pngDataUrl.replace(/^data:image\/png;base64,/, '');
+    await fs.writeFile(target, Buffer.from(base64, 'base64'));
+    return relative.replaceAll('\\', '/');
+  } finally {
+    await page.close();
+  }
+}
+
 async function renderCandidateSheet(spec) {
   const body = [
     await imageFitSvg(spec.raw, 960, 540, { mode: 'meet' }),
@@ -243,9 +385,12 @@ async function main() {
 
   const assets = [];
   async function asset(key, source, width, height, refs, type, options = {}) {
-    const file = options.crop
-      ? await renderCrop(`art/final-v2/assets/${key}.png`, source, width, height, options.crop)
-      : await renderFit(`art/final-v2/assets/${key}.png`, source, width, height, options);
+    const output = `art/final-v2/assets/${key}.png`;
+    const file = options.cutout
+      ? await renderCutout(output, source, width, height, options)
+      : options.crop
+        ? await renderCrop(output, source, width, height, options.crop)
+        : await renderFit(output, source, width, height, options);
     assets.push({
       key,
       file,
@@ -260,17 +405,17 @@ async function main() {
     return file;
   }
 
-  await asset('player-spritesheet', raw.playerAnimation, 1024, 896, ['A', 'D', 'G'], 'spritesheet', { mode: 'slice' });
-  await asset('player-master', raw.playerRefine2, 512, 512, ['D'], 'master', { mode: 'slice' });
-  await asset('enemy-spritesheet', raw.inkCrawler, 512, 320, ['A', 'H'], 'spritesheet', { mode: 'slice' });
-  await asset('lantern-warden-spritesheet', raw.lanternWarden, 1024, 256, ['A', 'H'], 'spritesheet', { mode: 'slice' });
-  await asset('kite-wraith-preview', raw.kiteWraith, 512, 256, ['H'], 'preview', { crop: { x: 0, y: 0, w: 1, h: 0.55 } });
-  await asset('slash-flipbook', raw.slash, 1024, 160, ['G'], 'flipbook', { mode: 'slice' });
-  await asset('telegraph-flipbook', raw.telegraph, 960, 430, ['H'], 'timeline', { mode: 'slice' });
+  await asset('player-spritesheet', raw.playerAnimation, 1024, 896, ['A', 'D', 'G'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true });
+  await asset('player-master', raw.playerRefine2, 512, 512, ['D'], 'master', { mode: 'slice', cutout: true, removeAllPaper: true });
+  await asset('enemy-spritesheet', raw.inkCrawler, 512, 320, ['A', 'H'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true });
+  await asset('lantern-warden-spritesheet', raw.lanternWarden, 1024, 256, ['A', 'H'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true });
+  await asset('kite-wraith-preview', raw.kiteWraith, 512, 256, ['H'], 'preview', { crop: { x: 0, y: 0, w: 1, h: 0.55 }, cutout: true, padding: 0.04, removeAllPaper: true });
+  await asset('slash-flipbook', raw.slash, 1024, 160, ['G'], 'flipbook', { mode: 'slice', cutout: true, removeDark: true, removeAllPaper: true });
+  await asset('telegraph-flipbook', raw.telegraph, 960, 430, ['H'], 'timeline', { mode: 'slice', cutout: true, removeDark: true, removeAllPaper: true });
   await asset('ui-kit', raw.ui, 960, 540, ['F'], 'ui', { crop: { x: 0.745, y: 0.02, w: 0.245, h: 0.42 } });
   await asset('title-menu-panel', raw.ui, 520, 240, ['F'], 'ui', { crop: { x: 0.745, y: 0.02, w: 0.245, h: 0.42 } });
   await asset('mobile-controls-kit', raw.ui, 640, 320, ['F'], 'ui', { crop: { x: 0.745, y: 0.52, w: 0.245, h: 0.40 } });
-  await asset('brush-kit', raw.impactVfx, 960, 540, ['A', 'G'], 'brush', { mode: 'slice' });
+  await asset('brush-kit', raw.impactVfx, 960, 540, ['A', 'G'], 'brush', { mode: 'slice', cutout: true, removeDark: true, removeAllPaper: true });
   await asset('sign-atlas', raw.environmentKit, 960, 640, ['C'], 'atlas', { mode: 'slice' });
   await asset('title-composition', raw.title, 960, 540, ['A', 'B', 'C', 'D', 'E', 'F'], 'composition', { mode: 'slice' });
   await asset('environment-key', raw.environmentKey, 960, 540, ['B', 'C', 'E'], 'composition', { mode: 'slice' });
@@ -293,9 +438,9 @@ async function main() {
   await asset('lighting-cyan-magenta-neon', raw.title, 960, 540, ['B'], 'lighting-preset', { mode: 'slice' });
   await asset('lighting-warm-cool-alley', raw.environmentKey, 960, 540, ['B'], 'lighting-preset', { crop: { x: 0.5, y: 0.5, w: 0.5, h: 0.5 } });
 
-  await copyPng(raw.playerRefine2, 'art/source/player/player-master.png');
+  await renderCutout('art/source/player/player-master.png', raw.playerRefine2, 1536, 1024, { mode: 'meet', removeAllPaper: true });
   await renderFit('art/source/player/player-master-readability.png', raw.playerRefine2, 960, 540, { mode: 'meet' });
-  await copyPng(raw.playerAnimation, 'art/source/player/player-animation-master-sheet.png');
+  await renderCutout('art/source/player/player-animation-master-sheet.png', raw.playerAnimation, 1024, 1536, { mode: 'meet', removeAllPaper: true });
   for (const file of [
     'player-idle-sheet.png',
     'player-run-sheet.png',
@@ -307,13 +452,13 @@ async function main() {
     'player-air-slash-sheet.png',
     'player-hurt-sheet.png'
   ]) {
-    await renderFit(`art/source/player/${file}`, raw.playerAnimation, 1024, 256, { mode: 'slice' });
+    await renderCutout(`art/source/player/${file}`, raw.playerAnimation, 1024, 256, { mode: 'slice', removeAllPaper: true });
   }
 
-  await copyPng(raw.inkCrawler, 'art/source/enemies/ink-crawler-sheet.png');
-  await copyPng(raw.kiteWraith, 'art/source/enemies/kite-wraith-preview-sheet.png');
-  await copyPng(raw.lanternWarden, 'art/source/enemies/lantern-warden-sheet.png');
-  await copyPng(raw.telegraph, 'art/source/enemies/lantern-warden-telegraph-sheet.png');
+  await renderCutout('art/source/enemies/ink-crawler-sheet.png', raw.inkCrawler, 1774, 887, { mode: 'meet', removeAllPaper: true });
+  await renderCutout('art/source/enemies/kite-wraith-preview-sheet.png', raw.kiteWraith, 1536, 1024, { mode: 'meet', removeAllPaper: true });
+  await renderCutout('art/source/enemies/lantern-warden-sheet.png', raw.lanternWarden, 1536, 1024, { mode: 'meet', removeAllPaper: true });
+  await renderCutout('art/source/enemies/lantern-warden-telegraph-sheet.png', raw.telegraph, 1536, 1024, { mode: 'meet', removeAllPaper: true });
   await copyPng(raw.environmentKey, 'art/source/environment/neon-alley-key-art.png');
   await copyPng(raw.environmentKit, 'art/source/environment/tileset-neon-alley.png');
   await renderFit('art/source/environment/props-atlas.png', raw.environmentKit, 1024, 1024, { mode: 'slice' });
@@ -335,8 +480,8 @@ async function main() {
   await renderCrop('art/source/ui/ui-kit.png', raw.ui, 960, 540, { x: 0.745, y: 0.02, w: 0.245, h: 0.42 });
   await renderCrop('art/source/ui/mobile-controls-kit.png', raw.ui, 640, 320, { x: 0.745, y: 0.52, w: 0.245, h: 0.40 });
   await renderFit('art/source/ui/icons.png', raw.ui, 512, 512, { mode: 'slice' });
-  await renderFit('art/source/vfx/slash-flipbook.png', raw.slash, 1024, 160, { mode: 'slice' });
-  await renderFit('art/source/vfx/telegraph-flipbook.png', raw.telegraph, 960, 430, { mode: 'slice' });
+  await renderCutout('art/source/vfx/slash-flipbook.png', raw.slash, 1024, 160, { mode: 'slice', removeDark: true, removeAllPaper: true });
+  await renderCutout('art/source/vfx/telegraph-flipbook.png', raw.telegraph, 960, 430, { mode: 'slice', removeDark: true, removeAllPaper: true });
   for (const file of [
     'hit-spark-flipbook.png',
     'ink-dissolve-flipbook.png',
@@ -345,7 +490,7 @@ async function main() {
     'checkpoint-pulse.png',
     'stage-clear-burst.png'
   ]) {
-    await renderFit(`art/source/vfx/${file}`, raw.impactVfx, 512, 256, { mode: 'slice' });
+    await renderCutout(`art/source/vfx/${file}`, raw.impactVfx, 512, 256, { mode: 'slice', removeDark: true, removeAllPaper: true });
   }
 
   const finalCopies = [
@@ -469,7 +614,13 @@ async function main() {
     ''
   ].join('\n'), 'utf8');
 
-  console.log(`art:process PASS ${JSON.stringify({ phase: 'gate-b-v2', generatedFamilies: familySpecs.length, runtimeAssets: assets.length })}`);
+  await closeCutoutBrowser();
+
+  console.log(`art:process PASS ${JSON.stringify({ phase: 'gate-b-v2', generatedFamilies: familySpecs.length, runtimeAssets: assets.length, alphaCutouts: 30 })}`);
 }
 
-await main();
+try {
+  await main();
+} finally {
+  await closeCutoutBrowser();
+}

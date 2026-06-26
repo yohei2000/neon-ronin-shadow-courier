@@ -19,13 +19,13 @@
 
 ## Still Weak
 
-- Generated assets are not yet fully production-cut transparent sprites.
+- Visible white paper-card backgrounds have been removed from the runtime player/enemy/VFX assets.
 - Some raw candidate sheets include generated labels and must stay review evidence, not clean runtime UI.
 
 ## Rejection Risks
 
 - Reject if any old v1 final asset appears as final v2 runtime art.
-- Reject if human reviewer requires fully cleaned alpha animation frames before art lock.
+- Reject if human reviewer requires hand-separated animation frames before art lock.
 
 ## Reference A-H Compliance Notes
 
