@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-06-26T00:00:00.000Z",
+  "items": [
+    {
+      "id": "reference-package-a-h",
+      "type": "user-provided-reference-specification",
+      "path": "art/references/neon_ronin_art_refs_impl_ready",
+      "runtimeUse": false,
+      "notes": "Specification package only. Must not be pasted into runtime."
+    },
+    {
+      "id": "gate-a-imagegen-candidates",
+      "type": "ai-generated-concept-evidence",
+      "path": "art/reviews/candidates",
+      "runtimeUse": false,
+      "notes": "Direction exploration only. Final runtime assets must be separately authored/processed after Gate A approval."
+    },
+    {
+      "id": "gate-a-representative-composite",
+      "type": "ai-generated-concept-evidence",
+      "path": "art/reviews/gate-a/representative-composite-source.png",
+      "runtimeUse": false,
+      "notes": "Gate A rough composite source, downsampled for approval evidence."
+    }
+  ]
+}

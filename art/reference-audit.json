@@ -1,0 +1,118 @@
+{
+  "generatedAt": "2026-06-26T02:35:31.189Z",
+  "referenceDir": "art/references/neon_ronin_art_refs_impl_ready",
+  "files": [
+    {
+      "file": "index.md",
+      "bytes": 1662,
+      "present": true,
+      "heading": "# Neon Ronin — Implementation-Ready Art References"
+    },
+    {
+      "file": "a.md",
+      "bytes": 1039,
+      "present": true,
+      "heading": "# A — 画像A: 墨の輪郭、ブラシのかすれ"
+    },
+    {
+      "file": "a.png",
+      "bytes": 2909526,
+      "present": true,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "b.md",
+      "bytes": 961,
+      "present": true,
+      "heading": "# B — 画像B: 雨の夜の色温度と光の反射"
+    },
+    {
+      "file": "b.png",
+      "bytes": 2194633,
+      "present": true,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "file": "c.md",
+      "bytes": 1009,
+      "present": true,
+      "heading": "# C — 画像C: サイバーパンク看板の密度"
+    },
+    {
+      "file": "c.png",
+      "bytes": 1917843,
+      "present": true,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "file": "d.md",
+      "bytes": 939,
+      "present": true,
+      "heading": "# D — 画像D: 忍者のシルエットとスカーフ"
+    },
+    {
+      "file": "d.png",
+      "bytes": 1628794,
+      "present": true,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "e.md",
+      "bytes": 985,
+      "present": true,
+      "heading": "# E — 画像E: 2D横スクロールの背景レイヤー構成"
+    },
+    {
+      "file": "e.png",
+      "bytes": 1855704,
+      "present": true,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "file": "f.md",
+      "bytes": 959,
+      "present": true,
+      "heading": "# F — 画像F: HUD、ボタン、パネルの質感"
+    },
+    {
+      "file": "f.png",
+      "bytes": 2220880,
+      "present": true,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "g.md",
+      "bytes": 829,
+      "present": true,
+      "heading": "# G — 画像G: 斬撃エフェクト"
+    },
+    {
+      "file": "g.png",
+      "bytes": 1872121,
+      "present": true,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "h.md",
+      "bytes": 909,
+      "present": true,
+      "heading": "# H — 画像H: 敵のテレグラフ表現"
+    },
+    {
+      "file": "h.png",
+      "bytes": 1847444,
+      "present": true,
+      "width": 1448,
+      "height": 1086
+    }
+  ],
+  "valid": true,
+  "errors": []
+}

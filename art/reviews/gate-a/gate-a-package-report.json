@@ -1,0 +1,170 @@
+{
+  "generatedAt": "2026-06-26T02:35:48.581Z",
+  "phase": "gate-a-style-lock",
+  "valid": true,
+  "gateAApproval": "PENDING_HUMAN_APPROVAL",
+  "gateBApproval": "NOT_STARTED",
+  "files": [
+    {
+      "file": "art/TOOL_CAPABILITY_REPORT.md",
+      "bytes": 2850,
+      "present": true
+    },
+    {
+      "file": "art/REFERENCE_ANALYSIS.md",
+      "bytes": 4160,
+      "present": true
+    },
+    {
+      "file": "art/REFERENCE_COMPLIANCE_MATRIX.md",
+      "bytes": 3792,
+      "present": true
+    },
+    {
+      "file": "art/ART_BIBLE.md",
+      "bytes": 3799,
+      "present": true
+    },
+    {
+      "file": "art/palette.json",
+      "bytes": 665,
+      "present": true
+    },
+    {
+      "file": "art/art-style.json",
+      "bytes": 2176,
+      "present": true
+    },
+    {
+      "file": "art/palette.png",
+      "bytes": 252630,
+      "present": true
+    },
+    {
+      "file": "art/value-study.png",
+      "bytes": 219375,
+      "present": true
+    },
+    {
+      "file": "art/shape-language.png",
+      "bytes": 241475,
+      "present": true
+    },
+    {
+      "file": "art/player-silhouette-study.png",
+      "bytes": 284689,
+      "present": true
+    },
+    {
+      "file": "art/environment-material-study.png",
+      "bytes": 192745,
+      "present": true
+    },
+    {
+      "file": "art/ui-style-study.png",
+      "bytes": 194886,
+      "present": true
+    },
+    {
+      "file": "art/vfx-style-study.png",
+      "bytes": 184095,
+      "present": true
+    },
+    {
+      "file": "art/telegraph-style-study.png",
+      "bytes": 236601,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/player.png",
+      "bytes": 2531498,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/title.png",
+      "bytes": 2529302,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/environment.png",
+      "bytes": 2576456,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/ink-crawler.png",
+      "bytes": 2626951,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/kite-wraith.png",
+      "bytes": 2581071,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/lantern-warden.png",
+      "bytes": 2681505,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/ui.png",
+      "bytes": 2547768,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/moon-gate-hero-sign.png",
+      "bytes": 2827930,
+      "present": true
+    },
+    {
+      "file": "art/reviews/candidates/overview.png",
+      "bytes": 620319,
+      "present": true
+    },
+    {
+      "file": "art/reviews/gate-a/representative-composite-960x540.png",
+      "bytes": 904977,
+      "present": true
+    },
+    {
+      "file": "art/approvals/GATE_A_REQUEST.md",
+      "bytes": 2303,
+      "present": true
+    },
+    {
+      "file": "art/approvals/GATE_A_STATUS.json",
+      "bytes": 614,
+      "present": true
+    },
+    {
+      "file": "art/reviews/gate-a/gate-status-report.json",
+      "bytes": 244,
+      "present": true
+    },
+    {
+      "file": "art/reviews/gate-a/browser-smoke-report.json",
+      "bytes": 2005,
+      "present": true
+    },
+    {
+      "file": "art/reviews/gate-a/gate-a-viewer-960x540.png",
+      "bytes": 84145,
+      "present": true
+    },
+    {
+      "file": "art/generation-log/gate-a-candidates.md",
+      "bytes": 3814,
+      "present": true
+    }
+  ],
+  "errors": [],
+  "selectedDirection": {
+    "player": "Player Candidate 2 consistency, with Candidate 3 hat silhouette only if frame stability survives.",
+    "title": "Title Candidate 1 Moon Gate composition.",
+    "environment": "Environment Candidate 1 seven-layer alley.",
+    "inkCrawler": "Ink Crawler Candidate 1 low silhouette.",
+    "kiteWraith": "Kite Wraith Candidate 3 forward motion language.",
+    "lanternWarden": "Lantern Warden Candidate 2 readable vertical form plus Candidate 3 weight.",
+    "ui": "UI Candidate 3 paper legibility with Candidate 2 semantic cyan discipline.",
+    "landmark": "Moon Gate Candidate 1."
+  }
+}

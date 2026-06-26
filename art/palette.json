@@ -1,0 +1,21 @@
+{
+  "description": "Neon Ronin Art Lock palette. New accents require ART_BIBLE update.",
+  "colors": {
+    "inkBlack": "#050508",
+    "deepIndigo": "#0B1020",
+    "darkBlueGray": "#162435",
+    "warmPaper": "#E8DDC6",
+    "paleMoonMist": "#B9CBE0",
+    "neutralGray": "#7B838D",
+    "lanternGold": "#F0A64A",
+    "dangerCoral": "#EF4B61",
+    "neonCyan": "#00E5FF",
+    "neonMagenta": "#FF2E7A"
+  },
+  "semantics": {
+    "cyan": "information, utility, mobility, range, focus",
+    "magenta": "combat, danger, impact, action",
+    "gold": "safety, checkpoints, lanterns, objectives, rewards",
+    "ink": "silhouette, collision-readable structure, brush edges"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "gate": "A",
+  "name": "Reference and Style Lock",
+  "status": "pending",
+  "approved": false,
+  "approvalRequiredBefore": [
+    "final production asset implementation",
+    "final TitleScene implementation",
+    "polished ArtLabScene implementation",
+    "three revision rounds",
+    "Gate B package"
+  ],
+  "requestFile": "art/approvals/GATE_A_REQUEST.md",
+  "evidenceReport": "art/reviews/gate-a/gate-a-package-report.md",
+  "approvalPhrase": "Approve Gate A",
+  "notes": [
+    "Silence is not approval.",
+    "This file records current state only; it is not a substitute for explicit user approval."
+  ]
+}

@@ -1,119 +1,68 @@
 # Neon Ronin Agent Handoff
 
-## Current Product Scope
+## Active Scope
 
-This repository is a Stage 1-only Phaser/Vite/TypeScript browser game:
+This repository is now governed by `ART_LOCK_GOAL.md`.
 
-- Title: `Neon Ronin: Shadow Courier`
-- Stage: `Stage 1 - Neon Alley: First Delivery`
-- Runtime flow: `Boot -> Preload -> Title -> Stage1 -> StageClear`
-- Support scenes: Controls, Settings, Pause, GameOver, Credits
+The current objective is a reference-driven Art Lock build, not the prior Stage 1 vertical slice. Do not claim Stage 1 is complete while this goal is active.
 
-Do not reintroduce a world map, campaign save structure, final boss, Stage 2-5 content, unused abilities, or unused enemies.
+## Required Reference Package
 
-## Reference Repositories Used
+Use this package as the visual authority:
 
-These public GitHub repositories were inspected for structure and workflow patterns only. Do not copy code or assets from them.
-
-- `https://github.com/remarkablegames/phaser-platformer`
-  - Recent Phaser platformer template with `AGENTS.md`, script discipline, typed structure, and explicit conventions.
-- `https://github.com/rootasjey/phaser3-platformer`
-  - Phaser platformer example for scene/sprite separation context.
-- `https://github.com/iwantantra/vite-phaser-ts`
-  - Vite + Phaser + TypeScript starter structure.
-- `https://github.com/phaserjs/template-vite-ts`
-  - Official Phaser template reference for Vite/TypeScript project organization. Note: current upstream uses Phaser 4; this project must remain Phaser 3.90.x.
-- `https://github.com/danipeck/squishroom`
-  - Small Phaser/TypeScript platformer reference for keeping gameplay code outside the main scene where practical.
-
-## Current Quality Baseline
-
-Last full local gate:
-
-```bash
-npm run qa:all
+```text
+art/references/neon_ronin_art_refs_impl_ready/
 ```
 
-Status from the last completed cycle: PASS.
+It contains A-H Markdown/PNG references. The PNGs are specification sheets only. Never paste the reference sheets into runtime.
 
-Required artifacts are committed under `artifacts/qa/`, including:
+## Current Gate State
 
-- title, controls, settings, stage-start, movement-tutorial, combat-encounter, wall-kick-shaft, checkpoint, miniboss, stage-clear, mobile-controls screenshots
-- `console-report.json`
-- `e2e-report.json`
-- `bundle-report.json`
-- `dist-report.json`
-- `flow-report.json`
-- `save-report.json`
-- `playtest-tuning.md`
-- `stage1-acceptance-report.md`
+- Gate A: pending explicit human approval.
+- Gate B: not started.
 
-GitHub Pages is deployed from `main` using `.github/workflows/deploy.yml`.
+Gate A evidence currently includes:
 
-## Development Rules
+- `art/TOOL_CAPABILITY_REPORT.md`
+- `art/REFERENCE_ANALYSIS.md`
+- `art/REFERENCE_COMPLIANCE_MATRIX.md`
+- `art/ART_BIBLE.md`
+- `art/reviews/candidates/`
+- `art/reviews/gate-a/representative-composite-960x540.png`
+- `art/approvals/GATE_A_REQUEST.md`
+- `art/approvals/GATE_A_STATUS.json`
+- `art/reviews/gate-a/gate-a-viewer-960x540.png`
+- `art/reviews/gate-a/gate-a-package-report.md`
 
-- Preserve Stage 1-only scope.
-- Keep TypeScript strict.
-- Use npm scripts already defined in `package.json`.
-- Use Playwright evidence for browser-visible claims.
-- When improving quality, prefer one complete vertical improvement cycle over broad partial changes.
-- Update screenshots and QA reports after any visual, gameplay, or input change.
-- Keep README and IMPLEMENTATION_NOTES honest with current evidence.
+## Commands
 
-## High-Value Next Improvements
+Use `npm.cmd` on Windows PowerShell.
 
-Recommended next cycle:
+Current Gate A commands:
 
-1. Run a physical-device human playtest focused on mobile HUD scale, input reach, boss readability, and optional scroll discoverability. The automated mobile layout checks are now a baseline, not a substitute for hand testing.
-2. Keep pause/retry, high-contrast pixel, boss-route, dist-smoke, and playtest-note coverage stable if menu labels, layout, palette, or combat timing changes.
-3. Keep `StageProgression` as the owner of checkpoints, tutorials, section lookup, and fall rescue if progression behavior changes.
-4. Keep route-health thresholds honest if playtest tuning changes damage, time, or seal collection.
-5. Keep `qa:dist`, `qa:flow`, `qa:save`, and `qa:playtest` wired into local `qa:all`; keep `qa:dist` wired into the Pages workflow if deployment/build paths change.
+```bash
+npm.cmd run art:refs
+npm.cmd run art:process
+npm.cmd run art:contact-sheets
+npm.cmd run art:gate-status
+npm.cmd run art:gate-a-smoke
+npm.cmd run art:review-report
+npm.cmd run art:all
+```
 
-## Handoff Notes From Latest Cycle
+Final Art Lock commands from `ART_LOCK_GOAL.md` must not be reported passing until they inspect real final assets, screenshots, revision rounds, scorecards, and approvals.
 
-Latest cycle improvements:
+## Handoff Rules
 
-- Added `npm run qa:flow` to verify Credits and Game Over support-scene round trips in a real browser.
-- Added `artifacts/qa/flow-report.json` and acceptance-report rows for support-scene navigation evidence.
-- Added `npm run qa:save` to verify corrupted localStorage recovery, settings reload persistence, and Stage Clear save persistence in a real browser.
-- Added `artifacts/qa/save-report.json` and acceptance-report rows for save/settings evidence.
-- Tuned the automated Lantern Warden route to retreat during boss lunge windows before attacking, improving E2E and save-QA repeatability without changing runtime balance.
-- Added `src/utils/touchLayout.ts` so virtual-control positions, labels, radii, hit radii, and clusters are shared by rendering and QA.
-- Added `tests/touchLayout.test.ts` to protect the seven-button layout, lower control band, action gap, and upper-right pause safe area.
-- Exposed `touchControls` through `window.__NEON_RONIN_QA__` and extended E2E mobile checks to validate layout before input probes.
-- Updated `qa:playtest` output to include mobile layout evidence from `artifacts/qa/e2e-report.json`.
-- Added `npm run qa:playtest` to generate `artifacts/qa/playtest-tuning.md` from current route-health, level, dist, and screenshot evidence.
-- Captured current tuning decisions: keep enemy spacing/hazard damage/boss HP stable, avoid tuning optional scrolls from the optimized route alone, and make mobile HUD/input ergonomics the next physical-phone check.
-- Added `npm run qa:dist` to serve built `dist/` output and verify production Title -> Stage 1 boot from emitted assets.
-- Added `artifacts/qa/dist-report.json` and an acceptance-report row for production dist smoke coverage.
-- Added a Pages post-build smoke step with `QA_DIST_BASE=/${{ github.event.repository.name }}/`, following the production page-test pattern seen in `remarkablegames/phaser-platformer`.
-- Updated GitHub Pages deployment to current Node 24-era action majors: `checkout@v7`, `setup-node@v6`, `configure-pages@v6`, `upload-pages-artifact@v5`, and `deploy-pages@v5`.
-- Added `.nvmrc` with Node 24 and switched the workflow to `node-version-file`.
-- Set Pages workflow concurrency to cancel stale in-progress deploys after a newer push.
-- Split checkpoint activation, tutorial marker rendering, fall rescue, respawn, and current section lookup into `StageProgression`.
-- Added `tests/stageProgression.test.ts` for pure checkpoint and section progression helpers, following the gameplay-helper test pattern seen in `danipeck/squishroom`.
-- Split Phaser into a dedicated `vendor-phaser` build chunk and added `npm run qa:bundle`.
-- Added `artifacts/qa/bundle-report.json` to record chunk counts and largest app chunk size.
-- Split background, platform, high-contrast outlines, rain/parallax, and decor setup out of `Stage1Scene` into `StageWorld`.
-- Added `stage1-route-health` to E2E with route duration, damage, rank, seal count, and thresholds in `artifacts/qa/e2e-report.json`.
-- Moved the miniboss screenshot trigger to the pre-fight encounter view so screenshot capture does not stall combat timing.
-- Split enemy, miniboss, gate, boss barrier, and slash-hit orchestration out of `Stage1Scene` into `StageCombat`.
-- Reduced `Stage1Scene` to scene flow, stage setup, player/checkpoint state, HUD, and clear/game-over transitions.
-- Split collectibles and hazards out of `Stage1Scene` into `StageCollectibles` and `StageHazards`.
-- Added Playwright canvas pixel sampling to verify high contrast mode affects visible Stage 1 pixels.
-- Stabilized the automated Lantern Warden route so screenshot capture does not leave the player facing away during attacks.
-- Added Playwright E2E coverage for Pause -> Retry Checkpoint and Pause -> Restart Stage using real menu input.
-- Updated the acceptance report to verify the pause/retry test from `artifacts/qa/e2e-report.json`.
-- Added `StageHud` to move HUD/objective/section/boss-bar responsibilities out of `Stage1Scene`.
-- Added pure combat helpers and `tests/combat.test.ts` for damage cooldown behavior.
-- Moved the mobile pause button away from the attack cluster to the upper-right safe area.
-- Previous cycle added `CameraController`, hit pause, high contrast stage outlines, and stable Lantern Warden tuning.
+- Treat `AGENTS.md` as a live operations log.
+- Keep Gate A/Gate B approval state explicit.
+- Do not weaken validators to make progress appear complete.
+- Do not use plain Phaser primitive programmer art as final visual implementation.
+- Do not keep misleading Stage 1/campaign claims in docs.
+- If a required visual-production/browser capability is unavailable, report the concrete blocker.
 
-Before handing off again:
+## Next Step
 
-1. Run `npm run qa:all`.
-2. Commit all changes.
-3. Push to `origin/main`.
-4. Verify GitHub Actions Pages deploy.
-5. Update this file with the latest cycle summary and next recommended step.
+Request explicit Gate A approval using the exact phrase `Approve Gate A`. If approved, build the production Art Lock runtime, asset pipeline, validators, screenshots, review rounds, and Gate B package.
+
+Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is only `BootScene -> GateAReviewScene`.

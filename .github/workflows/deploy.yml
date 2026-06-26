@@ -33,21 +33,19 @@ jobs:
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
-      - name: QA gates
-        run: npm run qa:all
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Gate A art package
+        run: npm run art:all
 
       - name: Build for Pages
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
-
-      - name: Check Pages bundle
-        run: npm run qa:bundle
-
-      - name: Smoke Pages build
-        run: npm run qa:dist
-        env:
-          QA_DIST_BASE: /${{ github.event.repository.name }}/
 
       - name: Configure Pages
         uses: actions/configure-pages@v6

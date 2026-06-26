@@ -1,125 +1,79 @@
-# Neon Ronin: Shadow Courier
+# Neon Ronin: Shadow Courier - Art Lock Build
 
-Stage 1 vertical slice for a browser-based 2D ninja action platformer.
+This repository is currently being reworked under `ART_LOCK_GOAL.md`.
 
-The current build contains one complete stage only: **Stage 1 — Neon Alley: First Delivery**. The player carries a sealed message through a rain-lit cyber alley, learns jump timing, wall kick, slash combat, checkpoints, optional scroll routes, a hazard run, and the Lantern Warden miniboss before reaching the Moon Gate.
+The current target is not a complete Stage 1. The active scope is a reference-driven visual lock: title direction, Art Lab direction, player/enemy/environment/UI/VFX style systems, deterministic art evidence, validators, review rounds, and explicit human approval gates.
 
-## Run
+## Authoritative References
 
-Use Node 24, matching `.nvmrc` and the GitHub Pages workflow.
+The visual specification lives in:
 
-```bash
-npm install
-npm run dev
+```text
+art/references/neon_ronin_art_refs_impl_ready/
 ```
 
-The dev server prints a local Vite URL. Production preview:
+It contains A-H reference PNG/Markdown pairs for ink treatment, rainy lighting, signage density, player identity, seven-layer parallax, UI/mobile controls, slash VFX, and enemy telegraphs. The sheets are specifications only and must not be pasted into runtime.
+
+## Current Gate
+
+Gate A package is prepared for human review:
+
+- `art/TOOL_CAPABILITY_REPORT.md`
+- `art/REFERENCE_ANALYSIS.md`
+- `art/REFERENCE_COMPLIANCE_MATRIX.md`
+- `art/ART_BIBLE.md`
+- `art/palette.png`
+- `art/value-study.png`
+- `art/shape-language.png`
+- `art/player-silhouette-study.png`
+- `art/environment-material-study.png`
+- `art/ui-style-study.png`
+- `art/vfx-style-study.png`
+- `art/telegraph-style-study.png`
+- `art/reviews/candidates/`
+- `art/reviews/gate-a/representative-composite-960x540.png`
+- `art/approvals/GATE_A_REQUEST.md`
+- `art/approvals/GATE_A_STATUS.json`
+- `art/reviews/gate-a/gate-a-package-report.md`
+
+Gate A is not approved until the user explicitly approves it.
+
+## Commands
+
+Use `npm.cmd` on this Windows/PowerShell setup.
 
 ```bash
-npm run build
-npm run preview
+npm.cmd run art:refs
+npm.cmd run art:process
+npm.cmd run art:contact-sheets
+npm.cmd run art:gate-status
+npm.cmd run art:gate-a-smoke
+npm.cmd run art:review-report
+npm.cmd run art:all
 ```
 
-## Controls
-
-- Move: `A/D` or arrow keys
-- Jump / wall kick: `W`, `Up`, or `Space`
-- Slash: `J` or `Z`
-- Pause: `Esc` or `P`
-
-Mobile uses the same input system through virtual controls: left/right/up/down on the left pad, jump/attack on the right, and pause in the upper-right safe area.
-
-## Quality Gates
-
-Required checks:
+Production validators are intentionally not passable before Gate A approval:
 
 ```bash
-npm run typecheck
-npm run test
-npm run build
-npm run e2e
-npm run qa:level
-npm run qa:assets
-npm run qa:bundle
-npm run qa:dist
-npm run qa:flow
-npm run qa:save
-npm run qa:screenshots
-npm run qa:playtest
-npm run qa:all
+npm.cmd run art:atlas
+npm.cmd run art:validate-assets
+npm.cmd run art:validate-sign-density
+npm.cmd run art:validate-animations
+npm.cmd run art:validate-vfx
+npm.cmd run art:validate-telegraphs
+npm.cmd run art:screenshots
 ```
 
-`npm run e2e` launches Playwright, opens the game, validates title/controls/settings flow, verifies saved and visible high contrast mode, verifies pause-menu Retry Checkpoint and Restart Stage actions, clears Stage 1 with keyboard controls, records route-health thresholds, verifies Stage Clear data, and checks mobile virtual-control layout plus input probes in a 390x844 viewport.
+Those commands will be implemented after Gate A approval and final production asset work.
 
-`npm run qa:screenshots` regenerates the browser evidence under `artifacts/qa/`.
+## Current Limitations
 
-`npm run qa:dist` serves the built `dist/` directory and verifies the production bundle boots from Title to Stage 1 without dev-server fallback. Set `QA_DIST_BASE=/repo-name/` to smoke a GitHub Pages-style base path.
+- The old Stage 1 runtime, Stage 1 QA scripts, tests, and generated QA artifacts have been removed from the runnable source tree.
+- The current browser runtime is a Gate A review viewer only. It is not the final title screen or ArtLabScene.
+- Final TitleScene and ArtLabScene are not implemented yet.
+- Final player/enemy/UI/environment/VFX atlases are not implemented yet.
+- Three revision rounds, independent scorecards, Gate B artifacts, and final approval are not complete.
 
-`npm run qa:flow` verifies Credits and Game Over support-scene round trips in a real browser.
+## Next Step
 
-`npm run qa:save` verifies corrupted localStorage recovery, settings persistence after reload, and Stage Clear save persistence in a real browser.
-
-`npm run qa:playtest` writes an evidence-backed tuning note from current route-health, level, dist, flow, save, mobile layout, and screenshot reports.
-
-## QA Screenshots
-
-![Title](artifacts/qa/title.png)
-
-![Stage start](artifacts/qa/stage-start.png)
-
-![Combat encounter](artifacts/qa/combat-encounter.png)
-
-![Wall kick shaft](artifacts/qa/wall-kick-shaft.png)
-
-![Checkpoint](artifacts/qa/checkpoint.png)
-
-![Miniboss](artifacts/qa/miniboss.png)
-
-![Stage clear](artifacts/qa/stage-clear.png)
-
-![Mobile controls](artifacts/qa/mobile-controls-390x844.png)
-
-Additional evidence:
-
-- `artifacts/qa/controls.png`
-- `artifacts/qa/settings.png`
-- `artifacts/qa/movement-tutorial.png`
-- `artifacts/qa/console-report.json`
-- `artifacts/qa/e2e-report.json`
-- `artifacts/qa/bundle-report.json`
-- `artifacts/qa/dist-report.json`
-- `artifacts/qa/flow-report.json`
-- `artifacts/qa/save-report.json`
-- `artifacts/qa/playtest-tuning.md`
-- `artifacts/qa/stage1-acceptance-report.md`
-
-## Stage 1 Contents
-
-- 10 named sections, including Rain Lantern Start, First Slash Alley, Wall-Kick Sign Shaft, Checkpoint Shrine Plaza, Neon Thorn Run, Lantern Warden Encounter, and Moon Gate Finish
-- 3 checkpoints
-- 3 hidden scrolls
-- 22 seal pickups
-- 5 regular enemy encounters
-- Lantern Warden miniboss
-- Neon thorns, spark/falling sign hazards, and fall rescue
-- Stage 1 best time, rank, scrolls, cleared flag, and settings saved locally
-
-## Asset And Audio Policy
-
-No external runtime assets are used. Visuals are generated in Phaser from local procedural drawing code. SFX are generated with WebAudio and controlled by the saved volume/mute settings.
-
-If external assets are added later, they must be permissively licensed, committed locally, and documented before use.
-
-## Known Limitations
-
-- This is a Stage 1 vertical slice, not a full multi-stage campaign.
-- Procedural art is polished enough for QA evidence but not final hand-drawn production art.
-- Music is not implemented; only distinct SFX are present.
-- The automated clear route is optimized and faster than a first-time human route.
-
-## Future Roadmap
-
-- Replace procedural character art with authored sprite sheets.
-- Add richer enemy animation frames and ambient audio.
-- Tune a second-stage concept only after Stage 1 remains stable under the QA gates.
-- Expand accessibility options after validating the current mobile control layout with real devices.
+Review the Gate A package and explicitly approve or reject the style lock. To approve, reply with `Approve Gate A`. After approval, production asset implementation can proceed without changing the approved art bible.

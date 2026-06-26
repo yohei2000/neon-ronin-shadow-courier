@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-06-26T02:35:42.592Z",
+  "candidates": [
+    {
+      "file": "art/reviews/candidates/player.png",
+      "width": 1619,
+      "height": 972,
+      "bytes": 2531498
+    },
+    {
+      "file": "art/reviews/candidates/title.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2529302
+    },
+    {
+      "file": "art/reviews/candidates/environment.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2576456
+    },
+    {
+      "file": "art/reviews/candidates/ink-crawler.png",
+      "width": 1619,
+      "height": 972,
+      "bytes": 2626951
+    },
+    {
+      "file": "art/reviews/candidates/kite-wraith.png",
+      "width": 1619,
+      "height": 972,
+      "bytes": 2581071
+    },
+    {
+      "file": "art/reviews/candidates/lantern-warden.png",
+      "width": 1619,
+      "height": 971,
+      "bytes": 2681505
+    },
+    {
+      "file": "art/reviews/candidates/ui.png",
+      "width": 1619,
+      "height": 972,
+      "bytes": 2547768
+    },
+    {
+      "file": "art/reviews/candidates/moon-gate-hero-sign.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2827930
+    },
+    {
+      "file": "art/reviews/candidates/overview.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 620319
+    }
+  ],
+  "valid": true,
+  "errors": []
+}

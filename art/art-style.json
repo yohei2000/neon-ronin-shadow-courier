@@ -1,0 +1,85 @@
+{
+  "project": "Neon Ronin: Shadow Courier",
+  "phase": "gate-a-style-lock",
+  "logicalResolution": {
+    "width": 960,
+    "height": 540
+  },
+  "mobileReviewViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "anchors": {
+    "neonCyan": "#00E5FF",
+    "neonMagenta": "#FF2E7A"
+  },
+  "valueHierarchy": [
+    "player silhouette and active attack",
+    "enemy silhouette and attack telegraph",
+    "hazards and collision edges",
+    "pickups/objectives",
+    "near environment",
+    "middle environment",
+    "distant background and atmospheric detail"
+  ],
+  "lightingPresets": [
+    {
+      "id": "moonlight-lantern-gold",
+      "ambient": 0.28,
+      "glow": 0.65,
+      "reflection": 0.42
+    },
+    {
+      "id": "cyan-magenta-neon",
+      "ambient": 0.24,
+      "glow": 0.95,
+      "reflection": 0.52
+    },
+    {
+      "id": "warm-cool-alley",
+      "ambient": 0.3,
+      "glow": 0.78,
+      "reflection": 0.48
+    }
+  ],
+  "parallaxLayers": [
+    {
+      "id": "far-sky",
+      "scrollFactor": 0.1
+    },
+    {
+      "id": "distant-skyline",
+      "scrollFactor": 0.2
+    },
+    {
+      "id": "mid-roofs-signs",
+      "scrollFactor": 0.4
+    },
+    {
+      "id": "gameplay-layer",
+      "scrollFactor": 1
+    },
+    {
+      "id": "near-props",
+      "scrollFactor": 1.3
+    },
+    {
+      "id": "near-props-front",
+      "scrollFactor": 1.6
+    },
+    {
+      "id": "foreground-occlusion",
+      "scrollFactor": 2
+    }
+  ],
+  "selectedDirection": {
+    "player": "Candidate 2 body consistency plus Candidate 3 hat-silhouette restraint only if animation remains stable.",
+    "title": "Candidate 1 moon-gate title composition with Candidate 3 impact reduced to local accents.",
+    "environment": "Candidate 1 seven-layer alley with controlled sign density.",
+    "inkCrawler": "Candidate 1 low crawler silhouette with Reference H telegraph overlays.",
+    "kiteWraith": "Candidate 3 forward-facing fast silhouette for future preview.",
+    "lanternWarden": "Candidate 2 vertical readable warden with some Candidate 3 weight.",
+    "ui": "Candidate 3 paper readability with cyan/magenta semantics from Reference F.",
+    "landmark": "Moon Gate Candidate 1."
+  }
+}
