@@ -10,6 +10,7 @@ Silence is not approval. Passing automated checks is not approval.
 
 ## Primary Review Files
 
+- `art/approvals/GATE_B_SCREENSHOT_LINKS.md`
 - `art/final/title-desktop.png`
 - `art/final/title-mobile.png`
 - `art/final/artlab-neutral.png`
