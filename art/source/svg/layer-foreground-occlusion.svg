@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="540" viewBox="0 0 1920 540">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="1920" height="540" fill="transparent"/><g><path d="M 60 424 L 112 394 L 182 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="88" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 190 424 L 242 386 L 312 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="218" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 320 424 L 372 378 L 442 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="348" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 450 424 L 502 394 L 572 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="478" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 580 424 L 632 386 L 702 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="608" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 710 424 L 762 378 L 832 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="738" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 840 424 L 892 394 L 962 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="868" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 970 424 L 1022 386 L 1092 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="998" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1100 424 L 1152 378 L 1222 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1128" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1230 424 L 1282 394 L 1352 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1258" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1360 424 L 1412 386 L 1482 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1388" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1490 424 L 1542 378 L 1612 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1518" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1620 424 L 1672 394 L 1742 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1648" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1750 424 L 1802 386 L 1872 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1778" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 1880 424 L 1932 378 L 2002 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="1908" y="422" width="64" height="42" fill="#050508" opacity="0.576"/><path d="M 2010 424 L 2062 394 L 2132 424 Z" fill="#050508" opacity="0.8"/>
+      <rect x="2038" y="422" width="64" height="42" fill="#050508" opacity="0.576"/></g>
+      <g transform="translate(580 150)">
+    <path d="M 8 2
+    C 32 -4, 62 4, 84 2
+    L 90 130
+    C 50 143, 40 136, 7 139
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="74" height="122" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 31.28 38.64 L 58.88 38.64 L 47.84 99.36 L 25.76 99.36 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="46" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">foreg</text>
+  </g><g transform="translate(1040 200)">
+    <path d="M 8 2
+    C 32 -4, 82 4, 104 2
+    L 110 62
+    C 70 75, 40 68, 7 71
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#F0A64A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="94" height="54" fill="none" stroke="#F0A64A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 38.080000000000005 19.6 L 71.68 19.6 L 58.24 50.4 L 31.360000000000003 50.4 Z"
+      fill="none" stroke="#F0A64A" stroke-width="4" opacity="0.78"/>
+    <text x="56" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">safe</text>
+  </g>
+      
+      <path d="M 0 420 C 180 390, 400 430, 600 404 C 860 376, 1120 438, 1920 396" fill="none" stroke="#050508" stroke-width="26" opacity="0.8"/>
+</svg>

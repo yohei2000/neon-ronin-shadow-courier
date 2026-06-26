@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <radialGradient id="skyGlow" cx="46%" cy="20%" r="70%">
+    <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.20"/>
+    <stop offset="42%" stop-color="#162435" stop-opacity="0.40"/>
+    <stop offset="100%" stop-color="#050508" stop-opacity="1"/>
+  </radialGradient>
+  <rect width="960" height="540" fill="url(#skyGlow)"/>
+  <rect width="960" height="540" fill="url(#rain)" opacity="0.34"/>
+  <rect width="960" height="540" filter="url(#paperNoise)" opacity="0.38"/>
+    <text x="34" y="58" font-family="Arial Black, Arial, sans-serif" font-size="32" fill="#E8DDC6">Final UI Kit</text>
+    <g transform="translate(40 98)">
+      <path d="M 8 2
+    C 32 -4, 330 4, 352 2
+    L 358 68
+    C 318 81, 40 74, 7 77
+    L 2 8 Z"
+    fill="#07080C" stroke="#050508" stroke-width="3" opacity="1"/>
+      <circle cx="38" cy="38" r="26" fill="#FF2E7A" opacity="0.86"/>
+      <rect x="84" y="24" width="232" height="24" fill="#FF2E7A" filter="url(#softGlow)"/>
+      <path d="M 428 2
+    C 452 -4, 562 4, 584 2
+    L 590 68
+    C 550 81, 460 74, 427 77
+    L 422 8 Z"
+    fill="#07080C" stroke="#00E5FF" stroke-width="3" opacity="1"/>
+      <text x="458" y="49" font-family="Arial Black, Arial, sans-serif" font-size="28" fill="#00E5FF">01:24</text>
+      <path d="M 628 2
+    C 652 -4, 836 4, 858 2
+    L 864 68
+    C 824 81, 660 74, 627 77
+    L 622 8 Z"
+    fill="#E8DDC6" stroke="#050508" stroke-width="3" opacity="1"/>
+      <text x="654" y="49" font-family="Arial Black, Arial, sans-serif" font-size="24" fill="#050508">MOON GATE</text>
+      <path d="M 8 120
+    C 32 114, 290 122, 312 120
+    L 318 264
+    C 278 277, 40 270, 7 273
+    L 2 126 Z"
+    fill="#E8DDC6" stroke="#050508" stroke-width="3" opacity="1"/>
+      <text x="26" y="166" font-family="Arial Black, Arial, sans-serif" font-size="28" fill="#050508">Objective</text>
+      <text x="26" y="204" font-family="Arial, sans-serif" font-size="20" fill="#162435">Deliver the sealed scroll</text>
+      <path d="M 378 116
+    C 402 110, 680 118, 702 116
+    L 708 276
+    C 668 289, 410 282, 377 285
+    L 372 122 Z"
+    fill="#080A0F" stroke="#050508" stroke-width="3" opacity="1"/>
+      <path d="M 428 152
+    C 452 146, 616 154, 638 152
+    L 644 186
+    C 604 199, 460 192, 427 195
+    L 422 158 Z"
+    fill="#E8DDC6" stroke="#FF2E7A" stroke-width="3" opacity="1"/>
+      <path d="M 428 212
+    C 452 206, 616 214, 638 212
+    L 644 246
+    C 604 259, 460 252, 427 255
+    L 422 218 Z"
+    fill="#0D1118" stroke="#00E5FF" stroke-width="3" opacity="1"/>
+      <text x="500" y="180" font-family="Arial Black, Arial, sans-serif" font-size="20" fill="#050508">START</text>
+      <text x="488" y="240" font-family="Arial Black, Arial, sans-serif" font-size="20" fill="#00E5FF">ART LAB</text>
+      <g transform="translate(22 318)">
+        <circle cx="76" cy="76" r="70" fill="#090B10" stroke="#00E5FF" stroke-width="5" opacity="0.95"/>
+        <circle cx="76" cy="76" r="32" fill="#11151C" stroke="#7B838D" stroke-width="3"/>
+        <circle cx="288" cy="76" r="56" fill="#090B10" stroke="#FF2E7A" stroke-width="5"/>
+        <circle cx="420" cy="76" r="56" fill="#090B10" stroke="#00E5FF" stroke-width="5"/>
+        <text x="268" y="86" font-family="Arial Black, Arial, sans-serif" font-size="25" fill="#FF2E7A">SL</text>
+        <text x="400" y="86" font-family="Arial Black, Arial, sans-serif" font-size="25" fill="#00E5FF">JP</text>
+      </g>
+    </g>
+</svg>

@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="960" height="640" fill="#0B1020"/><text x="34" y="48" font-family="Arial Black, Arial, sans-serif" font-size="30" fill="#E8DDC6">Reference C Sign Atlas</text><g transform="translate(38 78)">
+    <path d="M 8 2
+    C 32 -4, 148 4, 170 2
+    L 176 100
+    C 136 113, 40 106, 7 109
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="160" height="92" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 60.52 30.240000000000002 L 113.92 30.240000000000002 L 92.56 77.75999999999999 L 49.84 77.75999999999999 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="89" y="98" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">hero 1</text>
+  </g><g transform="translate(316 78)">
+    <path d="M 8 2
+    C 32 -4, 148 4, 170 2
+    L 176 100
+    C 136 113, 40 106, 7 109
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#FF2E7A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="160" height="92" fill="none" stroke="#FF2E7A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 60.52 30.240000000000002 L 113.92 30.240000000000002 L 92.56 77.75999999999999 L 49.84 77.75999999999999 Z"
+      fill="none" stroke="#FF2E7A" stroke-width="4" opacity="0.78"/>
+    <text x="89" y="98" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">hero 2</text>
+  </g><g transform="translate(594 78)">
+    <path d="M 8 2
+    C 32 -4, 148 4, 170 2
+    L 176 100
+    C 136 113, 40 106, 7 109
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="160" height="92" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 60.52 30.240000000000002 L 113.92 30.240000000000002 L 92.56 77.75999999999999 L 49.84 77.75999999999999 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="89" y="98" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">hero 3</text>
+  </g><g transform="translate(32 230)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 1</text>
+  </g><g transform="translate(254 230)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#F0A64A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#F0A64A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#F0A64A" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 2</text>
+  </g><g transform="translate(476 230)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 3</text>
+  </g><g transform="translate(698 230)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#F0A64A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#F0A64A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#F0A64A" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 4</text>
+  </g><g transform="translate(32 336)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 5</text>
+  </g><g transform="translate(254 336)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#F0A64A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#F0A64A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#F0A64A" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 6</text>
+  </g><g transform="translate(476 336)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 7</text>
+  </g><g transform="translate(698 336)">
+    <path d="M 8 2
+    C 32 -4, 102 4, 124 2
+    L 130 54
+    C 90 67, 40 60, 7 63
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#F0A64A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="114" height="46" fill="none" stroke="#F0A64A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 44.88 17.360000000000003 L 84.48 17.360000000000003 L 68.64 44.64 L 36.96 44.64 Z"
+      fill="none" stroke="#F0A64A" stroke-width="4" opacity="0.78"/>
+    <text x="66" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">mid 8</text>
+  </g><g transform="translate(34 450)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#FF2E7A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#FF2E7A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#FF2E7A" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s1</text>
+  </g><g transform="translate(184 450)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s2</text>
+  </g><g transform="translate(334 450)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s3</text>
+  </g><g transform="translate(484 450)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#FF2E7A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#FF2E7A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#FF2E7A" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s4</text>
+  </g><g transform="translate(634 450)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s5</text>
+  </g><g transform="translate(784 450)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s6</text>
+  </g><g transform="translate(34 520)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#FF2E7A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#FF2E7A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#FF2E7A" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s7</text>
+  </g><g transform="translate(184 520)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s8</text>
+  </g><g transform="translate(334 520)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s9</text>
+  </g><g transform="translate(484 520)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#FF2E7A" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#FF2E7A" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#FF2E7A" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s10</text>
+  </g><g transform="translate(634 520)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s11</text>
+  </g><g transform="translate(784 520)">
+    <path d="M 8 2
+    C 32 -4, 56 4, 78 2
+    L 84 36
+    C 44 49, 40 42, 7 45
+    L 2 8 Z"
+    fill="#0A0C12" stroke="#00E5FF" stroke-width="3" opacity="0.96"/>
+    <rect x="9" y="8" width="68" height="28" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.85" filter="url(#softGlow)"/>
+    <path d="M 29.240000000000002 12.32 L 55.04 12.32 L 44.72 31.68 L 24.080000000000002 31.68 Z"
+      fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.78"/>
+    <text x="43" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E8DDC6" opacity="0.72">s12</text>
+  </g>
+</svg>

@@ -3,9 +3,15 @@ import { spawnSync } from 'node:child_process';
 const commands = [
   ['run', 'art:refs'],
   ['run', 'art:process'],
+  ['run', 'art:atlas'],
   ['run', 'art:contact-sheets'],
   ['run', 'art:gate-status'],
-  ['run', 'art:gate-a-smoke'],
+  ['run', 'art:screenshots'],
+  ['run', 'art:validate-assets'],
+  ['run', 'art:validate-sign-density'],
+  ['run', 'art:validate-animations'],
+  ['run', 'art:validate-vfx'],
+  ['run', 'art:validate-telegraphs'],
   ['run', 'art:review-report']
 ];
 
@@ -23,4 +29,4 @@ for (const args of commands) {
   }
 }
 
-console.log('art:all PASS gate-a package only; final Art Lock validators are still gated by explicit approval.');
+console.log('art:all PASS final Art Lock Gate B package is ready for explicit human review.');

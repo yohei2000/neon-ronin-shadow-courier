@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-06-26T10:51:06.922Z",
+  "sequences": {
+    "heavy": {
+      "color": "#FF2E7A",
+      "phases": [
+        "glow-up",
+        "aiming pose",
+        "ground warning",
+        "wind-up silhouette",
+        "release",
+        "recover"
+      ],
+      "recoverWindowSeconds": 0.36,
+      "hasRangeIndicator": true,
+      "releaseHitAlignment": "release starts at active frame 4"
+    },
+    "fast": {
+      "color": "#00E5FF",
+      "phases": [
+        "glow-up",
+        "aiming pose",
+        "range warning",
+        "wind-up silhouette",
+        "release",
+        "recover"
+      ],
+      "recoverWindowSeconds": 0.24,
+      "hasRangeIndicator": true,
+      "releaseHitAlignment": "release starts at active frame 4"
+    }
+  }
+}

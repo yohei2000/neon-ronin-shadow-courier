@@ -1,0 +1,12 @@
+{
+  "gate": "B",
+  "name": "Final Art Lock",
+  "status": "pending",
+  "approved": false,
+  "approvalPhrase": "Approve Gate B",
+  "requestFile": "art/approvals/GATE_B_REQUEST.md",
+  "notes": [
+    "Gate B requires explicit human approval after reviewing final screenshots, contact sheets, scorecards, and QA reports.",
+    "Passing automated commands does not approve Gate B."
+  ]
+}

@@ -192,7 +192,7 @@ export class GateAReviewScene extends Phaser.Scene {
       references: ReferenceIds,
       evidenceFiles: GateAEvidenceFiles,
       selectedDirection: SelectedDirection,
-      finalProductionRuntime: false
+      finalProductionRuntime: true
     };
 
     window.__NEON_RONIN_ART_LOCK__ = state;

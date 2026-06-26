@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="540" viewBox="0 0 1920 540">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="1920" height="540" fill="transparent"/><g><path d="M -90 304 L -38 274 L 32 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="-62" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 40 304 L 92 266 L 162 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="68" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 170 304 L 222 258 L 292 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="198" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 300 304 L 352 274 L 422 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="328" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 430 304 L 482 266 L 552 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="458" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 560 304 L 612 258 L 682 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="588" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 690 304 L 742 274 L 812 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="718" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 820 304 L 872 266 L 942 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="848" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 950 304 L 1002 258 L 1072 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="978" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1080 304 L 1132 274 L 1202 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1108" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1210 304 L 1262 266 L 1332 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1238" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1340 304 L 1392 258 L 1462 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1368" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1470 304 L 1522 274 L 1592 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1498" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1600 304 L 1652 266 L 1722 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1628" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1730 304 L 1782 258 L 1852 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1758" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/><path d="M 1860 304 L 1912 274 L 1982 304 Z" fill="#101B2D" opacity="0.30000000000000004"/>
+      <rect x="1888" y="302" width="64" height="42" fill="#101B2D" opacity="0.21600000000000003"/></g>
+      
+      
+      
+</svg>

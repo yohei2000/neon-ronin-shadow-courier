@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <radialGradient id="skyGlow" cx="46%" cy="20%" r="70%">
+    <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.20"/>
+    <stop offset="42%" stop-color="#162435" stop-opacity="0.40"/>
+    <stop offset="100%" stop-color="#050508" stop-opacity="1"/>
+  </radialGradient>
+  <rect width="960" height="540" fill="url(#skyGlow)"/>
+  <rect width="960" height="540" fill="url(#rain)" opacity="0.34"/>
+  <rect width="960" height="540" filter="url(#paperNoise)" opacity="0.38"/><text x="34" y="58" font-family="Arial Black, Arial, sans-serif" font-size="30" fill="#E8DDC6">Reference A Brush And Paper Kit</text><path d="M 70 98 C 180 64, 320 136, 452 86 C 362 106, 196 120, 72 112 Z"
+      fill="#FF2E7A" opacity="0.7"/>
+      <path d="M 530 98 C 612 70, 700 118, 828 90" fill="none" stroke="#E8DDC6" stroke-width="10" stroke-linecap="round" opacity="0.76"/><path d="M 70 164 C 180 130, 320 202, 452 152 C 362 172, 196 186, 72 178 Z"
+      fill="#050508" opacity="0.92"/>
+      <path d="M 530 164 C 612 136, 700 184, 828 156" fill="none" stroke="#00E5FF" stroke-width="11" stroke-linecap="round" opacity="0.76"/><path d="M 70 230 C 180 196, 320 268, 452 218 C 362 238, 196 252, 72 244 Z"
+      fill="#FF2E7A" opacity="0.7"/>
+      <path d="M 530 230 C 612 202, 700 250, 828 222" fill="none" stroke="#E8DDC6" stroke-width="12" stroke-linecap="round" opacity="0.76"/><path d="M 70 296 C 180 262, 320 334, 452 284 C 362 304, 196 318, 72 310 Z"
+      fill="#050508" opacity="0.92"/>
+      <path d="M 530 296 C 612 268, 700 316, 828 288" fill="none" stroke="#00E5FF" stroke-width="13" stroke-linecap="round" opacity="0.76"/><path d="M 70 362 C 180 328, 320 400, 452 350 C 362 370, 196 384, 72 376 Z"
+      fill="#FF2E7A" opacity="0.7"/>
+      <path d="M 530 362 C 612 334, 700 382, 828 354" fill="none" stroke="#E8DDC6" stroke-width="14" stroke-linecap="round" opacity="0.76"/><path d="M 70 428 C 180 394, 320 466, 452 416 C 362 436, 196 450, 72 442 Z"
+      fill="#050508" opacity="0.92"/>
+      <path d="M 530 428 C 612 400, 700 448, 828 420" fill="none" stroke="#00E5FF" stroke-width="15" stroke-linecap="round" opacity="0.76"/>
+</svg>

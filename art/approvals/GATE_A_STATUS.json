@@ -1,8 +1,10 @@
 {
   "gate": "A",
   "name": "Reference and Style Lock",
-  "status": "pending",
-  "approved": false,
+  "status": "approved",
+  "approved": true,
+  "approvedAt": "2026-06-26T11:46:00+09:00",
+  "approvedBy": "human-user",
   "approvalRequiredBefore": [
     "final production asset implementation",
     "final TitleScene implementation",
@@ -14,7 +16,7 @@
   "evidenceReport": "art/reviews/gate-a/gate-a-package-report.md",
   "approvalPhrase": "Approve Gate A",
   "notes": [
-    "Silence is not approval.",
-    "This file records current state only; it is not a substitute for explicit user approval."
+    "Gate A received explicit human approval via the exact phrase Approve Gate A.",
+    "Production Art Lock runtime and Gate B package work may proceed. Gate B remains explicit-human-approval only."
   ]
 }

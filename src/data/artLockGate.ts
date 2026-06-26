@@ -1,6 +1,6 @@
-export const ArtLockPhase = 'gate-a-style-lock' as const;
-export const GateAApprovalStatus = 'PENDING_HUMAN_APPROVAL' as const;
-export const GateBApprovalStatus = 'NOT_STARTED' as const;
+export const ArtLockPhase = 'gate-b-final-art-lock-review' as const;
+export const GateAApprovalStatus = 'APPROVED_2026-06-26' as const;
+export const GateBApprovalStatus = 'PENDING_HUMAN_APPROVAL' as const;
 
 export const ReferenceIds = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const;
 

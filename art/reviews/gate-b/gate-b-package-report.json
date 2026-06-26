@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-06-26T10:54:32.697Z",
+  "valid": true,
+  "gateAApproval": "APPROVED_2026-06-26",
+  "gateBApproval": "PENDING_HUMAN_APPROVAL",
+  "scorecard": "art/reviews/final-scorecard.md",
+  "request": "art/approvals/GATE_B_REQUEST.md",
+  "requiredReports": [
+    "art/final/asset-validation-report.json",
+    "art/final/sign-density-validation-report.json",
+    "art/final/animation-validation-report.json",
+    "art/final/vfx-validation-report.json",
+    "art/final/telegraph-validation-report.json",
+    "art/final/console-report.json",
+    "art/final/screenshot-report.json",
+    "art/final/contact-sheet-report.json",
+    "art/final/atlas-manifest.json"
+  ],
+  "errors": []
+}

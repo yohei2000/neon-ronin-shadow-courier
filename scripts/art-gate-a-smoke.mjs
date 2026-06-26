@@ -52,8 +52,8 @@ try {
     failedRequests,
     valid:
       qa?.scene === 'GateAReviewScene' &&
-      qa?.gateAApproval === 'PENDING_HUMAN_APPROVAL' &&
-      qa?.finalProductionRuntime === false &&
+      qa?.gateAApproval === 'APPROVED_2026-06-26' &&
+      qa?.finalProductionRuntime === true &&
       errors.length === 0 &&
       failedRequests.length === 0
   };

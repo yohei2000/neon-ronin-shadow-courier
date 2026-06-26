@@ -1,0 +1,488 @@
+{
+  "generatedAt": "2026-06-26T10:54:28.695Z",
+  "valid": true,
+  "checkedFiles": [
+    {
+      "file": "art/asset-manifest.json",
+      "bytes": 6165
+    },
+    {
+      "file": "art/animation-manifest.json",
+      "bytes": 2441
+    },
+    {
+      "file": "art/vfx-manifest.json",
+      "bytes": 832
+    },
+    {
+      "file": "art/telegraph-manifest.json",
+      "bytes": 753
+    },
+    {
+      "file": "art/sign-density-scenes.json",
+      "bytes": 836
+    },
+    {
+      "file": "art/license-manifest.json",
+      "bytes": 5153
+    },
+    {
+      "file": "art/final/atlas-manifest.json",
+      "bytes": 2434
+    },
+    {
+      "file": "art/final/contact-sheet-report.json",
+      "bytes": 2893
+    },
+    {
+      "file": "art/final/console-report.json",
+      "bytes": 171
+    },
+    {
+      "file": "art/final/screenshot-report.json",
+      "bytes": 195328
+    },
+    {
+      "file": "art/final/performance-report.md",
+      "bytes": 410
+    },
+    {
+      "file": "art/final/player-master.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 19130
+    },
+    {
+      "file": "art/final/reference-a-brush-contact-sheet.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 354842
+    },
+    {
+      "file": "art/final/reference-b-lighting-presets.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 327971
+    },
+    {
+      "file": "art/final/reference-c-sign-density.png",
+      "width": 960,
+      "height": 640,
+      "bytes": 67722
+    },
+    {
+      "file": "art/final/reference-e-seven-layer-parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 346247
+    },
+    {
+      "file": "art/final/reference-g-slash-timeline.png",
+      "width": 1024,
+      "height": 160,
+      "bytes": 9362
+    },
+    {
+      "file": "art/final/ui-mobile-390x844.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 212929
+    },
+    {
+      "file": "art/approvals/GATE_A_STATUS.json",
+      "bytes": 762
+    },
+    {
+      "file": "art/approvals/GATE_B_STATUS.json",
+      "bytes": 382
+    },
+    {
+      "file": "art/final/assets/player-spritesheet.png",
+      "width": 1024,
+      "height": 896,
+      "bytes": 114466
+    },
+    {
+      "file": "art/final/assets/player-master.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 19130
+    },
+    {
+      "file": "art/final/assets/enemy-spritesheet.png",
+      "width": 512,
+      "height": 320,
+      "bytes": 22502
+    },
+    {
+      "file": "art/final/assets/lantern-warden-spritesheet.png",
+      "width": 1024,
+      "height": 256,
+      "bytes": 20699
+    },
+    {
+      "file": "art/final/assets/kite-wraith-preview.png",
+      "width": 512,
+      "height": 256,
+      "bytes": 12902
+    },
+    {
+      "file": "art/final/assets/slash-flipbook.png",
+      "width": 1024,
+      "height": 160,
+      "bytes": 9362
+    },
+    {
+      "file": "art/final/assets/telegraph-flipbook.png",
+      "width": 960,
+      "height": 430,
+      "bytes": 301612
+    },
+    {
+      "file": "art/final/assets/ui-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 270845
+    },
+    {
+      "file": "art/final/assets/brush-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 354842
+    },
+    {
+      "file": "art/final/assets/sign-atlas.png",
+      "width": 960,
+      "height": 640,
+      "bytes": 67722
+    },
+    {
+      "file": "art/final/assets/title-composition.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297592
+    },
+    {
+      "file": "art/final/assets/layer-far-sky.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 679072
+    },
+    {
+      "file": "art/final/assets/layer-distant-skyline.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 8571
+    },
+    {
+      "file": "art/final/assets/layer-mid-roofs-signs.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 21739
+    },
+    {
+      "file": "art/final/assets/layer-gameplay-layer.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 23679
+    },
+    {
+      "file": "art/final/assets/layer-near-props.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 24095
+    },
+    {
+      "file": "art/final/assets/layer-near-props-front.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 24501
+    },
+    {
+      "file": "art/final/assets/layer-foreground-occlusion.png",
+      "width": 1920,
+      "height": 540,
+      "bytes": 21203
+    },
+    {
+      "file": "art/final/assets/lighting-moonlight-lantern-gold.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 299684
+    },
+    {
+      "file": "art/final/assets/lighting-cyan-magenta-neon.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 300319
+    },
+    {
+      "file": "art/final/assets/lighting-warm-cool-alley.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 301351
+    },
+    {
+      "file": "art/reviews/round-01/title-desktop.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 247159
+    },
+    {
+      "file": "art/reviews/round-01/title-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 63590
+    },
+    {
+      "file": "art/reviews/round-01/artlab-neutral.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 223838
+    },
+    {
+      "file": "art/reviews/round-01/artlab-busy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297039
+    },
+    {
+      "file": "art/reviews/round-01/player-motion.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 226844
+    },
+    {
+      "file": "art/reviews/round-01/player-contrast.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 153604
+    },
+    {
+      "file": "art/reviews/round-01/slash.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 195275
+    },
+    {
+      "file": "art/reviews/round-01/enemy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 204308
+    },
+    {
+      "file": "art/reviews/round-01/warden-telegraph.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 349701
+    },
+    {
+      "file": "art/reviews/round-01/parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 242161
+    },
+    {
+      "file": "art/reviews/round-01/hud.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297116
+    },
+    {
+      "file": "art/reviews/round-01/mobile-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 73992
+    },
+    {
+      "file": "art/reviews/round-01/review.md",
+      "bytes": 668
+    },
+    {
+      "file": "art/reviews/round-01/changes.md",
+      "bytes": 229
+    },
+    {
+      "file": "art/reviews/round-02/title-desktop.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 247226
+    },
+    {
+      "file": "art/reviews/round-02/title-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 63566
+    },
+    {
+      "file": "art/reviews/round-02/artlab-neutral.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 223838
+    },
+    {
+      "file": "art/reviews/round-02/artlab-busy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297039
+    },
+    {
+      "file": "art/reviews/round-02/player-motion.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 226844
+    },
+    {
+      "file": "art/reviews/round-02/player-contrast.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 153604
+    },
+    {
+      "file": "art/reviews/round-02/slash.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 195275
+    },
+    {
+      "file": "art/reviews/round-02/enemy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 204308
+    },
+    {
+      "file": "art/reviews/round-02/warden-telegraph.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 349701
+    },
+    {
+      "file": "art/reviews/round-02/parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 242161
+    },
+    {
+      "file": "art/reviews/round-02/hud.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297116
+    },
+    {
+      "file": "art/reviews/round-02/mobile-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 73992
+    },
+    {
+      "file": "art/reviews/round-02/review.md",
+      "bytes": 668
+    },
+    {
+      "file": "art/reviews/round-02/changes.md",
+      "bytes": 222
+    },
+    {
+      "file": "art/reviews/round-03/title-desktop.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 247127
+    },
+    {
+      "file": "art/reviews/round-03/title-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 63530
+    },
+    {
+      "file": "art/reviews/round-03/artlab-neutral.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 223838
+    },
+    {
+      "file": "art/reviews/round-03/artlab-busy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297039
+    },
+    {
+      "file": "art/reviews/round-03/player-motion.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 226844
+    },
+    {
+      "file": "art/reviews/round-03/player-contrast.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 153604
+    },
+    {
+      "file": "art/reviews/round-03/slash.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 195275
+    },
+    {
+      "file": "art/reviews/round-03/enemy.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 204308
+    },
+    {
+      "file": "art/reviews/round-03/warden-telegraph.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 349701
+    },
+    {
+      "file": "art/reviews/round-03/parallax.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 242161
+    },
+    {
+      "file": "art/reviews/round-03/hud.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 297116
+    },
+    {
+      "file": "art/reviews/round-03/mobile-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 73992
+    },
+    {
+      "file": "art/reviews/round-03/review.md",
+      "bytes": 668
+    },
+    {
+      "file": "art/reviews/round-03/changes.md",
+      "bytes": 244
+    }
+  ],
+  "requiredAssetKeys": [
+    "player-spritesheet",
+    "player-master",
+    "enemy-spritesheet",
+    "lantern-warden-spritesheet",
+    "kite-wraith-preview",
+    "slash-flipbook",
+    "telegraph-flipbook",
+    "ui-kit",
+    "brush-kit",
+    "sign-atlas",
+    "title-composition",
+    "layer-far-sky",
+    "layer-distant-skyline",
+    "layer-mid-roofs-signs",
+    "layer-gameplay-layer",
+    "layer-near-props",
+    "layer-near-props-front",
+    "layer-foreground-occlusion"
+  ],
+  "runtimeImageRefs": 17,
+  "errors": []
+}

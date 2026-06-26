@@ -1,26 +1,112 @@
 {
-  "generatedAt": "2026-06-26T00:00:00.000Z",
-  "items": [
+  "generatedAt": "2026-06-26T10:51:06.924Z",
+  "runtimeAssets": [
     {
-      "id": "reference-package-a-h",
-      "type": "user-provided-reference-specification",
-      "path": "art/references/neon_ronin_art_refs_impl_ready",
-      "runtimeUse": false,
-      "notes": "Specification package only. Must not be pasted into runtime."
+      "file": "art/final/assets/player-spritesheet.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
     },
     {
-      "id": "gate-a-imagegen-candidates",
-      "type": "ai-generated-concept-evidence",
-      "path": "art/reviews/candidates",
-      "runtimeUse": false,
-      "notes": "Direction exploration only. Final runtime assets must be separately authored/processed after Gate A approval."
+      "file": "art/final/assets/player-master.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
     },
     {
-      "id": "gate-a-representative-composite",
-      "type": "ai-generated-concept-evidence",
-      "path": "art/reviews/gate-a/representative-composite-source.png",
-      "runtimeUse": false,
-      "notes": "Gate A rough composite source, downsampled for approval evidence."
+      "file": "art/final/assets/enemy-spritesheet.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/lantern-warden-spritesheet.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/kite-wraith-preview.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/slash-flipbook.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/telegraph-flipbook.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/ui-kit.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/brush-kit.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/sign-atlas.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/title-composition.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-far-sky.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-distant-skyline.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-mid-roofs-signs.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-gameplay-layer.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-near-props.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-near-props-front.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/layer-foreground-occlusion.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/lighting-moonlight-lantern-gold.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/lighting-cyan-magenta-neon.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
+    },
+    {
+      "file": "art/final/assets/lighting-warm-cool-alley.png",
+      "owner": "project-owned",
+      "license": "all runtime assets authored for this repository from local SVG source; reference sheets are specifications only"
     }
-  ]
+  ],
+  "references": "art/references/neon_ronin_art_refs_impl_ready are user-provided specification sheets and are never loaded at runtime.",
+  "remoteRuntimeRequestsAllowed": false
 }

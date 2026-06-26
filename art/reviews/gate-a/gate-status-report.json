@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-26T02:35:43.290Z",
+  "generatedAt": "2026-06-26T10:51:27.830Z",
   "gate": "A",
-  "status": "pending",
-  "approved": false,
+  "status": "approved",
+  "approved": true,
   "requestFile": "art/approvals/GATE_A_REQUEST.md",
   "statusFile": "art/approvals/GATE_A_STATUS.json",
   "valid": true,

@@ -24,8 +24,9 @@ try {
 
 if (status) {
   if (status.gate !== 'A') errors.push('Gate status file is not for Gate A.');
-  if (status.status !== 'pending') errors.push(`Gate A status must remain pending before explicit approval, got ${status.status}.`);
-  if (status.approved !== false) errors.push('Gate A approved flag must be false before explicit approval.');
+  if (status.status !== 'approved') errors.push(`Gate A status must be approved after explicit approval, got ${status.status}.`);
+  if (status.approved !== true) errors.push('Gate A approved flag must be true after explicit approval.');
+  if (!status.approvedAt) errors.push('Gate A approvedAt timestamp is missing.');
   if (status.approvalPhrase !== 'Approve Gate A') errors.push('Gate A approval phrase drifted.');
 }
 

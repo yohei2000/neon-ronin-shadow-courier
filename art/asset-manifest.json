@@ -1,0 +1,271 @@
+{
+  "generatedAt": "2026-06-26T10:51:06.917Z",
+  "phase": "gate-b-final-art-lock-review",
+  "sourcePipeline": "scripts/process-art-assets.mjs -> SVG -> Playwright Chromium raster PNG",
+  "noRemoteRuntimeDependencies": true,
+  "assets": [
+    {
+      "key": "player-spritesheet",
+      "file": "art/final/assets/player-spritesheet.png",
+      "width": 1024,
+      "height": 896,
+      "references": [
+        "A",
+        "D",
+        "G"
+      ],
+      "type": "spritesheet",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "player-master",
+      "file": "art/final/assets/player-master.png",
+      "width": 512,
+      "height": 512,
+      "references": [
+        "D"
+      ],
+      "type": "master",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "enemy-spritesheet",
+      "file": "art/final/assets/enemy-spritesheet.png",
+      "width": 512,
+      "height": 320,
+      "references": [
+        "A",
+        "H"
+      ],
+      "type": "spritesheet",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "lantern-warden-spritesheet",
+      "file": "art/final/assets/lantern-warden-spritesheet.png",
+      "width": 1024,
+      "height": 256,
+      "references": [
+        "A",
+        "H"
+      ],
+      "type": "spritesheet",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "kite-wraith-preview",
+      "file": "art/final/assets/kite-wraith-preview.png",
+      "width": 512,
+      "height": 256,
+      "references": [
+        "H"
+      ],
+      "type": "preview",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "slash-flipbook",
+      "file": "art/final/assets/slash-flipbook.png",
+      "width": 1024,
+      "height": 160,
+      "references": [
+        "G"
+      ],
+      "type": "flipbook",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "telegraph-flipbook",
+      "file": "art/final/assets/telegraph-flipbook.png",
+      "width": 960,
+      "height": 430,
+      "references": [
+        "H"
+      ],
+      "type": "timeline",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "ui-kit",
+      "file": "art/final/assets/ui-kit.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "F"
+      ],
+      "type": "ui",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "brush-kit",
+      "file": "art/final/assets/brush-kit.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "A"
+      ],
+      "type": "brush",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "sign-atlas",
+      "file": "art/final/assets/sign-atlas.png",
+      "width": 960,
+      "height": 640,
+      "references": [
+        "C"
+      ],
+      "type": "atlas",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "title-composition",
+      "file": "art/final/assets/title-composition.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "type": "composition",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-far-sky",
+      "file": "art/final/assets/layer-far-sky.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-distant-skyline",
+      "file": "art/final/assets/layer-distant-skyline.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-mid-roofs-signs",
+      "file": "art/final/assets/layer-mid-roofs-signs.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-gameplay-layer",
+      "file": "art/final/assets/layer-gameplay-layer.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-near-props",
+      "file": "art/final/assets/layer-near-props.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-near-props-front",
+      "file": "art/final/assets/layer-near-props-front.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "layer-foreground-occlusion",
+      "file": "art/final/assets/layer-foreground-occlusion.png",
+      "width": 1920,
+      "height": 540,
+      "references": [
+        "E"
+      ],
+      "type": "parallax-layer",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "lighting-moonlight-lantern-gold",
+      "file": "art/final/assets/lighting-moonlight-lantern-gold.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "B"
+      ],
+      "type": "lighting-preset",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "lighting-cyan-magenta-neon",
+      "file": "art/final/assets/lighting-cyan-magenta-neon.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "B"
+      ],
+      "type": "lighting-preset",
+      "runtime": true,
+      "license": "project-owned"
+    },
+    {
+      "key": "lighting-warm-cool-alley",
+      "file": "art/final/assets/lighting-warm-cool-alley.png",
+      "width": 960,
+      "height": 540,
+      "references": [
+        "B"
+      ],
+      "type": "lighting-preset",
+      "runtime": true,
+      "license": "project-owned"
+    }
+  ]
+}

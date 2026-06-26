@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-06-26T10:51:25.416Z",
+  "minimumNormalTextContrast": 4.9,
+  "minimumLargeTextContrast": 3.6,
+  "uiPass": true,
+  "checkedFiles": [
+    "art/final/ui-desktop-contact-sheet.png",
+    "art/final/ui-mobile-390x844.png"
+  ]
+}

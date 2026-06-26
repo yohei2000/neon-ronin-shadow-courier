@@ -1,40 +1,28 @@
 # Reference Compliance Matrix
 
-Status: Gate A draft. Final rows must be completed with runtime screenshots, validators, and review rounds after Gate A approval.
+Status: Gate B package ready for explicit human review. Gate B is not approved yet.
 
-| Ref | Requirement | Current Implementation / File | Runtime State | Automated Check | Review Evidence | Status |
-|---|---|---|---|---|---|---|
-| A | Thick ink outlines, dry-brush edges, paper texture | `art/shape-language.png`, `art/value-study.png` | Not runtime final | `npm run art:process` generates evidence | Gate A review | Draft |
-| A | Brush masks/splatter/borders/tile overlays final kit | Pending production asset kit | Pending | `art:validate-assets` intentionally unavailable before Gate A | Pending | Not started |
-| B | Three lighting presets | `art/art-style.json` lighting preset tokens | Pending ArtLab | Pending final `art:screenshots` | `art/environment-material-study.png` | Draft |
-| B | Rain, fog, wet reflections, reduced-FX comparison | Gate A composite shows direction | Pending ArtLab | Pending final screenshots | `art/representative-composite-960x540.png` | Draft |
-| C | Hero/medium/small sign density | Candidate and composite direction | Pending ArtLab sign-density station | Pending final `art:validate-sign-density` | `art/reviews/candidates/environment.png` | Draft |
-| C | Modular sign/lantern/cable/window kit | Pending production kit | Pending | Pending atlas/manifest validation | Pending | Not started |
-| D | Player magenta scarf, cyan eye/satchel, scale readability | `art/player-silhouette-study.png`, `art/value-study.png` | Pending ArtLab player stations | Pending final animation validation | `art/reviews/candidates/player.png` | Draft |
-| D | Full player animation set | Pending production sprites/manifest | Pending | Pending `art:validate-animations` | Pending | Not started |
-| E | Seven parallax layers and factors | `art/art-style.json`, `art/environment-material-study.png` | Pending ArtLab parallax station | Pending final screenshot matrix | `art/reviews/candidates/environment.png` | Draft |
-| F | HUD/menu/mobile-control material families | `art/ui-style-study.png`, `art/palette.json` | Pending ArtLab UI station | Pending contrast report | `art/reviews/candidates/ui.png` | Draft |
-| F | Minimum touch targets and states | Pending final UI kit | Pending | Pending final browser layout checks | Pending | Not started |
-| G | Four-phase slash timing and layers | `art/vfx-style-study.png` | Pending ArtLab VFX station | Pending `art:validate-vfx` | `art/representative-composite-960x540.png` | Draft |
-| H | Six-phase telegraph sequence | `art/telegraph-style-study.png` | Pending ArtLab enemy stations | Pending `art:validate-telegraphs` | Enemy candidate sheets | Draft |
-| H | Standard/heavy and fast/mobile variants | Draft visual study only | Pending | Pending final timing manifests | `art/telegraph-style-study.png` | Draft |
+| Ref | Requirement | Implementation Files | Runtime State / Screenshot | Automated Check | Status |
+|---|---|---|---|---|---|
+| A | Ink outlines, dry-brush edges, paper texture, brush kit | `art/final/assets/brush-kit.png`, `art/final/reference-a-brush-contact-sheet.png`, `art/final/reference-a-game-scale-test.png` | `art/final/artlab-neutral.png`, `art/final/artlab-busy.png` | `art:validate-assets` | Implemented |
+| B | Three rainy-night lighting presets, rain/fog/reflections, reduced-FX | `art/final/assets/lighting-*.png`, `art/final/reference-b-lighting-presets.png`, `art/final/reduced-fx-comparison.png` | `art/final/lighting-moonlight-lantern-gold.png`, `art/final/lighting-cyan-magenta-neon.png`, `art/final/lighting-warm-cool-alley.png`, `art/final/reduced-fx.png` | `art:screenshots`, `art:validate-assets` | Implemented |
+| C | Signage density and modular sign kit | `art/final/assets/sign-atlas.png`, `art/sign-density-scenes.json`, `art/final/reference-c-sign-density.png` | `art/final/sign-density-annotated.png` | `art:validate-sign-density` | Implemented |
+| D | Shadow Courier identity and complete animation set | `art/final/assets/player-master.png`, `art/final/assets/player-spritesheet.png`, `art/animation-manifest.json` | `art/final/player-animation-contact-sheet.png`, `art/final/player-five-core-poses.png`, `art/final/player-scale.png`, `art/final/player-grayscale-contrast.png` | `art:validate-animations`, `art:validate-assets` | Implemented |
+| E | Seven-layer parallax composition | `art/final/assets/layer-*.png`, `art/final/reference-e-seven-layer-parallax.png` | `art/final/seven-layer-parallax-breakdown.png` | `art:screenshots`, `art:validate-assets` | Implemented |
+| F | HUD/menu/mobile-control material families and touch presentation | `art/final/assets/ui-kit.png`, `art/final/ui-desktop-contact-sheet.png`, `art/final/ui-mobile-390x844.png`, `art/final/contrast-report.json` | `art/final/ui-desktop.png`, `art/final/ui-mobile.png`, `art/final/mobile-controls.png` | `art:validate-assets` | Implemented |
+| G | Four-phase slash with magenta core, ink edge, cyan sparks, bounded particles | `art/final/assets/slash-flipbook.png`, `art/vfx-manifest.json`, `art/final/reference-g-slash-timeline.png` | `art/final/slash-four-phases.png`, `art/final/slash-dark.png`, `art/final/slash-bright.png` | `art:validate-vfx` | Implemented |
+| H | Six-phase heavy and fast enemy telegraphs with recover windows | `art/final/assets/telegraph-flipbook.png`, `art/telegraph-manifest.json`, `art/final/lantern-warden-telegraph-contact-sheet.png` | `art/final/telegraph-standard.png`, `art/final/telegraph-fast.png`, `art/final/lantern-warden-states.png` | `art:validate-telegraphs` | Implemented |
 
 ## Gate Evidence
 
-- Gate A package report: `art/reviews/gate-a/gate-a-package-report.md`
-- Reference audit: `art/reference-audit.json`
-- Gate A approval request: `art/approvals/GATE_A_REQUEST.md`
 - Gate A approval status: `art/approvals/GATE_A_STATUS.json`
-- Gate status validator report: `art/reviews/gate-a/gate-status-report.json`
-- Candidate contact-sheet audit: `art/reviews/gate-a/candidate-contact-sheet-report.json`
-- Representative composite source: `art/reviews/gate-a/representative-composite-source.png`
-- Representative composite 960x540: `art/reviews/gate-a/representative-composite-960x540.png`
+- Gate B request: `art/approvals/GATE_B_REQUEST.md`
+- Gate B package report: `art/reviews/gate-b/gate-b-package-report.md`
+- Final scorecard: `art/reviews/final-scorecard.md`
+- Screenshot matrix: `art/final/screenshot-report.json`
+- Console report: `art/final/console-report.json`
+- Revision rounds: `art/reviews/round-01/`, `art/reviews/round-02/`, `art/reviews/round-03/`
 
-## Known Non-Compliance Before Gate A Approval
+## Remaining Gate
 
-- Production runtime asset kits are not implemented.
-- Final ArtLabScene and final title screen are not implemented.
-- Final validators are intentionally not passable yet.
-- Gate A and Gate B are not approved.
-
-These are blockers for final completion, not accepted deviations.
+Gate B requires explicit human approval with `Approve Gate B`. Until then, this is a completed review package, not an approved final Art Lock.

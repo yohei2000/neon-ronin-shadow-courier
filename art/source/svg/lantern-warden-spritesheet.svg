@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="256" viewBox="0 0 1024 256">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="1024" height="256" fill="transparent"/>
+    <g transform="translate(64 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#00E5FF" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 16 18 C 4 28, -4 28, -16 18 Z" fill="#162435" opacity="0.46"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    
+  </g><g transform="translate(192 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#00E5FF" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    
+  </g><g transform="translate(320 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#00E5FF" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    
+  </g><g transform="translate(448 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#00E5FF" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="0" cy="110" rx="92" ry="18" fill="none" stroke="#FF2E7A" stroke-width="5" filter="url(#softGlow)"/>
+    
+  </g><g transform="translate(576 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#FF2E7A" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    
+  </g><g transform="translate(704 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#FF2E7A" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    <g transform="translate(-12 38) scale(0.55)" opacity="0.95">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g>
+  </g><g transform="translate(832 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#F0A64A" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    
+  </g><g transform="translate(960 138) scale(0.62)">
+    <path d="M -34 84 C -54 18, -42 -64, 0 -92 C 44 -60, 55 16, 34 84 Z" fill="#050508" stroke="#F0A64A" stroke-width="4"/>
+    <path d="M -18 -54 C -6 -72, 6 -72, 18 -54 L 34 18 C 4 28, -4 28, -34 18 Z" fill="#F0A64A" opacity="0.76"/>
+    <path d="M -70 18 C -44 0, -28 -6, -8 10 M 70 18 C 44 0, 28 -6, 8 10" stroke="#050508" stroke-width="10" stroke-linecap="round"/>
+    
+    
+  </g>
+</svg>

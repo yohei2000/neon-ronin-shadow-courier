@@ -1,12 +1,12 @@
 # Neon Ronin Art Bible
 
-Status: Gate A draft. This bible is not frozen until explicit Gate A approval.
+Status: frozen after Gate A approval. Changes now happen in assets and implementation, not by broadening the style.
 
 ## Core Identity
 
-Neon Ronin combines bold sumi-e-inspired ink silhouettes, frayed dry-brush edges, restrained paper grain, rainy-night atmosphere, cyan/magenta neon accents, sparse lantern gold, wet reflection streaks, and strong negative space.
+Neon Ronin combines bold ink silhouettes, selective dry-brush edges, restrained paper grain, rainy-night atmosphere, cyan/magenta neon accents, sparse lantern gold, wet reflection streaks, and strong negative space.
 
-The style must not become generic saturated cyberpunk. Neon is a focal accent; ink and value control carry the image.
+The image must not become a saturated cyberpunk wash. Ink, value hierarchy, and silhouette readability carry the frame. Neon is a focal accent.
 
 ## Palette
 
@@ -18,7 +18,7 @@ Canonical palette lives in `art/palette.json`.
 - Ink black and deep indigo: silhouettes, collision structure, foreground framing.
 - Warm paper: readable UI/menu/objective surfaces.
 
-No arbitrary accent color should be introduced without updating this bible and `art/palette.json`.
+No new accent color is allowed without updating `art/palette.json`, this bible, validators, and review evidence.
 
 ## Value Hierarchy
 
@@ -34,35 +34,35 @@ No arbitrary accent color should be introduced without updating this bible and `
 
 ### A - Ink, Brush, Paper
 
-Start with closed readable silhouettes. Use brush fray at selected edges only. Paper grain remains low opacity. Splatter is short-lived and non-gory.
+Start with closed readable silhouettes. Use brush fray at selected edges only. Paper grain remains low opacity. Splatter is short-lived and non-gory. Runtime evidence: `art/final/reference-a-brush-contact-sheet.png`.
 
 ### B - Rainy-Night Lighting
 
-Use the three preset family names from `art/art-style.json`: `moonlight-lantern-gold`, `cyan-magenta-neon`, and `warm-cool-alley`. Prefer baked-looking glows and reflection strips over expensive dynamic lighting.
+Use `moonlight-lantern-gold`, `cyan-magenta-neon`, and `warm-cool-alley`. Prefer baked glows and reflection strips over expensive dynamic lighting. Runtime evidence: `art/final/reference-b-lighting-presets.png`.
 
 ### C - Signage Density
 
-One hero sign or landmark per camera view. Medium and small signs must guide depth without filling the whole frame. Avoid tiny text dependence and real brand names.
+One hero sign or landmark per camera view. Medium and small signs guide depth without filling the whole frame. Avoid tiny text dependence and real brand names. Runtime evidence: `art/final/reference-c-sign-density.png` and `art/sign-density-scenes.json`.
 
 ### D - Shadow Courier
 
-Player identity is black courier silhouette, magenta scarf, cyan eye, and cyan satchel emblem. Animation must preserve body proportions, satchel placement, scarf role, and facing direction.
+Player identity is black courier silhouette, magenta scarf, cyan eye, and cyan satchel emblem. Animation preserves body proportions, satchel placement, scarf role, and facing direction. Runtime evidence: `art/final/player-animation-contact-sheet.png`.
 
 ### E - Seven-Layer Parallax
 
-Every final environment must preserve seven depth roles: far sky, distant skyline, mid roofs/signs, gameplay layer, near props, near props front, foreground occlusion.
+Every final environment preserves seven depth roles: far sky, distant skyline, mid roofs/signs, gameplay layer, near props, near props front, foreground occlusion. Runtime evidence: `art/final/reference-e-seven-layer-parallax.png`.
 
 ### F - UI And Mobile Controls
 
-UI materials are black lacquer, worn paper, ink wash, cyan glow, and magenta glow. Menus use authored panels/buttons and states, not raw text lists.
+UI materials are black lacquer, worn paper, ink wash, cyan glow, and magenta glow. Menus use authored panels/buttons and states, not raw text lists. Runtime evidence: `art/final/ui-desktop-contact-sheet.png` and `art/final/ui-mobile-390x844.png`.
 
 ### G - Slash VFX
 
-Slash is four phase and at most 0.40s: anticipation, active arc, breakup, fade. Magenta core, black ink edge, cyan sparks, and restrained glow are mandatory.
+Slash is four phase and at most 0.40s: anticipation, active arc, breakup, fade. Magenta core, black ink edge, cyan sparks, and restrained glow are mandatory. Runtime evidence: `art/final/reference-g-slash-timeline.png`.
 
 ### H - Telegraph Language
 
-Enemy attacks must show glow-up, aim, ground/range warning, wind-up, release, and recover. Magenta means heavy danger; cyan means mobility/range.
+Enemy attacks show glow-up, aim, ground/range warning, wind-up, release, and recover. Magenta means heavy danger; cyan means mobility/range. Runtime evidence: `art/final/lantern-warden-telegraph-contact-sheet.png`.
 
 ## Gate A Selection
 
@@ -74,12 +74,10 @@ Enemy attacks must show glow-up, aim, ground/range warning, wind-up, release, an
 - Lantern Warden: Candidate 2 plus restrained weight from Candidate 3.
 - UI: Candidate 3 paper readability plus Candidate 2 cyan discipline.
 
-## Intentional Deviations
+## Runtime Asset Rule
 
-- Gate A studies use generated contact sheets and deterministic SVG/Playwright studies. They are not final runtime assets.
-- Some generated candidate sheets contain decorative pseudo text. Production runtime signs must replace this with abstract marks, controlled symbols, or verified local typography.
-- The current representative composite is an art-direction proof, not a final browser screenshot.
+Runtime assets under `art/final/assets/` are project-owned PNGs generated from authored SVG source. The A-H reference sheets are never loaded into Phaser.
 
-## Freeze Rule
+## Remaining Approval
 
-After explicit Gate A approval, this bible becomes the style lock. Later inconsistency must be fixed in assets and implementation, not excused by broadening the bible.
+Gate B is pending. Do not claim final Art Lock approval until the user replies with `Approve Gate B`.

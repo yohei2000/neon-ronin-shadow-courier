@@ -18,8 +18,8 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 
 ## Current Gate State
 
-- Gate A: pending explicit human approval.
-- Gate B: not started.
+- Gate A: approved by explicit human phrase `Approve Gate A` on 2026-06-26.
+- Gate B: package generated; pending explicit human approval.
 
 Gate A evidence currently includes:
 
@@ -38,19 +38,25 @@ Gate A evidence currently includes:
 
 Use `npm.cmd` on Windows PowerShell.
 
-Current Gate A commands:
+Current Art Lock commands:
 
 ```bash
 npm.cmd run art:refs
 npm.cmd run art:process
+npm.cmd run art:atlas
 npm.cmd run art:contact-sheets
 npm.cmd run art:gate-status
-npm.cmd run art:gate-a-smoke
+npm.cmd run art:validate-assets
+npm.cmd run art:validate-sign-density
+npm.cmd run art:validate-animations
+npm.cmd run art:validate-vfx
+npm.cmd run art:validate-telegraphs
+npm.cmd run art:screenshots
 npm.cmd run art:review-report
 npm.cmd run art:all
 ```
 
-Final Art Lock commands from `ART_LOCK_GOAL.md` must not be reported passing until they inspect real final assets, screenshots, revision rounds, scorecards, and approvals.
+Final Art Lock commands from `ART_LOCK_GOAL.md` must inspect real final assets, screenshots, revision rounds, scorecards, and approvals.
 
 ## Handoff Rules
 
@@ -63,6 +69,6 @@ Final Art Lock commands from `ART_LOCK_GOAL.md` must not be reported passing unt
 
 ## Next Step
 
-Request explicit Gate A approval using the exact phrase `Approve Gate A`. If approved, build the production Art Lock runtime, asset pipeline, validators, screenshots, review rounds, and Gate B package.
+Request explicit Gate B approval using the exact phrase `Approve Gate B`. Do not claim final Art Lock completion until that approval is received.
 
-Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is only `BootScene -> GateAReviewScene`.
+Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is `BootScene -> PreloadScene -> TitleScene`, with deterministic `ArtLabScene` review states available via `?scene=artlab&state=...`.

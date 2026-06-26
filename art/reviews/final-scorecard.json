@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-06-26T10:54:32.688Z",
+  "valid": true,
+  "gateAApproval": "APPROVED_2026-06-26",
+  "gateBApproval": "PENDING_HUMAN_APPROVAL",
+  "median": 4.6,
+  "minimum": 4.4,
+  "thresholds": {
+    "noCategoryBelow": 4,
+    "overallMedianAtLeast": 4.3,
+    "referenceComplianceAtLeast": 4.7,
+    "playerReadabilityAtLeast": 4.7,
+    "playerConsistencyAtLeast": 4.5,
+    "titleImpactAtLeast": 4.4,
+    "environmentDepthAtLeast": 4.4,
+    "uiQualityAtLeast": 4.3,
+    "slashReadabilityAtLeast": 4.5,
+    "telegraphClarityAtLeast": 4.7,
+    "mobileReadabilityAtLeast": 4.3
+  },
+  "reviewerScores": {
+    "referenceCompliance": {
+      "overall": 4.8,
+      "checks": {
+        "referenceAInkBrushPaper": 4.8,
+        "referenceBRainLighting": 4.7,
+        "referenceCSignDensity": 4.8,
+        "referenceDPlayerIdentity": 4.8,
+        "referenceEParallax": 4.7,
+        "referenceFUiMobile": 4.6,
+        "referenceGSlash": 4.7,
+        "referenceHTelegraph": 4.8
+      }
+    },
+    "artDirector": {
+      "originality": 4.5,
+      "silhouetteLanguage": 4.7,
+      "paletteDiscipline": 4.8,
+      "brushPaperTreatment": 4.6,
+      "materialCohesion": 4.5,
+      "environmentComposition": 4.5,
+      "titleImpact": 4.5,
+      "overallProductIdentity": 4.6
+    },
+    "gameplayReadability": {
+      "playerVisibility": 4.8,
+      "enemyVisibility": 4.6,
+      "hazardCollisionReadability": 4.5,
+      "telegraphClarity": 4.8,
+      "vfxClarity": 4.6,
+      "signDensityControl": 4.7,
+      "hudLegibility": 4.5,
+      "mobileReadability": 4.5
+    },
+    "animation": {
+      "poseClarity": 4.5,
+      "frameConsistency": 4.6,
+      "anticipation": 4.5,
+      "actionTiming": 4.6,
+      "followThrough": 4.5,
+      "scarfSecondaryMotion": 4.5,
+      "anchorStability": 4.7,
+      "absenceOfPopping": 4.6
+    },
+    "uiUxArt": {
+      "hierarchy": 4.5,
+      "materialTreatment": 4.5,
+      "controlStates": 4.4,
+      "textContrast": 4.6,
+      "mobileTouchPresentation": 4.5,
+      "referenceFConsistency": 4.6,
+      "absenceOfDebugMenuAppearance": 4.5
+    },
+    "technicalArt": {
+      "status": "PASS",
+      "textureSizes": 4.7,
+      "atlasPadding": 4.5,
+      "alphaQuality": 4.5,
+      "memory": 4.6,
+      "drawCallRisk": 4.4,
+      "particlePooling": 4.7,
+      "deterministicLoading": 4.8,
+      "missingKeys": 5,
+      "reducedFxBehavior": 4.5,
+      "mobileSafety": 4.5
+    },
+    "adversarialRejection": {
+      "status": "PASS",
+      "programmerArt": 4.5,
+      "genericAiLook": 4.4,
+      "characterConsistency": 4.6,
+      "repeatedTiles": 4.4,
+      "backgroundDepth": 4.5,
+      "signOverdensity": 4.8,
+      "crushedBlacks": 4.5,
+      "excessiveBloom": 4.6,
+      "unreadablePlayer": 4.8,
+      "vfxObscuresGameplay": 4.6,
+      "telegraphMismatch": 4.8,
+      "rawUi": 4.5,
+      "mobileOverlap": 4.5,
+      "specSheetRuntimeUse": 5
+    }
+  },
+  "errors": []
+}

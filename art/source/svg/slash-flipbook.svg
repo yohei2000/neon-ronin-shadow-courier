@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="160" viewBox="0 0 1024 160">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="1024" height="160" fill="transparent"/>
+    <g transform="translate(28 80) scale(0.24200000000000002)" opacity="0.55">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(156 80) scale(0.24200000000000002)" opacity="0.55">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(284 80) scale(0.44)" opacity="0.95">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(412 80) scale(0.44)" opacity="0.95">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(540 80) scale(0.374)" opacity="0.95">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(668 80) scale(0.374)" opacity="0.95">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(796 80) scale(0.44)" opacity="0.3">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g><g transform="translate(924 80) scale(0.44)" opacity="0.3">
+    <path d="M -10 32 C 46 -42, 142 -48, 202 -8 C 128 -22, 72 6, 14 58 Z" fill="#050508" opacity="0.95"/>
+    <path d="M 9 25 C 58 -24, 126 -29, 182 -5 C 116 -7, 70 13, 21 48 Z" fill="#FF2E7A" filter="url(#softGlow)"/>
+    <path d="M 122 -18 l12 -10 l-3 14 l14 4 l-15 3 l-6 14 l-4 -14 l-16 -3 Z" fill="#00E5FF"/>
+    <path d="M 154 17 l10 -6 l-3 10 l9 4 l-11 1 l-5 9 l-2 -10 l-10 -4 Z" fill="#FF2E7A"/>
+  </g>
+</svg>

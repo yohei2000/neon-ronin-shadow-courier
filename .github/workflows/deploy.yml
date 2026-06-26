@@ -39,7 +39,7 @@ jobs:
       - name: Unit tests
         run: npm run test
 
-      - name: Gate A art package
+      - name: Art Lock QA package
         run: npm run art:all
 
       - name: Build for Pages

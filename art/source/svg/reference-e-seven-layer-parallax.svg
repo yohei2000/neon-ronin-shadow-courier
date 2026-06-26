@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.11"/>
+      </feComponentTransfer>
+    </filter>
+    <pattern id="rain" width="34" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+      <line x1="10" y1="0" x2="10" y2="18" stroke="#B9CBE0" stroke-width="1" opacity="0.22"/>
+      <line x1="24" y1="6" x2="24" y2="32" stroke="#00E5FF" stroke-width="0.8" opacity="0.12"/>
+    </pattern>
+    
+  </defs>
+  <rect width="960" height="540" fill="#0B1020"/>
+  <radialGradient id="skyGlow" cx="46%" cy="20%" r="70%">
+    <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.20"/>
+    <stop offset="42%" stop-color="#162435" stop-opacity="0.40"/>
+    <stop offset="100%" stop-color="#050508" stop-opacity="1"/>
+  </radialGradient>
+  <rect width="960" height="540" fill="url(#skyGlow)"/>
+  <rect width="960" height="540" fill="url(#rain)" opacity="0.34"/>
+  <rect width="960" height="540" filter="url(#paperNoise)" opacity="0.38"/><text x="34" y="58" font-family="Arial Black, Arial, sans-serif" font-size="30" fill="#E8DDC6">Seven-Layer Parallax Breakdown</text><text x="42" y="118" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">1. far-sky</text><rect x="290" y="94" width="570" height="34" fill="#050508" stroke="#7B838D" opacity="0.26"/><text x="42" y="170" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">2. distant-skyline</text><rect x="290" y="146" width="570" height="34" fill="#162435" stroke="#7B838D" opacity="0.35"/><text x="42" y="222" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">3. mid-roofs-signs</text><rect x="290" y="198" width="570" height="34" fill="#050508" stroke="#7B838D" opacity="0.44"/><text x="42" y="274" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">4. gameplay-layer</text><rect x="290" y="250" width="570" height="34" fill="#162435" stroke="#7B838D" opacity="0.53"/><text x="42" y="326" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">5. near-props</text><rect x="290" y="302" width="570" height="34" fill="#050508" stroke="#7B838D" opacity="0.62"/><text x="42" y="378" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">6. near-props-front</text><rect x="290" y="354" width="570" height="34" fill="#162435" stroke="#7B838D" opacity="0.71"/><text x="42" y="430" font-family="Arial, sans-serif" font-size="18" fill="#E8DDC6">7. foreground-occlusion</text><rect x="290" y="406" width="570" height="34" fill="#050508" stroke="#7B838D" opacity="0.8"/>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-06-26T10:54:30.399Z",
+  "valid": true,
+  "checkedStates": [
+    "idle",
+    "run",
+    "jump-rise",
+    "apex",
+    "fall",
+    "wall-slide",
+    "wall-kick",
+    "ground-slash",
+    "air-slash",
+    "hurt",
+    "checkpoint-respawn"
+  ],
+  "errors": []
+}

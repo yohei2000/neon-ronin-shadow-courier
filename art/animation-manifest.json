@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-06-26T10:51:06.920Z",
+  "player": {
+    "spritesheet": "art/final/assets/player-spritesheet.png",
+    "frameSize": {
+      "width": 128,
+      "height": 128
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.78
+    },
+    "tolerancePx": 2,
+    "states": {
+      "idle": {
+        "frames": 6,
+        "start": 0,
+        "frameDurationSeconds": 0.11,
+        "stableOrigin": true
+      },
+      "run": {
+        "frames": 8,
+        "start": 6,
+        "frameDurationSeconds": 0.08,
+        "stableOrigin": true
+      },
+      "jump-rise": {
+        "frames": 3,
+        "start": 14,
+        "frameDurationSeconds": 0.1,
+        "stableOrigin": true
+      },
+      "apex": {
+        "frames": 2,
+        "start": 17,
+        "frameDurationSeconds": 0.12,
+        "stableOrigin": true
+      },
+      "fall": {
+        "frames": 2,
+        "start": 19,
+        "frameDurationSeconds": 0.1,
+        "stableOrigin": true
+      },
+      "wall-slide": {
+        "frames": 4,
+        "start": 21,
+        "frameDurationSeconds": 0.1,
+        "stableOrigin": true
+      },
+      "wall-kick": {
+        "frames": 4,
+        "start": 25,
+        "frameDurationSeconds": 0.08,
+        "stableOrigin": true
+      },
+      "ground-slash": {
+        "frames": 8,
+        "start": 29,
+        "frameDurationSeconds": 0.05,
+        "stableOrigin": true
+      },
+      "air-slash": {
+        "frames": 6,
+        "start": 37,
+        "frameDurationSeconds": 0.055,
+        "stableOrigin": true
+      },
+      "hurt": {
+        "frames": 3,
+        "start": 43,
+        "frameDurationSeconds": 0.1,
+        "stableOrigin": true
+      },
+      "checkpoint-respawn": {
+        "frames": 6,
+        "start": 46,
+        "frameDurationSeconds": 0.1,
+        "stableOrigin": true
+      }
+    }
+  },
+  "enemies": {
+    "inkCrawler": {
+      "frames": 4,
+      "frameSize": {
+        "width": 128,
+        "height": 160
+      },
+      "states": [
+        "idle",
+        "telegraph",
+        "release",
+        "recover"
+      ]
+    },
+    "lanternWarden": {
+      "frames": 8,
+      "frameSize": {
+        "width": 128,
+        "height": 256
+      },
+      "states": [
+        "closed",
+        "glow",
+        "aim",
+        "ground",
+        "windup",
+        "release",
+        "recover",
+        "defeat"
+      ]
+    },
+    "kiteWraithPreview": {
+      "frames": 1,
+      "file": "art/final/assets/kite-wraith-preview.png"
+    }
+  }
+}

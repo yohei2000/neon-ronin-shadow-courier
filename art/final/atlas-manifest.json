@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-06-26T10:51:26.271Z",
+  "sourceManifest": "art/asset-manifest.json",
+  "deterministic": true,
+  "atlases": [
+    {
+      "key": "player-spritesheet",
+      "file": "art/final/assets/player-spritesheet.png",
+      "width": 1024,
+      "height": 896,
+      "bytes": 114466,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "D",
+        "G"
+      ]
+    },
+    {
+      "key": "enemy-spritesheet",
+      "file": "art/final/assets/enemy-spritesheet.png",
+      "width": 512,
+      "height": 320,
+      "bytes": 22502,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "H"
+      ]
+    },
+    {
+      "key": "lantern-warden-spritesheet",
+      "file": "art/final/assets/lantern-warden-spritesheet.png",
+      "width": 1024,
+      "height": 256,
+      "bytes": 20699,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A",
+        "H"
+      ]
+    },
+    {
+      "key": "slash-flipbook",
+      "file": "art/final/assets/slash-flipbook.png",
+      "width": 1024,
+      "height": 160,
+      "bytes": 9362,
+      "paddingPx": 2,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "G"
+      ]
+    },
+    {
+      "key": "telegraph-flipbook",
+      "file": "art/final/assets/telegraph-flipbook.png",
+      "width": 960,
+      "height": 430,
+      "bytes": 301612,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "H"
+      ]
+    },
+    {
+      "key": "ui-kit",
+      "file": "art/final/assets/ui-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 270845,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "F"
+      ]
+    },
+    {
+      "key": "brush-kit",
+      "file": "art/final/assets/brush-kit.png",
+      "width": 960,
+      "height": 540,
+      "bytes": 354842,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "A"
+      ]
+    },
+    {
+      "key": "sign-atlas",
+      "file": "art/final/assets/sign-atlas.png",
+      "width": 960,
+      "height": 640,
+      "bytes": 67722,
+      "paddingPx": 4,
+      "extrusionPx": 1,
+      "mobileSafe": true,
+      "references": [
+        "C"
+      ]
+    }
+  ],
+  "valid": true,
+  "errors": []
+}

@@ -7,6 +7,6 @@ export class BootScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.scene.start(SceneKey.GateAReview);
+    this.scene.start(SceneKey.Preload);
   }
 }
