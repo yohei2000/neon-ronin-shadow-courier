@@ -4,7 +4,7 @@ Status: Gate A style language remains binding. Gate B v1 was rejected as visuall
 
 ## Core Identity
 
-Neon Ronin combines bold ink silhouettes, selective dry-brush edges, restrained paper grain, rainy-night atmosphere, cyan/magenta neon accents, sparse lantern gold, wet reflection streaks, and strong negative space.
+Neon Ronin combines bold ink silhouettes, selective dry-brush edges, restrained paper grain, rainy-night atmosphere, player cyan/magenta neon accents, enemy amber/vermilion warning accents, sparse lantern gold, wet reflection streaks, and strong negative space.
 
 The image must not become a saturated cyberpunk wash. Ink, value hierarchy, and silhouette readability carry the frame. Neon is a focal accent.
 
@@ -12,11 +12,15 @@ The image must not become a saturated cyberpunk wash. Ink, value hierarchy, and 
 
 Canonical palette lives in `art/palette.json`.
 
-- `#00E5FF` neon cyan: information, utility, mobility, range, focus.
-- `#FF2E7A` neon magenta: combat, danger, impact, action.
+- `#00E5FF` neon cyan: player eye/core, information, utility, friendly focus.
+- `#FF2E7A` neon magenta: player scarf/action identity and player slash impact.
+- `#FFB12E` enemy amber: enemy eyes/cores, fast warning, hostile charge.
+- `#FF5A24` enemy vermilion: heavy enemy danger, release, hostile telegraph.
 - Lantern gold: safety, lanterns, objectives, checkpoints, rewards.
 - Ink black and deep indigo: silhouettes, collision structure, foreground framing.
 - Warm paper: readable UI/menu/objective surfaces.
+
+Player/friendly accents and enemy/hostile accents must stay in separate color groups wherever possible. Enemy eyes, cores, and telegraphs should not reuse the player's cyan eye/core or magenta scarf/action identity.
 
 No new accent color is allowed without updating `art/palette.json`, this bible, validators, and review evidence.
 
@@ -62,7 +66,7 @@ Slash is four phase and at most 0.40s: anticipation, active arc, breakup, fade. 
 
 ### H - Telegraph Language
 
-Enemy attacks show glow-up, aim, ground/range warning, wind-up, release, and recover. Magenta means heavy danger; cyan means mobility/range. Runtime evidence: `art/final/lantern-warden-telegraph-contact-sheet.png`.
+Enemy attacks show glow-up, aim, ground/range warning, wind-up, release, and recover. Enemy amber means fast warning/hostile charge; enemy vermilion means heavy danger/release. Player cyan/magenta remains reserved for the Shadow Courier and player slash. Runtime evidence: `art/final-v2/lantern-warden-telegraph-contact-sheet.png`.
 
 ## Gate A Selection
 

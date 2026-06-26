@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T20:20:31.822Z",
+  "generatedAt": "2026-06-26T23:20:47.226Z",
   "valid": true,
   "files": [
     {
@@ -96,13 +96,13 @@
       "file": "art/final-v2/enemy-contact-sheet.png",
       "width": 960,
       "height": 540,
-      "bytes": 721304
+      "bytes": 297637
     },
     {
       "file": "art/final-v2/lantern-warden-telegraph-contact-sheet.png",
       "width": 960,
       "height": 540,
-      "bytes": 666824
+      "bytes": 596048
     },
     {
       "file": "art/final-v2/environment-contact-sheet.png",

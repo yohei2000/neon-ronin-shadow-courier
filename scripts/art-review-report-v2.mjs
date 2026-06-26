@@ -70,7 +70,7 @@ await writeReview(
   ['art/final-v2/title-desktop.png', 'art/final-v2/title-mobile.png', 'art/final-v2/assets/title-composition.png'],
   [
     'The title composition now has generated rainy alley depth, Moon Gate structure, wet reflections, and a visibly authored brush title mark.',
-    'The courier silhouette, magenta scarf, and cyan eye read clearly near the lower-left action space.',
+    'The courier silhouette, magenta scarf, and cyan eye read clearly near the lower-left action space without being reused as enemy eye/core colors.',
     'The generated title mark is visually stronger than the v1 text stack and carries the product identity immediately.'
   ],
   [
@@ -96,7 +96,7 @@ await writeReview(
   [
     'The selected player has a stronger kasa-hat silhouette, magenta scarf motion, cyan eye, and satchel than v1.',
     'The refinement pass reduced costume clutter while preserving the courier identity.',
-    'Animation-sheet frames preserve the hat, scarf, and cyan accent better than the v1 local SVG frames.'
+    'Animation-sheet frames preserve the hat, scarf, and cyan accent better than the v1 local SVG frames; these player cyan/magenta accents stay separate from enemy amber/vermilion.'
   ],
   [
     'v2 uses native image-generated player candidates and two refinement passes instead of programmer-art construction.',
@@ -138,9 +138,9 @@ await writeReview(
   'Gate B v2 Enemy Review',
   ['art/generated/ink-crawler/ink-crawler-candidates.png', 'art/generated/kite-wraith/kite-wraith-candidates.png', 'art/generated/lantern-warden/lantern-warden-candidates.png', 'art/final-v2/enemy-contact-sheet.png', 'art/final-v2/lantern-warden-states.png'],
   [
-    'Ink Crawler candidates read as low horizontal ink threats with cyan focal accents.',
+    'Ink Crawler candidates read as low horizontal ink threats with enemy amber/vermilion focal accents rather than player cyan/magenta accents.',
     'Kite Wraith candidates are distinct from signage and have floating paper/cloth movement language.',
-    'Lantern Warden candidates provide a stronger large silhouette and lantern-core motif than v1.'
+    'Lantern Warden candidates provide a stronger large silhouette and hostile amber/vermilion lantern-core motif than v1.'
   ],
   ['v2 enemy art is generated as visual families instead of being built from primitive ellipses and paths.'],
   [
@@ -148,7 +148,7 @@ await writeReview(
     'Lantern Warden closed/open/defeat states need more exact per-frame cleanup in a future integration pass.'
   ],
   ['Potential rejection if the reviewer requires hand-separated per-state production sprites now.'],
-  ['Reference H telegraph language is represented in enemy candidate direction and telegraph VFX sheet.'],
+  ['Reference H telegraph language is represented in enemy candidate direction and telegraph VFX sheet, with hostile color language separated from the player palette.'],
   'PASS'
 );
 
@@ -176,8 +176,8 @@ await writeReview(
   'Gate B v2 VFX Review',
   ['art/generated/vfx-slash/vfx-slash-candidates.png', 'art/generated/telegraph/telegraph-candidates.png', 'art/final-v2/reference-g-slash-timeline.png', 'art/final-v2/telegraph-standard.png', 'art/final-v2/telegraph-fast.png'],
   [
-    'Slash candidates have stronger brush breakup, magenta core, cyan sparks, and phase variety than v1.',
-    'Telegraph candidates visibly separate warning, area preview, release, and recovery language.',
+    'Slash candidates have stronger brush breakup, magenta core, cyan sparks, and phase variety than v1; this stays player-side.',
+    'Telegraph candidates visibly separate warning, area preview, release, and recovery language through enemy amber/vermilion rather than player cyan/magenta.',
     'Impact/pickup/checkpoint VFX are generated as compact non-gory effect families.'
   ],
   ['v2 VFX uses image-generated flipbook boards rather than code-drawn arcs alone.'],

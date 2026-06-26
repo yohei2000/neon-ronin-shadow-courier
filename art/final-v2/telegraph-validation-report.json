@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-26T20:24:07.701Z",
+  "generatedAt": "2026-06-26T23:24:24.752Z",
   "valid": true,
   "sequences": {
     "heavy": {
-      "color": "#FF2E7A",
+      "color": "#FF5A24",
       "phases": [
         "glow-up",
         "aiming pose",
@@ -17,7 +17,7 @@
       "releaseHitAlignment": "release begins on the active hit frame"
     },
     "fast": {
-      "color": "#00E5FF",
+      "color": "#FFB12E",
       "phases": [
         "glow-up",
         "aiming pose",
@@ -41,7 +41,7 @@
       ],
       "recoverWindowSeconds": 0.36,
       "hasRangeIndicator": true,
-      "colorLanguage": "magenta danger, cyan focus, gold recovery"
+      "colorLanguage": "enemy faction uses ember amber cores and vermilion danger; player faction keeps cyan/magenta"
     }
   },
   "errors": []

@@ -20,6 +20,7 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 
 - Gate A: approved by explicit human phrase `Approve Gate A` on 2026-06-26.
 - Gate B: package generated; pending explicit human approval.
+- Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
 
 Gate A evidence currently includes:
 

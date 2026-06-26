@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T20:20:31.057Z",
+  "generatedAt": "2026-06-26T23:20:46.459Z",
   "sourceManifest": "art/asset-manifest.json",
   "deterministic": true,
   "atlases": [
@@ -23,7 +23,7 @@
       "file": "art/final-v2/assets/enemy-spritesheet.png",
       "width": 512,
       "height": 320,
-      "bytes": 124436,
+      "bytes": 124213,
       "paddingPx": 2,
       "extrusionPx": 1,
       "mobileSafe": true,
@@ -37,7 +37,7 @@
       "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
       "width": 1024,
       "height": 256,
-      "bytes": 257032,
+      "bytes": 255058,
       "paddingPx": 2,
       "extrusionPx": 1,
       "mobileSafe": true,
@@ -64,7 +64,7 @@
       "file": "art/final-v2/assets/telegraph-flipbook.png",
       "width": 960,
       "height": 430,
-      "bytes": 590430,
+      "bytes": 566537,
       "paddingPx": 4,
       "extrusionPx": 1,
       "mobileSafe": true,

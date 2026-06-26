@@ -10,11 +10,15 @@
     "lanternGold": "#F0A64A",
     "dangerCoral": "#EF4B61",
     "neonCyan": "#00E5FF",
-    "neonMagenta": "#FF2E7A"
+    "neonMagenta": "#FF2E7A",
+    "enemyAmber": "#FFB12E",
+    "enemyVermilion": "#FF5A24"
   },
   "semantics": {
-    "cyan": "information, utility, mobility, range, focus",
-    "magenta": "combat, danger, impact, action",
+    "cyan": "player eye/core, information, utility, friendly focus",
+    "magenta": "player scarf/action identity and player slash impact",
+    "enemyAmber": "enemy eyes/cores, fast warning, hostile charge",
+    "enemyVermilion": "heavy enemy danger, release, hostile telegraph",
     "gold": "safety, checkpoints, lanterns, objectives, rewards",
     "ink": "silhouette, collision-readable structure, brush edges"
   }

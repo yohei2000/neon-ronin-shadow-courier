@@ -14,7 +14,9 @@ export const palette = {
   lanternGold: '#F0A64A',
   dangerCoral: '#EF4B61',
   neonCyan: '#00E5FF',
-  neonMagenta: '#FF2E7A'
+  neonMagenta: '#FF2E7A',
+  enemyAmber: '#FFB12E',
+  enemyVermilion: '#FF5A24'
 };
 
 export const referenceDir = path.join(rootDir, 'art', 'references', 'neon_ronin_art_refs_impl_ready');

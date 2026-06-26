@@ -10,9 +10,9 @@
 
 ## Concrete Visual Observations
 
-- Ink Crawler candidates read as low horizontal ink threats with cyan focal accents.
+- Ink Crawler candidates read as low horizontal ink threats with enemy amber/vermilion focal accents rather than player cyan/magenta accents.
 - Kite Wraith candidates are distinct from signage and have floating paper/cloth movement language.
-- Lantern Warden candidates provide a stronger large silhouette and lantern-core motif than v1.
+- Lantern Warden candidates provide a stronger large silhouette and hostile amber/vermilion lantern-core motif than v1.
 
 ## Improved Versus Gate B v1
 
@@ -29,6 +29,6 @@
 
 ## Reference A-H Compliance Notes
 
-- Reference H telegraph language is represented in enemy candidate direction and telegraph VFX sheet.
+- Reference H telegraph language is represented in enemy candidate direction and telegraph VFX sheet, with hostile color language separated from the player palette.
 
 Decision: PASS

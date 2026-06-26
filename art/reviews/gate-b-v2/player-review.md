@@ -11,7 +11,7 @@
 
 - The selected player has a stronger kasa-hat silhouette, magenta scarf motion, cyan eye, and satchel than v1.
 - The refinement pass reduced costume clutter while preserving the courier identity.
-- Animation-sheet frames preserve the hat, scarf, and cyan accent better than the v1 local SVG frames.
+- Animation-sheet frames preserve the hat, scarf, and cyan accent better than the v1 local SVG frames; these player cyan/magenta accents stay separate from enemy amber/vermilion.
 
 ## Improved Versus Gate B v1
 

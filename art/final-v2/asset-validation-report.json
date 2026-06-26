@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T20:24:03.905Z",
+  "generatedAt": "2026-06-26T23:24:21.187Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "file": "art/telegraph-manifest.json",
-      "bytes": 1159
+      "bytes": 1210
     },
     {
       "file": "art/sign-density-scenes.json",
@@ -125,7 +125,9 @@
         "height": 896,
         "maxCornerAlpha": 0,
         "transparentRatio": 0.7922439575195312,
-        "opaquePaperRatio": 0
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0.019992283412388394,
+        "enemyHueRatio": 0
       }
     },
     {
@@ -141,14 +143,16 @@
         "height": 512,
         "maxCornerAlpha": 0,
         "transparentRatio": 0.7604217529296875,
-        "opaquePaperRatio": 0
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0.033733367919921875,
+        "enemyHueRatio": 0
       }
     },
     {
       "file": "art/final-v2/assets/enemy-spritesheet.png",
       "width": 512,
       "height": 320,
-      "bytes": 124436
+      "bytes": 124213
     },
     {
       "file": "art/final-v2/assets/enemy-spritesheet.png",
@@ -157,14 +161,16 @@
         "height": 320,
         "maxCornerAlpha": 0,
         "transparentRatio": 0.7892333984375,
-        "opaquePaperRatio": 0
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0,
+        "enemyHueRatio": 0.00152587890625
       }
     },
     {
       "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
       "width": 1024,
       "height": 256,
-      "bytes": 257032
+      "bytes": 255058
     },
     {
       "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
@@ -172,15 +178,17 @@
         "width": 1024,
         "height": 256,
         "maxCornerAlpha": 0,
-        "transparentRatio": 0.7144889831542969,
-        "opaquePaperRatio": 0
+        "transparentRatio": 0.7144813537597656,
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0,
+        "enemyHueRatio": 0.01506805419921875
       }
     },
     {
       "file": "art/final-v2/assets/kite-wraith-preview.png",
       "width": 512,
       "height": 256,
-      "bytes": 102142
+      "bytes": 101697
     },
     {
       "file": "art/final-v2/assets/kite-wraith-preview.png",
@@ -189,7 +197,9 @@
         "height": 256,
         "maxCornerAlpha": 0,
         "transparentRatio": 0.7746505737304688,
-        "opaquePaperRatio": 0
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0,
+        "enemyHueRatio": 0.0038604736328125
       }
     },
     {
@@ -205,14 +215,16 @@
         "height": 160,
         "maxCornerAlpha": 0,
         "transparentRatio": 0.91551513671875,
-        "opaquePaperRatio": 0
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0.059478759765625,
+        "enemyHueRatio": 0
       }
     },
     {
       "file": "art/final-v2/assets/telegraph-flipbook.png",
       "width": 960,
       "height": 430,
-      "bytes": 590430
+      "bytes": 566537
     },
     {
       "file": "art/final-v2/assets/telegraph-flipbook.png",
@@ -220,8 +232,10 @@
         "width": 960,
         "height": 430,
         "maxCornerAlpha": 0,
-        "transparentRatio": 0.526031976744186,
-        "opaquePaperRatio": 0
+        "transparentRatio": 0.515140503875969,
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0,
+        "enemyHueRatio": 0.023224321705426355
       }
     },
     {
@@ -255,7 +269,9 @@
         "height": 540,
         "maxCornerAlpha": 0,
         "transparentRatio": 0.9216975308641975,
-        "opaquePaperRatio": 0
+        "opaquePaperRatio": 0,
+        "allyHueRatio": 0.015904706790123457,
+        "enemyHueRatio": 0.004029706790123457
       }
     },
     {
@@ -352,13 +368,13 @@
       "file": "art/reviews/gate-b-v2/round-01/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 690142
+      "bytes": 690283
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 797524
+      "bytes": 798349
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/player-motion.png",
@@ -382,13 +398,13 @@
       "file": "art/reviews/gate-b-v2/round-01/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 635760
+      "bytes": 637999
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 764933
+      "bytes": 760532
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/parallax.png",
@@ -410,7 +426,7 @@
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/review.md",
-      "bytes": 1422
+      "bytes": 1386
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/changes.md",
@@ -432,13 +448,13 @@
       "file": "art/reviews/gate-b-v2/round-02/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 690142
+      "bytes": 690283
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 797524
+      "bytes": 798349
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/player-motion.png",
@@ -462,13 +478,13 @@
       "file": "art/reviews/gate-b-v2/round-02/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 635760
+      "bytes": 637999
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 764933
+      "bytes": 760532
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/parallax.png",
@@ -490,7 +506,7 @@
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/review.md",
-      "bytes": 1422
+      "bytes": 1386
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/changes.md",
@@ -512,13 +528,13 @@
       "file": "art/reviews/gate-b-v2/round-03/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 690142
+      "bytes": 690283
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 797524
+      "bytes": 798349
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/player-motion.png",
@@ -542,13 +558,13 @@
       "file": "art/reviews/gate-b-v2/round-03/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 635760
+      "bytes": 637999
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 764933
+      "bytes": 760532
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/parallax.png",
@@ -570,7 +586,7 @@
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/review.md",
-      "bytes": 1422
+      "bytes": 1386
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/changes.md",

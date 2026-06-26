@@ -169,7 +169,7 @@ export class ArtLabScene extends Phaser.Scene {
     this.add.sprite(608, 372, ArtAssetKey.Enemy, 1).setScale(0.82);
     this.add.sprite(770, 320, ArtAssetKey.LanternWarden, 3).setScale(0.72);
     this.add.sprite(454, 326, ArtAssetKey.Slash, 3).setScale(0.72);
-    this.caption('Busy Neon Alley readability station: player, crawler, warden telegraph, sign density, and slash share the same frame.');
+    this.caption('Busy Neon Alley readability station: player cyan/magenta identity remains separated from enemy amber/vermilion threats.');
   }
 
   private drawPlayerMotionStation(): void {
@@ -209,18 +209,18 @@ export class ArtLabScene extends Phaser.Scene {
       this.label(148 + index * 170, 430, ['idle', 'telegraph', 'release', 'recover'][index]);
     });
     this.add.image(770, 268, ArtAssetKey.KiteWraith).setScale(0.48);
-    this.caption('Enemy station: Ink Crawler states plus Kite Wraith preview maintain Reference H telegraph semantics.');
+    this.caption('Enemy station: Ink Crawler states plus Kite Wraith preview use the enemy amber/vermilion group, separate from player cyan/magenta.');
   }
 
   private drawKiteWraithStation(): void {
     this.add.image(470, 278, ArtAssetKey.KiteWraith).setScale(0.85);
     this.add.sprite(615, 320, ArtAssetKey.Slash, 2).setScale(0.5).setTint(Palette.neonCyan);
-    this.caption('Kite Wraith preview: forward motion language for future integration, kept distinct from heavy magenta attacks.');
+    this.caption('Kite Wraith preview: forward hostile motion uses enemy amber/vermilion, kept distinct from player cyan/magenta identity.');
   }
 
   private drawTelegraphStation(): void {
     this.add.image(480, 282, ArtAssetKey.Telegraph).setScale(0.86);
-    this.caption('Telegraph timeline: glow-up, aim, ground/range warning, wind-up, release, and recover are visible for heavy and fast attacks.');
+    this.caption('Telegraph timeline: glow-up, aim, warning, wind-up, release, and recover use enemy amber/vermilion for heavy and fast attacks.');
   }
 
   private drawSlashStation(): void {

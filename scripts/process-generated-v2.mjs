@@ -14,6 +14,8 @@ const palette = {
   paper: '#EFE4CF',
   cyan: '#00E5FF',
   magenta: '#FF2E7A',
+  enemyAmber: '#FFB12E',
+  enemyVermilion: '#FF5A24',
   gold: '#F3A83B',
   mist: '#C9D4DA'
 };
@@ -198,6 +200,54 @@ async function renderCutout(relative, source, width, height, options = {}) {
         const removable = new Uint8Array(pixelCount);
         const visited = new Uint8Array(pixelCount);
         const queue = [];
+
+        const enemyAmber = [255, 177, 46];
+        const enemyVermilion = [255, 90, 36];
+        const applyTargetHue = (offset, target) => {
+          const r = data[offset];
+          const g = data[offset + 1];
+          const b = data[offset + 2];
+          const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+          const intensity = Math.max(0.42, Math.min(1.25, luminance + 0.28));
+          data[offset] = Math.min(255, Math.round(target[0] * intensity));
+          data[offset + 1] = Math.min(255, Math.round(target[1] * intensity));
+          data[offset + 2] = Math.min(255, Math.round(target[2] * intensity));
+        };
+        const rgbToHsv = (r, g, b) => {
+          const rn = r / 255;
+          const gn = g / 255;
+          const bn = b / 255;
+          const max = Math.max(rn, gn, bn);
+          const min = Math.min(rn, gn, bn);
+          const delta = max - min;
+          let hue = 0;
+          if (delta !== 0) {
+            if (max === rn) hue = 60 * (((gn - bn) / delta) % 6);
+            else if (max === gn) hue = 60 * ((bn - rn) / delta + 2);
+            else hue = 60 * ((rn - gn) / delta + 4);
+          }
+          if (hue < 0) hue += 360;
+          const saturation = max === 0 ? 0 : delta / max;
+          return { hue, saturation, value: max };
+        };
+
+        if (options.recolorEnemy) {
+          for (let index = 0; index < pixelCount; index += 1) {
+            const offset = index * 4;
+            if (data[offset + 3] < 12) continue;
+            const r = data[offset];
+            const g = data[offset + 1];
+            const b = data[offset + 2];
+            const hsv = rgbToHsv(r, g, b);
+            const cyanLike = hsv.saturation > 0.2 && hsv.value > 0.14 && hsv.hue >= 120 && hsv.hue <= 225;
+            const magentaLike = hsv.saturation > 0.18 && hsv.value > 0.12 && hsv.hue >= 245 && hsv.hue <= 345;
+            if (cyanLike) {
+              applyTargetHue(offset, enemyAmber);
+            } else if (magentaLike) {
+              applyTargetHue(offset, enemyVermilion);
+            }
+          }
+        }
 
         const isPaperLike = (index) => {
           const offset = index * 4;
@@ -407,11 +457,11 @@ async function main() {
 
   await asset('player-spritesheet', raw.playerAnimation, 1024, 896, ['A', 'D', 'G'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true });
   await asset('player-master', raw.playerRefine2, 512, 512, ['D'], 'master', { mode: 'slice', cutout: true, removeAllPaper: true });
-  await asset('enemy-spritesheet', raw.inkCrawler, 512, 320, ['A', 'H'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true });
-  await asset('lantern-warden-spritesheet', raw.lanternWarden, 1024, 256, ['A', 'H'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true });
-  await asset('kite-wraith-preview', raw.kiteWraith, 512, 256, ['H'], 'preview', { crop: { x: 0, y: 0, w: 1, h: 0.55 }, cutout: true, padding: 0.04, removeAllPaper: true });
+  await asset('enemy-spritesheet', raw.inkCrawler, 512, 320, ['A', 'H'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true, recolorEnemy: true });
+  await asset('lantern-warden-spritesheet', raw.lanternWarden, 1024, 256, ['A', 'H'], 'spritesheet', { mode: 'slice', cutout: true, removeAllPaper: true, recolorEnemy: true });
+  await asset('kite-wraith-preview', raw.kiteWraith, 512, 256, ['H'], 'preview', { crop: { x: 0, y: 0, w: 1, h: 0.55 }, cutout: true, padding: 0.04, removeAllPaper: true, recolorEnemy: true });
   await asset('slash-flipbook', raw.slash, 1024, 160, ['G'], 'flipbook', { mode: 'slice', cutout: true, removeDark: true, removeAllPaper: true });
-  await asset('telegraph-flipbook', raw.telegraph, 960, 430, ['H'], 'timeline', { mode: 'slice', cutout: true, removeDark: true, removeAllPaper: true });
+  await asset('telegraph-flipbook', raw.telegraph, 960, 430, ['H'], 'timeline', { mode: 'slice', cutout: true, removeDark: true, removeAllPaper: true, recolorEnemy: true });
   await asset('ui-kit', raw.ui, 960, 540, ['F'], 'ui', { crop: { x: 0.745, y: 0.02, w: 0.245, h: 0.42 } });
   await asset('title-menu-panel', raw.ui, 520, 240, ['F'], 'ui', { crop: { x: 0.745, y: 0.02, w: 0.245, h: 0.42 } });
   await asset('mobile-controls-kit', raw.ui, 640, 320, ['F'], 'ui', { crop: { x: 0.745, y: 0.52, w: 0.245, h: 0.40 } });
@@ -455,10 +505,10 @@ async function main() {
     await renderCutout(`art/source/player/${file}`, raw.playerAnimation, 1024, 256, { mode: 'slice', removeAllPaper: true });
   }
 
-  await renderCutout('art/source/enemies/ink-crawler-sheet.png', raw.inkCrawler, 1774, 887, { mode: 'meet', removeAllPaper: true });
-  await renderCutout('art/source/enemies/kite-wraith-preview-sheet.png', raw.kiteWraith, 1536, 1024, { mode: 'meet', removeAllPaper: true });
-  await renderCutout('art/source/enemies/lantern-warden-sheet.png', raw.lanternWarden, 1536, 1024, { mode: 'meet', removeAllPaper: true });
-  await renderCutout('art/source/enemies/lantern-warden-telegraph-sheet.png', raw.telegraph, 1536, 1024, { mode: 'meet', removeAllPaper: true });
+  await renderCutout('art/source/enemies/ink-crawler-sheet.png', raw.inkCrawler, 1774, 887, { mode: 'meet', removeAllPaper: true, recolorEnemy: true });
+  await renderCutout('art/source/enemies/kite-wraith-preview-sheet.png', raw.kiteWraith, 1536, 1024, { mode: 'meet', removeAllPaper: true, recolorEnemy: true });
+  await renderCutout('art/source/enemies/lantern-warden-sheet.png', raw.lanternWarden, 1536, 1024, { mode: 'meet', removeAllPaper: true, recolorEnemy: true });
+  await renderCutout('art/source/enemies/lantern-warden-telegraph-sheet.png', raw.telegraph, 1536, 1024, { mode: 'meet', removeAllPaper: true, recolorEnemy: true });
   await copyPng(raw.environmentKey, 'art/source/environment/neon-alley-key-art.png');
   await copyPng(raw.environmentKit, 'art/source/environment/tileset-neon-alley.png');
   await renderFit('art/source/environment/props-atlas.png', raw.environmentKit, 1024, 1024, { mode: 'slice' });
@@ -481,7 +531,7 @@ async function main() {
   await renderCrop('art/source/ui/mobile-controls-kit.png', raw.ui, 640, 320, { x: 0.745, y: 0.52, w: 0.245, h: 0.40 });
   await renderFit('art/source/ui/icons.png', raw.ui, 512, 512, { mode: 'slice' });
   await renderCutout('art/source/vfx/slash-flipbook.png', raw.slash, 1024, 160, { mode: 'slice', removeDark: true, removeAllPaper: true });
-  await renderCutout('art/source/vfx/telegraph-flipbook.png', raw.telegraph, 960, 430, { mode: 'slice', removeDark: true, removeAllPaper: true });
+  await renderCutout('art/source/vfx/telegraph-flipbook.png', raw.telegraph, 960, 430, { mode: 'slice', removeDark: true, removeAllPaper: true, recolorEnemy: true });
   for (const file of [
     'hit-spark-flipbook.png',
     'ink-dissolve-flipbook.png',
@@ -518,7 +568,19 @@ async function main() {
     ['player-master.png', raw.playerRefine2]
   ];
   for (const [file, source] of finalCopies) {
-    await renderFit(`art/final-v2/${file}`, source, file === 'ui-mobile-390x844.png' ? 390 : 960, file === 'ui-mobile-390x844.png' ? 844 : 540, { mode: 'meet' });
+    const width = file === 'ui-mobile-390x844.png' ? 390 : 960;
+    const height = file === 'ui-mobile-390x844.png' ? 844 : 540;
+    const enemyReviewSheet = file === 'enemy-contact-sheet.png' || file === 'lantern-warden-telegraph-contact-sheet.png';
+    if (enemyReviewSheet) {
+      await renderCutout(`art/final-v2/${file}`, source, width, height, {
+        mode: 'meet',
+        removeAllPaper: true,
+        removeDark: file === 'lantern-warden-telegraph-contact-sheet.png',
+        recolorEnemy: true
+      });
+    } else {
+      await renderFit(`art/final-v2/${file}`, source, width, height, { mode: 'meet' });
+    }
   }
 
   await writeJson(path.join(artDir, 'asset-manifest.json'), {
@@ -581,9 +643,9 @@ async function main() {
     phase: 'gate-b-v2',
     source: 'art/source/vfx/telegraph-flipbook.png',
     sequences: {
-      heavy: { color: '#FF2E7A', phases: ['glow-up', 'aiming pose', 'ground warning', 'wind-up silhouette', 'release', 'recover'], recoverWindowSeconds: 0.36, hasRangeIndicator: true, releaseHitAlignment: 'release begins on the active hit frame' },
-      fast: { color: '#00E5FF', phases: ['glow-up', 'aiming pose', 'range warning', 'wind-up silhouette', 'release', 'recover'], recoverWindowSeconds: 0.24, hasRangeIndicator: true, releaseHitAlignment: 'release begins on the active hit frame' },
-      standard: { phases: ['idle', 'early warning', 'attack area preview', 'wind-up', 'release', 'recovery'], recoverWindowSeconds: 0.36, hasRangeIndicator: true, colorLanguage: 'magenta danger, cyan focus, gold recovery' }
+      heavy: { color: palette.enemyVermilion, phases: ['glow-up', 'aiming pose', 'ground warning', 'wind-up silhouette', 'release', 'recover'], recoverWindowSeconds: 0.36, hasRangeIndicator: true, releaseHitAlignment: 'release begins on the active hit frame' },
+      fast: { color: palette.enemyAmber, phases: ['glow-up', 'aiming pose', 'range warning', 'wind-up silhouette', 'release', 'recover'], recoverWindowSeconds: 0.24, hasRangeIndicator: true, releaseHitAlignment: 'release begins on the active hit frame' },
+      standard: { phases: ['idle', 'early warning', 'attack area preview', 'wind-up', 'release', 'recovery'], recoverWindowSeconds: 0.36, hasRangeIndicator: true, colorLanguage: 'enemy faction uses ember amber cores and vermilion danger; player faction keeps cyan/magenta' }
     }
   });
   await writeJson(path.join(artDir, 'sign-density-scenes.json'), {

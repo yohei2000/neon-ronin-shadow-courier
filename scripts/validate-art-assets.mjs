@@ -98,6 +98,8 @@ async function inspectAlpha(relative) {
         const pixelCount = width * height;
         let transparentPixels = 0;
         let opaquePaperPixels = 0;
+        let allyHuePixels = 0;
+        let enemyHuePixels = 0;
         let maxCornerAlpha = 0;
         const isPaperLike = (r, g, b) => {
           const max = Math.max(r, g, b);
@@ -111,6 +113,34 @@ async function inspectAlpha(relative) {
           const lanternGold = r > 170 && g > 118 && b < 122 && r - b > 58;
           return (neutralLight || warmPaper || grayPaper) && !cyanAccent && !magentaAccent && !lanternGold;
         };
+        const rgbToHsv = (r, g, b) => {
+          const rn = r / 255;
+          const gn = g / 255;
+          const bn = b / 255;
+          const max = Math.max(rn, gn, bn);
+          const min = Math.min(rn, gn, bn);
+          const delta = max - min;
+          let hue = 0;
+          if (delta !== 0) {
+            if (max === rn) hue = 60 * (((gn - bn) / delta) % 6);
+            else if (max === gn) hue = 60 * ((bn - rn) / delta + 2);
+            else hue = 60 * ((rn - gn) / delta + 4);
+          }
+          if (hue < 0) hue += 360;
+          const saturation = max === 0 ? 0 : delta / max;
+          return { hue, saturation, value: max };
+        };
+        const isPlayerHue = (r, g, b) => {
+          const hsv = rgbToHsv(r, g, b);
+          const cyanLike = hsv.saturation > 0.2 && hsv.value > 0.14 && hsv.hue >= 120 && hsv.hue <= 225;
+          const magentaLike = hsv.saturation > 0.18 && hsv.value > 0.12 && hsv.hue >= 245 && hsv.hue <= 345;
+          return cyanLike || magentaLike;
+        };
+        const isEnemyHue = (r, g, b) => {
+          const amberLike = r > 170 && g > 92 && g < 210 && b < 110 && r - b > 80;
+          const vermilionLike = r > 170 && g > 42 && g < 135 && b < 95 && r - b > 90;
+          return amberLike || vermilionLike;
+        };
         const cornerIndices = [
           0,
           width - 1,
@@ -122,6 +152,8 @@ async function inspectAlpha(relative) {
           const alpha = data[offset + 3];
           if (alpha < 16) transparentPixels += 1;
           if (alpha > 220 && isPaperLike(data[offset], data[offset + 1], data[offset + 2])) opaquePaperPixels += 1;
+          if (alpha > 36 && isPlayerHue(data[offset], data[offset + 1], data[offset + 2])) allyHuePixels += 1;
+          if (alpha > 36 && isEnemyHue(data[offset], data[offset + 1], data[offset + 2])) enemyHuePixels += 1;
         }
         for (const index of cornerIndices) {
           maxCornerAlpha = Math.max(maxCornerAlpha, data[index * 4 + 3]);
@@ -131,7 +163,9 @@ async function inspectAlpha(relative) {
           height,
           maxCornerAlpha,
           transparentRatio: transparentPixels / pixelCount,
-          opaquePaperRatio: opaquePaperPixels / pixelCount
+          opaquePaperRatio: opaquePaperPixels / pixelCount,
+          allyHueRatio: allyHuePixels / pixelCount,
+          enemyHueRatio: enemyHuePixels / pixelCount
         };
       },
       { dataUrl, width: info.width, height: info.height }
@@ -187,6 +221,13 @@ const requiredTransparentAssetKeys = new Set([
   'brush-kit'
 ]);
 
+const enemyFactionAssetKeys = new Set([
+  'enemy-spritesheet',
+  'lantern-warden-spritesheet',
+  'kite-wraith-preview',
+  'telegraph-flipbook'
+]);
+
 const assetKeys = new Set(assetManifest.assets.map((asset) => asset.key));
 for (const key of requiredAssetKeys) {
   if (!assetKeys.has(key)) errors.push(`Required runtime asset key missing: ${key}.`);
@@ -206,6 +247,10 @@ for (const asset of assetManifest.assets) {
     if (alpha.maxCornerAlpha > 24) errors.push(`${asset.key} does not have transparent corners after cutout processing.`);
     if (alpha.transparentRatio < 0.12) errors.push(`${asset.key} has too little transparency for a cutout sprite/effect asset.`);
     if (alpha.opaquePaperRatio > 0.08) errors.push(`${asset.key} still has too much opaque paper/white background.`);
+    if (enemyFactionAssetKeys.has(asset.key)) {
+      if (alpha.allyHueRatio > 0.006) errors.push(`${asset.key} still uses too much player cyan/magenta color language.`);
+      if (alpha.enemyHueRatio < 0.001) errors.push(`${asset.key} does not show the enemy amber/vermilion color group.`);
+    }
   }
 }
 

@@ -9,7 +9,7 @@
 ## Concrete Visual Observations
 
 - The title composition now has generated rainy alley depth, Moon Gate structure, wet reflections, and a visibly authored brush title mark.
-- The courier silhouette, magenta scarf, and cyan eye read clearly near the lower-left action space.
+- The courier silhouette, magenta scarf, and cyan eye read clearly near the lower-left action space without being reused as enemy eye/core colors.
 - The generated title mark is visually stronger than the v1 text stack and carries the product identity immediately.
 
 ## Improved Versus Gate B v1

@@ -14,11 +14,13 @@
   },
   "anchors": {
     "neonCyan": "#00E5FF",
-    "neonMagenta": "#FF2E7A"
+    "neonMagenta": "#FF2E7A",
+    "enemyAmber": "#FFB12E",
+    "enemyVermilion": "#FF5A24"
   },
   "valueHierarchy": [
     "player silhouette and active attack",
-    "enemy silhouette and attack telegraph",
+    "enemy silhouette and amber/vermilion attack telegraph",
     "hazards and collision edges",
     "pickups/objectives",
     "near environment",
@@ -79,9 +81,9 @@
     "player": "Gate B v2 generated candidate P02 refined twice into the selected courier master.",
     "title": "Gate B v2 generated Moon Gate rainy alley title composition.",
     "environment": "Gate B v2 generated Neon Alley key art and parallax layer sheet.",
-    "inkCrawler": "Gate B v2 generated low crawler silhouette family with Reference H telegraph overlays.",
+    "inkCrawler": "Gate B v2 generated low crawler silhouette family with Reference H telegraph overlays recolored into enemy amber/vermilion.",
     "kiteWraith": "Gate B v2 generated floating paper/cloth wraith preview.",
-    "lanternWarden": "Gate B v2 generated lantern-core elite/miniboss family.",
+    "lanternWarden": "Gate B v2 generated lantern-core elite/miniboss family with enemy amber/vermilion cores and warnings.",
     "ui": "Gate B v2 generated paper/lacquer UI material family, cropped to avoid baked candidate labels in runtime.",
     "landmark": "Gate B v2 generated Moon Gate motif."
   }

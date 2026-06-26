@@ -10,8 +10,8 @@
 
 ## Concrete Visual Observations
 
-- Slash candidates have stronger brush breakup, magenta core, cyan sparks, and phase variety than v1.
-- Telegraph candidates visibly separate warning, area preview, release, and recovery language.
+- Slash candidates have stronger brush breakup, magenta core, cyan sparks, and phase variety than v1; this stays player-side.
+- Telegraph candidates visibly separate warning, area preview, release, and recovery language through enemy amber/vermilion rather than player cyan/magenta.
 - Impact/pickup/checkpoint VFX are generated as compact non-gory effect families.
 
 ## Improved Versus Gate B v1

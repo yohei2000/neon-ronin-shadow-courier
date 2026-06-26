@@ -21,8 +21,11 @@ for (const [id, expected] of Object.entries({ heavy: expectedHeavy, fast: expect
   if (!sequence.releaseHitAlignment?.includes('release')) errors.push(`${id} telegraph release/hit timing not documented.`);
 }
 
-if (manifest.sequences?.heavy?.color !== '#FF2E7A') errors.push('Heavy telegraph must use magenta danger language.');
-if (manifest.sequences?.fast?.color !== '#00E5FF') errors.push('Fast telegraph must use cyan mobility/range language.');
+if (manifest.sequences?.heavy?.color !== '#FF5A24') errors.push('Heavy enemy telegraph must use vermilion enemy danger language.');
+if (manifest.sequences?.fast?.color !== '#FFB12E') errors.push('Fast enemy telegraph must use amber enemy warning language.');
+if (!manifest.sequences?.standard?.colorLanguage?.includes('player faction keeps cyan/magenta')) {
+  errors.push('Telegraph color language must separate enemy and player color groups.');
+}
 
 await writeJson(path.join(rootDir, 'art', 'final-v2', 'telegraph-validation-report.json'), {
   generatedAt: new Date().toISOString(),

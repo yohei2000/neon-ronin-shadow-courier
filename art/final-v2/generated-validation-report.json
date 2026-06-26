@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T20:24:01.718Z",
+  "generatedAt": "2026-06-26T23:24:18.741Z",
   "valid": true,
   "totalCandidates": 180,
   "rawFamilies": [
@@ -314,25 +314,25 @@
     },
     {
       "file": "art/source/enemies/ink-crawler-sheet.png",
-      "bytes": 923498,
+      "bytes": 921102,
       "width": 1774,
       "height": 887
     },
     {
       "file": "art/source/enemies/kite-wraith-preview-sheet.png",
-      "bytes": 1037694,
+      "bytes": 1029987,
       "width": 1536,
       "height": 1024
     },
     {
       "file": "art/source/enemies/lantern-warden-sheet.png",
-      "bytes": 1611625,
+      "bytes": 1598594,
       "width": 1536,
       "height": 1024
     },
     {
       "file": "art/source/enemies/lantern-warden-telegraph-sheet.png",
-      "bytes": 3270246,
+      "bytes": 3201532,
       "width": 1536,
       "height": 1024
     },
@@ -416,7 +416,7 @@
     },
     {
       "file": "art/source/vfx/telegraph-flipbook.png",
-      "bytes": 590430,
+      "bytes": 566537,
       "width": 960,
       "height": 430
     },
@@ -470,19 +470,19 @@
     },
     {
       "file": "art/final-v2/assets/enemy-spritesheet.png",
-      "bytes": 124436,
+      "bytes": 124213,
       "width": 512,
       "height": 320
     },
     {
       "file": "art/final-v2/assets/lantern-warden-spritesheet.png",
-      "bytes": 257032,
+      "bytes": 255058,
       "width": 1024,
       "height": 256
     },
     {
       "file": "art/final-v2/assets/kite-wraith-preview.png",
-      "bytes": 102142,
+      "bytes": 101697,
       "width": 512,
       "height": 256
     },
@@ -494,7 +494,7 @@
     },
     {
       "file": "art/final-v2/assets/telegraph-flipbook.png",
-      "bytes": 590430,
+      "bytes": 566537,
       "width": 960,
       "height": 430
     },

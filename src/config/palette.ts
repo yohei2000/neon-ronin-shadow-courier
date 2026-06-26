@@ -8,7 +8,9 @@ export const Palette = {
   lanternGold: 0xf0a64a,
   dangerCoral: 0xef4b61,
   neonCyan: 0x00e5ff,
-  neonMagenta: 0xff2e7a
+  neonMagenta: 0xff2e7a,
+  enemyAmber: 0xffb12e,
+  enemyVermilion: 0xff5a24
 } as const;
 
 export const PaletteHex = {
@@ -21,5 +23,7 @@ export const PaletteHex = {
   lanternGold: '#F0A64A',
   dangerCoral: '#EF4B61',
   neonCyan: '#00E5FF',
-  neonMagenta: '#FF2E7A'
+  neonMagenta: '#FF2E7A',
+  enemyAmber: '#FFB12E',
+  enemyVermilion: '#FF5A24'
 } as const;
