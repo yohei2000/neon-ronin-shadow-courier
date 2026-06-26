@@ -1,0 +1,792 @@
+{
+  "generatedAt": "2026-06-26T11:32:50.267Z",
+  "complete": false,
+  "blockingRequirement": "Gate B explicit human approval is still required.",
+  "errors": [],
+  "requirements": [
+    {
+      "id": "command-script-typecheck",
+      "description": "package.json exposes npm script typecheck",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-test",
+      "description": "package.json exposes npm script test",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-build",
+      "description": "package.json exposes npm script build",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:refs",
+      "description": "package.json exposes npm script art:refs",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:process",
+      "description": "package.json exposes npm script art:process",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:atlas",
+      "description": "package.json exposes npm script art:atlas",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:contact-sheets",
+      "description": "package.json exposes npm script art:contact-sheets",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:validate-assets",
+      "description": "package.json exposes npm script art:validate-assets",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:validate-sign-density",
+      "description": "package.json exposes npm script art:validate-sign-density",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:validate-animations",
+      "description": "package.json exposes npm script art:validate-animations",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:validate-vfx",
+      "description": "package.json exposes npm script art:validate-vfx",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:validate-telegraphs",
+      "description": "package.json exposes npm script art:validate-telegraphs",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:screenshots",
+      "description": "package.json exposes npm script art:screenshots",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:review-report",
+      "description": "package.json exposes npm script art:review-report",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "command-script-art:all",
+      "description": "package.json exposes npm script art:all",
+      "evidence": "package.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "gate-a-approved",
+      "description": "Gate A received explicit human approval",
+      "evidence": "art/approvals/GATE_A_STATUS.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "gate-b-approved",
+      "description": "Gate B received explicit human approval",
+      "evidence": "art/approvals/GATE_B_STATUS.json",
+      "achieved": false,
+      "status": "pending-human-approval"
+    },
+    {
+      "id": "reference-index.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/index.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/index.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-a.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/a.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/a.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-a.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/a.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/a.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-b.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/b.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/b.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-b.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/b.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/b.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-c.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/c.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/c.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-c.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/c.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/c.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-d.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/d.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/d.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-d.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/d.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/d.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-e.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/e.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/e.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-e.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/e.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/e.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-f.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/f.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/f.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-f.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/f.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/f.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-g.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/g.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/g.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-g.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/g.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/g.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-h.md",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/h.md",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/h.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "reference-h.png",
+      "description": "Required reference package file exists: art/references/neon_ronin_art_refs_impl_ready/h.png",
+      "evidence": "art/references/neon_ronin_art_refs_impl_ready/h.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-TOOL_CAPABILITY_REPORT.md",
+      "description": "Required evidence file exists: art/TOOL_CAPABILITY_REPORT.md",
+      "evidence": "art/TOOL_CAPABILITY_REPORT.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-REFERENCE_ANALYSIS.md",
+      "description": "Required evidence file exists: art/REFERENCE_ANALYSIS.md",
+      "evidence": "art/REFERENCE_ANALYSIS.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-REFERENCE_COMPLIANCE_MATRIX.md",
+      "description": "Required evidence file exists: art/REFERENCE_COMPLIANCE_MATRIX.md",
+      "evidence": "art/REFERENCE_COMPLIANCE_MATRIX.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-ART_BIBLE.md",
+      "description": "Required evidence file exists: art/ART_BIBLE.md",
+      "evidence": "art/ART_BIBLE.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-asset-manifest.json",
+      "description": "Required evidence file exists: art/asset-manifest.json",
+      "evidence": "art/asset-manifest.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-animation-manifest.json",
+      "description": "Required evidence file exists: art/animation-manifest.json",
+      "evidence": "art/animation-manifest.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-vfx-manifest.json",
+      "description": "Required evidence file exists: art/vfx-manifest.json",
+      "evidence": "art/vfx-manifest.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-telegraph-manifest.json",
+      "description": "Required evidence file exists: art/telegraph-manifest.json",
+      "evidence": "art/telegraph-manifest.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-sign-density-scenes.json",
+      "description": "Required evidence file exists: art/sign-density-scenes.json",
+      "evidence": "art/sign-density-scenes.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-license-manifest.json",
+      "description": "Required evidence file exists: art/license-manifest.json",
+      "evidence": "art/license-manifest.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-asset-validation-report.json",
+      "description": "Required evidence file exists: art/final/asset-validation-report.json",
+      "evidence": "art/final/asset-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-sign-density-validation-report.json",
+      "description": "Required evidence file exists: art/final/sign-density-validation-report.json",
+      "evidence": "art/final/sign-density-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-animation-validation-report.json",
+      "description": "Required evidence file exists: art/final/animation-validation-report.json",
+      "evidence": "art/final/animation-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-vfx-validation-report.json",
+      "description": "Required evidence file exists: art/final/vfx-validation-report.json",
+      "evidence": "art/final/vfx-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-telegraph-validation-report.json",
+      "description": "Required evidence file exists: art/final/telegraph-validation-report.json",
+      "evidence": "art/final/telegraph-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-console-report.json",
+      "description": "Required evidence file exists: art/final/console-report.json",
+      "evidence": "art/final/console-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-screenshot-report.json",
+      "description": "Required evidence file exists: art/final/screenshot-report.json",
+      "evidence": "art/final/screenshot-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-final-scorecard.json",
+      "description": "Required evidence file exists: art/reviews/final-scorecard.json",
+      "evidence": "art/reviews/final-scorecard.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "evidence-gate-b-package-report.json",
+      "description": "Required evidence file exists: art/reviews/gate-b/gate-b-package-report.json",
+      "evidence": "art/reviews/gate-b/gate-b-package-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-asset-validation-report.json",
+      "description": "Report is valid: art/final/asset-validation-report.json",
+      "evidence": "art/final/asset-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-sign-density-validation-report.json",
+      "description": "Report is valid: art/final/sign-density-validation-report.json",
+      "evidence": "art/final/sign-density-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-animation-validation-report.json",
+      "description": "Report is valid: art/final/animation-validation-report.json",
+      "evidence": "art/final/animation-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-vfx-validation-report.json",
+      "description": "Report is valid: art/final/vfx-validation-report.json",
+      "evidence": "art/final/vfx-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-telegraph-validation-report.json",
+      "description": "Report is valid: art/final/telegraph-validation-report.json",
+      "evidence": "art/final/telegraph-validation-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-console-report.json",
+      "description": "Report is valid: art/final/console-report.json",
+      "evidence": "art/final/console-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-screenshot-report.json",
+      "description": "Report is valid: art/final/screenshot-report.json",
+      "evidence": "art/final/screenshot-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "report-valid-gate-b-package-report.json",
+      "description": "Report is valid: art/reviews/gate-b/gate-b-package-report.json",
+      "evidence": "art/reviews/gate-b/gate-b-package-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "scorecard-thresholds",
+      "description": "Reviewer scores satisfy all configured thresholds",
+      "evidence": "art/reviews/final-scorecard.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "screenshot-matrix",
+      "description": "Deterministic screenshot matrix includes required final states and three revision rounds",
+      "evidence": "art/final/screenshot-report.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-title-desktop.png",
+      "description": "Revision round 1 contains title-desktop.png",
+      "evidence": "art/reviews/round-01/title-desktop.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-title-mobile.png",
+      "description": "Revision round 1 contains title-mobile.png",
+      "evidence": "art/reviews/round-01/title-mobile.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-artlab-neutral.png",
+      "description": "Revision round 1 contains artlab-neutral.png",
+      "evidence": "art/reviews/round-01/artlab-neutral.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-artlab-busy.png",
+      "description": "Revision round 1 contains artlab-busy.png",
+      "evidence": "art/reviews/round-01/artlab-busy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-player-motion.png",
+      "description": "Revision round 1 contains player-motion.png",
+      "evidence": "art/reviews/round-01/player-motion.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-player-contrast.png",
+      "description": "Revision round 1 contains player-contrast.png",
+      "evidence": "art/reviews/round-01/player-contrast.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-slash.png",
+      "description": "Revision round 1 contains slash.png",
+      "evidence": "art/reviews/round-01/slash.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-enemy.png",
+      "description": "Revision round 1 contains enemy.png",
+      "evidence": "art/reviews/round-01/enemy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-warden-telegraph.png",
+      "description": "Revision round 1 contains warden-telegraph.png",
+      "evidence": "art/reviews/round-01/warden-telegraph.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-parallax.png",
+      "description": "Revision round 1 contains parallax.png",
+      "evidence": "art/reviews/round-01/parallax.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-hud.png",
+      "description": "Revision round 1 contains hud.png",
+      "evidence": "art/reviews/round-01/hud.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-mobile-controls.png",
+      "description": "Revision round 1 contains mobile-controls.png",
+      "evidence": "art/reviews/round-01/mobile-controls.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-review.md",
+      "description": "Revision round 1 contains review.md",
+      "evidence": "art/reviews/round-01/review.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-1-changes.md",
+      "description": "Revision round 1 contains changes.md",
+      "evidence": "art/reviews/round-01/changes.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-title-desktop.png",
+      "description": "Revision round 2 contains title-desktop.png",
+      "evidence": "art/reviews/round-02/title-desktop.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-title-mobile.png",
+      "description": "Revision round 2 contains title-mobile.png",
+      "evidence": "art/reviews/round-02/title-mobile.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-artlab-neutral.png",
+      "description": "Revision round 2 contains artlab-neutral.png",
+      "evidence": "art/reviews/round-02/artlab-neutral.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-artlab-busy.png",
+      "description": "Revision round 2 contains artlab-busy.png",
+      "evidence": "art/reviews/round-02/artlab-busy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-player-motion.png",
+      "description": "Revision round 2 contains player-motion.png",
+      "evidence": "art/reviews/round-02/player-motion.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-player-contrast.png",
+      "description": "Revision round 2 contains player-contrast.png",
+      "evidence": "art/reviews/round-02/player-contrast.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-slash.png",
+      "description": "Revision round 2 contains slash.png",
+      "evidence": "art/reviews/round-02/slash.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-enemy.png",
+      "description": "Revision round 2 contains enemy.png",
+      "evidence": "art/reviews/round-02/enemy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-warden-telegraph.png",
+      "description": "Revision round 2 contains warden-telegraph.png",
+      "evidence": "art/reviews/round-02/warden-telegraph.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-parallax.png",
+      "description": "Revision round 2 contains parallax.png",
+      "evidence": "art/reviews/round-02/parallax.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-hud.png",
+      "description": "Revision round 2 contains hud.png",
+      "evidence": "art/reviews/round-02/hud.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-mobile-controls.png",
+      "description": "Revision round 2 contains mobile-controls.png",
+      "evidence": "art/reviews/round-02/mobile-controls.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-review.md",
+      "description": "Revision round 2 contains review.md",
+      "evidence": "art/reviews/round-02/review.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-2-changes.md",
+      "description": "Revision round 2 contains changes.md",
+      "evidence": "art/reviews/round-02/changes.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-title-desktop.png",
+      "description": "Revision round 3 contains title-desktop.png",
+      "evidence": "art/reviews/round-03/title-desktop.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-title-mobile.png",
+      "description": "Revision round 3 contains title-mobile.png",
+      "evidence": "art/reviews/round-03/title-mobile.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-artlab-neutral.png",
+      "description": "Revision round 3 contains artlab-neutral.png",
+      "evidence": "art/reviews/round-03/artlab-neutral.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-artlab-busy.png",
+      "description": "Revision round 3 contains artlab-busy.png",
+      "evidence": "art/reviews/round-03/artlab-busy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-player-motion.png",
+      "description": "Revision round 3 contains player-motion.png",
+      "evidence": "art/reviews/round-03/player-motion.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-player-contrast.png",
+      "description": "Revision round 3 contains player-contrast.png",
+      "evidence": "art/reviews/round-03/player-contrast.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-slash.png",
+      "description": "Revision round 3 contains slash.png",
+      "evidence": "art/reviews/round-03/slash.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-enemy.png",
+      "description": "Revision round 3 contains enemy.png",
+      "evidence": "art/reviews/round-03/enemy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-warden-telegraph.png",
+      "description": "Revision round 3 contains warden-telegraph.png",
+      "evidence": "art/reviews/round-03/warden-telegraph.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-parallax.png",
+      "description": "Revision round 3 contains parallax.png",
+      "evidence": "art/reviews/round-03/parallax.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-hud.png",
+      "description": "Revision round 3 contains hud.png",
+      "evidence": "art/reviews/round-03/hud.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-mobile-controls.png",
+      "description": "Revision round 3 contains mobile-controls.png",
+      "evidence": "art/reviews/round-03/mobile-controls.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-review.md",
+      "description": "Revision round 3 contains review.md",
+      "evidence": "art/reviews/round-03/review.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "revision-3-changes.md",
+      "description": "Revision round 3 contains changes.md",
+      "evidence": "art/reviews/round-03/changes.md",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "no-reference-runtime-use",
+      "description": "Runtime does not load the A-H specification sheets",
+      "evidence": "src/scenes/TitleScene.ts, src/scenes/ArtLabScene.ts, src/scenes/PreloadScene.ts, src/data/artAssets.ts",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "authored-ui-assets",
+      "description": "Title and mobile controls use authored runtime assets",
+      "evidence": "src/scenes/TitleScene.ts, src/scenes/ArtLabScene.ts, src/scenes/PreloadScene.ts, src/data/artAssets.ts",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "no-legacy-stage1",
+      "description": "Legacy Stage 1 runtime is absent from source tree",
+      "evidence": "src/",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "png-title-desktop.png",
+      "description": "Review PNG is non-empty and readable: art/final/title-desktop.png",
+      "evidence": "art/final/title-desktop.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "png-title-mobile.png",
+      "description": "Review PNG is non-empty and readable: art/final/title-mobile.png",
+      "evidence": "art/final/title-mobile.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "png-artlab-busy.png",
+      "description": "Review PNG is non-empty and readable: art/final/artlab-busy.png",
+      "evidence": "art/final/artlab-busy.png",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "png-mobile-controls.png",
+      "description": "Review PNG is non-empty and readable: art/final/mobile-controls.png",
+      "evidence": "art/final/mobile-controls.png",
+      "achieved": true,
+      "status": "passed"
+    }
+  ]
+}

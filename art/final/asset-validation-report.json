@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T11:19:40.240Z",
+  "generatedAt": "2026-06-26T11:32:45.969Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -238,13 +238,13 @@
       "file": "art/reviews/round-01/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 218451
+      "bytes": 218078
     },
     {
       "file": "art/reviews/round-01/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 57605
+      "bytes": 57392
     },
     {
       "file": "art/reviews/round-01/artlab-neutral.png",
@@ -318,13 +318,13 @@
       "file": "art/reviews/round-02/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 218174
+      "bytes": 217835
     },
     {
       "file": "art/reviews/round-02/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 57569
+      "bytes": 57323
     },
     {
       "file": "art/reviews/round-02/artlab-neutral.png",
@@ -342,7 +342,7 @@
       "file": "art/reviews/round-02/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 226844
+      "bytes": 226452
     },
     {
       "file": "art/reviews/round-02/player-contrast.png",
@@ -398,13 +398,13 @@
       "file": "art/reviews/round-03/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 217653
+      "bytes": 218219
     },
     {
       "file": "art/reviews/round-03/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 57446
+      "bytes": 57420
     },
     {
       "file": "art/reviews/round-03/artlab-neutral.png",

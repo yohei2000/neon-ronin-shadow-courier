@@ -22,6 +22,7 @@
     "art:validate-telegraphs": "node scripts/validate-telegraphs.mjs",
     "art:screenshots": "node scripts/capture-art-screenshots.mjs",
     "art:review-report": "node scripts/art-review-report.mjs",
+    "art:audit": "node scripts/audit-art-lock-completion.mjs",
     "art:all": "node scripts/art-all.mjs"
   },
   "dependencies": {

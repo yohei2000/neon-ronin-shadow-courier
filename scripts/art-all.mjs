@@ -12,7 +12,8 @@ const commands = [
   ['run', 'art:validate-animations'],
   ['run', 'art:validate-vfx'],
   ['run', 'art:validate-telegraphs'],
-  ['run', 'art:review-report']
+  ['run', 'art:review-report'],
+  ['run', 'art:audit']
 ];
 
 const runner = process.env.npm_execpath

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T11:16:05.978Z",
+  "generatedAt": "2026-06-26T11:29:35.038Z",
   "phase": "gate-b-final-art-lock-review",
   "sourcePipeline": "scripts/process-art-assets.mjs -> SVG -> Playwright Chromium raster PNG",
   "noRemoteRuntimeDependencies": true,
