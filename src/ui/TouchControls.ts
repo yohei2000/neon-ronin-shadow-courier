@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeTouchFrame } from '../data/artAssets';
 import type { Stage1Settings } from '../systems/SaveSystem';
 import type { InputSystem } from '../systems/InputSystem';
 
@@ -41,9 +41,25 @@ export class TouchControls {
 
   private create(): void {
     const opacity = this.settings.touchOpacity;
-    const pad = this.scene.add.image(158, 432, ArtAssetKey.MobileControlsKit).setScale(0.46).setDepth(90).setScrollFactor(0).setAlpha(opacity);
-    const actions = this.scene.add.image(812, 432, ArtAssetKey.MobileControlsKit).setScale(0.36).setDepth(90).setScrollFactor(0).setAlpha(opacity);
-    this.roots.push(pad, actions);
+    const pad = this.scene.add
+      .sprite(142, 452, RuntimeEnvironmentAssetKey.TouchControls, RuntimeTouchFrame.Dpad)
+      .setDisplaySize(224, 156)
+      .setDepth(90)
+      .setScrollFactor(0)
+      .setAlpha(opacity);
+    const jump = this.scene.add
+      .sprite(748, 454, RuntimeEnvironmentAssetKey.ItemIcons, RuntimeItemFrame.Energy)
+      .setDisplaySize(86, 86)
+      .setDepth(90)
+      .setScrollFactor(0)
+      .setAlpha(opacity);
+    const attack = this.scene.add
+      .sprite(866, 426, RuntimeEnvironmentAssetKey.TouchControls, RuntimeTouchFrame.Slash)
+      .setDisplaySize(116, 104)
+      .setDepth(90)
+      .setScrollFactor(0)
+      .setAlpha(opacity);
+    this.roots.push(pad, jump, attack);
 
     this.addButton('left', 80, 452, 92, 92, '<');
     this.addButton('right', 205, 452, 92, 92, '>');

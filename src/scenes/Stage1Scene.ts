@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
-import { ArtAssetKey, RuntimeSpriteAssetKey } from '../data/artAssets';
+import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey } from '../data/artAssets';
 import { Stage1Data, Stage1Tuning, getSectionForX, type RectData, type Stage1Hazard, type Stage1Pickup, type Stage1Scroll, type Stage1Seal } from '../data/stage1';
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
@@ -21,7 +21,13 @@ import { TouchControls } from '../ui/TouchControls';
 type CollectibleVisual = {
   readonly id: string;
   readonly body: RectData;
-  readonly image: Phaser.GameObjects.Image;
+  readonly image: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite;
+};
+
+type ParallaxLayer = {
+  readonly image: Phaser.GameObjects.TileSprite;
+  readonly speedX: number;
+  readonly speedY: number;
 };
 
 export class Stage1Scene extends Phaser.Scene {
@@ -48,7 +54,7 @@ export class Stage1Scene extends Phaser.Scene {
   private checkpointMessage = '';
   private checkpointMessageUntilMs = 0;
   private pauseObjects: Phaser.GameObjects.GameObject[] = [];
-  private parallaxLayers: Phaser.GameObjects.TileSprite[] = [];
+  private parallaxLayers: ParallaxLayer[] = [];
 
   constructor() {
     super(SceneKey.Stage1);
@@ -129,39 +135,44 @@ export class Stage1Scene extends Phaser.Scene {
   }
 
   private drawEnvironment(): void {
-    const keys = [
-      ArtAssetKey.LayerFarSky,
-      ArtAssetKey.LayerDistantSkyline,
-      ArtAssetKey.LayerMidRoofsSigns,
-      ArtAssetKey.LayerGameplay,
-      ArtAssetKey.LayerNearProps,
-      ArtAssetKey.LayerNearPropsFront,
-      ArtAssetKey.LayerForegroundOcclusion
+    const layers = [
+      { key: RuntimeEnvironmentAssetKey.BackgroundFar, alpha: 1, depth: 0, speedX: 0.035, speedY: 0.012 },
+      { key: RuntimeEnvironmentAssetKey.BackgroundDistant, alpha: 0.72, depth: 1, speedX: 0.07, speedY: 0.018 },
+      { key: RuntimeEnvironmentAssetKey.BackgroundMid, alpha: 0.86, depth: 2, speedX: 0.12, speedY: 0.025 },
+      { key: RuntimeEnvironmentAssetKey.BackgroundNear, alpha: 0.66, depth: 3, speedX: 0.18, speedY: 0.032 },
+      { key: RuntimeEnvironmentAssetKey.BackgroundFront, alpha: 0.48, depth: 4, speedX: 0.24, speedY: 0.04 }
     ];
-    keys.forEach((key, index) => {
-      const layer = this.add.tileSprite(0, 0, BASE_WIDTH, BASE_HEIGHT, key).setOrigin(0).setDepth(index).setScrollFactor(0);
-      layer.setAlpha([1, 0.86, 0.78, 0.74, 0.42, 0.32, 0.22][index] ?? 0.6);
-      this.parallaxLayers.push(layer);
+    layers.forEach((config) => {
+      const image = this.add
+        .tileSprite(0, 0, BASE_WIDTH, BASE_HEIGHT, config.key)
+        .setOrigin(0)
+        .setDepth(config.depth)
+        .setAlpha(config.alpha)
+        .setScrollFactor(0);
+      this.parallaxLayers.push({ image, speedX: config.speedX, speedY: config.speedY });
     });
-    this.add.tileSprite(Stage1Data.worldWidth / 2, 676, Stage1Data.worldWidth, 360, ArtAssetKey.LayerDistantSkyline).setAlpha(0.24).setDepth(1);
-    this.add.image(512, 300, ArtAssetKey.LightingWarmCool).setAlpha(0.24).setDepth(4).setScrollFactor(0);
+    this.add.tileSprite(0, 424, BASE_WIDTH, 140, RuntimeEnvironmentAssetKey.BackgroundFront).setOrigin(0).setAlpha(0.30).setDepth(5).setScrollFactor(0);
+    this.add.image(512, 300, ArtAssetKey.LightingWarmCool).setAlpha(0.08).setDepth(6).setScrollFactor(0);
   }
 
   private drawStageGeometry(): void {
     for (const platform of Stage1Data.platforms) {
+      const key = platform.height <= 30 ? RuntimeEnvironmentAssetKey.PlatformThinTile : RuntimeEnvironmentAssetKey.GroundTile;
       const tile = this.add
-        .tileSprite(platform.x + platform.width / 2, platform.y + platform.height / 2, platform.width, platform.height, ArtAssetKey.LayerGameplay)
+        .tileSprite(platform.x + platform.width / 2, platform.y + platform.height / 2, platform.width, platform.height, key)
         .setDepth(12)
-        .setAlpha(0.78);
-      tile.tilePositionX = platform.x * 0.18;
+        .setAlpha(platform.height <= 30 ? 0.92 : 0.98);
+      tile.tilePositionX = platform.x * 0.33;
       if (platform.height <= 30) {
-        tile.setTint(Palette.neonCyan);
-        tile.setAlpha(0.50);
+        tile.tilePositionY = 4;
       }
     }
 
     for (const checkpoint of Stage1Data.checkpoints) {
-      this.add.image(checkpoint.x + checkpoint.width / 2, checkpoint.y + checkpoint.height / 2, ArtAssetKey.TitleMenuPanel).setScale(0.16).setDepth(15);
+      this.add
+        .sprite(checkpoint.x + checkpoint.width / 2, checkpoint.y + checkpoint.height / 2, RuntimeEnvironmentAssetKey.ItemIcons, RuntimeItemFrame.Checkpoint)
+        .setDisplaySize(78, 72)
+        .setDepth(15);
       this.add.text(checkpoint.x - 16, checkpoint.y - 18, 'SAVE', {
         fontFamily: 'Consolas, monospace',
         fontSize: '10px',
@@ -182,20 +193,30 @@ export class Stage1Scene extends Phaser.Scene {
     }
 
     this.add.image(Stage1Data.moonGate.x + 10, Stage1Data.moonGate.y + 56, ArtAssetKey.LightingMoonlight).setDisplaySize(220, 240).setAlpha(0.35).setDepth(14);
-    this.add.image(Stage1Data.moonGate.x + 8, Stage1Data.moonGate.y + 58, ArtAssetKey.TitleMenuPanel).setScale(0.36).setDepth(19);
+    this.add.image(Stage1Data.moonGate.x + 16, Stage1Data.moonGate.y + 42, RuntimeEnvironmentAssetKey.MoonGate).setDisplaySize(246, 230).setDepth(19);
   }
 
   private createCollectibles(): void {
-    this.sealVisuals = Stage1Data.collectibles.seals.map((seal) => this.createCollectible(seal, 24, 24, ArtAssetKey.UiKit, Palette.lanternGold));
-    this.scrollVisuals = Stage1Data.collectibles.scrolls.map((scroll) => this.createCollectible(scroll, 44, 30, ArtAssetKey.BrushKit, Palette.neonCyan));
+    this.sealVisuals = Stage1Data.collectibles.seals.map((seal) => this.createCollectible(seal, 24, 24, RuntimeItemFrame.Seal, Palette.lanternGold));
+    this.scrollVisuals = Stage1Data.collectibles.scrolls.map((scroll) => this.createCollectible(scroll, 44, 30, RuntimeItemFrame.Scroll, Palette.neonCyan));
     this.pickupVisuals = Stage1Data.collectibles.pickups.map((pickup) => ({
-      ...this.createCollectible(pickup, 34, 34, ArtAssetKey.UiKit, pickup.type === 'health' ? Palette.dangerCoral : Palette.neonMagenta),
+      ...this.createCollectible(
+        pickup,
+        34,
+        34,
+        pickup.type === 'health' ? RuntimeItemFrame.Health : RuntimeItemFrame.Energy,
+        pickup.type === 'health' ? Palette.dangerCoral : Palette.neonCyan
+      ),
       type: pickup.type
     }));
   }
 
-  private createCollectible(item: Stage1Seal | Stage1Scroll | Stage1Pickup, width: number, height: number, key: ArtAssetKey, tint: number): CollectibleVisual {
-    const image = this.add.image(item.x, item.y, key).setDisplaySize(width, height).setTint(tint).setDepth(20);
+  private createCollectible(item: Stage1Seal | Stage1Scroll | Stage1Pickup, width: number, height: number, frame: number, tint: number): CollectibleVisual {
+    const image = this.add
+      .sprite(item.x, item.y, RuntimeEnvironmentAssetKey.ItemIcons, frame)
+      .setDisplaySize(width, height)
+      .setTint(tint)
+      .setDepth(20);
     return {
       id: item.id,
       body: centerRect(item.x, item.y, width, height),
@@ -350,9 +371,9 @@ export class Stage1Scene extends Phaser.Scene {
   }
 
   private updateParallax(): void {
-    this.parallaxLayers.forEach((layer, index) => {
-      layer.tilePositionX = this.cameras.main.scrollX * [0.05, 0.10, 0.16, 0.24, 0.30, 0.36, 0.42][index];
-      layer.tilePositionY = this.cameras.main.scrollY * [0.02, 0.03, 0.04, 0.05, 0.05, 0.06, 0.08][index];
+    this.parallaxLayers.forEach(({ image, speedX, speedY }) => {
+      image.tilePositionX = this.cameras.main.scrollX * speedX;
+      image.tilePositionY = this.cameras.main.scrollY * speedY;
     });
   }
 

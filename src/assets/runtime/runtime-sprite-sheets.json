@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T09:56:55.936Z",
+  "generatedAt": "2026-06-27T15:05:12.246Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -426,6 +426,210 @@
           "y": 23,
           "width": 201,
           "height": 188
+        }
+      ]
+    },
+    {
+      "id": "stage1-bg-far",
+      "source": "src/assets/approved-art/layer-far-sky.png",
+      "output": "src/assets/runtime/stage1-bg-far.png",
+      "width": 1920,
+      "height": 540,
+      "mode": "paper-layer",
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 540
+      },
+      "opaquePixels": 915129,
+      "beigePixels": 121671
+    },
+    {
+      "id": "stage1-bg-distant",
+      "source": "src/assets/approved-art/layer-distant-skyline.png",
+      "output": "src/assets/runtime/stage1-bg-distant.png",
+      "width": 1920,
+      "height": 540,
+      "mode": "paper-layer",
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 540
+      },
+      "opaquePixels": 387771,
+      "beigePixels": 649029
+    },
+    {
+      "id": "stage1-bg-mid",
+      "source": "src/assets/approved-art/layer-mid-roofs-signs.png",
+      "output": "src/assets/runtime/stage1-bg-mid.png",
+      "width": 1920,
+      "height": 540,
+      "mode": "paper-layer",
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 540
+      },
+      "opaquePixels": 511768,
+      "beigePixels": 525032
+    },
+    {
+      "id": "stage1-bg-near",
+      "source": "src/assets/approved-art/layer-near-props.png",
+      "output": "src/assets/runtime/stage1-bg-near.png",
+      "width": 1920,
+      "height": 540,
+      "mode": "paper-layer",
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 540
+      },
+      "opaquePixels": 221743,
+      "beigePixels": 815057
+    },
+    {
+      "id": "stage1-bg-front",
+      "source": "src/assets/approved-art/layer-foreground-occlusion.png",
+      "output": "src/assets/runtime/stage1-bg-front.png",
+      "width": 1920,
+      "height": 540,
+      "mode": "paper-layer",
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 540
+      },
+      "opaquePixels": 921098,
+      "beigePixels": 115702
+    },
+    {
+      "id": "stage1-ground-tile",
+      "source": "src/assets/approved-art/layer-foreground-occlusion.png",
+      "output": "src/assets/runtime/stage1-ground-tile.png",
+      "width": 256,
+      "height": 64,
+      "mode": "ground-tile",
+      "crop": {
+        "x": 0,
+        "y": 210,
+        "width": 1920,
+        "height": 220
+      },
+      "opaquePixels": 16384,
+      "beigePixels": 0
+    },
+    {
+      "id": "stage1-platform-thin-tile",
+      "source": "src/assets/approved-art/layer-gameplay-layer.png",
+      "output": "src/assets/runtime/stage1-platform-thin-tile.png",
+      "width": 256,
+      "height": 36,
+      "mode": "ground-tile",
+      "crop": {
+        "x": 0,
+        "y": 330,
+        "width": 1920,
+        "height": 128
+      },
+      "opaquePixels": 9216,
+      "beigePixels": 0
+    },
+    {
+      "id": "stage1-moon-gate",
+      "source": "src/assets/approved-art/title-composition.png",
+      "output": "src/assets/runtime/stage1-moon-gate.png",
+      "width": 320,
+      "height": 300,
+      "mode": "paper-cutout",
+      "crop": {
+        "x": 486,
+        "y": 0,
+        "width": 430,
+        "height": 515
+      },
+      "opaquePixels": 69232,
+      "beigePixels": 948
+    },
+    {
+      "id": "stage1-item-icons",
+      "source": "src/assets/approved-art/ui-kit.png, src/assets/approved-art/brush-kit.png",
+      "output": "src/assets/runtime/stage1-item-icons.png",
+      "width": 640,
+      "height": 128,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frames": [
+        {
+          "name": "seal",
+          "source": "ui",
+          "x": 86,
+          "y": 180,
+          "width": 120,
+          "height": 120
+        },
+        {
+          "name": "scroll",
+          "source": "ui",
+          "x": 706,
+          "y": 385,
+          "width": 235,
+          "height": 130
+        },
+        {
+          "name": "health",
+          "source": "ui",
+          "x": 536,
+          "y": 360,
+          "width": 158,
+          "height": 160
+        },
+        {
+          "name": "energy",
+          "source": "brush",
+          "x": 188,
+          "y": 372,
+          "width": 110,
+          "height": 88
+        },
+        {
+          "name": "checkpoint",
+          "source": "ui",
+          "x": 350,
+          "y": 0,
+          "width": 310,
+          "height": 165
+        }
+      ]
+    },
+    {
+      "id": "stage1-touch-controls",
+      "source": "src/assets/approved-art/mobile-controls-kit.png",
+      "output": "src/assets/runtime/stage1-touch-controls.png",
+      "width": 384,
+      "height": 160,
+      "frameWidth": 192,
+      "frameHeight": 160,
+      "frames": [
+        {
+          "name": "dpad",
+          "x": 34,
+          "y": 112,
+          "width": 302,
+          "height": 208
+        },
+        {
+          "name": "slash",
+          "x": 354,
+          "y": 44,
+          "width": 190,
+          "height": 170
         }
       ]
     }

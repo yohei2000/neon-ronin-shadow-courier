@@ -21,7 +21,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - Playable flow is `TitleScene -> Stage1Scene -> StageClearScene`.
 - Supporting screens are `ControlsScene`, `SettingsScene`, and `CreditsScene`.
 - `?scene=artlab&state=<state>` boots deterministic `ArtLabScene` review stations.
-- Runtime assets are loaded from `src/assets/approved-art/`.
+- Frozen approved assets are loaded from `src/assets/approved-art/`; gameplay consumes safe derived Stage1 runtime cutouts from `src/assets/runtime/`.
 - The QA bridge is `window.__NEON_RONIN_ART_LOCK__`.
 - Stage1 E2E telemetry is `window.__NEON_RONIN_STAGE1__`.
 
@@ -31,7 +31,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `Player` owns movement state, coyote time, jump buffer, wall slide/kick, slash phases, hurt state, knockback, invulnerability, and checkpoint respawn.
 - `InkCrawler`, `KiteWraith`, and `LanternWarden` own enemy behavior.
 - `InputSystem` unifies keyboard and touch input.
-- `TouchControls` renders approved Gate B v2 mobile control art and routes touches through `InputSystem`.
+- `TouchControls` renders derived single-frame mobile control art and routes touches through `InputSystem`.
 - `Hud` owns HP, scroll count, timer, objective, checkpoint feedback, and Lantern Warden health text.
 - `CameraController`, `CombatSystem`, `SaveSystem`, and `rank` keep shared logic out of the scene.
 
@@ -46,6 +46,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 ## Asset Pipeline
 
 - `scripts/process-generated-v2.mjs` processes recovered native image outputs into `art/source/` and `art/final-v2/assets/`.
+- `scripts/build-runtime-sprite-sheets.mjs` derives safe Stage1 runtime sheets/layers from frozen approved art, including character/enemy frames, VFX, cleaned parallax layers, ground/platform tiles, Moon Gate, item icons, and touch controls.
 - `scripts/build-art-atlases.mjs` writes `art/final-v2/atlas-manifest.json`.
 - `scripts/generate-art-contact-sheets.mjs` verifies final-v2 contact sheets.
 - `scripts/validate-approved-art-freeze.mjs` verifies that frozen production copies match approved `art/final-v2/assets/` byte-for-byte and map back to `art/source/` or `art/final-v2/`.
@@ -54,7 +55,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 ## Validation
 
 - `qa:stage1` validates the 10 named sections, vertical sections, optional routes, checkpoints, exactly 3 scrolls, pickups, hazards, enemies, Lantern Warden, safe first screen, safe pre-boss rest, Moon Gate, and target-duration metadata.
-- `qa:assets-stage1` validates approved art usage, frozen copies, runtime lineage, no old v1 runtime art, no reference-sheet runtime use, no remote runtime assets, and required texture/animation keys.
+- `qa:assets-stage1` validates approved art usage, frozen copies, runtime lineage, no old v1 runtime art, no reference-sheet runtime use, no remote runtime assets, required texture/animation keys, and runtime pixel audits for edge cuts plus paper-background residue.
 - `e2e` runs Playwright-driven named tests: `title-flow`, `stage1-keyboard-clear`, `mobile-controls`, and `checkpoint-retry`.
 - `qa:screenshots-stage1` writes the required `artifacts/stage1/*.png`, `console-report.json`, and keeps the console clean.
 - `qa:all-stage1` runs final Stage1 validation and writes `artifacts/stage1/stage1-acceptance-report.md`.

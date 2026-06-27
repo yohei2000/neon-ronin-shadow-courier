@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ApprovedArtManifest } from '../src/data/approvedArtManifest';
-import { ArtAssetKey, RuntimePlayerVisualConfig, RuntimeSpriteAssetKey, RuntimeStage1SpriteKeys } from '../src/data/artAssets';
+import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimePlayerVisualConfig, RuntimeSpriteAssetKey, RuntimeStage1AssetKeys, RuntimeStage1EnvironmentKeys, RuntimeStage1SpriteKeys } from '../src/data/artAssets';
 import { GateAEvidenceFiles, GateAApprovalStatus, GateBApprovalStatus, ReferenceIds } from '../src/data/artLockGate';
 
 describe('Art Lock scope', () => {
@@ -74,6 +74,20 @@ describe('Art Lock scope', () => {
       'telegraph-runtime-spritesheet',
       'lantern-warden-runtime-spritesheet'
     ]);
+    expect(RuntimeStage1EnvironmentKeys).toEqual([
+      'stage1-bg-far',
+      'stage1-bg-distant',
+      'stage1-bg-mid',
+      'stage1-bg-near',
+      'stage1-bg-front',
+      'stage1-ground-tile',
+      'stage1-platform-thin-tile',
+      'stage1-moon-gate',
+      'stage1-item-icons',
+      'stage1-touch-controls'
+    ]);
+    expect(RuntimeStage1AssetKeys).toContain(RuntimeEnvironmentAssetKey.GroundTile);
+    expect(RuntimeStage1AssetKeys).toContain(RuntimeEnvironmentAssetKey.ItemIcons);
     for (const file of [
       'src/assets/runtime/player-runtime-spritesheet.png',
       'src/assets/runtime/ink-crawler-runtime-spritesheet.png',
@@ -81,6 +95,16 @@ describe('Art Lock scope', () => {
       'src/assets/runtime/slash-runtime-spritesheet.png',
       'src/assets/runtime/telegraph-runtime-spritesheet.png',
       'src/assets/runtime/lantern-warden-runtime-spritesheet.png',
+      'src/assets/runtime/stage1-bg-far.png',
+      'src/assets/runtime/stage1-bg-distant.png',
+      'src/assets/runtime/stage1-bg-mid.png',
+      'src/assets/runtime/stage1-bg-near.png',
+      'src/assets/runtime/stage1-bg-front.png',
+      'src/assets/runtime/stage1-ground-tile.png',
+      'src/assets/runtime/stage1-platform-thin-tile.png',
+      'src/assets/runtime/stage1-moon-gate.png',
+      'src/assets/runtime/stage1-item-icons.png',
+      'src/assets/runtime/stage1-touch-controls.png',
       'src/assets/runtime/runtime-sprite-sheets.json'
     ]) {
       expect(fs.existsSync(path.resolve(file))).toBe(true);

@@ -28,6 +28,7 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Mobile controls review: `?scene=artlab&state=mobile-controls`
 - Approved production assets: `src/assets/approved-art/`
 - Approved runtime manifest: `src/data/approvedArtManifest.ts`
+- Safe Stage1 derived runtime cutouts: `src/assets/runtime/`
 
 Stage 1 includes 10 named sections, checkpoints, exactly 3 hidden scrolls, 24 seal pickups, health/energy pickups, hazards, Ink Crawler and Kite Wraith encounters, a Lantern Warden miniboss, Moon Gate clear, settings, save data, pause, retry checkpoint, and mobile virtual controls.
 
@@ -67,6 +68,8 @@ npm.cmd run art:all
 `art:generate` validates native image-generation evidence. The actual native `image_gen` calls were performed through Codex and preserved under `art/generated/`.
 
 After Gate B v2 freeze, do not regenerate core art for normal Stage1 work. Use `art:validate-freeze` to confirm `src/assets/approved-art/` remains byte-identical to `art/final-v2/assets/` and that every Stage1 runtime asset maps back to `art/source/` or `art/final-v2/`.
+
+Stage1 gameplay should use `src/assets/runtime/` for fixed-cell actors, VFX, cleaned background layers, ground/platform tiles, item icons, Moon Gate, HUD panels, and mobile controls. `qa:assets-stage1` audits these runtime cutouts for edge clipping and paper-background residue.
 
 ## Key Review Files
 

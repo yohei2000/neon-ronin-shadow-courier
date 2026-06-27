@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeEnvironmentAssetKey } from '../data/artAssets';
 import { formatWardenHealth } from '../entities/LanternWarden';
 import type { PlayerRuntimeState } from '../entities/Player';
 
@@ -16,7 +16,7 @@ export type HudUpdateState = {
 };
 
 export class Hud {
-  private readonly panel: Phaser.GameObjects.Image;
+  private readonly panel: Phaser.GameObjects.TileSprite;
   private readonly hpText: Phaser.GameObjects.Text;
   private readonly scrollText: Phaser.GameObjects.Text;
   private readonly timerText: Phaser.GameObjects.Text;
@@ -25,7 +25,7 @@ export class Hud {
   private readonly wardenText: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene) {
-    this.panel = scene.add.image(480, 42, ArtAssetKey.UiKit).setDisplaySize(930, 82).setAlpha(0.30).setDepth(80).setScrollFactor(0);
+    this.panel = scene.add.tileSprite(480, 42, 930, 82, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.48).setDepth(80).setScrollFactor(0);
     this.hpText = scene.add.text(24, 18, '', this.style(PaletteHex.warmPaper)).setDepth(81).setScrollFactor(0);
     this.scrollText = scene.add.text(178, 18, '', this.style(PaletteHex.paleMoonMist)).setDepth(81).setScrollFactor(0);
     this.timerText = scene.add.text(330, 18, '', this.style(PaletteHex.neonCyan)).setDepth(81).setScrollFactor(0);

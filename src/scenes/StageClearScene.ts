@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeEnvironmentAssetKey } from '../data/artAssets';
 import { SaveSystem } from '../systems/SaveSystem';
 import type { StageRank } from '../systems/rank';
 
@@ -22,8 +22,10 @@ export class StageClearScene extends Phaser.Scene {
   create(data: StageClearData): void {
     const save = SaveSystem.load();
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
-    this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.LightingMoonlight).setAlpha(0.72);
-    this.add.image(BASE_WIDTH / 2, 278, ArtAssetKey.TitleMenuPanel).setScale(1.12).setAlpha(0.92);
+    this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundFar).setAlpha(0.98);
+    this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundDistant).setAlpha(0.72);
+    this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundMid).setAlpha(0.78);
+    this.add.tileSprite(BASE_WIDTH / 2, 278, 760, 322, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.88);
     this.add.text(112, 86, 'STAGE CLEAR', {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '48px',

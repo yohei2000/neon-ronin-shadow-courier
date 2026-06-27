@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
-import { ArtAssetKey, RuntimeAssetKeys, RuntimeSpriteAssetKey, RuntimeStage1SpriteKeys } from '../data/artAssets';
+import { ArtAssetKey, RuntimeAssetKeys, RuntimeEnvironmentAssetKey, RuntimeSpriteAssetKey, RuntimeStage1AssetKeys } from '../data/artAssets';
 import {
   ArtLockPhase,
   GateAApprovalStatus,
@@ -18,13 +18,11 @@ type ArtLabData = {
 };
 
 const parallaxLayers = [
-  ArtAssetKey.LayerFarSky,
-  ArtAssetKey.LayerDistantSkyline,
-  ArtAssetKey.LayerMidRoofsSigns,
-  ArtAssetKey.LayerGameplay,
-  ArtAssetKey.LayerNearProps,
-  ArtAssetKey.LayerNearPropsFront,
-  ArtAssetKey.LayerForegroundOcclusion
+  RuntimeEnvironmentAssetKey.BackgroundFar,
+  RuntimeEnvironmentAssetKey.BackgroundDistant,
+  RuntimeEnvironmentAssetKey.BackgroundMid,
+  RuntimeEnvironmentAssetKey.BackgroundNear,
+  RuntimeEnvironmentAssetKey.BackgroundFront
 ] as const;
 
 export class ArtLabScene extends Phaser.Scene {
@@ -61,7 +59,7 @@ export class ArtLabScene extends Phaser.Scene {
     parallaxLayers.forEach((key, index) => {
       const layer = this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, key);
       layer.tilePositionX = index * 62 + this.currentState.length * 7;
-      layer.setAlpha([1, 0.82, 0.74, 0.88, 0.70, 0.50, 0.36][index] ?? 1);
+      layer.setAlpha([1, 0.72, 0.86, 0.66, 0.48][index] ?? 1);
     });
 
     const presetKey = this.lightingPreset === 'moonlight-lantern-gold'
@@ -250,7 +248,7 @@ export class ArtLabScene extends Phaser.Scene {
       this.add.image(650, 112 + index * 54, key).setDisplaySize(360, 42).setAlpha(0.82);
       this.label(62, 126 + index * 54, `${index + 1}. ${key}`);
     });
-    this.caption('Parallax station: seven named depth roles are separate runtime images, not one flat background.');
+    this.caption('Parallax station: Stage1 runtime depth roles are separate cleaned images, not one flat or paper-backed background.');
   }
 
   private drawSignDensityStation(): void {
@@ -329,7 +327,7 @@ export class ArtLabScene extends Phaser.Scene {
       selectedDirection: SelectedDirection,
       finalProductionRuntime: true,
       state: this.currentState,
-      assetKeys: [...RuntimeAssetKeys, ...RuntimeStage1SpriteKeys],
+      assetKeys: [...RuntimeAssetKeys, ...RuntimeStage1AssetKeys],
       lightingPreset: this.lightingPreset,
       reducedFx: this.reducedFx,
       mobileReviewReady: true

@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { ArtAssetKey, RuntimeEnvironmentAssetKey } from '../data/artAssets';
 import { SaveSystem, type Stage1Settings, type TouchControlsMode } from '../systems/SaveSystem';
 
 type SettingRow = keyof Pick<
@@ -32,7 +32,7 @@ export class SettingsScene extends Phaser.Scene {
   create(): void {
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.LightingWarmCool).setAlpha(0.45);
-    this.add.image(BASE_WIDTH / 2, 292, ArtAssetKey.UiKit).setDisplaySize(760, 360).setAlpha(0.50);
+    this.add.tileSprite(BASE_WIDTH / 2, 292, 760, 360, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.72);
     this.add.text(90, 74, 'SETTINGS', {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '44px',

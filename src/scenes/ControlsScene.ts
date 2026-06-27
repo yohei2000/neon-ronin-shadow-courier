@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { ArtAssetKey, RuntimeEnvironmentAssetKey } from '../data/artAssets';
 
 export class ControlsScene extends Phaser.Scene {
   constructor() {
@@ -12,7 +12,7 @@ export class ControlsScene extends Phaser.Scene {
   create(): void {
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.TitleComposition).setAlpha(0.62);
-    this.add.image(BASE_WIDTH / 2, 282, ArtAssetKey.UiKit).setDisplaySize(760, 350).setAlpha(0.50);
+    this.add.tileSprite(BASE_WIDTH / 2, 282, 760, 350, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.72);
     this.add.text(90, 78, 'CONTROLS', {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '44px',

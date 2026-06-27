@@ -40,6 +40,21 @@ export const RuntimeSpriteAssetKey = {
 
 export type RuntimeSpriteAssetKey = (typeof RuntimeSpriteAssetKey)[keyof typeof RuntimeSpriteAssetKey];
 
+export const RuntimeEnvironmentAssetKey = {
+  BackgroundFar: 'stage1-bg-far',
+  BackgroundDistant: 'stage1-bg-distant',
+  BackgroundMid: 'stage1-bg-mid',
+  BackgroundNear: 'stage1-bg-near',
+  BackgroundFront: 'stage1-bg-front',
+  GroundTile: 'stage1-ground-tile',
+  PlatformThinTile: 'stage1-platform-thin-tile',
+  MoonGate: 'stage1-moon-gate',
+  ItemIcons: 'stage1-item-icons',
+  TouchControls: 'stage1-touch-controls'
+} as const;
+
+export type RuntimeEnvironmentAssetKey = (typeof RuntimeEnvironmentAssetKey)[keyof typeof RuntimeEnvironmentAssetKey];
+
 export const ArtImageAssets: Record<ArtAssetKey, string> = {
   [ArtAssetKey.Player]: ApprovedArtUrlByKey[ArtAssetKey.Player],
   [ArtAssetKey.PlayerMaster]: ApprovedArtUrlByKey[ArtAssetKey.PlayerMaster],
@@ -75,6 +90,32 @@ export const RuntimeSpriteImageAssets: Record<RuntimeSpriteAssetKey, string> = {
   [RuntimeSpriteAssetKey.Telegraph]: new URL('../assets/runtime/telegraph-runtime-spritesheet.png', import.meta.url).href,
   [RuntimeSpriteAssetKey.LanternWarden]: new URL('../assets/runtime/lantern-warden-runtime-spritesheet.png', import.meta.url).href
 };
+
+export const RuntimeEnvironmentImageAssets: Record<RuntimeEnvironmentAssetKey, string> = {
+  [RuntimeEnvironmentAssetKey.BackgroundFar]: new URL('../assets/runtime/stage1-bg-far.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.BackgroundDistant]: new URL('../assets/runtime/stage1-bg-distant.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.BackgroundMid]: new URL('../assets/runtime/stage1-bg-mid.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.BackgroundNear]: new URL('../assets/runtime/stage1-bg-near.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.BackgroundFront]: new URL('../assets/runtime/stage1-bg-front.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.GroundTile]: new URL('../assets/runtime/stage1-ground-tile.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.PlatformThinTile]: new URL('../assets/runtime/stage1-platform-thin-tile.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.MoonGate]: new URL('../assets/runtime/stage1-moon-gate.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.ItemIcons]: new URL('../assets/runtime/stage1-item-icons.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.TouchControls]: new URL('../assets/runtime/stage1-touch-controls.png', import.meta.url).href
+};
+
+export const RuntimeItemFrame = {
+  Seal: 0,
+  Scroll: 1,
+  Health: 2,
+  Energy: 3,
+  Checkpoint: 4
+} as const;
+
+export const RuntimeTouchFrame = {
+  Dpad: 0,
+  Slash: 1
+} as const;
 
 export const PlayerAnimationFrames = {
   idle: { frames: [25], frameRate: 1, repeat: -1 },
@@ -119,3 +160,5 @@ export const LanternWardenAnimationFrames = {
 
 export const RuntimeAssetKeys = Object.values(ArtAssetKey);
 export const RuntimeStage1SpriteKeys = Object.values(RuntimeSpriteAssetKey);
+export const RuntimeStage1EnvironmentKeys = Object.values(RuntimeEnvironmentAssetKey);
+export const RuntimeStage1AssetKeys = [...RuntimeStage1SpriteKeys, ...RuntimeStage1EnvironmentKeys];

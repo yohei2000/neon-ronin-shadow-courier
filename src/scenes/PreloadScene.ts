@@ -8,6 +8,8 @@ import {
   KiteWraithAnimationFrames,
   LanternWardenAnimationFrames,
   PlayerAnimationFrames,
+  RuntimeEnvironmentAssetKey,
+  RuntimeEnvironmentImageAssets,
   RuntimeSpriteAssetKey,
   RuntimeSpriteImageAssets,
   SlashAnimationFrames
@@ -66,6 +68,19 @@ export class PreloadScene extends Phaser.Scene {
       frameWidth: 256,
       frameHeight: 256
     });
+    this.load.spritesheet(RuntimeEnvironmentAssetKey.ItemIcons, RuntimeEnvironmentImageAssets[RuntimeEnvironmentAssetKey.ItemIcons], {
+      frameWidth: 128,
+      frameHeight: 128
+    });
+    this.load.spritesheet(RuntimeEnvironmentAssetKey.TouchControls, RuntimeEnvironmentImageAssets[RuntimeEnvironmentAssetKey.TouchControls], {
+      frameWidth: 192,
+      frameHeight: 160
+    });
+
+    for (const [key, url] of Object.entries(RuntimeEnvironmentImageAssets)) {
+      if (key === RuntimeEnvironmentAssetKey.ItemIcons || key === RuntimeEnvironmentAssetKey.TouchControls) continue;
+      this.load.image(key, url);
+    }
 
     const spritesheetKeys = new Set<string>([
       ArtAssetKey.Player,

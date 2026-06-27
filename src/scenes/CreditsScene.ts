@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeEnvironmentAssetKey } from '../data/artAssets';
 
 export class CreditsScene extends Phaser.Scene {
   constructor() {
@@ -11,8 +11,10 @@ export class CreditsScene extends Phaser.Scene {
 
   create(): void {
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
-    this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.EnvironmentKey).setAlpha(0.62);
-    this.add.image(BASE_WIDTH / 2, 296, ArtAssetKey.TitleMenuPanel).setScale(1.08).setAlpha(0.82);
+    this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundFar).setAlpha(0.94);
+    this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundDistant).setAlpha(0.66);
+    this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundMid).setAlpha(0.76);
+    this.add.tileSprite(BASE_WIDTH / 2, 296, 760, 344, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.82);
     this.add.text(104, 92, 'ABOUT', {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '44px',
