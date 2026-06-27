@@ -111,6 +111,9 @@ const captureRoute = async (page) => {
     if (player.x > lastProgressX + 6) {
       lastProgressX = player.x;
       lastProgressAt = now;
+    } else if (player.x < lastProgressX - 120) {
+      lastProgressX = player.x;
+      lastProgressAt = now;
     } else if (now - lastProgressAt > 2200 && (player.x < 5050 || current.wardenDefeated)) {
       await releaseMovementKeys(page);
       if (player.x > 4200 && player.x < 5050 && !current.wardenDefeated) {
@@ -121,9 +124,13 @@ const captureRoute = async (page) => {
         await page.keyboard.up('a');
       }
       await setRight(true);
+      lastProgressX = player.x;
       lastProgressAt = now;
       lastJump = now;
-      await jump(page, player.x > 4200 && player.x < 5050 ? 300 : current.wardenDefeated ? 120 : player.x > 1000 ? 140 : 240);
+      const recoveryJumpMs =
+        player.x > 4200 && player.x < 5050 ? 300 : current.wardenDefeated ? 120 : player.x > 1000 && player.x < 2310 ? 140 : player.x <= 1000 ? 240 : 0;
+      if (recoveryJumpMs > 0) await jump(page, recoveryJumpMs);
+      else await page.waitForTimeout(120);
       continue;
     }
 
