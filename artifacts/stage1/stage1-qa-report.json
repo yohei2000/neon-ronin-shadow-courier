@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-06-27T02:52:12.260Z",
+  "passed": true,
+  "checks": [
+    {
+      "id": "ten-named-sections",
+      "passed": true,
+      "detail": "Rain Lantern Start, First Slash Alley, Wall-Kick Sign Shaft, Rooftop Gap Line, Hidden Scroll Route A, Hidden Scroll Route B, Checkpoint Shrine Plaza, Neon Thorn Run, Lantern Warden Encounter, Moon Gate Finish"
+    },
+    {
+      "id": "two-vertical-sections",
+      "passed": true,
+      "detail": "vertical section count"
+    },
+    {
+      "id": "two-optional-routes",
+      "passed": true,
+      "detail": "optional route count"
+    },
+    {
+      "id": "two-checkpoints",
+      "passed": true,
+      "detail": "4 checkpoints"
+    },
+    {
+      "id": "exactly-three-scrolls",
+      "passed": true,
+      "detail": "3 scrolls"
+    },
+    {
+      "id": "twenty-seals",
+      "passed": true,
+      "detail": "24 seals"
+    },
+    {
+      "id": "three-health-energy-pickups",
+      "passed": true,
+      "detail": "4 pickups"
+    },
+    {
+      "id": "three-hazard-moments",
+      "passed": true,
+      "detail": "5 hazards"
+    },
+    {
+      "id": "four-enemy-encounters",
+      "passed": true,
+      "detail": "5 enemies"
+    },
+    {
+      "id": "single-lantern-warden",
+      "passed": true,
+      "detail": "lantern-warden-01"
+    },
+    {
+      "id": "safe-first-screen",
+      "passed": true,
+      "detail": "first screen damage source overlap"
+    },
+    {
+      "id": "safe-rest-before-miniboss",
+      "passed": true,
+      "detail": "pre-boss rest damage source overlap"
+    },
+    {
+      "id": "moon-gate-stage-clear",
+      "passed": true,
+      "detail": "moon-gate"
+    },
+    {
+      "id": "no-orphan-section-refs",
+      "passed": true,
+      "detail": "enemy section references"
+    },
+    {
+      "id": "target-duration-recorded",
+      "passed": true,
+      "detail": "human 180-300s, optimized 60-120s"
+    }
+  ]
+}

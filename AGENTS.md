@@ -2,9 +2,9 @@
 
 ## Active Scope
 
-This repository is now governed by `ART_LOCK_GOAL.md`.
+This repository is now governed by the Stage 1 playable vertical slice objective.
 
-The current objective is a reference-driven Art Lock build, not the prior Stage 1 vertical slice. Do not claim Stage 1 is complete while this goal is active.
+The current runtime objective is Stage 1 only: `Neon Alley: First Delivery`, using the frozen Gate B v2 art assets. Do not implement or claim Stage 2+, world map, final boss, dash/projectile/charged slash/ultimate, or broad campaign systems while this scope is active.
 
 ## Required Reference Package
 
@@ -62,17 +62,31 @@ npm.cmd run art:all
 
 After freeze, use `art:validate-freeze` for normal Stage1 asset checks. Do not run `art:process` unless a new explicit art-change gate authorizes regeneration/reprocessing.
 
+Current Stage1 commands:
+
+```bash
+npm.cmd run typecheck
+npm.cmd run test
+npm.cmd run build
+npm.cmd run qa:stage1
+npm.cmd run qa:assets-stage1
+npm.cmd run e2e
+npm.cmd run qa:screenshots-stage1
+npm.cmd run qa:all-stage1
+```
+
 ## Handoff Rules
 
 - Treat `AGENTS.md` as a live operations log.
 - Keep Gate A/Gate B approval state explicit.
 - Do not weaken validators to make progress appear complete.
 - Do not use plain Phaser primitive programmer art as final visual implementation.
-- Do not keep misleading Stage 1/campaign claims in docs.
+- Keep Stage1 claims limited to the playable vertical slice.
+- Keep Stage2+, world map, final boss, and campaign claims out of docs/runtime unless a new explicit scope is approved.
 - If a required visual-production/browser capability is unavailable, report the concrete blocker.
 
 ## Next Step
 
-Gate B v2 is approved. The next implementation scope should use this approved visual system rather than changing the art direction.
+Gate B v2 is approved and frozen. Stage1 integration must consume the approved asset manifest rather than direct `art/final-v2/assets/` paths.
 
-Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is `BootScene -> PreloadScene -> TitleScene`, with deterministic `ArtLabScene` review states available via `?scene=artlab&state=...`. Stage1 integration must consume the approved asset manifest rather than direct `art/final-v2/assets/` paths.
+Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flow `TitleScene -> Stage1Scene -> StageClearScene`. Deterministic `ArtLabScene` review states remain available via `?scene=artlab&state=...`.

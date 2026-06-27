@@ -1,0 +1,48 @@
+import * as Phaser from 'phaser';
+import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
+import { SceneKey } from '../config/keys';
+import { PaletteHex } from '../config/palette';
+import { ArtAssetKey } from '../data/artAssets';
+
+export class ControlsScene extends Phaser.Scene {
+  constructor() {
+    super(SceneKey.Controls);
+  }
+
+  create(): void {
+    this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
+    this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.TitleComposition).setAlpha(0.62);
+    this.add.image(BASE_WIDTH / 2, 282, ArtAssetKey.UiKit).setDisplaySize(760, 350).setAlpha(0.50);
+    this.add.text(90, 78, 'CONTROLS', {
+      fontFamily: 'Arial Black, Arial, sans-serif',
+      fontSize: '44px',
+      color: PaletteHex.neonCyan
+    });
+    const lines = [
+      'A / D or Arrows     Move',
+      'W / Space / Up      Variable jump',
+      'Wall contact + Jump Wall kick',
+      'J / Z               Slash',
+      'Esc / P             Pause',
+      'Enter               Confirm'
+    ];
+    lines.forEach((line, index) => {
+      this.add.text(124, 166 + index * 42, line, {
+        fontFamily: 'Consolas, monospace',
+        fontSize: '24px',
+        color: index % 2 === 0 ? PaletteHex.warmPaper : PaletteHex.paleMoonMist
+      });
+    });
+    this.add.image(480, 462, ArtAssetKey.MobileControlsKit).setScale(0.46).setAlpha(0.78);
+    this.add.text(78, 500, 'Back: Esc / click', {
+      fontFamily: 'Consolas, monospace',
+      fontSize: '15px',
+      color: PaletteHex.paleMoonMist
+    });
+    this.input.keyboard?.removeAllListeners('keydown-ESC');
+    this.input.keyboard?.on('keydown-ESC', () => this.scene.start(SceneKey.Title));
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.keyboard?.removeAllListeners('keydown-ESC'));
+    this.input.on('pointerup', () => this.scene.start(SceneKey.Title));
+    window.__NEON_RONIN_STAGE1_MENU__ = { scene: 'ControlsScene' };
+  }
+}

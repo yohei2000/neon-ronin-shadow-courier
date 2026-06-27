@@ -5,14 +5,14 @@ import { ApprovedArtManifest } from '../src/data/approvedArtManifest';
 import { GateAEvidenceFiles, GateAApprovalStatus, GateBApprovalStatus, ReferenceIds } from '../src/data/artLockGate';
 
 describe('Art Lock scope', () => {
-  it('boots the post-Gate-A Art Lock title and Art Lab runtime', () => {
+  it('boots the frozen-art Stage1 runtime while preserving Art Lab access', () => {
     const configText = fs.readFileSync(path.resolve('src', 'config', 'gameConfig.ts'), 'utf8');
-    expect(configText).toContain('Art Lock');
     expect(configText).toContain('BootScene');
     expect(configText).toContain('PreloadScene');
     expect(configText).toContain('TitleScene');
+    expect(configText).toContain('Stage1Scene');
+    expect(configText).toContain('StageClearScene');
     expect(configText).toContain('ArtLabScene');
-    expect(configText).not.toContain('Stage1Scene');
   });
 
   it('keeps approval gates explicit', () => {
@@ -31,9 +31,10 @@ describe('Art Lock scope', () => {
     expect(GateAEvidenceFiles).toContain('art/approvals/GATE_A_STATUS.json');
   });
 
-  it('has removed the legacy Stage 1 data file from the runnable source tree', () => {
-    const stagePath = path.resolve('src', 'data', 'stage1.json');
-    expect(fs.existsSync(stagePath)).toBe(false);
+  it('uses new typed Stage1 data instead of the removed legacy JSON runtime', () => {
+    expect(fs.existsSync(path.resolve('src', 'data', 'stage1.ts'))).toBe(true);
+    expect(fs.existsSync(path.resolve('src', 'data', 'stage1Content.json'))).toBe(true);
+    expect(fs.existsSync(path.resolve('src', 'data', 'stage1.json'))).toBe(false);
   });
 
   it('has real final art manifests after Gate A approval', () => {

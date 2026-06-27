@@ -2,8 +2,13 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from './dimensions';
 import { BootScene } from '../scenes/BootScene';
 import { ArtLabScene } from '../scenes/ArtLabScene';
+import { ControlsScene } from '../scenes/ControlsScene';
+import { CreditsScene } from '../scenes/CreditsScene';
 import { GateAReviewScene } from '../scenes/GateAReviewScene';
 import { PreloadScene } from '../scenes/PreloadScene';
+import { SettingsScene } from '../scenes/SettingsScene';
+import { Stage1Scene } from '../scenes/Stage1Scene';
+import { StageClearScene } from '../scenes/StageClearScene';
 import { TitleScene } from '../scenes/TitleScene';
 
 export { BASE_HEIGHT, BASE_WIDTH };
@@ -20,7 +25,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [BootScene, PreloadScene, TitleScene, ArtLabScene, GateAReviewScene],
-  title: 'Neon Ronin: Shadow Courier - Art Lock',
+  scene: [BootScene, PreloadScene, TitleScene, ControlsScene, SettingsScene, CreditsScene, Stage1Scene, StageClearScene, ArtLabScene, GateAReviewScene],
+  title: 'Neon Ronin: Shadow Courier - Stage 1',
   banner: false
 };

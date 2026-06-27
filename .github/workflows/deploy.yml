@@ -46,6 +46,13 @@ jobs:
           npm run art:validate-assets
           npm run art:audit
 
+      - name: Stage 1 QA
+        run: |
+          npm run qa:stage1
+          npm run qa:assets-stage1
+          npm run e2e
+          npm run qa:screenshots-stage1
+
       - name: Build for Pages
         run: npm run build
         env:

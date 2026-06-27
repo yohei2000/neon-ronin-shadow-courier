@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-06-27T02:52:12.790Z",
+  "passed": true,
+  "checks": [
+    {
+      "id": "approved-art-count",
+      "passed": true,
+      "detail": "24 pngs, 24 manifest entries"
+    },
+    {
+      "id": "approved-copies-byte-equal",
+      "passed": true,
+      "detail": "24/24 byte-equal"
+    },
+    {
+      "id": "uses-approved-manifest",
+      "passed": true,
+      "detail": "ArtImageAssets routes through approved manifest"
+    },
+    {
+      "id": "no-old-gate-b-v1-final-art",
+      "passed": true,
+      "detail": "no art/final runtime references"
+    },
+    {
+      "id": "no-reference-sheets-runtime",
+      "passed": true,
+      "detail": "no A-H reference package runtime references"
+    },
+    {
+      "id": "no-direct-final-v2-runtime-imports",
+      "passed": true,
+      "detail": "only approvedArtManifest records source lineage"
+    },
+    {
+      "id": "no-remote-runtime-assets",
+      "passed": true,
+      "detail": "runtime source requests no remote assets"
+    },
+    {
+      "id": "no-stage1-primitive-placeholder-art",
+      "passed": true,
+      "detail": "Stage1 character/enemy/UI/environment visuals use approved images"
+    },
+    {
+      "id": "required-textures-loaded",
+      "passed": true,
+      "detail": "Player, Enemy, LanternWarden, KiteWraith, Slash, Telegraph, UiKit, MobileControlsKit, LayerGameplay, TitleMenuPanel"
+    },
+    {
+      "id": "required-animations-created",
+      "passed": true,
+      "detail": "player-idle, player-run, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-arc"
+    }
+  ],
+  "productionAssets": [
+    {
+      "productionPath": "src/assets/approved-art/player-spritesheet.png",
+      "approvedPath": "art/final-v2/assets/player-spritesheet.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/player-master.png",
+      "approvedPath": "art/final-v2/assets/player-master.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/enemy-spritesheet.png",
+      "approvedPath": "art/final-v2/assets/enemy-spritesheet.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/lantern-warden-spritesheet.png",
+      "approvedPath": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/kite-wraith-preview.png",
+      "approvedPath": "art/final-v2/assets/kite-wraith-preview.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/slash-flipbook.png",
+      "approvedPath": "art/final-v2/assets/slash-flipbook.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/telegraph-flipbook.png",
+      "approvedPath": "art/final-v2/assets/telegraph-flipbook.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/ui-kit.png",
+      "approvedPath": "art/final-v2/assets/ui-kit.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/title-menu-panel.png",
+      "approvedPath": "art/final-v2/assets/title-menu-panel.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/mobile-controls-kit.png",
+      "approvedPath": "art/final-v2/assets/mobile-controls-kit.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/brush-kit.png",
+      "approvedPath": "art/final-v2/assets/brush-kit.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/sign-atlas.png",
+      "approvedPath": "art/final-v2/assets/sign-atlas.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/title-composition.png",
+      "approvedPath": "art/final-v2/assets/title-composition.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/environment-key.png",
+      "approvedPath": "art/final-v2/assets/environment-key.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-far-sky.png",
+      "approvedPath": "art/final-v2/assets/layer-far-sky.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-distant-skyline.png",
+      "approvedPath": "art/final-v2/assets/layer-distant-skyline.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-mid-roofs-signs.png",
+      "approvedPath": "art/final-v2/assets/layer-mid-roofs-signs.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-gameplay-layer.png",
+      "approvedPath": "art/final-v2/assets/layer-gameplay-layer.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-near-props.png",
+      "approvedPath": "art/final-v2/assets/layer-near-props.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-near-props-front.png",
+      "approvedPath": "art/final-v2/assets/layer-near-props-front.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/layer-foreground-occlusion.png",
+      "approvedPath": "art/final-v2/assets/layer-foreground-occlusion.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/lighting-moonlight-lantern-gold.png",
+      "approvedPath": "art/final-v2/assets/lighting-moonlight-lantern-gold.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/lighting-cyan-magenta-neon.png",
+      "approvedPath": "art/final-v2/assets/lighting-cyan-magenta-neon.png",
+      "exists": true,
+      "byteEqual": true
+    },
+    {
+      "productionPath": "src/assets/approved-art/lighting-warm-cool-alley.png",
+      "approvedPath": "art/final-v2/assets/lighting-warm-cool-alley.png",
+      "exists": true,
+      "byteEqual": true
+    }
+  ]
+}

@@ -26,7 +26,12 @@
     "art:screenshots": "node scripts/capture-art-screenshots.mjs",
     "art:review-report": "node scripts/art-review-report-v2.mjs",
     "art:audit": "node scripts/audit-art-lock-completion.mjs",
-    "art:all": "node scripts/art-all.mjs"
+    "art:all": "node scripts/art-all.mjs",
+    "qa:stage1": "node scripts/qa-stage1.mjs",
+    "qa:assets-stage1": "node scripts/qa-assets-stage1.mjs",
+    "e2e": "node scripts/run-stage1-e2e.mjs",
+    "qa:screenshots-stage1": "node scripts/capture-stage1-screenshots.mjs",
+    "qa:all-stage1": "node scripts/qa-all-stage1.mjs"
   },
   "dependencies": {
     "phaser": "~3.90.0"

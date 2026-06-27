@@ -11,7 +11,15 @@ import {
   ReferenceIds,
   SelectedDirection
 } from '../data/artLockGate';
+import { SaveSystem } from '../systems/SaveSystem';
 import type { ArtLockQaState } from '../types/artLockQa';
+import '../types/stage1Qa';
+
+type TitleMenuItem = {
+  readonly label: string;
+  readonly scene: SceneKey;
+  readonly data?: Record<string, string>;
+};
 
 export class TitleScene extends Phaser.Scene {
   private readonly layerKeys = [
@@ -23,16 +31,28 @@ export class TitleScene extends Phaser.Scene {
     ArtAssetKey.LayerNearPropsFront,
     ArtAssetKey.LayerForegroundOcclusion
   ];
+  private readonly menuItems: readonly TitleMenuItem[] = [
+    { label: 'START STAGE 1', scene: SceneKey.Stage1 },
+    { label: 'CONTROLS', scene: SceneKey.Controls },
+    { label: 'SETTINGS', scene: SceneKey.Settings },
+    { label: 'CREDITS / ABOUT', scene: SceneKey.Credits },
+    { label: 'ART LAB', scene: SceneKey.ArtLab, data: { state: 'neutral' } }
+  ];
+  private selected = 0;
+  private menuTexts: Phaser.GameObjects.Text[] = [];
 
   constructor() {
     super(SceneKey.Title);
   }
 
   create(): void {
+    this.selected = 0;
+    this.menuTexts = [];
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.drawParallaxTitle();
     this.drawLogo();
     this.drawMenu();
+    this.bindInput();
     this.publishQaState();
   }
 
@@ -57,7 +77,17 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private drawLogo(): void {
-    this.add.text(58, 296, 'Image-generated Gate B v2 Art Lock build', {
+    this.add.text(58, 282, 'NEON RONIN', {
+      fontFamily: 'Arial Black, Arial, sans-serif',
+      fontSize: '54px',
+      color: PaletteHex.neonCyan
+    }).setShadow(0, 0, PaletteHex.neonCyan, 10);
+    this.add.text(62, 338, 'Shadow Courier - Stage 1', {
+      fontFamily: 'Arial Black, Arial, sans-serif',
+      fontSize: '25px',
+      color: PaletteHex.neonMagenta
+    }).setShadow(0, 0, PaletteHex.neonMagenta, 8);
+    this.add.text(64, 374, 'Neon Alley: First Delivery', {
       fontFamily: 'Consolas, monospace',
       fontSize: '15px',
       color: PaletteHex.paleMoonMist
@@ -65,24 +95,63 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private drawMenu(): void {
-    this.add.image(724, 424, ArtAssetKey.TitleMenuPanel).setScale(0.54).setAlpha(0.94);
-    this.add.text(632, 386, 'START REVIEW', {
-      fontFamily: 'Arial Black, Arial, sans-serif',
-      fontSize: '18px',
-      color: PaletteHex.neonCyan
-    }).setShadow(0, 0, PaletteHex.neonCyan, 8);
-    this.add.text(632, 430, 'ART LAB', {
-      fontFamily: 'Arial Black, Arial, sans-serif',
-      fontSize: '18px',
-      color: PaletteHex.warmPaper
+    this.add.image(724, 382, ArtAssetKey.TitleMenuPanel).setScale(0.74).setAlpha(0.94);
+    this.menuTexts = this.menuItems.map((item, index) => {
+      const y = 292 + index * 42;
+      const text = this.add.text(610, y, item.label, {
+        fontFamily: 'Arial Black, Arial, sans-serif',
+        fontSize: '18px',
+        color: PaletteHex.warmPaper
+      });
+      this.add.zone(724, y + 12, 260, 38).setInteractive({ useHandCursor: true }).on('pointerup', () => this.activate(index));
+      return text;
     });
-    this.add.zone(724, 388, 220, 42).setInteractive({ useHandCursor: true }).on('pointerup', () => this.scene.start(SceneKey.ArtLab));
-    this.add.zone(724, 432, 220, 42).setInteractive({ useHandCursor: true }).on('pointerup', () => this.scene.start(SceneKey.ArtLab, { state: 'neutral' }));
+    this.renderMenu();
 
-    this.add.text(58, 504, 'Gate B v1 rejected. Gate B v2 approved on 2026-06-27.', {
+    const save = SaveSystem.load();
+    this.add.text(58, 504, `Gate B v2 frozen. Stage1 best: ${save.stage1.bestTimeMs ? `${Math.floor(save.stage1.bestTimeMs / 1000)}s` : '--'}`, {
       fontFamily: 'Consolas, monospace',
       fontSize: '13px',
       color: PaletteHex.paleMoonMist
+    });
+  }
+
+  private bindInput(): void {
+    const keyboard = this.input.keyboard;
+    if (!keyboard) return;
+    keyboard.removeAllListeners('keydown-UP');
+    keyboard.removeAllListeners('keydown-W');
+    keyboard.removeAllListeners('keydown-DOWN');
+    keyboard.removeAllListeners('keydown-S');
+    keyboard.removeAllListeners('keydown-ENTER');
+    keyboard.on('keydown-UP', () => this.move(-1));
+    keyboard.on('keydown-W', () => this.move(-1));
+    keyboard.on('keydown-DOWN', () => this.move(1));
+    keyboard.on('keydown-S', () => this.move(1));
+    keyboard.on('keydown-ENTER', () => this.activate(this.selected));
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      keyboard.removeAllListeners('keydown-UP');
+      keyboard.removeAllListeners('keydown-W');
+      keyboard.removeAllListeners('keydown-DOWN');
+      keyboard.removeAllListeners('keydown-S');
+      keyboard.removeAllListeners('keydown-ENTER');
+    });
+  }
+
+  private move(delta: number): void {
+    this.selected = (this.selected + this.menuItems.length + delta) % this.menuItems.length;
+    this.renderMenu();
+  }
+
+  private activate(index: number): void {
+    const item = this.menuItems[index];
+    this.scene.start(item.scene, item.data);
+  }
+
+  private renderMenu(): void {
+    this.menuTexts.forEach((text, index) => {
+      text.setColor(index === this.selected ? PaletteHex.neonCyan : PaletteHex.warmPaper);
+      text.setText(`${index === this.selected ? '>' : ' '} ${this.menuItems[index].label}`);
     });
   }
 
@@ -104,5 +173,6 @@ export class TitleScene extends Phaser.Scene {
     };
 
     window.__NEON_RONIN_ART_LOCK__ = state;
+    window.__NEON_RONIN_STAGE1_MENU__ = { scene: 'TitleScene' };
   }
 }

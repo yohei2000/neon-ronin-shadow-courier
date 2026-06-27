@@ -1,6 +1,6 @@
-# Neon Ronin: Shadow Courier - Gate B v2 Art Lock
+# Neon Ronin: Shadow Courier - Stage 1
 
-This repository is an Art Lock build, not a complete Stage 1 campaign.
+This repository contains the playable Stage 1 vertical slice, `Neon Alley: First Delivery`, built on the frozen Gate B v2 art assets.
 
 Gate B v1 has been rejected as structurally complete but visually below product level. Gate B v2 replaces the final art path with native image-generated source assets while preserving the useful QA infrastructure.
 
@@ -22,13 +22,16 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 
 ## Runtime
 
-- Default route: image-generated Gate B v2 title screen.
+- Default route: title screen with `START STAGE 1`, controls, settings, credits/about, and Art Lab access.
+- Stage flow: `TitleScene -> Stage1Scene -> StageClearScene`.
 - Art Lab route: `?scene=artlab&state=neutral`
 - Mobile controls review: `?scene=artlab&state=mobile-controls`
 - Approved production assets: `src/assets/approved-art/`
 - Approved runtime manifest: `src/data/approvedArtManifest.ts`
 
-Runtime states include `busy`, `player-motion`, `player-contrast`, `player-scale`, `enemy`, `kite-wraith`, `warden-telegraph`, `slash`, `parallax`, `sign-density`, `ui-desktop`, `ui-mobile`, `lighting-moonlight`, `lighting-neon`, `lighting-warm`, `high-contrast`, `reduced-fx`, and `grayscale`.
+Stage 1 includes 10 named sections, checkpoints, exactly 3 hidden scrolls, 24 seal pickups, health/energy pickups, hazards, Ink Crawler and Kite Wraith encounters, a Lantern Warden miniboss, Moon Gate clear, settings, save data, pause, retry checkpoint, and mobile virtual controls.
+
+Art Lab runtime states remain available for visual review: `busy`, `player-motion`, `player-contrast`, `player-scale`, `enemy`, `kite-wraith`, `warden-telegraph`, `slash`, `parallax`, `sign-density`, `ui-desktop`, `ui-mobile`, `lighting-moonlight`, `lighting-neon`, `lighting-warm`, `high-contrast`, `reduced-fx`, and `grayscale`.
 
 ## Commands
 
@@ -38,6 +41,11 @@ Use `npm.cmd` on Windows PowerShell.
 npm.cmd run typecheck
 npm.cmd run test
 npm.cmd run build
+npm.cmd run qa:stage1
+npm.cmd run qa:assets-stage1
+npm.cmd run e2e
+npm.cmd run qa:screenshots-stage1
+npm.cmd run qa:all-stage1
 npm.cmd run art:refs
 npm.cmd run art:generate
 npm.cmd run art:process
@@ -67,6 +75,9 @@ After Gate B v2 freeze, do not regenerate core art for normal Stage1 work. Use `
 - `art/approvals/GATE_B_V2_SCREENSHOT_LINKS.md`
 - `art/approvals/GATE_B_V2_HUMAN_CHECKLIST.md`
 - `ART_LOCK_FREEZE.md`
+- `artifacts/stage1/stage1-acceptance-report.md`
+- `artifacts/stage1/e2e-report.json`
+- `artifacts/stage1/console-report.json`
 - `art/generated/GENERATION_LOG.md`
 - `art/final-v2/title-desktop.png`
 - `art/final-v2/title-mobile.png`
@@ -87,6 +98,6 @@ The reference package is user-provided specification material and is not runtime
 
 ## Known Limitations
 
-- This remains an Art Lock package, not the five-stage game.
-- Some generated sprite sheets still need future alpha/cutout cleanup before Stage 1 gameplay integration.
-- Stage 1 integration should use the approved Gate B v2 visual system.
+- Scope is intentionally Stage 1 only. Stage 2+, world map, final boss, dash, projectile, charged slash, and ultimate systems are not implemented.
+- Lantern Warden is a Stage 1 miniboss, not the campaign final boss.
+- Core art is frozen; future art changes require a new explicit art-change gate.

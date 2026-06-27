@@ -68,5 +68,23 @@ export class PreloadScene extends Phaser.Scene {
         repeat: config.repeat
       });
     }
+
+    this.createAnimation('ink-crawler-patrol', ArtAssetKey.Enemy, 0, 3, 8, -1);
+    this.createAnimation('warden-idle', ArtAssetKey.LanternWarden, 0, 1, 5, -1);
+    this.createAnimation('warden-telegraph', ArtAssetKey.LanternWarden, 2, 3, 7, -1);
+    this.createAnimation('warden-attack', ArtAssetKey.LanternWarden, 4, 5, 10, -1);
+    this.createAnimation('warden-recovery', ArtAssetKey.LanternWarden, 6, 6, 6, -1);
+    this.createAnimation('warden-defeat', ArtAssetKey.LanternWarden, 7, 7, 6, 0);
+    this.createAnimation('slash-arc', ArtAssetKey.Slash, 0, 7, 18, 0);
+  }
+
+  private createAnimation(key: string, assetKey: ArtAssetKey, start: number, end: number, frameRate: number, repeat: number): void {
+    if (this.anims.exists(key)) return;
+    this.anims.create({
+      key,
+      frames: this.anims.generateFrameNumbers(assetKey, { start, end }),
+      frameRate,
+      repeat
+    });
   }
 }

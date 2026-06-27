@@ -6,6 +6,8 @@ await startVitest('test', [], {
   run: true,
   watch: false,
   dir: 'tests',
+  include: ['**/*.test.ts'],
+  exclude: ['tests/e2e/**', 'node_modules/**'],
   environment: 'node'
 });
 
