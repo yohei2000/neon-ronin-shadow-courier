@@ -111,12 +111,19 @@ const captureRoute = async (page) => {
     if (player.x > lastProgressX + 6) {
       lastProgressX = player.x;
       lastProgressAt = now;
-    } else if (now - lastProgressAt > 2200 && (player.x < 1700 || current.wardenDefeated)) {
+    } else if (now - lastProgressAt > 2200 && (player.x < 1700 || (player.x > 4200 && player.x < 5050) || current.wardenDefeated)) {
       await releaseMovementKeys(page);
+      if (player.x > 4200 && player.x < 5050 && !current.wardenDefeated) {
+        await page.keyboard.down('ArrowLeft');
+        await page.keyboard.down('a');
+        await page.waitForTimeout(220);
+        await page.keyboard.up('ArrowLeft');
+        await page.keyboard.up('a');
+      }
       await setRight(true);
       lastProgressAt = now;
       lastJump = now;
-      await jump(page, current.wardenDefeated ? 120 : 240);
+      await jump(page, player.x > 4200 && player.x < 5050 ? 300 : current.wardenDefeated ? 120 : 240);
       continue;
     }
 
@@ -134,16 +141,16 @@ const captureRoute = async (page) => {
       continue;
     }
 
+    const inThornRun = player.x > 4240 && player.x < 4940;
     if (
       ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
         (player.x > 2040 && player.x < 2305) ||
         (player.x > 4080 && player.x < 4385) ||
-        (player.x > 4440 && player.x < 4760) ||
-        (player.x > 4760 && player.x < 4895)) &&
-      now - lastJump > 360
+        (inThornRun && player.y > 255)) &&
+      now - lastJump > (inThornRun ? 240 : 360)
     ) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : player.x > 4000 ? 180 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? 260 : player.x > 4000 ? 180 : 110);
     }
     if (
       ((player.x > 760 && player.x < 1060) ||
