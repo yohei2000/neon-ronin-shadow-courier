@@ -76,6 +76,11 @@ const jump = async (page, holdMs = 95) => {
   await page.waitForTimeout(holdMs);
   await page.keyboard.up('Space');
 };
+const releaseMovementKeys = async (page) => {
+  await page.keyboard.up('ArrowLeft');
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.up('Space');
+};
 const slash = async (page) => page.keyboard.press('J');
 const gamePoint = async (page, x, y) => {
   const rect = await page.locator('canvas').boundingBox();
@@ -91,10 +96,21 @@ const runKeyboardRouteToClear = async (page) => {
   let lastJump = 0;
   let lastSlash = 0;
   let lastShaftRecovery = 0;
+  let lastRightRefresh = 0;
+  let lastProgressX = 0;
+  let lastProgressAt = Date.now();
   const setRight = async (down) => {
+    const now = Date.now();
     rightDown = down;
-    if (down) await page.keyboard.down('ArrowRight');
-    else await page.keyboard.up('ArrowRight');
+    if (down) {
+      if (now - lastRightRefresh > 650) {
+        await page.keyboard.up('ArrowRight');
+        lastRightRefresh = now;
+      }
+      await page.keyboard.down('ArrowRight');
+    } else {
+      await page.keyboard.up('ArrowRight');
+    }
   };
   await setRight(true);
   while (Date.now() - started < 115000) {
@@ -112,6 +128,18 @@ const runKeyboardRouteToClear = async (page) => {
     else await setRight(true);
 
     const now = Date.now();
+    if (player.x > lastProgressX + 6) {
+      lastProgressX = player.x;
+      lastProgressAt = now;
+    } else if (player.x < 1700 && now - lastProgressAt > 2200) {
+      await releaseMovementKeys(page);
+      await setRight(true);
+      lastProgressAt = now;
+      lastJump = now;
+      await jump(page, 240);
+      continue;
+    }
+
     if (player.x > 1080 && player.x < 1190 && player.y > 380 && now - lastShaftRecovery > 1400) {
       lastShaftRecovery = now;
       await setRight(false);
@@ -223,10 +251,29 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.keyboard.down('ArrowRight');
     let lastJump = 0;
     let lastShaftRecovery = 0;
+    let lastRightRefresh = Date.now();
+    let lastProgressX = 0;
+    let lastProgressAt = Date.now();
     for (let i = 0; i < 1000; i += 1) {
       const current = await state(page);
       const player = current.player;
       if (player && player.x > 3600 && current.checkpointCount >= 3) break;
+      if (Date.now() - lastRightRefresh > 650) {
+        await page.keyboard.up('ArrowRight');
+        await page.keyboard.down('ArrowRight');
+        lastRightRefresh = Date.now();
+      }
+      if (player && player.x > lastProgressX + 6) {
+        lastProgressX = player.x;
+        lastProgressAt = Date.now();
+      } else if (player && player.x < 1700 && Date.now() - lastProgressAt > 2200) {
+        await releaseMovementKeys(page);
+        await page.keyboard.down('ArrowRight');
+        lastRightRefresh = Date.now();
+        lastProgressAt = Date.now();
+        lastJump = Date.now();
+        await jump(page, 240);
+      }
       if (player && player.x > 1080 && player.x < 1190 && player.y > 380 && Date.now() - lastShaftRecovery > 1400) {
         lastShaftRecovery = Date.now();
         await page.keyboard.up('ArrowRight');

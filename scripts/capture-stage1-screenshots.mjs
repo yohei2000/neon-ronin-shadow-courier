@@ -35,6 +35,11 @@ const jump = async (page, holdMs = 95) => {
   await page.waitForTimeout(holdMs);
   await page.keyboard.up('Space');
 };
+const releaseMovementKeys = async (page) => {
+  await page.keyboard.up('ArrowLeft');
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.up('Space');
+};
 const slash = async (page) => page.keyboard.press('J');
 const startStage1 = async (page) => {
   await page.goto(baseUrl);
@@ -57,10 +62,21 @@ const captureRoute = async (page) => {
   let lastJump = 0;
   let lastSlash = 0;
   let lastShaftRecovery = 0;
+  let lastRightRefresh = 0;
+  let lastProgressX = 0;
+  let lastProgressAt = Date.now();
   const setRight = async (down) => {
+    const now = Date.now();
     rightDown = down;
-    if (down) await page.keyboard.down('ArrowRight');
-    else await page.keyboard.up('ArrowRight');
+    if (down) {
+      if (now - lastRightRefresh > 650) {
+        await page.keyboard.up('ArrowRight');
+        lastRightRefresh = now;
+      }
+      await page.keyboard.down('ArrowRight');
+    } else {
+      await page.keyboard.up('ArrowRight');
+    }
   };
 
   await setRight(true);
@@ -87,6 +103,18 @@ const captureRoute = async (page) => {
     else await setRight(true);
 
     const now = Date.now();
+    if (player.x > lastProgressX + 6) {
+      lastProgressX = player.x;
+      lastProgressAt = now;
+    } else if (player.x < 1700 && now - lastProgressAt > 2200) {
+      await releaseMovementKeys(page);
+      await setRight(true);
+      lastProgressAt = now;
+      lastJump = now;
+      await jump(page, 240);
+      continue;
+    }
+
     if (player.x > 1080 && player.x < 1190 && player.y > 380 && now - lastShaftRecovery > 1400) {
       lastShaftRecovery = now;
       await setRight(false);
