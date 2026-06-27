@@ -90,3 +90,5 @@ npm.cmd run qa:all-stage1
 Gate B v2 is approved and frozen. Stage1 integration must consume the approved asset manifest rather than direct `art/final-v2/assets/` paths.
 
 Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flow `TitleScene -> Stage1Scene -> StageClearScene`. Deterministic `ArtLabScene` review states remain available via `?scene=artlab&state=...`.
+
+Player runtime visual note: until a true hand-authored animation atlas is approved, the Stage1 player body uses the approved `player-master` texture as one display object with transform-only poses. Do not re-enable the generated `player-spritesheet` for the player body, because its generated contact-sheet layout can expose adjacent poses and make the character appear split.

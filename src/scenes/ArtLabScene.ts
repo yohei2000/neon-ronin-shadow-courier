@@ -173,13 +173,21 @@ export class ArtLabScene extends Phaser.Scene {
   }
 
   private drawPlayerMotionStation(): void {
-    const anims = ['idle', 'run', 'jumpRise', 'wallSlide', 'groundSlash'];
-    anims.forEach((anim, index) => {
-      const sprite = this.add.sprite(150 + index * 170, 330, ArtAssetKey.Player, index * 6).setScale(0.9);
-      sprite.play(`player-${anim}`);
-      this.label(112 + index * 170, 436, anim);
+    const poses = [
+      { label: 'idle', angle: 0, scaleX: 0.26, scaleY: 0.26, y: 328 },
+      { label: 'run', angle: -3, scaleX: 0.28, scaleY: 0.24, y: 330 },
+      { label: 'jump', angle: -8, scaleX: 0.25, scaleY: 0.27, y: 316 },
+      { label: 'wall', angle: 8, scaleX: 0.24, scaleY: 0.27, y: 326 },
+      { label: 'slash', angle: -5, scaleX: 0.29, scaleY: 0.24, y: 330 }
+    ];
+    poses.forEach((pose, index) => {
+      this.add
+        .image(150 + index * 170, pose.y, ArtAssetKey.PlayerMaster)
+        .setScale(pose.scaleX, pose.scaleY)
+        .setAngle(pose.angle);
+      this.label(112 + index * 170, 436, pose.label);
     });
-    this.caption('Animation station: stable origin and consistent scarf/satchel across core player states.');
+    this.caption('Motion station: runtime player uses one approved master image with transform-only poses, so the character never splits across frames.');
   }
 
   private drawPlayerContrastStation(): void {
@@ -187,16 +195,16 @@ export class ArtLabScene extends Phaser.Scene {
     fills.forEach((fill, index) => {
       const x = 56 + index * 176;
       this.add.rectangle(x + 70, 258, 138, 276, Number.parseInt(fill.slice(1), 16)).setStrokeStyle(1, Palette.neutralGray, 0.55);
-      this.add.sprite(x + 70, 310, ArtAssetKey.Player, index % 2 ? 7 : 0).setScale(0.86);
+      this.add.image(x + 70, 310, ArtAssetKey.PlayerMaster).setScale(0.25).setAngle(index % 2 ? -3 : 0);
       this.label(x + 20, 416, `contrast ${index + 1}`);
     });
     this.caption('Contrast station: player survives white, gray, dark-blue, black, and mixed backgrounds.');
   }
 
   private drawPlayerScaleStation(): void {
-    this.add.sprite(280, 320, ArtAssetKey.Player, 0).setScale(0.72);
-    this.add.sprite(470, 334, ArtAssetKey.Player, 8).setScale(0.54);
-    this.add.sprite(624, 348, ArtAssetKey.Player, 30).setScale(0.36);
+    this.add.image(280, 320, ArtAssetKey.PlayerMaster).setScale(0.27);
+    this.add.image(470, 334, ArtAssetKey.PlayerMaster).setScale(0.20);
+    this.add.image(624, 348, ArtAssetKey.PlayerMaster).setScale(0.15);
     this.label(250, 420, '64px');
     this.label(444, 420, '48px');
     this.label(602, 420, '32px');
@@ -284,7 +292,7 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawGrayscaleStation(): void {
     this.add.image(480, 292, ArtAssetKey.TitleComposition).setAlpha(0.78).setTint(0xb8b8b8);
-    this.add.sprite(320, 360, ArtAssetKey.Player, 0).setScale(0.86).setTint(0xd0d0d0);
+    this.add.image(320, 360, ArtAssetKey.PlayerMaster).setScale(0.25).setTint(0xd0d0d0);
     this.add.sprite(576, 344, ArtAssetKey.Slash, 3).setScale(0.72).setTint(0xc0c0c0);
     this.caption('Grayscale review mode: value separation remains readable without relying on hue alone.');
   }

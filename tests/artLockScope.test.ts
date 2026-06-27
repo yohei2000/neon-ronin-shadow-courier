@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ApprovedArtManifest } from '../src/data/approvedArtManifest';
+import { ArtAssetKey, RuntimePlayerVisualConfig } from '../src/data/artAssets';
 import { GateAEvidenceFiles, GateAApprovalStatus, GateBApprovalStatus, ReferenceIds } from '../src/data/artLockGate';
 
 describe('Art Lock scope', () => {
@@ -60,5 +61,10 @@ describe('Art Lock scope', () => {
       expect(fs.existsSync(path.resolve(entry.approvedSourcePath))).toBe(true);
       expect(fs.existsSync(path.resolve(entry.lineagePath))).toBe(true);
     }
+  });
+
+  it('keeps the runtime player body on one approved master texture', () => {
+    expect(RuntimePlayerVisualConfig.textureKey).toBe(ArtAssetKey.PlayerMaster);
+    expect(RuntimePlayerVisualConfig.textureKey).not.toBe(ArtAssetKey.Player);
   });
 });

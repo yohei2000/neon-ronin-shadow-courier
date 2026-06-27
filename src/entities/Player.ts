@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { Palette } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { ArtAssetKey, RuntimePlayerVisualConfig } from '../data/artAssets';
 import { Stage1Data, Stage1Tuning, type Stage1Platform } from '../data/stage1';
 import type { Stage1InputSnapshot } from '../systems/InputSystem';
 import { centerRect, clamp, rectsOverlap, type MutableRect } from '../systems/geometry';
@@ -20,8 +20,22 @@ export type PlayerRuntimeState = {
   readonly damageTaken: number;
 };
 
+type PlayerVisualPose = 'idle' | 'run' | 'jumpRise' | 'fall' | 'wallSlide' | 'wallKick' | 'groundSlash' | 'airSlash' | 'hurt';
+
+const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly scaleX: number; readonly scaleY: number; readonly angle: number; readonly offsetY: number }> = {
+  idle: { scaleX: 1, scaleY: 1, angle: 0, offsetY: 0 },
+  run: { scaleX: 1.08, scaleY: 0.94, angle: -3, offsetY: 1 },
+  jumpRise: { scaleX: 0.98, scaleY: 1.06, angle: -8, offsetY: -4 },
+  fall: { scaleX: 1.02, scaleY: 0.98, angle: 6, offsetY: 2 },
+  wallSlide: { scaleX: 0.95, scaleY: 1.04, angle: 8, offsetY: 1 },
+  wallKick: { scaleX: 1.10, scaleY: 0.92, angle: -12, offsetY: -2 },
+  groundSlash: { scaleX: 1.12, scaleY: 0.92, angle: -5, offsetY: 1 },
+  airSlash: { scaleX: 1.08, scaleY: 0.96, angle: -10, offsetY: -2 },
+  hurt: { scaleX: 0.96, scaleY: 1.03, angle: 10, offsetY: 0 }
+};
+
 export class Player {
-  readonly sprite: Phaser.GameObjects.Sprite;
+  readonly sprite: Phaser.GameObjects.Image;
   private readonly slashSprite: Phaser.GameObjects.Sprite;
   private x: number;
   private y: number;
@@ -34,6 +48,7 @@ export class Player {
   private wallSliding = false;
   private lastGroundedMs = -Infinity;
   private lastJumpPressedMs = -Infinity;
+  private lastWallKickMs = -Infinity;
   private slashElapsedMs = -1;
   private invulnerableUntilMs = 0;
   private lastDamageMs = -Infinity;
@@ -48,9 +63,11 @@ export class Player {
     this.y = startY;
     this.respawnX = startX;
     this.respawnY = startY;
-    this.sprite = scene.add.sprite(this.x, this.y, ArtAssetKey.Player, 0).setScale(0.62).setDepth(30);
+    this.sprite = scene.add
+      .image(this.x, this.y, RuntimePlayerVisualConfig.textureKey)
+      .setScale(RuntimePlayerVisualConfig.scale)
+      .setDepth(30);
     this.slashSprite = scene.add.sprite(this.x, this.y, ArtAssetKey.Slash, 0).setScale(0.58).setDepth(31).setVisible(false);
-    this.sprite.play('player-idle');
   }
 
   update(input: Stage1InputSnapshot, platforms: readonly Stage1Platform[], nowMs: number, deltaMs: number, paused = false): SlashState {
@@ -75,7 +92,7 @@ export class Player {
         this.vx = wallDir * Stage1Tuning.wallKickX;
         this.vy = Stage1Tuning.wallKickY;
         this.facing = wallDir as -1 | 1;
-        this.sprite.play('player-wallKick', true);
+        this.lastWallKickMs = nowMs;
       } else {
         this.vy = Stage1Tuning.jumpVelocity;
       }
@@ -112,7 +129,6 @@ export class Player {
 
     if (input.attackPressed && this.slashElapsedMs < 0) {
       this.slashElapsedMs = 0;
-      this.sprite.play(this.onGround ? 'player-groundSlash' : 'player-airSlash', true);
     }
 
     let slash = CombatSystem.buildSlashState(this.x, this.y, this.facing, -1);
@@ -169,7 +185,6 @@ export class Player {
     this.damageTaken += amount;
     this.lastDamageMs = nowMs;
     this.invulnerableUntilMs = nowMs + Stage1Tuning.invulnerabilityMs;
-    this.sprite.play('player-hurt', true);
     this.vx = source === 'fall' ? 0 : source === 'hazard' ? this.facing * 180 : -this.facing * 190;
     this.vy = source === 'hazard' ? -330 : Math.min(this.vy, -240);
     return true;
@@ -244,17 +259,23 @@ export class Player {
   }
 
   private syncVisuals(slash: SlashState | null): void {
-    this.sprite.setPosition(this.x, this.y);
-    this.sprite.setFlipX(this.facing < 0);
-    this.sprite.setAlpha(this.scene.time.now < this.invulnerableUntilMs && Math.floor(this.scene.time.now / 90) % 2 === 0 ? 0.58 : 1);
+    const nowMs = this.scene.time.now;
+    const pose = this.resolveVisualPose(nowMs);
+    const transform = PlayerPoseTransforms[pose];
+    const baseScale = RuntimePlayerVisualConfig.scale;
+    const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.7 : 0;
 
-    if (this.slashElapsedMs < 0) {
-      if (this.wallSliding) this.sprite.play('player-wallSlide', true);
-      else if (!this.onGround && this.vy < -40) this.sprite.play('player-jumpRise', true);
-      else if (!this.onGround) this.sprite.play('player-fall', true);
-      else if (Math.abs(this.vx) > 18) this.sprite.play('player-run', true);
-      else this.sprite.play('player-idle', true);
+    this.sprite.setPosition(this.x, this.y + transform.offsetY + motionBob);
+    this.sprite.setFlipX(this.facing < 0);
+    this.sprite.setScale(baseScale * transform.scaleX, baseScale * transform.scaleY);
+    this.sprite.setAngle(transform.angle * this.facing);
+
+    if (pose === 'hurt') {
+      this.sprite.setTint(Palette.dangerCoral);
+    } else {
+      this.sprite.clearTint();
     }
+    this.sprite.setAlpha(nowMs < this.invulnerableUntilMs && Math.floor(nowMs / 90) % 2 === 0 ? 0.64 : 1);
 
     if (!slash || slash.phase === 'idle') {
       this.slashSprite.setVisible(false);
@@ -268,5 +289,16 @@ export class Player {
       .setAlpha(slash.phase === 'active' ? 0.95 : 0.48)
       .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
     this.slashSprite.play('slash-arc', true);
+  }
+
+  private resolveVisualPose(nowMs: number): PlayerVisualPose {
+    if (nowMs < this.invulnerableUntilMs && nowMs - this.lastDamageMs < 260) return 'hurt';
+    if (this.slashElapsedMs >= 0) return this.onGround ? 'groundSlash' : 'airSlash';
+    if (nowMs - this.lastWallKickMs < 180) return 'wallKick';
+    if (this.wallSliding) return 'wallSlide';
+    if (!this.onGround && this.vy < -40) return 'jumpRise';
+    if (!this.onGround) return 'fall';
+    if (Math.abs(this.vx) > 18) return 'run';
+    return 'idle';
   }
 }

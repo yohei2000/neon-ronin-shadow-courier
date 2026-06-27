@@ -70,4 +70,9 @@ export const PlayerAnimationFrames = {
   checkpointRespawn: { start: 46, frames: 6, frameRate: 10, repeat: -1 }
 } as const;
 
+export const RuntimePlayerVisualConfig = {
+  textureKey: ArtAssetKey.PlayerMaster,
+  scale: 0.24
+} as const;
+
 export const RuntimeAssetKeys = Object.values(ArtAssetKey);
