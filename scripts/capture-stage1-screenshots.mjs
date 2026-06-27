@@ -56,6 +56,7 @@ const captureRoute = async (page) => {
   let rightDown = false;
   let lastJump = 0;
   let lastSlash = 0;
+  let lastShaftRecovery = 0;
   const setRight = async (down) => {
     rightDown = down;
     if (down) await page.keyboard.down('ArrowRight');
@@ -86,6 +87,18 @@ const captureRoute = async (page) => {
     else await setRight(true);
 
     const now = Date.now();
+    if (player.x > 1080 && player.x < 1190 && player.y > 380 && now - lastShaftRecovery > 1400) {
+      lastShaftRecovery = now;
+      await setRight(false);
+      await page.keyboard.down('ArrowLeft');
+      await page.waitForTimeout(220);
+      await page.keyboard.up('ArrowLeft');
+      await setRight(true);
+      lastJump = Date.now();
+      await jump(page, 260);
+      continue;
+    }
+
     if (
       ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
         (player.x > 2040 && player.x < 2305) ||

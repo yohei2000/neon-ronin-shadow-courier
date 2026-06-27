@@ -90,6 +90,7 @@ const runKeyboardRouteToClear = async (page) => {
   let rightDown = false;
   let lastJump = 0;
   let lastSlash = 0;
+  let lastShaftRecovery = 0;
   const setRight = async (down) => {
     rightDown = down;
     if (down) await page.keyboard.down('ArrowRight');
@@ -111,6 +112,18 @@ const runKeyboardRouteToClear = async (page) => {
     else await setRight(true);
 
     const now = Date.now();
+    if (player.x > 1080 && player.x < 1190 && player.y > 380 && now - lastShaftRecovery > 1400) {
+      lastShaftRecovery = now;
+      await setRight(false);
+      await page.keyboard.down('ArrowLeft');
+      await page.waitForTimeout(220);
+      await page.keyboard.up('ArrowLeft');
+      await setRight(true);
+      lastJump = Date.now();
+      await jump(page, 260);
+      continue;
+    }
+
     const jumpNow =
       (player.x > 1030 && player.x < 1720 && player.y > 255) ||
       (player.x > 2040 && player.x < 2305) ||
@@ -209,10 +222,21 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await startStage1(page);
     await page.keyboard.down('ArrowRight');
     let lastJump = 0;
+    let lastShaftRecovery = 0;
     for (let i = 0; i < 1000; i += 1) {
       const current = await state(page);
       const player = current.player;
       if (player && player.x > 3600 && current.checkpointCount >= 3) break;
+      if (player && player.x > 1080 && player.x < 1190 && player.y > 380 && Date.now() - lastShaftRecovery > 1400) {
+        lastShaftRecovery = Date.now();
+        await page.keyboard.up('ArrowRight');
+        await page.keyboard.down('ArrowLeft');
+        await page.waitForTimeout(220);
+        await page.keyboard.up('ArrowLeft');
+        await page.keyboard.down('ArrowRight');
+        lastJump = Date.now();
+        await jump(page, 260);
+      }
       if (player && player.x > 1030 && player.x < 1720 && player.y > 255 && Date.now() - lastJump > 360) {
         lastJump = Date.now();
         await jump(page, player.x < 1240 ? 220 : 165);
