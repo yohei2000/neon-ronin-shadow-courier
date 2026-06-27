@@ -58,8 +58,8 @@ const captureRoute = async (page) => {
   let lastSlash = 0;
   const setRight = async (down) => {
     rightDown = down;
-    if (down) await page.keyboard.down('d');
-    else await page.keyboard.up('d');
+    if (down) await page.keyboard.down('ArrowRight');
+    else await page.keyboard.up('ArrowRight');
   };
 
   await setRight(true);

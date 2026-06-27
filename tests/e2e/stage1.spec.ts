@@ -51,8 +51,8 @@ const runKeyboardRouteToClear = async (page: Page) => {
 
   const setRight = async (down: boolean) => {
     rightDown = down;
-    if (down) await page.keyboard.down('d');
-    else await page.keyboard.up('d');
+    if (down) await page.keyboard.down('ArrowRight');
+    else await page.keyboard.up('ArrowRight');
   };
 
   await setRight(true);
@@ -179,7 +179,7 @@ test.describe('Stage1 playable vertical slice', () => {
 
   test('checkpoint-retry', async ({ page }) => {
     await startStage1(page);
-    await page.keyboard.down('d');
+    await page.keyboard.down('ArrowRight');
     let lastJump = 0;
     for (let i = 0; i < 1000; i += 1) {
       const current = await state(page);
@@ -205,7 +205,7 @@ test.describe('Stage1 playable vertical slice', () => {
       if ((player?.damageTaken ?? 0) > damageBefore || (player?.x ?? 0) > 4350) break;
       await page.waitForTimeout(50);
     }
-    await page.keyboard.up('d');
+    await page.keyboard.up('ArrowRight');
     expect((await state(page)).player?.damageTaken).toBeGreaterThan(damageBefore);
     await page.keyboard.press('p');
     await page.keyboard.press('r');

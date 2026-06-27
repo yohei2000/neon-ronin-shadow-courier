@@ -92,8 +92,8 @@ const runKeyboardRouteToClear = async (page) => {
   let lastSlash = 0;
   const setRight = async (down) => {
     rightDown = down;
-    if (down) await page.keyboard.down('d');
-    else await page.keyboard.up('d');
+    if (down) await page.keyboard.down('ArrowRight');
+    else await page.keyboard.up('ArrowRight');
   };
   await setRight(true);
   while (Date.now() - started < 115000) {
@@ -207,7 +207,7 @@ if (shouldRun('mobile-controls')) await record('mobile-controls', () =>
 if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
   withPage(null, async (page) => {
     await startStage1(page);
-    await page.keyboard.down('d');
+    await page.keyboard.down('ArrowRight');
     let lastJump = 0;
     for (let i = 0; i < 1000; i += 1) {
       const current = await state(page);
@@ -232,7 +232,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 4350) break;
       await page.waitForTimeout(50);
     }
-    await page.keyboard.up('d');
+    await page.keyboard.up('ArrowRight');
     const damaged = await state(page);
     assert((damaged.player?.damageTaken ?? 0) > damageBefore, 'hazard damage did not trigger before retry');
     await page.keyboard.press('p');
