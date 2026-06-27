@@ -1,6 +1,6 @@
 # Art Lock Completion Audit
 
-Generated: 2026-06-27T00:45:01.136Z
+Generated: 2026-06-27T03:01:36.087Z
 
 Complete: yes
 
@@ -135,7 +135,8 @@ Blocking requirement: none
 - PASS revision-3-before-after.md: Revision round 3 contains before-after.md (art/reviews/gate-b-v2/round-03/before-after.md)
 - PASS no-reference-runtime-use: Runtime does not load the A-H specification sheets (src/scenes/TitleScene.ts, src/scenes/ArtLabScene.ts, src/scenes/PreloadScene.ts, src/data/artAssets.ts)
 - PASS authored-ui-assets: Title and mobile controls use authored runtime assets (src/scenes/TitleScene.ts, src/scenes/ArtLabScene.ts, src/scenes/PreloadScene.ts, src/data/artAssets.ts)
-- PASS no-legacy-stage1: Legacy Stage 1 runtime is absent from source tree (src/)
+- PASS no-legacy-stage1-json: Legacy Stage 1 JSON runtime is absent from source tree (src/data/stage1.json)
+- PASS stage1-acceptance-report: Playable Stage 1 acceptance report exists and has no failing requirement (artifacts/stage1/stage1-acceptance-report.md)
 - PASS png-title-desktop.png: Review PNG is non-empty and readable: art/final-v2/title-desktop.png (art/final-v2/title-desktop.png)
 - PASS png-title-mobile.png: Review PNG is non-empty and readable: art/final-v2/title-mobile.png (art/final-v2/title-mobile.png)
 - PASS png-artlab-busy.png: Review PNG is non-empty and readable: art/final-v2/artlab-busy.png (art/final-v2/artlab-busy.png)

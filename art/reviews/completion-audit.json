@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T00:45:01.136Z",
+  "generatedAt": "2026-06-27T03:01:36.087Z",
   "complete": true,
   "blockingRequirement": null,
   "errors": [],
@@ -824,9 +824,16 @@
       "status": "passed"
     },
     {
-      "id": "no-legacy-stage1",
-      "description": "Legacy Stage 1 runtime is absent from source tree",
-      "evidence": "src/",
+      "id": "no-legacy-stage1-json",
+      "description": "Legacy Stage 1 JSON runtime is absent from source tree",
+      "evidence": "src/data/stage1.json",
+      "achieved": true,
+      "status": "passed"
+    },
+    {
+      "id": "stage1-acceptance-report",
+      "description": "Playable Stage 1 acceptance report exists and has no failing requirement",
+      "evidence": "artifacts/stage1/stage1-acceptance-report.md",
       "achieved": true,
       "status": "passed"
     },

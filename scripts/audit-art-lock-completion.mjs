@@ -158,7 +158,15 @@ const runtimeFiles = [
 const runtimeText = (await Promise.all(runtimeFiles.map((file) => fs.readFile(path.join(rootDir, file), 'utf8')))).join('\n');
 await addRequirement('no-reference-runtime-use', 'Runtime does not load the A-H specification sheets', runtimeFiles.join(', '), !runtimeText.includes('art/references/neon_ronin_art_refs_impl_ready'));
 await addRequirement('authored-ui-assets', 'Title and mobile controls use authored runtime assets', runtimeFiles.join(', '), runtimeText.includes('TitleMenuPanel') && runtimeText.includes('MobileControlsKit'));
-await addRequirement('no-legacy-stage1', 'Legacy Stage 1 runtime is absent from source tree', 'src/', !(await exists('src/scenes/Stage1Scene.ts')) && !(await exists('src/data/stage1.json')));
+await addRequirement('no-legacy-stage1-json', 'Legacy Stage 1 JSON runtime is absent from source tree', 'src/data/stage1.json', !(await exists('src/data/stage1.json')));
+const stage1AcceptancePath = 'artifacts/stage1/stage1-acceptance-report.md';
+const stage1AcceptanceText = (await exists(stage1AcceptancePath)) ? await fs.readFile(path.join(rootDir, stage1AcceptancePath), 'utf8') : '';
+await addRequirement(
+  'stage1-acceptance-report',
+  'Playable Stage 1 acceptance report exists and has no failing requirement',
+  stage1AcceptancePath,
+  stage1AcceptanceText.includes('# Stage1 Acceptance Report') && !stage1AcceptanceText.includes('- FAIL ')
+);
 
 for (const file of ['art/final-v2/title-desktop.png', 'art/final-v2/title-mobile.png', 'art/final-v2/artlab-busy.png', 'art/final-v2/mobile-controls.png']) {
   const info = await readPngInfo(path.join(rootDir, file));
@@ -169,7 +177,7 @@ const complete = errors.length === 0 && gateBv2.status === 'approved' && gateBv2
 const audit = {
   generatedAt: new Date().toISOString(),
   complete,
-  blockingRequirement: complete ? null : 'Gate B v2 explicit human approval is still required.',
+  blockingRequirement: complete ? null : errors.length > 0 ? 'Non-human audit requirements failed.' : 'Gate B v2 explicit human approval is still required.',
   errors,
   requirements
 };
