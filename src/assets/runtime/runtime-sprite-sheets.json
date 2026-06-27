@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T15:05:12.246Z",
+  "generatedAt": "2026-06-27T23:39:03.939Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -10,6 +10,10 @@
       "height": 960,
       "frameWidth": 256,
       "frameHeight": 192,
+      "matteCleanup": {
+        "removed": 55864,
+        "darkened": 0
+      },
       "frames": [
         {
           "x": 48,
@@ -210,6 +214,10 @@
       "height": 288,
       "frameWidth": 192,
       "frameHeight": 144,
+      "matteCleanup": {
+        "removed": 12787,
+        "darkened": 0
+      },
       "frames": [
         {
           "x": 411,
@@ -277,6 +285,10 @@
       "height": 192,
       "frameWidth": 192,
       "frameHeight": 192,
+      "matteCleanup": {
+        "removed": 7397,
+        "darkened": 0
+      },
       "frames": [
         {
           "x": 0,
@@ -316,6 +328,10 @@
       "height": 160,
       "frameWidth": 192,
       "frameHeight": 160,
+      "matteCleanup": {
+        "removed": 0,
+        "darkened": 0
+      },
       "frames": [
         {
           "sourceFrame": 1,
@@ -355,6 +371,10 @@
       "height": 240,
       "frameWidth": 160,
       "frameHeight": 120,
+      "matteCleanup": {
+        "removed": 0,
+        "darkened": 0
+      },
       "frames": [
         {
           "x": 185,
@@ -402,6 +422,10 @@
       "height": 256,
       "frameWidth": 256,
       "frameHeight": 256,
+      "matteCleanup": {
+        "removed": 6261,
+        "darkened": 0
+      },
       "frames": [
         {
           "x": 51,

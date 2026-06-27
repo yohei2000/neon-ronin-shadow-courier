@@ -209,6 +209,100 @@ await fs.mkdir(runtimeDir, { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage();
 
+const matteCleanupSource = String.raw`
+  (canvas, frameWidth, frameHeight) => {
+    const context = canvas.getContext('2d', { willReadFrequently: true });
+    if (!context) throw new Error('2D canvas unavailable');
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const { data, width, height } = imageData;
+    let source = new Uint8ClampedArray(data);
+    let removed = 0;
+    let darkened = 0;
+
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    const offsetAt = (x, y) => (y * width + x) * 4;
+    const statsAt = (offset) => {
+      const red = source[offset];
+      const green = source[offset + 1];
+      const blue = source[offset + 2];
+      return {
+        red,
+        green,
+        blue,
+        alpha: source[offset + 3],
+        luma: (red + green + blue) / 3,
+        saturation: Math.max(red, green, blue) - Math.min(red, green, blue)
+      };
+    };
+    const frameBounds = (x, y) => ({
+      left: Math.floor(x / frameWidth) * frameWidth,
+      right: Math.min(width - 1, Math.floor(x / frameWidth) * frameWidth + frameWidth - 1),
+      top: Math.floor(y / frameHeight) * frameHeight,
+      bottom: Math.min(height - 1, Math.floor(y / frameHeight) * frameHeight + frameHeight - 1)
+    });
+    const hasTransparentNeighbor = (x, y, radius) => {
+      const bounds = frameBounds(x, y);
+      for (let dy = -radius; dy <= radius; dy += 1) {
+        for (let dx = -radius; dx <= radius; dx += 1) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx < bounds.left || nx > bounds.right || ny < bounds.top || ny > bounds.bottom) continue;
+          if (source[offsetAt(nx, ny) + 3] <= 10) return true;
+        }
+      }
+      return false;
+    };
+    const solidNeighborCount = (x, y) => {
+      const bounds = frameBounds(x, y);
+      let count = 0;
+      for (let dy = -1; dy <= 1; dy += 1) {
+        for (let dx = -1; dx <= 1; dx += 1) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx < bounds.left || nx > bounds.right || ny < bounds.top || ny > bounds.bottom) continue;
+          if (source[offsetAt(nx, ny) + 3] > 80) count += 1;
+        }
+      }
+      return count;
+    };
+
+    for (let pass = 0; pass < 2; pass += 1) {
+      source = new Uint8ClampedArray(data);
+      for (let y = 0; y < height; y += 1) {
+        for (let x = 0; x < width; x += 1) {
+          const offset = offsetAt(x, y);
+          const { alpha, luma, saturation } = statsAt(offset);
+          if (alpha <= 0) continue;
+
+          const boundary = hasTransparentNeighbor(x, y, 4);
+          const isolated = solidNeighborCount(x, y) <= 2;
+          const grayMatte = luma > 82 && saturation < 48;
+          const whiteMatte = luma > 152 && saturation < 70;
+          const palePaperEdge = luma > 124 && saturation < 42 && alpha < 220;
+          if (!((boundary && (grayMatte || whiteMatte || palePaperEdge)) || (isolated && whiteMatte))) continue;
+
+          if (boundary || luma > 168 || alpha < 170 || isolated) {
+            data[offset + 3] = 0;
+            removed += 1;
+            continue;
+          }
+
+          data[offset] = Math.floor(data[offset] * 0.34);
+          data[offset + 1] = Math.floor(data[offset + 1] * 0.34);
+          data[offset + 2] = Math.floor(data[offset + 2] * 0.34);
+          data[offset + 3] = clamp(Math.floor(alpha * 0.64), 0, 190);
+          darkened += 1;
+        }
+      }
+    }
+
+    context.putImageData(imageData, 0, 0);
+    return { removed, darkened };
+  }
+`;
+
 const results = [];
 try {
   for (const spec of sheetSpecs) {
@@ -216,7 +310,8 @@ try {
     const outputPath = path.join(rootDir, spec.output);
     const bytes = await fs.readFile(sourcePath);
     const dataUrl = `data:image/png;base64,${bytes.toString('base64')}`;
-    const result = await page.evaluate(async ({ spec, dataUrl }) => {
+    const result = await page.evaluate(async ({ spec, dataUrl, matteCleanupSource }) => {
+      const cleanCharacterMatte = eval(matteCleanupSource);
       const image = await new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => resolve(img);
@@ -322,6 +417,7 @@ try {
           drawHeight
         );
       });
+      const matteCleanup = cleanCharacterMatte(targetCanvas, spec.frameWidth, spec.frameHeight);
 
       return {
         id: spec.id,
@@ -330,9 +426,10 @@ try {
         frameWidth: spec.frameWidth,
         frameHeight: spec.frameHeight,
         frames,
+        matteCleanup,
         dataUrl: targetCanvas.toDataURL('image/png')
       };
-    }, { spec, dataUrl });
+    }, { spec, dataUrl, matteCleanupSource });
 
     await fs.writeFile(outputPath, Buffer.from(result.dataUrl.replace(/^data:image\/png;base64,/, ''), 'base64'));
     results.push({
@@ -343,6 +440,7 @@ try {
       height: result.height,
       frameWidth: result.frameWidth,
       frameHeight: result.frameHeight,
+      matteCleanup: result.matteCleanup,
       frames: result.frames.map(({ x, y, width, height, pixels }) => ({ x, y, width, height, pixels }))
     });
   }
@@ -352,7 +450,8 @@ try {
     const outputPath = path.join(rootDir, spec.output);
     const bytes = await fs.readFile(sourcePath);
     const dataUrl = `data:image/png;base64,${bytes.toString('base64')}`;
-    const result = await page.evaluate(async ({ spec, dataUrl }) => {
+    const result = await page.evaluate(async ({ spec, dataUrl, matteCleanupSource }) => {
+      const cleanCharacterMatte = eval(matteCleanupSource);
       const image = await new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => resolve(img);
@@ -431,6 +530,9 @@ try {
           height: sourceHeight
         };
       });
+      const matteCleanup = spec.id === 'lantern-warden-runtime-spritesheet'
+        ? cleanCharacterMatte(targetCanvas, spec.frameWidth, spec.frameHeight)
+        : { removed: 0, darkened: 0 };
 
       return {
         id: spec.id,
@@ -439,9 +541,10 @@ try {
         frameWidth: spec.frameWidth,
         frameHeight: spec.frameHeight,
         frames,
+        matteCleanup,
         dataUrl: targetCanvas.toDataURL('image/png')
       };
-    }, { spec, dataUrl });
+    }, { spec, dataUrl, matteCleanupSource });
 
     await fs.writeFile(outputPath, Buffer.from(result.dataUrl.replace(/^data:image\/png;base64,/, ''), 'base64'));
     results.push({
@@ -452,6 +555,7 @@ try {
       height: result.height,
       frameWidth: result.frameWidth,
       frameHeight: result.frameHeight,
+      matteCleanup: result.matteCleanup,
       frames: result.frames
     });
   }

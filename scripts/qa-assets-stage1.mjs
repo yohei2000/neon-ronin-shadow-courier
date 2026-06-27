@@ -101,12 +101,12 @@ const copyChecks = productionMatches.map((productionPath, index) => {
 
 const auditRuntimeAssetPixels = async () => {
   const audits = [
-    { id: 'player-runtime-spritesheet', file: 'src/assets/runtime/player-runtime-spritesheet.png', frameWidth: 256, frameHeight: 192, maxEdgeRatio: 0.16, maxBeigeRatio: 0.02 },
-    { id: 'ink-crawler-runtime-spritesheet', file: 'src/assets/runtime/ink-crawler-runtime-spritesheet.png', frameWidth: 192, frameHeight: 144, maxEdgeRatio: 0.16, maxBeigeRatio: 0.02 },
-    { id: 'kite-wraith-runtime-spritesheet', file: 'src/assets/runtime/kite-wraith-runtime-spritesheet.png', frameWidth: 192, frameHeight: 192, maxEdgeRatio: 0.16, maxBeigeRatio: 0.02 },
+    { id: 'player-runtime-spritesheet', file: 'src/assets/runtime/player-runtime-spritesheet.png', frameWidth: 256, frameHeight: 192, maxEdgeRatio: 0.16, maxBeigeRatio: 0.02, maxHaloRatio: 0.012 },
+    { id: 'ink-crawler-runtime-spritesheet', file: 'src/assets/runtime/ink-crawler-runtime-spritesheet.png', frameWidth: 192, frameHeight: 144, maxEdgeRatio: 0.16, maxBeigeRatio: 0.02, maxHaloRatio: 0.012 },
+    { id: 'kite-wraith-runtime-spritesheet', file: 'src/assets/runtime/kite-wraith-runtime-spritesheet.png', frameWidth: 192, frameHeight: 192, maxEdgeRatio: 0.16, maxBeigeRatio: 0.02, maxHaloRatio: 0.012 },
     { id: 'slash-runtime-spritesheet', file: 'src/assets/runtime/slash-runtime-spritesheet.png', frameWidth: 192, frameHeight: 160, maxEdgeRatio: 0.18, maxBeigeRatio: 0.02 },
     { id: 'telegraph-runtime-spritesheet', file: 'src/assets/runtime/telegraph-runtime-spritesheet.png', frameWidth: 160, frameHeight: 120, maxEdgeRatio: 0.18, maxBeigeRatio: 0.02 },
-    { id: 'lantern-warden-runtime-spritesheet', file: 'src/assets/runtime/lantern-warden-runtime-spritesheet.png', frameWidth: 256, frameHeight: 256, maxEdgeRatio: 0.18, maxBeigeRatio: 0.02 },
+    { id: 'lantern-warden-runtime-spritesheet', file: 'src/assets/runtime/lantern-warden-runtime-spritesheet.png', frameWidth: 256, frameHeight: 256, maxEdgeRatio: 0.18, maxBeigeRatio: 0.02, maxHaloRatio: 0.012 },
     ...requiredRuntimeEnvironmentKeys.map((id) => ({
       id,
       file: `src/assets/runtime/${id}.png`,
@@ -155,6 +155,20 @@ const auditRuntimeAssetPixels = async () => {
             let lumaSum = 0;
             let edgeOpaque = 0;
             let edgeSamples = 0;
+            let halo = 0;
+            const hasTransparentNeighbor = (px, py) => {
+              for (let dy = -2; dy <= 2; dy += 1) {
+                for (let dx = -2; dx <= 2; dx += 1) {
+                  if (dx === 0 && dy === 0) continue;
+                  const nx = px + dx;
+                  const ny = py + dy;
+                  if (nx < 0 || nx >= frameWidth || ny < 0 || ny >= frameHeight) continue;
+                  const neighbor = ((top + ny) * width + left + nx) * 4;
+                  if (data[neighbor + 3] <= 10) return true;
+                }
+              }
+              return false;
+            };
             for (let y = 0; y < frameHeight; y += 1) {
               for (let x = 0; x < frameWidth; x += 1) {
                 const pixel = ((top + y) * width + left + x) * 4;
@@ -168,6 +182,7 @@ const auditRuntimeAssetPixels = async () => {
                   opaque += 1;
                   lumaSum += luma;
                   if (luma > 180 && saturation < 42) beige += 1;
+                  if (audit.maxHaloRatio && luma > 145 && saturation < 42 && hasTransparentNeighbor(x, y)) halo += 1;
                 }
                 const onEdge = x < edgeBand || x >= frameWidth - edgeBand || y < edgeBand || y >= frameHeight - edgeBand;
                 if (onEdge) {
@@ -181,6 +196,7 @@ const auditRuntimeAssetPixels = async () => {
               index: row * columns + column,
               opaqueRatio: opaque / area,
               beigeRatio: opaque ? beige / opaque : 0,
+              haloRatio: opaque ? halo / opaque : 0,
               edgeRatio: edgeSamples ? edgeOpaque / edgeSamples : 0,
               averageLuma: opaque ? lumaSum / opaque : 0
             });
@@ -192,12 +208,14 @@ const auditRuntimeAssetPixels = async () => {
       const activeFrames = result.frames.filter((frame) => frame.opaqueRatio > 0.002);
       const maxEdgeRatio = Math.max(0, ...activeFrames.map((frame) => frame.edgeRatio));
       const maxBeigeRatio = Math.max(0, ...activeFrames.map((frame) => frame.beigeRatio));
+      const maxHaloRatio = Math.max(0, ...activeFrames.map((frame) => frame.haloRatio));
       const maxAverageLuma = Math.max(0, ...activeFrames.map((frame) => frame.averageLuma));
       const minOpaqueRatio = Math.min(...activeFrames.map((frame) => frame.opaqueRatio));
       const passed =
         activeFrames.length > 0 &&
         (!audit.maxEdgeRatio || maxEdgeRatio <= audit.maxEdgeRatio) &&
         maxBeigeRatio <= audit.maxBeigeRatio &&
+        (!audit.maxHaloRatio || maxHaloRatio <= audit.maxHaloRatio) &&
         (!audit.maxAverageLuma || maxAverageLuma <= audit.maxAverageLuma) &&
         (!audit.minOpaqueRatio || minOpaqueRatio >= audit.minOpaqueRatio);
       results.push({
@@ -207,6 +225,7 @@ const auditRuntimeAssetPixels = async () => {
         activeFrames: activeFrames.length,
         maxEdgeRatio,
         maxBeigeRatio,
+        maxHaloRatio,
         maxAverageLuma,
         minOpaqueRatio
       });

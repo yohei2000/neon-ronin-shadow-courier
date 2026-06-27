@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T23:11:55.661Z",
+  "generatedAt": "2026-06-27T23:41:39.301Z",
   "passed": true,
   "checks": [
     {
@@ -80,9 +80,10 @@
       "passed": true,
       "activeFrames": 27,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.014895057549085985,
-      "maxAverageLuma": 69.56929961765705,
-      "minOpaqueRatio": 0.15187581380208334
+      "maxBeigeRatio": 0.0003125488357555868,
+      "maxHaloRatio": 0.0005805274506551667,
+      "maxAverageLuma": 49.00474968286283,
+      "minOpaqueRatio": 0.1195068359375
     },
     {
       "id": "ink-crawler-runtime-spritesheet",
@@ -90,9 +91,10 @@
       "passed": true,
       "activeFrames": 8,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0036530756540183833,
-      "maxAverageLuma": 57.93094629156012,
-      "minOpaqueRatio": 0.17585358796296297
+      "maxBeigeRatio": 0,
+      "maxHaloRatio": 0.0005168849069607167,
+      "maxAverageLuma": 42.97330806286028,
+      "minOpaqueRatio": 0.15266927083333334
     },
     {
       "id": "kite-wraith-runtime-spritesheet",
@@ -100,9 +102,10 @@
       "passed": true,
       "activeFrames": 4,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0037992925455260056,
-      "maxAverageLuma": 67.83833355168336,
-      "minOpaqueRatio": 0.16908094618055555
+      "maxBeigeRatio": 0.0005866249511145874,
+      "maxHaloRatio": 0.0014895729890764648,
+      "maxAverageLuma": 53.16087388282,
+      "minOpaqueRatio": 0.1387261284722222
     },
     {
       "id": "slash-runtime-spritesheet",
@@ -111,6 +114,7 @@
       "activeFrames": 4,
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0.011353711790393014,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 129.782823871907,
       "minOpaqueRatio": 0.07197265625
     },
@@ -121,6 +125,7 @@
       "activeFrames": 6,
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 74.14909309851708,
       "minOpaqueRatio": 0.1496875
     },
@@ -130,9 +135,10 @@
       "passed": true,
       "activeFrames": 4,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0004956765985570303,
-      "maxAverageLuma": 50.64966679517563,
-      "minOpaqueRatio": 0.2601165771484375
+      "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 45.26959528421768,
+      "minOpaqueRatio": 0.2441864013671875
     },
     {
       "id": "stage1-bg-far",
@@ -141,6 +147,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 0.19383319750067915,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 38.1247663808474,
       "minOpaqueRatio": 0.8826475694444444
     },
@@ -151,6 +158,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 0.10927737027981527,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 44.71937217241108,
       "minOpaqueRatio": 0.37400752314814817
     },
@@ -161,6 +169,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 0.12428687856560718,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 32.41224474110604,
       "minOpaqueRatio": 0.4936033950617284
     },
@@ -171,6 +180,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 0.2319342569953817,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 24.030185094154852,
       "minOpaqueRatio": 0.2138724922839506
     },
@@ -181,6 +191,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 0.589174137462646,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 23.482490462469176,
       "minOpaqueRatio": 0.8884047067901235
     },
@@ -191,6 +202,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 1,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 37.050455729167275,
       "minOpaqueRatio": 1
     },
@@ -201,6 +213,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 1,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 31.746021412037326,
       "minOpaqueRatio": 1
     },
@@ -211,6 +224,7 @@
       "activeFrames": 1,
       "maxEdgeRatio": 0.06568946796959826,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 19.68778406902341,
       "minOpaqueRatio": 0.7211666666666666
     },
@@ -221,6 +235,7 @@
       "activeFrames": 5,
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 98.34650205761308,
       "minOpaqueRatio": 0.07415771484375
     },
@@ -231,6 +246,7 @@
       "activeFrames": 2,
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0,
+      "maxHaloRatio": 0,
       "maxAverageLuma": 57.22275896329007,
       "minOpaqueRatio": 0.44619140625
     }

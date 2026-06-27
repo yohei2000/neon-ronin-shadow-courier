@@ -93,6 +93,8 @@ Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flow
 
 Runtime asset note: Stage1 character, slash, telegraph, Lantern Warden, background, ground/platform, Moon Gate, item icons, HUD panels, and mobile controls use derived assets under `src/assets/runtime/`. They are cut from frozen approved art by `npm.cmd run art:runtime-sheets` so each runtime frame contains one actor/effect/icon/layer only. Do not point gameplay directly back at generated contact-sheet layouts such as `player-spritesheet`, `enemy-spritesheet`, `kite-wraith-preview`, `slash-flipbook`, `telegraph-flipbook`, `lantern-warden-spritesheet`, `ui-kit`, `mobile-controls-kit`, or paper-backed `layer-*` environment sheets, because those sheets can expose adjacent poses, white paper backgrounds, UI kit fragments, or half-cut frames.
 
+Runtime cutout note: `npm.cmd run art:runtime-sheets` applies a deterministic white/gray matte cleanup pass to player, Ink Crawler, Kite Wraith, and Lantern Warden runtime sprite sheets. Keep this in the runtime derivation step rather than editing frozen approved core art directly.
+
 Runtime movement note: Stage1 player movement now uses acceleration/deceleration tuning in `Stage1Tuning` rather than direct velocity lerp. Player, Ink Crawler, and Lantern Warden sprites have explicit visual ground offsets so frozen runtime cutouts visually contact platform tops while collision bodies stay aligned to gameplay geometry.
 
 Runtime mobile-control note: Stage1 touch controls must support simultaneous movement and jump/attack input. Keep Phaser configured with multiple active pointers and keep touch-button state keyed by pointer id so releasing one finger does not clear another held control.
