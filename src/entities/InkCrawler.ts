@@ -16,7 +16,7 @@ export class InkCrawler implements StageEnemy {
   constructor(scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
     this.sprite = scene.add
-      .sprite(definition.x, definition.y, RuntimeSpriteAssetKey.InkCrawler, 0)
+      .sprite(definition.x, definition.y, RuntimeSpriteAssetKey.InkCrawler, 2)
       .setOrigin(0.5, 0.74)
       .setScale(0.54)
       .setDepth(25);

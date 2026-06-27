@@ -18,7 +18,7 @@ export const resolveSlashPhase = (elapsedMs: number): SlashPhase => {
   return 'idle';
 };
 
-export const canTakeOverlapDamage = (nowMs: number, lastDamageMs: number, cooldownMs = Stage1Tuning.damageCooldownMs): boolean => {
+export const canTakeOverlapDamage = (nowMs: number, lastDamageMs: number, cooldownMs: number = Stage1Tuning.damageCooldownMs): boolean => {
   return nowMs - lastDamageMs >= cooldownMs;
 };
 
@@ -31,10 +31,10 @@ export class CombatSystem {
       activeRect:
         phase === 'active'
           ? {
-              x: playerX + facing * 20 + (facing > 0 ? 0 : -94),
-              y: playerY - 52,
-              width: 94,
-              height: 78
+              x: playerX + facing * 18 + (facing > 0 ? 0 : -132),
+              y: playerY - 58,
+              width: 132,
+              height: 92
             }
           : null
     };

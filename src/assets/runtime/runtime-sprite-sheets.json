@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T05:43:35.408Z",
+  "generatedAt": "2026-06-27T09:56:55.936Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -305,6 +305,127 @@
           "width": 148,
           "height": 155,
           "pixels": 8975
+        }
+      ]
+    },
+    {
+      "id": "slash-runtime-spritesheet",
+      "source": "src/assets/approved-art/slash-flipbook.png",
+      "output": "src/assets/runtime/slash-runtime-spritesheet.png",
+      "width": 768,
+      "height": 160,
+      "frameWidth": 192,
+      "frameHeight": 160,
+      "frames": [
+        {
+          "sourceFrame": 1,
+          "x": 128,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sourceFrame": 2,
+          "x": 256,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sourceFrame": 5,
+          "x": 640,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sourceFrame": 6,
+          "x": 768,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        }
+      ]
+    },
+    {
+      "id": "telegraph-runtime-spritesheet",
+      "source": "src/assets/approved-art/telegraph-flipbook.png",
+      "output": "src/assets/runtime/telegraph-runtime-spritesheet.png",
+      "width": 640,
+      "height": 240,
+      "frameWidth": 160,
+      "frameHeight": 120,
+      "frames": [
+        {
+          "x": 185,
+          "y": 275,
+          "width": 63,
+          "height": 57
+        },
+        {
+          "x": 255,
+          "y": 231,
+          "width": 59,
+          "height": 101
+        },
+        {
+          "x": 335,
+          "y": 229,
+          "width": 49,
+          "height": 102
+        },
+        {
+          "x": 784,
+          "y": 71,
+          "width": 69,
+          "height": 120
+        },
+        {
+          "x": 688,
+          "y": 250,
+          "width": 137,
+          "height": 83
+        },
+        {
+          "x": 241,
+          "y": 105,
+          "width": 183,
+          "height": 87
+        }
+      ]
+    },
+    {
+      "id": "lantern-warden-runtime-spritesheet",
+      "source": "src/assets/approved-art/lantern-warden-spritesheet.png",
+      "output": "src/assets/runtime/lantern-warden-runtime-spritesheet.png",
+      "width": 1024,
+      "height": 256,
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "frames": [
+        {
+          "x": 51,
+          "y": 30,
+          "width": 218,
+          "height": 181
+        },
+        {
+          "x": 328,
+          "y": 28,
+          "width": 155,
+          "height": 182
+        },
+        {
+          "x": 543,
+          "y": 14,
+          "width": 198,
+          "height": 197
+        },
+        {
+          "x": 785,
+          "y": 23,
+          "width": 201,
+          "height": 188
         }
       ]
     }

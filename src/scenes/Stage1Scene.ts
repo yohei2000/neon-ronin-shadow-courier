@@ -2,8 +2,8 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
-import { Stage1Data, getSectionForX, type RectData, type Stage1Hazard, type Stage1Pickup, type Stage1Scroll, type Stage1Seal } from '../data/stage1';
+import { ArtAssetKey, RuntimeSpriteAssetKey } from '../data/artAssets';
+import { Stage1Data, Stage1Tuning, getSectionForX, type RectData, type Stage1Hazard, type Stage1Pickup, type Stage1Scroll, type Stage1Seal } from '../data/stage1';
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
 import { LanternWarden } from '../entities/LanternWarden';
@@ -35,7 +35,7 @@ export class Stage1Scene extends Phaser.Scene {
   private sealVisuals: CollectibleVisual[] = [];
   private scrollVisuals: CollectibleVisual[] = [];
   private pickupVisuals: (CollectibleVisual & { readonly type: Stage1Pickup['type'] })[] = [];
-  private hazardVisuals: (Stage1Hazard & { readonly image: Phaser.GameObjects.Image })[] = [];
+  private hazardVisuals: (Stage1Hazard & { readonly image: Phaser.GameObjects.Sprite })[] = [];
   private collectedSeals = new Set<string>();
   private collectedScrolls = new Set<string>();
   private collectedPickups = new Set<string>();
@@ -93,13 +93,14 @@ export class Stage1Scene extends Phaser.Scene {
       return;
     }
 
+    const gameplayDelta = Math.min(delta, Stage1Tuning.maxFrameDeltaMs) * Stage1Tuning.gameSpeed;
     this.updateParallax();
-    const slash = this.player.update(input, Stage1Data.platforms, time, delta);
+    const slash = this.player.update(input, Stage1Data.platforms, time, gameplayDelta);
     const playerPosition = this.player.getPosition();
     for (const enemy of this.enemies) {
-      enemy.update(delta, playerPosition.x, playerPosition.y);
+      enemy.update(gameplayDelta, playerPosition.x, playerPosition.y);
     }
-    this.warden.update(delta, playerPosition.x);
+    this.warden.update(gameplayDelta, playerPosition.x);
 
     this.resolveCombat(slash, time);
     this.resolveEnemyContact(time);
@@ -112,7 +113,7 @@ export class Stage1Scene extends Phaser.Scene {
       this.showGameOver();
     }
 
-    this.cameraController.update(playerPosition, delta);
+    this.cameraController.update(playerPosition, gameplayDelta);
     const section = getSectionForX(playerPosition.x);
     this.hud.update({
       player: this.player.getRuntimeState(),
@@ -169,9 +170,10 @@ export class Stage1Scene extends Phaser.Scene {
     }
 
     for (const hazard of Stage1Data.hazards) {
-      const key = hazard.type === 'timed-spark' ? ArtAssetKey.Telegraph : ArtAssetKey.Slash;
+      const key = hazard.type === 'fall-pit' ? RuntimeSpriteAssetKey.Slash : RuntimeSpriteAssetKey.Telegraph;
+      const frame = hazard.type === 'fall-pit' ? 2 : hazard.type === 'timed-spark' ? 3 : 2;
       const image = this.add
-        .image(hazard.x + hazard.width / 2, hazard.y + hazard.height / 2, key)
+        .sprite(hazard.x + hazard.width / 2, hazard.y + hazard.height / 2, key, frame)
         .setDisplaySize(hazard.width + 34, hazard.height + 20)
         .setTint(hazard.type === 'fall-pit' ? Palette.neonMagenta : Palette.enemyVermilion)
         .setAlpha(hazard.type === 'fall-pit' ? 0.26 : 0.68)
@@ -214,9 +216,11 @@ export class Stage1Scene extends Phaser.Scene {
       const lastHit = this.lastEnemyHitMs.get(enemy.id) ?? -Infinity;
       if (nowMs - lastHit < 260) continue;
       if (CombatSystem.overlapsActiveSlash(slash, enemy.getBody())) {
-        enemy.takeHit(1);
-        this.lastEnemyHitMs.set(enemy.id, nowMs);
-        this.cameras.main.shake(SaveSystem.load().settings.reducedShake ? 20 : 45, 0.002);
+        const hitLanded = enemy.takeHit(1);
+        if (hitLanded) {
+          this.lastEnemyHitMs.set(enemy.id, nowMs);
+          this.cameras.main.shake(SaveSystem.load().settings.reducedShake ? 20 : 45, 0.002);
+        }
       }
     }
   }

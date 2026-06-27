@@ -158,8 +158,8 @@ export class ArtLabScene extends Phaser.Scene {
   private drawNeutralStation(): void {
     const player = this.add.sprite(490, 300, RuntimeSpriteAssetKey.Player, 25).setScale(0.56);
     player.play('player-idle');
-    this.add.sprite(586, 344, ArtAssetKey.Slash, 3).setScale(0.8).setAlpha(0.88);
-    const kite = this.add.sprite(768, 294, RuntimeSpriteAssetKey.KiteWraith, 1).setScale(0.52).setAlpha(0.92);
+    this.add.sprite(586, 344, RuntimeSpriteAssetKey.Slash, 2).setScale(0.8).setAlpha(0.88);
+    const kite = this.add.sprite(768, 294, RuntimeSpriteAssetKey.KiteWraith, 0).setScale(0.52).setAlpha(0.92);
     kite.play('kite-wraith-drift');
     this.add.image(180, 340, ArtAssetKey.SignAtlas).setScale(0.32).setAlpha(0.74);
     this.caption('Neutral production review: final player master, motion arc, signage, and layered alley share one palette.');
@@ -169,8 +169,8 @@ export class ArtLabScene extends Phaser.Scene {
     this.add.image(480, 270, ArtAssetKey.TitleComposition).setAlpha(0.52);
     this.add.sprite(318, 360, RuntimeSpriteAssetKey.Player, 6).setScale(0.56);
     this.add.sprite(608, 372, RuntimeSpriteAssetKey.InkCrawler, 2).setScale(0.54);
-    this.add.sprite(770, 320, ArtAssetKey.LanternWarden, 3).setScale(0.72);
-    this.add.sprite(454, 326, ArtAssetKey.Slash, 3).setScale(0.72);
+    this.add.sprite(770, 320, RuntimeSpriteAssetKey.LanternWarden, 2).setScale(0.72);
+    this.add.sprite(454, 326, RuntimeSpriteAssetKey.Slash, 2).setScale(0.72);
     this.caption('Busy Neon Alley readability station: player cyan/magenta identity remains separated from enemy amber/vermilion threats.');
   }
 
@@ -212,23 +212,25 @@ export class ArtLabScene extends Phaser.Scene {
   }
 
   private drawEnemyStation(): void {
-    [0, 1, 2, 3].forEach((frame, index) => {
+    [2, 2, 2, 2].forEach((frame, index) => {
       this.add.sprite(190 + index * 170, 342, RuntimeSpriteAssetKey.InkCrawler, frame).setScale(0.68);
       this.label(148 + index * 170, 430, ['idle', 'telegraph', 'release', 'recover'][index]);
     });
-    this.add.sprite(770, 268, RuntimeSpriteAssetKey.KiteWraith, 1).setScale(0.58);
+    this.add.sprite(770, 268, RuntimeSpriteAssetKey.KiteWraith, 0).setScale(0.58);
     this.caption('Enemy station: Ink Crawler states plus Kite Wraith preview use the enemy amber/vermilion group, separate from player cyan/magenta.');
   }
 
   private drawKiteWraithStation(): void {
-    const sprite = this.add.sprite(470, 278, RuntimeSpriteAssetKey.KiteWraith, 1).setScale(0.78);
+    const sprite = this.add.sprite(470, 278, RuntimeSpriteAssetKey.KiteWraith, 0).setScale(0.78);
     sprite.play('kite-wraith-drift');
-    this.add.sprite(615, 320, ArtAssetKey.Slash, 2).setScale(0.5).setTint(Palette.neonCyan);
+    this.add.sprite(615, 320, RuntimeSpriteAssetKey.Slash, 1).setScale(0.5).setTint(Palette.neonCyan);
     this.caption('Kite Wraith preview: forward hostile motion uses enemy amber/vermilion, kept distinct from player cyan/magenta identity.');
   }
 
   private drawTelegraphStation(): void {
-    this.add.image(480, 282, ArtAssetKey.Telegraph).setScale(0.86);
+    [0, 1, 2, 3, 4, 5].forEach((frame, index) => {
+      this.add.sprite(112 + index * 146, 292, RuntimeSpriteAssetKey.Telegraph, frame).setScale(1.06);
+    });
     this.caption('Telegraph timeline: glow-up, aim, warning, wind-up, release, and recover use enemy amber/vermilion for heavy and fast attacks.');
   }
 
@@ -236,8 +238,8 @@ export class ArtLabScene extends Phaser.Scene {
     if (this.currentState === 'slash-bright') {
       this.add.rectangle(480, 288, 820, 310, Palette.warmPaper, 0.86);
     }
-    [0, 2, 4, 6].forEach((frame, index) => {
-      this.add.sprite(180 + index * 188, 292, ArtAssetKey.Slash, frame).setScale(1.08);
+    [0, 1, 2, 3].forEach((frame, index) => {
+      this.add.sprite(180 + index * 188, 292, RuntimeSpriteAssetKey.Slash, frame).setScale(1.08);
       this.label(132 + index * 188, 424, ['anticipation', 'active', 'breakup', 'fade'][index]);
     });
     this.caption('Slash station: four-phase Reference G timing with magenta core, ink edge, cyan sparks, and bounded breakup.');
@@ -294,7 +296,7 @@ export class ArtLabScene extends Phaser.Scene {
   private drawGrayscaleStation(): void {
     this.add.image(480, 292, ArtAssetKey.TitleComposition).setAlpha(0.78).setTint(0xb8b8b8);
     this.add.sprite(320, 360, RuntimeSpriteAssetKey.Player, 25).setScale(0.56).setTint(0xd0d0d0);
-    this.add.sprite(576, 344, ArtAssetKey.Slash, 3).setScale(0.72).setTint(0xc0c0c0);
+    this.add.sprite(576, 344, RuntimeSpriteAssetKey.Slash, 2).setScale(0.72).setTint(0xc0c0c0);
     this.caption('Grayscale review mode: value separation remains readable without relying on hue alone.');
   }
 

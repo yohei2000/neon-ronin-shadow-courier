@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { Palette, PaletteHex } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import type { RectData, Stage1WardenDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
 import type { StageEnemy } from './types';
@@ -13,7 +13,7 @@ export class LanternWarden implements StageEnemy {
   readonly damage = 1;
   dead = false;
   private readonly sprite: Phaser.GameObjects.Sprite;
-  private readonly telegraph: Phaser.GameObjects.Image;
+  private readonly telegraph: Phaser.GameObjects.Sprite;
   private hp: number;
   private state: WardenState = 'idle';
   private stateMs = 0;
@@ -23,8 +23,12 @@ export class LanternWarden implements StageEnemy {
   constructor(private readonly scene: Phaser.Scene, private readonly definition: Stage1WardenDefinition) {
     this.id = definition.id;
     this.hp = definition.hp;
-    this.sprite = scene.add.sprite(definition.x, definition.y, ArtAssetKey.LanternWarden, 0).setScale(0.72).setDepth(26);
-    this.telegraph = scene.add.image(definition.x, definition.y + 86, ArtAssetKey.Telegraph).setScale(0.22).setDepth(22).setVisible(false);
+    this.sprite = scene.add.sprite(definition.x, definition.y, RuntimeSpriteAssetKey.LanternWarden, 1).setScale(0.72).setDepth(26);
+    this.telegraph = scene.add
+      .sprite(definition.x, definition.y + 86, RuntimeSpriteAssetKey.Telegraph, 1)
+      .setDisplaySize(168, 96)
+      .setDepth(22)
+      .setVisible(false);
     this.sprite.play('warden-idle');
   }
 
@@ -49,6 +53,7 @@ export class LanternWarden implements StageEnemy {
     this.sprite.x += (targetX - this.sprite.x) * 0.03;
     this.telegraph
       .setPosition(this.sprite.x + this.facing * 76, this.sprite.y + 84)
+      .setFrame(this.state === 'active' ? 4 : 1)
       .setVisible(this.state === 'telegraph' || this.state === 'active')
       .setAlpha(this.state === 'active' ? 0.65 : 0.38)
       .setTint(this.state === 'active' ? Palette.enemyVermilion : Palette.enemyAmber);

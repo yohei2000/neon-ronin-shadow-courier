@@ -63,18 +63,24 @@ describe('Art Lock scope', () => {
     }
   });
 
-  it('uses safe derived runtime sprite sheets for Stage1 character animation', () => {
+  it('uses safe derived runtime sprite sheets for Stage1 gameplay animation', () => {
     expect(RuntimePlayerVisualConfig.textureKey).toBe(RuntimeSpriteAssetKey.Player);
     expect(RuntimePlayerVisualConfig.textureKey).not.toBe(ArtAssetKey.Player);
     expect(RuntimeStage1SpriteKeys).toEqual([
       'player-runtime-spritesheet',
       'ink-crawler-runtime-spritesheet',
-      'kite-wraith-runtime-spritesheet'
+      'kite-wraith-runtime-spritesheet',
+      'slash-runtime-spritesheet',
+      'telegraph-runtime-spritesheet',
+      'lantern-warden-runtime-spritesheet'
     ]);
     for (const file of [
       'src/assets/runtime/player-runtime-spritesheet.png',
       'src/assets/runtime/ink-crawler-runtime-spritesheet.png',
       'src/assets/runtime/kite-wraith-runtime-spritesheet.png',
+      'src/assets/runtime/slash-runtime-spritesheet.png',
+      'src/assets/runtime/telegraph-runtime-spritesheet.png',
+      'src/assets/runtime/lantern-warden-runtime-spritesheet.png',
       'src/assets/runtime/runtime-sprite-sheets.json'
     ]) {
       expect(fs.existsSync(path.resolve(file))).toBe(true);

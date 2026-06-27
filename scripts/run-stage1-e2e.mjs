@@ -22,6 +22,7 @@ const browser = await chromium.launch();
 console.log('stage1-e2e browser launched');
 const tests = [];
 const shouldRun = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
+const routeTimeoutMs = 420000;
 
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
@@ -83,7 +84,11 @@ const releaseMovementKeys = async (page) => {
   await page.keyboard.up('ArrowRight');
   await page.keyboard.up('Space');
 };
-const slash = async (page) => page.keyboard.press('J');
+const slash = async (page, holdMs = 70) => {
+  await page.keyboard.down('J');
+  await page.waitForTimeout(holdMs);
+  await page.keyboard.up('J');
+};
 const gamePoint = async (page, x, y) => {
   const rect = await page.locator('canvas').boundingBox();
   assert(rect, 'canvas not found');
@@ -101,10 +106,13 @@ const runKeyboardRouteToClear = async (page) => {
   let lastRightRefresh = 0;
   let lastProgressX = 0;
   let lastProgressAt = Date.now();
+  let lastDamageSeen = 0;
   const setRight = async (down) => {
     const now = Date.now();
     rightDown = down;
     if (down) {
+      await page.keyboard.up('ArrowLeft');
+      await page.keyboard.up('a');
       if (now - lastRightRefresh > 650) {
         await page.keyboard.up('ArrowRight');
         await page.keyboard.up('d');
@@ -118,42 +126,125 @@ const runKeyboardRouteToClear = async (page) => {
     }
   };
   await setRight(true);
-  while (Date.now() - started < 160000) {
+  while (Date.now() - started < routeTimeoutMs) {
     const current = await state(page);
     if (current.scene === 'StageClearScene' || current.stageClear) {
       await setRight(false);
       return current;
+    }
+    if (current.gameOver) {
+      await setRight(false);
+      throw new Error(`keyboard route game over at ${JSON.stringify(current)}`);
     }
     const player = current.player;
     if (!player) {
       await page.waitForTimeout(50);
       continue;
     }
+    if (process.env.E2E_TRACE && player.damageTaken !== lastDamageSeen) {
+      console.log(`TRACE damage ${player.damageTaken} x=${player.x} y=${player.y} hp=${player.hp} section=${current.section}`);
+      lastDamageSeen = player.damageTaken;
+    }
+    const now = Date.now();
     if (player.x >= 5580 && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
-
-    const now = Date.now();
+    if (current.wardenDefeated) {
+      await setRight(true);
+      if (player.x > lastProgressX + 6 || player.x < lastProgressX -120) {
+        lastProgressX = player.x;
+        lastProgressAt = now;
+      } else if (now - lastProgressAt > 1800) {
+        await releaseMovementKeys(page);
+        await page.locator('canvas').click({ position: { x: 480, y: 270 } });
+        await setRight(true);
+        lastProgressX = player.x;
+        lastProgressAt = now;
+        lastJump = now;
+        if (player.onGround) await jump(page, 120);
+        else await page.waitForTimeout(120);
+      } else {
+        await page.waitForTimeout(80);
+      }
+      continue;
+    }
+    if (!current.wardenDefeated && player.x > 5480) {
+      await setRight(false);
+      if (player.x < 5570) {
+        await setRight(true);
+        await page.waitForTimeout(55);
+        await setRight(false);
+      } else if (player.x > 5830) {
+        await page.keyboard.down('ArrowLeft');
+        await page.keyboard.down('a');
+        await page.waitForTimeout(90);
+        await page.keyboard.up('ArrowLeft');
+        await page.keyboard.up('a');
+      } else {
+        const faceLeft = player.x > 5660;
+        await page.keyboard.down(faceLeft ? 'ArrowLeft' : 'ArrowRight');
+        await page.keyboard.down(faceLeft ? 'a' : 'd');
+        await page.waitForTimeout(35);
+        await page.keyboard.up(faceLeft ? 'ArrowLeft' : 'ArrowRight');
+        await page.keyboard.up(faceLeft ? 'a' : 'd');
+        if (current.warden?.state === 'active' && player.onGround && now - lastJump > 260) {
+          lastJump = now;
+          await jump(page, 130);
+        }
+        if (now - lastSlash > 270) {
+          lastSlash = now;
+          await slash(page);
+        }
+      }
+      await page.waitForTimeout(50);
+      continue;
+    }
     if (player.x > lastProgressX + 6) {
       lastProgressX = player.x;
       lastProgressAt = now;
     } else if (player.x < lastProgressX - 120) {
       lastProgressX = player.x;
       lastProgressAt = now;
-    } else if (now - lastProgressAt > 2200 && (player.x < 5050 || current.wardenDefeated)) {
+    } else if (now - lastProgressAt > 2200 && (player.x < 5480 || current.wardenDefeated)) {
+      if (process.env.E2E_TRACE) {
+        console.log(`TRACE recovery x=${player.x} y=${player.y} onGround=${player.onGround} section=${current.section}`);
+      }
       await releaseMovementKeys(page);
+      await page.locator('canvas').click({ position: { x: 480, y: 270 } });
       if (player.x > 4200 && player.x < 5050 && !current.wardenDefeated) {
-        await page.keyboard.down('ArrowLeft');
-        await page.keyboard.down('a');
-        await page.waitForTimeout(220);
-        await page.keyboard.up('ArrowLeft');
-        await page.keyboard.up('a');
+        await setRight(true);
+        lastProgressX = player.x;
+        lastProgressAt = now;
+        lastJump = now;
+        if (player.onGround || player.y > 390) {
+          await jump(page, 360);
+        } else {
+          await page.waitForTimeout(360);
+        }
+        continue;
+      }
+      if (player.x >= 5050 && player.x < 5480 && !current.wardenDefeated) {
+        await setRight(true);
+        lastProgressX = player.x;
+        lastProgressAt = now;
+        await page.waitForTimeout(900);
+        continue;
       }
       await setRight(true);
       lastProgressX = player.x;
       lastProgressAt = now;
       lastJump = now;
       const recoveryJumpMs =
-        player.x > 4200 && player.x < 5050 ? 300 : current.wardenDefeated ? 120 : player.x > 1000 && player.x < 2310 ? 140 : player.x <= 1000 ? 240 : 0;
+        player.x > 4200 && player.x < 5050
+          ? 300
+          : player.x >= 5050 && player.x < 5480
+            ? 160
+            : current.wardenDefeated
+              ? 120
+              : player.x > 1000 && player.x < 2310
+                ? 140
+                : player.x <= 1000
+                  ? 240
+                  : 0;
       if (recoveryJumpMs > 0) await jump(page, recoveryJumpMs);
       else await page.waitForTimeout(120);
       continue;
@@ -176,18 +267,16 @@ const runKeyboardRouteToClear = async (page) => {
     const inThornRun = player.x > 4240 && player.x < 4940;
     const jumpNow =
       (player.x > 1030 && player.x < 1720 && player.y > 255) ||
-      (player.x > 2040 && player.x < 2305) ||
-      (player.x > 4080 && player.x < 4385) ||
-      (inThornRun && player.y > 255);
-    if (jumpNow && now - lastJump > (inThornRun ? 240 : 360)) {
+      (player.x > 2040 && player.x < 2305);
+    if (jumpNow && now - lastJump > (inThornRun ? 480 : 360)) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? 260 : player.x > 4000 ? 180 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? 210 : player.x > 4000 ? 180 : 110);
     }
     const attackNow =
       (player.x > 760 && player.x < 1060) ||
       (player.x > 1880 && player.x < 2180) ||
       (player.x > 2540 && player.x < 3180) ||
-      (player.x > 4300 && player.x < 4840) ||
+      (player.x > 4300 && player.x < 4500) ||
       (player.x > 5520 && !current.wardenDefeated);
     if (attackNow && now - lastSlash > 300) {
       lastSlash = now;

@@ -120,6 +120,8 @@ export const RequiredStage1SectionNames = [
 ] as const satisfies readonly Stage1SectionName[];
 
 export const Stage1Tuning = {
+  gameSpeed: 2,
+  maxFrameDeltaMs: 33,
   coyoteMs: 120,
   jumpBufferMs: 120,
   gravity: 1420,
@@ -133,8 +135,8 @@ export const Stage1Tuning = {
   slashActiveMs: 135,
   slashRecoveryMs: 185,
   hitPauseMs: 55,
-  damageCooldownMs: 1050,
-  invulnerabilityMs: 1050,
+  damageCooldownMs: 1800,
+  invulnerabilityMs: 1800,
   cameraLead: 84
 } as const;
 

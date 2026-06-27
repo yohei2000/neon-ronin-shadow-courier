@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T08:50:45.813Z",
+  "generatedAt": "2026-06-27T13:11:19.505Z",
   "passed": true,
   "checks": [
     {
@@ -50,7 +50,7 @@
     {
       "id": "runtime-sprite-sheets-exist",
       "passed": true,
-      "detail": "player-runtime-spritesheet, ink-crawler-runtime-spritesheet, kite-wraith-runtime-spritesheet"
+      "detail": "player-runtime-spritesheet, ink-crawler-runtime-spritesheet, kite-wraith-runtime-spritesheet, slash-runtime-spritesheet, telegraph-runtime-spritesheet, lantern-warden-runtime-spritesheet"
     },
     {
       "id": "required-animations-created",

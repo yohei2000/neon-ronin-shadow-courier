@@ -6,9 +6,11 @@ import {
   ArtImageAssets,
   InkCrawlerAnimationFrames,
   KiteWraithAnimationFrames,
+  LanternWardenAnimationFrames,
   PlayerAnimationFrames,
   RuntimeSpriteAssetKey,
-  RuntimeSpriteImageAssets
+  RuntimeSpriteImageAssets,
+  SlashAnimationFrames
 } from '../data/artAssets';
 
 export class PreloadScene extends Phaser.Scene {
@@ -33,7 +35,7 @@ export class PreloadScene extends Phaser.Scene {
       frameHeight: 160
     });
     this.load.spritesheet(ArtAssetKey.LanternWarden, ArtImageAssets[ArtAssetKey.LanternWarden], {
-      frameWidth: 128,
+      frameWidth: 256,
       frameHeight: 256
     });
     this.load.spritesheet(ArtAssetKey.Slash, ArtImageAssets[ArtAssetKey.Slash], {
@@ -51,6 +53,18 @@ export class PreloadScene extends Phaser.Scene {
     this.load.spritesheet(RuntimeSpriteAssetKey.KiteWraith, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.KiteWraith], {
       frameWidth: 192,
       frameHeight: 192
+    });
+    this.load.spritesheet(RuntimeSpriteAssetKey.Slash, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.Slash], {
+      frameWidth: 192,
+      frameHeight: 160
+    });
+    this.load.spritesheet(RuntimeSpriteAssetKey.Telegraph, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.Telegraph], {
+      frameWidth: 160,
+      frameHeight: 120
+    });
+    this.load.spritesheet(RuntimeSpriteAssetKey.LanternWarden, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.LanternWarden], {
+      frameWidth: 256,
+      frameHeight: 256
     });
 
     const spritesheetKeys = new Set<string>([
@@ -86,26 +100,16 @@ export class PreloadScene extends Phaser.Scene {
       });
     }
 
-    this.createFrameListAnimation('ink-crawler-patrol', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.patrol.frames, 8, -1);
-    this.createFrameListAnimation('ink-crawler-hit', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.hit.frames, 12, 0);
-    this.createFrameListAnimation('kite-wraith-drift', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.drift.frames, 6, -1);
-    this.createFrameListAnimation('kite-wraith-hit', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.hit.frames, 10, 0);
-    this.createAnimation('warden-idle', ArtAssetKey.LanternWarden, 0, 1, 5, -1);
-    this.createAnimation('warden-telegraph', ArtAssetKey.LanternWarden, 2, 3, 7, -1);
-    this.createAnimation('warden-attack', ArtAssetKey.LanternWarden, 4, 5, 10, -1);
-    this.createAnimation('warden-recovery', ArtAssetKey.LanternWarden, 6, 6, 6, -1);
-    this.createAnimation('warden-defeat', ArtAssetKey.LanternWarden, 7, 7, 6, 0);
-    this.createAnimation('slash-arc', ArtAssetKey.Slash, 0, 7, 18, 0);
-  }
-
-  private createAnimation(key: string, assetKey: ArtAssetKey, start: number, end: number, frameRate: number, repeat: number): void {
-    if (this.anims.exists(key)) return;
-    this.anims.create({
-      key,
-      frames: this.anims.generateFrameNumbers(assetKey, { start, end }),
-      frameRate,
-      repeat
-    });
+    this.createFrameListAnimation('ink-crawler-patrol', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.patrol.frames, InkCrawlerAnimationFrames.patrol.frameRate, InkCrawlerAnimationFrames.patrol.repeat);
+    this.createFrameListAnimation('ink-crawler-hit', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.hit.frames, InkCrawlerAnimationFrames.hit.frameRate, InkCrawlerAnimationFrames.hit.repeat);
+    this.createFrameListAnimation('kite-wraith-drift', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.drift.frames, KiteWraithAnimationFrames.drift.frameRate, KiteWraithAnimationFrames.drift.repeat);
+    this.createFrameListAnimation('kite-wraith-hit', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.hit.frames, KiteWraithAnimationFrames.hit.frameRate, KiteWraithAnimationFrames.hit.repeat);
+    this.createFrameListAnimation('warden-idle', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.idle.frames, LanternWardenAnimationFrames.idle.frameRate, LanternWardenAnimationFrames.idle.repeat);
+    this.createFrameListAnimation('warden-telegraph', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.telegraph.frames, LanternWardenAnimationFrames.telegraph.frameRate, LanternWardenAnimationFrames.telegraph.repeat);
+    this.createFrameListAnimation('warden-attack', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.attack.frames, LanternWardenAnimationFrames.attack.frameRate, LanternWardenAnimationFrames.attack.repeat);
+    this.createFrameListAnimation('warden-recovery', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.recovery.frames, LanternWardenAnimationFrames.recovery.frameRate, LanternWardenAnimationFrames.recovery.repeat);
+    this.createFrameListAnimation('warden-defeat', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.defeat.frames, LanternWardenAnimationFrames.defeat.frameRate, LanternWardenAnimationFrames.defeat.repeat);
+    this.createFrameListAnimation('slash-arc', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.arc.frames, SlashAnimationFrames.arc.frameRate, SlashAnimationFrames.arc.repeat);
   }
 
   private createFrameListAnimation(key: string, assetKey: RuntimeSpriteAssetKey, frames: readonly number[], frameRate: number, repeat: number): void {

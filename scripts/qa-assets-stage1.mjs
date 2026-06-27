@@ -61,7 +61,10 @@ const requiredTextures = [
 const requiredRuntimeSpriteKeys = [
   'player-runtime-spritesheet',
   'ink-crawler-runtime-spritesheet',
-  'kite-wraith-runtime-spritesheet'
+  'kite-wraith-runtime-spritesheet',
+  'slash-runtime-spritesheet',
+  'telegraph-runtime-spritesheet',
+  'lantern-warden-runtime-spritesheet'
 ];
 
 const byteEqual = (a, b) => {

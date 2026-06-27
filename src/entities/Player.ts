@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { Palette } from '../config/palette';
-import { ArtAssetKey, RuntimePlayerVisualConfig } from '../data/artAssets';
+import { RuntimePlayerVisualConfig, RuntimeSpriteAssetKey } from '../data/artAssets';
 import { Stage1Data, Stage1Tuning, type Stage1Platform } from '../data/stage1';
 import type { Stage1InputSnapshot } from '../systems/InputSystem';
 import { centerRect, clamp, rectsOverlap, type MutableRect } from '../systems/geometry';
@@ -68,7 +68,7 @@ export class Player {
       .setOrigin(0.5, 0.76)
       .setScale(RuntimePlayerVisualConfig.scale)
       .setDepth(30);
-    this.slashSprite = scene.add.sprite(this.x, this.y, ArtAssetKey.Slash, 0).setScale(0.58).setDepth(31).setVisible(false);
+    this.slashSprite = scene.add.sprite(this.x, this.y, RuntimeSpriteAssetKey.Slash, 0).setScale(0.62).setDepth(31).setVisible(false);
     this.sprite.play('player-idle');
   }
 

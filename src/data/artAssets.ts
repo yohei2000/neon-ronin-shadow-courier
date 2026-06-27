@@ -32,7 +32,10 @@ export type ArtAssetKey = (typeof ArtAssetKey)[keyof typeof ArtAssetKey];
 export const RuntimeSpriteAssetKey = {
   Player: 'player-runtime-spritesheet',
   InkCrawler: 'ink-crawler-runtime-spritesheet',
-  KiteWraith: 'kite-wraith-runtime-spritesheet'
+  KiteWraith: 'kite-wraith-runtime-spritesheet',
+  Slash: 'slash-runtime-spritesheet',
+  Telegraph: 'telegraph-runtime-spritesheet',
+  LanternWarden: 'lantern-warden-runtime-spritesheet'
 } as const;
 
 export type RuntimeSpriteAssetKey = (typeof RuntimeSpriteAssetKey)[keyof typeof RuntimeSpriteAssetKey];
@@ -67,21 +70,24 @@ export const ArtImageAssets: Record<ArtAssetKey, string> = {
 export const RuntimeSpriteImageAssets: Record<RuntimeSpriteAssetKey, string> = {
   [RuntimeSpriteAssetKey.Player]: new URL('../assets/runtime/player-runtime-spritesheet.png', import.meta.url).href,
   [RuntimeSpriteAssetKey.InkCrawler]: new URL('../assets/runtime/ink-crawler-runtime-spritesheet.png', import.meta.url).href,
-  [RuntimeSpriteAssetKey.KiteWraith]: new URL('../assets/runtime/kite-wraith-runtime-spritesheet.png', import.meta.url).href
+  [RuntimeSpriteAssetKey.KiteWraith]: new URL('../assets/runtime/kite-wraith-runtime-spritesheet.png', import.meta.url).href,
+  [RuntimeSpriteAssetKey.Slash]: new URL('../assets/runtime/slash-runtime-spritesheet.png', import.meta.url).href,
+  [RuntimeSpriteAssetKey.Telegraph]: new URL('../assets/runtime/telegraph-runtime-spritesheet.png', import.meta.url).href,
+  [RuntimeSpriteAssetKey.LanternWarden]: new URL('../assets/runtime/lantern-warden-runtime-spritesheet.png', import.meta.url).href
 };
 
 export const PlayerAnimationFrames = {
-  idle: { frames: [25, 26, 25, 24], frameRate: 5, repeat: -1 },
-  run: { frames: [6, 7, 8, 9, 10, 8], frameRate: 12, repeat: -1 },
-  jumpRise: { frames: [11, 12, 13], frameRate: 10, repeat: 0 },
-  apex: { frames: [14, 15], frameRate: 8, repeat: -1 },
-  fall: { frames: [14, 15], frameRate: 8, repeat: -1 },
-  wallSlide: { frames: [16, 17, 18, 19], frameRate: 8, repeat: -1 },
-  wallKick: { frames: [20, 21, 20], frameRate: 12, repeat: 0 },
-  groundSlash: { frames: [22, 23, 24, 25, 26], frameRate: 16, repeat: 0 },
-  airSlash: { frames: [20, 21, 22, 23], frameRate: 16, repeat: 0 },
-  hurt: { frames: [13, 14], frameRate: 10, repeat: -1 },
-  checkpointRespawn: { frames: [25, 26, 25, 24], frameRate: 10, repeat: -1 }
+  idle: { frames: [25], frameRate: 1, repeat: -1 },
+  run: { frames: [6, 7, 8, 9, 10, 8], frameRate: 24, repeat: -1 },
+  jumpRise: { frames: [12], frameRate: 1, repeat: 0 },
+  apex: { frames: [14], frameRate: 1, repeat: -1 },
+  fall: { frames: [15], frameRate: 1, repeat: -1 },
+  wallSlide: { frames: [17], frameRate: 1, repeat: -1 },
+  wallKick: { frames: [20], frameRate: 1, repeat: 0 },
+  groundSlash: { frames: [23], frameRate: 1, repeat: 0 },
+  airSlash: { frames: [22], frameRate: 1, repeat: 0 },
+  hurt: { frames: [13], frameRate: 1, repeat: -1 },
+  checkpointRespawn: { frames: [25], frameRate: 1, repeat: -1 }
 } as const;
 
 export const RuntimePlayerVisualConfig = {
@@ -90,13 +96,25 @@ export const RuntimePlayerVisualConfig = {
 } as const;
 
 export const InkCrawlerAnimationFrames = {
-  patrol: { frames: [0, 1, 2, 3, 4, 5, 6, 7], frameRate: 8, repeat: -1 },
-  hit: { frames: [3, 4], frameRate: 12, repeat: 0 }
+  patrol: { frames: [2], frameRate: 1, repeat: -1 },
+  hit: { frames: [2], frameRate: 1, repeat: 0 }
 } as const;
 
 export const KiteWraithAnimationFrames = {
-  drift: { frames: [0, 1, 2, 3], frameRate: 6, repeat: -1 },
-  hit: { frames: [3, 2], frameRate: 10, repeat: 0 }
+  drift: { frames: [0], frameRate: 1, repeat: -1 },
+  hit: { frames: [0], frameRate: 1, repeat: 0 }
+} as const;
+
+export const SlashAnimationFrames = {
+  arc: { frames: [0, 1, 2, 3], frameRate: 32, repeat: 0 }
+} as const;
+
+export const LanternWardenAnimationFrames = {
+  idle: { frames: [1], frameRate: 1, repeat: -1 },
+  telegraph: { frames: [2], frameRate: 1, repeat: -1 },
+  attack: { frames: [3], frameRate: 1, repeat: -1 },
+  recovery: { frames: [1], frameRate: 1, repeat: -1 },
+  defeat: { frames: [0], frameRate: 1, repeat: 0 }
 } as const;
 
 export const RuntimeAssetKeys = Object.values(ArtAssetKey);
