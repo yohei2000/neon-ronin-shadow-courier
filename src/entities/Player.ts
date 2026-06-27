@@ -34,6 +34,8 @@ const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; r
   hurt: { angle: 8, offsetY: 0 }
 };
 
+const PlayerVisualGroundOffsetY = 16;
+
 export class Player {
   readonly sprite: Phaser.GameObjects.Sprite;
   private readonly slashSprite: Phaser.GameObjects.Sprite;
@@ -108,8 +110,8 @@ export class Player {
 
     const dt = deltaMs / 1000;
     const targetVx = input.moveX * Stage1Tuning.runSpeed;
-    const accel = this.onGround ? 0.38 : 0.18;
-    this.vx += (targetVx - this.vx) * accel;
+    const acceleration = this.resolveHorizontalAcceleration(targetVx);
+    this.vx = this.approach(this.vx, targetVx, acceleration * dt);
     if (Math.abs(this.vx) < 1) this.vx = 0;
 
     this.vy = Math.min(Stage1Tuning.maxFallSpeed, this.vy + Stage1Tuning.gravity * dt);
@@ -267,7 +269,7 @@ export class Player {
     const baseScale = RuntimePlayerVisualConfig.scale;
     const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.7 : 0;
 
-    this.sprite.setPosition(this.x, this.y + transform.offsetY + motionBob);
+    this.sprite.setPosition(this.x, this.y + PlayerVisualGroundOffsetY + transform.offsetY + motionBob);
     this.sprite.setFlipX(this.facing < 0);
     this.sprite.setScale(baseScale);
     this.sprite.setAngle(transform.angle * this.facing);
@@ -287,7 +289,7 @@ export class Player {
 
     this.slashSprite
       .setVisible(true)
-      .setPosition(this.x + this.facing * 52, this.y - 16)
+      .setPosition(this.x + this.facing * 52, this.y + PlayerVisualGroundOffsetY - 16)
       .setFlipX(this.facing < 0)
       .setAlpha(slash.phase === 'active' ? 0.95 : 0.48)
       .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
@@ -303,5 +305,21 @@ export class Player {
     if (!this.onGround) return 'fall';
     if (Math.abs(this.vx) > 18) return 'run';
     return 'idle';
+  }
+
+  private resolveHorizontalAcceleration(targetVx: number): number {
+    if (targetVx === 0) {
+      return this.onGround ? Stage1Tuning.groundDeceleration : Stage1Tuning.airDeceleration;
+    }
+    if (Math.sign(targetVx) !== Math.sign(this.vx) && Math.abs(this.vx) > 4) {
+      return Stage1Tuning.turnAcceleration;
+    }
+    return this.onGround ? Stage1Tuning.groundAcceleration : Stage1Tuning.airAcceleration;
+  }
+
+  private approach(current: number, target: number, maxDelta: number): number {
+    if (current < target) return Math.min(target, current + maxDelta);
+    if (current > target) return Math.max(target, current - maxDelta);
+    return target;
   }
 }

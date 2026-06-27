@@ -4,6 +4,10 @@ import type { Stage1EnemyDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
 import type { StageEnemy } from './types';
 
+const InkCrawlerVisualGroundOffsetY = 50;
+const InkCrawlerBodyCenterOffsetY = -9;
+const InkCrawlerPatrolAcceleration = 7.5;
+
 export class InkCrawler implements StageEnemy {
   readonly id: string;
   readonly kind = 'ink-crawler' as const;
@@ -12,11 +16,12 @@ export class InkCrawler implements StageEnemy {
   private readonly sprite: Phaser.GameObjects.Sprite;
   private direction: -1 | 1 = 1;
   private hp = 2;
+  private speed = 0;
 
   constructor(scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
     this.sprite = scene.add
-      .sprite(definition.x, definition.y, RuntimeSpriteAssetKey.InkCrawler, 2)
+      .sprite(definition.x, definition.y + InkCrawlerVisualGroundOffsetY, RuntimeSpriteAssetKey.InkCrawler, 2)
       .setOrigin(0.5, 0.74)
       .setScale(0.54)
       .setDepth(25);
@@ -26,20 +31,24 @@ export class InkCrawler implements StageEnemy {
   update(deltaMs: number): void {
     if (this.dead) return;
     const dt = deltaMs / 1000;
-    this.sprite.x += this.direction * 62 * dt;
+    const targetSpeed = this.direction * 62;
+    this.speed += (targetSpeed - this.speed) * Math.min(1, InkCrawlerPatrolAcceleration * dt);
+    this.sprite.x += this.speed * dt;
     if (this.sprite.x > this.definition.patrolMaxX) {
       this.sprite.x = this.definition.patrolMaxX;
       this.direction = -1;
+      this.speed = 0;
     }
     if (this.sprite.x < this.definition.patrolMinX) {
       this.sprite.x = this.definition.patrolMinX;
       this.direction = 1;
+      this.speed = 0;
     }
     this.sprite.setFlipX(this.direction < 0);
   }
 
   getBody() {
-    return centerRect(this.sprite.x, this.sprite.y + 14, 58, 42);
+    return centerRect(this.sprite.x, this.sprite.y + InkCrawlerBodyCenterOffsetY, 58, 42);
   }
 
   takeHit(amount: number): boolean {

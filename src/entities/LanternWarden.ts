@@ -7,6 +7,9 @@ import type { StageEnemy } from './types';
 
 type WardenState = 'idle' | 'telegraph' | 'active' | 'recovery' | 'defeated';
 
+const WardenVisualGroundOffsetY = 28;
+const WardenBodyCenterOffsetY = 23;
+
 export class LanternWarden implements StageEnemy {
   readonly id: string;
   readonly kind = 'lantern-warden' as const;
@@ -23,7 +26,10 @@ export class LanternWarden implements StageEnemy {
   constructor(private readonly scene: Phaser.Scene, private readonly definition: Stage1WardenDefinition) {
     this.id = definition.id;
     this.hp = definition.hp;
-    this.sprite = scene.add.sprite(definition.x, definition.y, RuntimeSpriteAssetKey.LanternWarden, 1).setScale(0.72).setDepth(26);
+    this.sprite = scene.add
+      .sprite(definition.x, definition.y + WardenVisualGroundOffsetY, RuntimeSpriteAssetKey.LanternWarden, 1)
+      .setScale(0.72)
+      .setDepth(26);
     this.telegraph = scene.add
       .sprite(definition.x, definition.y + 86, RuntimeSpriteAssetKey.Telegraph, 1)
       .setDisplaySize(168, 96)
@@ -60,7 +66,7 @@ export class LanternWarden implements StageEnemy {
   }
 
   getBody(): RectData {
-    return centerRect(this.sprite.x, this.sprite.y + 34, 74, 138);
+    return centerRect(this.sprite.x, this.sprite.y + WardenBodyCenterOffsetY, 74, 138);
   }
 
   getAttackRect(): RectData | null {
