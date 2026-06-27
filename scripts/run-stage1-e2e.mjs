@@ -186,7 +186,7 @@ const runKeyboardRouteToClear = async (page) => {
     const attackNow =
       (player.x > 760 && player.x < 1060) ||
       (player.x > 1880 && player.x < 2180) ||
-      (player.x > 2820 && player.x < 3060) ||
+      (player.x > 2540 && player.x < 3180) ||
       (player.x > 4300 && player.x < 4840) ||
       (player.x > 5520 && !current.wardenDefeated);
     if (attackNow && now - lastSlash > 300) {
@@ -272,6 +272,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.keyboard.down('ArrowRight');
     await page.keyboard.down('d');
     let lastJump = 0;
+    let lastSlash = 0;
     let lastShaftRecovery = 0;
     let lastRightRefresh = Date.now();
     let lastProgressX = 0;
@@ -325,6 +326,10 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       if (player && player.x > 2040 && player.x < 2305 && Date.now() - lastJump > 360) {
         lastJump = Date.now();
         await jump(page, 80);
+      }
+      if (player && player.x > 2540 && player.x < 3180 && Date.now() - lastSlash > 300) {
+        lastSlash = Date.now();
+        await slash(page);
       }
       await page.waitForTimeout(50);
     }
