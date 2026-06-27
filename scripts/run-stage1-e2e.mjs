@@ -112,14 +112,14 @@ const runKeyboardRouteToClear = async (page) => {
 
     const now = Date.now();
     const jumpNow =
-      (player.x > 1120 && player.x < 1700 && player.y > 280) ||
+      (player.x > 1030 && player.x < 1720 && player.y > 255) ||
       (player.x > 2040 && player.x < 2305) ||
       (player.x > 4080 && player.x < 4385) ||
       (player.x > 4440 && player.x < 4760) ||
       (player.x > 4760 && player.x < 4895);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
-      await jump(page, player.x > 1120 && player.x < 1700 ? 145 : player.x > 4000 ? 180 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : player.x > 4000 ? 180 : 110);
     }
     const attackNow =
       (player.x > 760 && player.x < 1060) ||
@@ -213,9 +213,9 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       const current = await state(page);
       const player = current.player;
       if (player && player.x > 3600 && current.checkpointCount >= 3) break;
-      if (player && player.x > 1120 && player.x < 1700 && player.y > 280 && Date.now() - lastJump > 360) {
+      if (player && player.x > 1030 && player.x < 1720 && player.y > 255 && Date.now() - lastJump > 360) {
         lastJump = Date.now();
-        await jump(page, 145);
+        await jump(page, player.x < 1240 ? 220 : 165);
       }
       if (player && player.x > 2040 && player.x < 2305 && Date.now() - lastJump > 360) {
         lastJump = Date.now();

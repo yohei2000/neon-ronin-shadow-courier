@@ -87,7 +87,7 @@ const captureRoute = async (page) => {
 
     const now = Date.now();
     if (
-      ((player.x > 1120 && player.x < 1700 && player.y > 280) ||
+      ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
         (player.x > 2040 && player.x < 2305) ||
         (player.x > 4080 && player.x < 4385) ||
         (player.x > 4440 && player.x < 4760) ||
@@ -95,7 +95,7 @@ const captureRoute = async (page) => {
       now - lastJump > 360
     ) {
       lastJump = now;
-      await jump(page, player.x > 1120 && player.x < 1700 ? 145 : player.x > 4000 ? 180 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : player.x > 4000 ? 180 : 110);
     }
     if (
       ((player.x > 760 && player.x < 1060) ||
