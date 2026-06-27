@@ -1,8 +1,6 @@
 # Gate B v2 Screenshot Links
 
-Gate B v2 approval requires explicit human review. Reply with exactly:
-
-`Approve Gate B v2`
+Gate B v2 was explicitly approved by the human user. Approval input: ゲートBを承認します.
 
 ## Primary Screenshots
 

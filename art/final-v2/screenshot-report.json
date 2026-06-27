@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T23:24:17.460Z",
+  "generatedAt": "2026-06-27T00:21:25.886Z",
   "baseUrl": "http://127.0.0.1:5173/",
   "valid": true,
   "screenshots": [
@@ -14,7 +14,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -100,7 +100,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -186,7 +186,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -272,7 +272,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -358,7 +358,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -444,7 +444,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -530,7 +530,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -616,7 +616,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -702,7 +702,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -788,7 +788,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -874,7 +874,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -960,7 +960,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1046,7 +1046,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1132,7 +1132,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1218,7 +1218,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1304,7 +1304,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1390,7 +1390,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1476,7 +1476,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1562,7 +1562,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1648,7 +1648,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1734,7 +1734,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1820,7 +1820,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1906,7 +1906,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -1992,7 +1992,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2078,7 +2078,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2164,7 +2164,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2250,7 +2250,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2336,7 +2336,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2422,7 +2422,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2508,7 +2508,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2594,7 +2594,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2680,7 +2680,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2766,7 +2766,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2852,7 +2852,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -2938,7 +2938,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3024,7 +3024,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3110,7 +3110,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3196,7 +3196,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3282,7 +3282,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3368,7 +3368,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3454,7 +3454,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3540,7 +3540,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3626,7 +3626,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3712,7 +3712,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3798,7 +3798,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3884,7 +3884,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -3970,7 +3970,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4056,7 +4056,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4142,7 +4142,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4228,7 +4228,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4314,7 +4314,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4400,7 +4400,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4486,7 +4486,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4572,7 +4572,7 @@
         "scene": "TitleScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4658,7 +4658,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4744,7 +4744,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4830,7 +4830,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -4916,7 +4916,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -5002,7 +5002,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -5088,7 +5088,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -5174,7 +5174,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -5260,7 +5260,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -5346,7 +5346,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",
@@ -5432,7 +5432,7 @@
         "scene": "ArtLabScene",
         "phase": "gate-b-v2-image-generated-art-lock-review",
         "gateAApproval": "APPROVED_2026-06-26",
-        "gateBApproval": "PENDING_HUMAN_APPROVAL",
+        "gateBApproval": "APPROVED_2026-06-27",
         "references": [
           "A",
           "B",

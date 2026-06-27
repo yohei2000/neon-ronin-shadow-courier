@@ -82,6 +82,6 @@ Enemy attacks show glow-up, aim, ground/range warning, wind-up, release, and rec
 
 Runtime assets under `art/final/assets/` are project-owned PNGs generated from authored SVG source. The A-H reference sheets are never loaded into Phaser.
 
-## Remaining Approval
+## Approval State
 
-Gate B is pending. Do not claim final Art Lock approval until the user replies with `Approve Gate B`.
+Gate B v2 is approved by explicit human input on 2026-06-27. Gate B v1 remains rejected and must not be used as approved final art.

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-26T23:24:26.322Z",
-  "complete": false,
-  "blockingRequirement": "Gate B v2 explicit human approval is still required.",
+  "generatedAt": "2026-06-27T00:21:34.621Z",
+  "complete": true,
+  "blockingRequirement": null,
   "errors": [],
   "requirements": [
     {
@@ -141,8 +141,8 @@
       "id": "gate-b-v2-approved",
       "description": "Gate B v2 received explicit human approval",
       "evidence": "art/approvals/GATE_B_V2_STATUS.json",
-      "achieved": false,
-      "status": "pending-human-approval"
+      "achieved": true,
+      "status": "passed"
     },
     {
       "id": "reference-index.md",

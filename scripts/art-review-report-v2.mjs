@@ -8,6 +8,18 @@ const approvalDir = path.join(rootDir, 'art', 'approvals');
 await fs.mkdir(reviewDir, { recursive: true });
 await fs.mkdir(approvalDir, { recursive: true });
 
+const gateBv2StatusPath = path.join(approvalDir, 'GATE_B_V2_STATUS.json');
+let gateBv2Status = { status: 'pending_human_approval', approved: false };
+try {
+  gateBv2Status = JSON.parse(await fs.readFile(gateBv2StatusPath, 'utf8'));
+} catch {
+  // The request package can be generated before the approval status file exists.
+}
+const gateBv2Approved = gateBv2Status.status === 'approved' && gateBv2Status.approved === true;
+const gateBv2ApprovalCode = gateBv2Approved ? 'APPROVED' : 'PENDING_HUMAN_APPROVAL';
+const gateBv2ApprovalHuman = gateBv2Approved ? 'APPROVED' : 'PENDING HUMAN APPROVAL';
+const gateBv2PackageStatus = gateBv2Approved ? 'APPROVED_FINAL_ART_LOCK' : 'READY_FOR_HUMAN_GATE_B_V2_REVIEW';
+
 const requiredReports = [
   'art/final-v2/asset-validation-report.json',
   'art/final-v2/generated-validation-report.json',
@@ -213,7 +225,9 @@ await writeReview(
   [
     'No final runtime asset points to the A-H reference sheets.',
     'Runtime assets map back to art/generated raw outputs through asset-manifest source fields.',
-    'Gate B v1 is explicitly rejected and Gate B v2 remains unapproved pending human review.'
+    gateBv2Approved
+      ? 'Gate B v1 is explicitly rejected and Gate B v2 is approved by explicit human review.'
+      : 'Gate B v1 is explicitly rejected and Gate B v2 remains unapproved pending human review.'
   ],
   ['The highest-risk v1 weakness, procedural-looking art, is addressed by native image-generated source art.'],
   [
@@ -265,7 +279,7 @@ const scorecard = {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   gateBv1: 'REJECTED',
-  gateBv2Approval: 'PENDING_HUMAN_APPROVAL',
+  gateBv2Approval: gateBv2ApprovalCode,
   median,
   minimum,
   reviewerScores,
@@ -289,7 +303,7 @@ await fs.writeFile(path.join(reviewDir, 'final-scorecard.md'), [
   `Generated: ${scorecard.generatedAt}`,
   '',
   '- Gate B v1: REJECTED',
-  '- Gate B v2: PENDING HUMAN APPROVAL',
+  `- Gate B v2: ${gateBv2ApprovalHuman}`,
   `- Median score: ${median}`,
   `- Minimum score: ${minimum}`,
   '',
@@ -344,9 +358,10 @@ const screenshotLinks = [
 await fs.writeFile(path.join(approvalDir, 'GATE_B_V2_SCREENSHOT_LINKS.md'), [
   '# Gate B v2 Screenshot Links',
   '',
-  'Gate B v2 approval requires explicit human review. Reply with exactly:',
-  '',
-  '`Approve Gate B v2`',
+  gateBv2Approved
+    ? `Gate B v2 was explicitly approved by the human user. Approval input: ${gateBv2Status.approvalInput ?? gateBv2Status.approvalPhrase ?? 'recorded in GATE_B_V2_STATUS.json'}.`
+    : 'Gate B v2 approval requires explicit human review. Reply with exactly:',
+  ...(gateBv2Approved ? [] : ['', '`Approve Gate B v2`']),
   '',
   '## Primary Screenshots',
   '',
@@ -406,13 +421,14 @@ await fs.writeFile(path.join(approvalDir, 'GATE_B_V2_HUMAN_CHECKLIST.md'), [
 await fs.writeFile(path.join(approvalDir, 'GATE_B_V2_REQUEST.md'), [
   '# Gate B v2 Approval Request',
   '',
-  'Gate B v1 is rejected. Gate B v2 image-generated Art Lock package is ready for explicit human review.',
+  gateBv2Approved
+    ? 'Gate B v1 is rejected. Gate B v2 image-generated Art Lock package has been explicitly approved.'
+    : 'Gate B v1 is rejected. Gate B v2 image-generated Art Lock package is ready for explicit human review.',
   '',
-  'Gate B v2 approval requires explicit human review. Reply with exactly:',
-  '',
-  '`Approve Gate B v2`',
-  '',
-  'Silence is not approval. Passing automated checks is not approval.',
+  gateBv2Approved
+    ? `Approval recorded in \`art/approvals/GATE_B_V2_STATUS.json\` at \`${gateBv2Status.approvedAt ?? 'unknown time'}\`.`
+    : 'Gate B v2 approval requires explicit human review. Reply with exactly:',
+  ...(gateBv2Approved ? [] : ['', '`Approve Gate B v2`', '', 'Silence is not approval. Passing automated checks is not approval.']),
   '',
   '## Primary Review Files',
   '',
@@ -433,7 +449,7 @@ const packageReport = {
   generatedAt: new Date().toISOString(),
   valid: errors.length === 0,
   gateBv1: 'REJECTED',
-  gateBv2Approval: 'PENDING_HUMAN_APPROVAL',
+  gateBv2Approval: gateBv2ApprovalCode,
   request: 'art/approvals/GATE_B_V2_REQUEST.md',
   screenshotLinks: 'art/approvals/GATE_B_V2_SCREENSHOT_LINKS.md',
   scorecard: 'art/reviews/gate-b-v2/final-scorecard.md',
@@ -446,9 +462,11 @@ await fs.writeFile(path.join(reviewDir, 'gate-b-v2-package-report.md'), [
   '',
   `Generated: ${packageReport.generatedAt}`,
   '',
-  `Status: ${packageReport.valid ? 'READY_FOR_HUMAN_GATE_B_V2_REVIEW' : 'INCOMPLETE'}`,
+  `Status: ${packageReport.valid ? gateBv2PackageStatus : 'INCOMPLETE'}`,
   '',
-  'Gate B v2 approval is explicit-human-input only.',
+  gateBv2Approved
+    ? 'Gate B v2 approval has been recorded from explicit human input.'
+    : 'Gate B v2 approval is explicit-human-input only.',
   '',
   '## Reports',
   '',

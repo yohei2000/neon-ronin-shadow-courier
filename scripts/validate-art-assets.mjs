@@ -269,9 +269,16 @@ const gateA = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'approvals'
 if (gateA.status !== 'approved' || gateA.approved !== true) errors.push('Gate A status is not approved.');
 
 const gateB = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'approvals', 'GATE_B_STATUS.json'), 'utf8'));
-if (gateB.status !== 'pending' || gateB.approved !== false) errors.push('Gate B status must remain pending before explicit approval.');
+if (gateB.status !== 'pending' || gateB.approved !== false) errors.push('Superseded Gate B v1 status must remain unapproved.');
 const gateBv2 = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'approvals', 'GATE_B_V2_STATUS.json'), 'utf8'));
-if (gateBv2.approved !== false || gateBv2.approvalPhrase !== 'Approve Gate B v2') errors.push('Gate B v2 status must remain pending with exact approval phrase.');
+if (gateBv2.approvalPhrase !== 'Approve Gate B v2') errors.push('Gate B v2 status must preserve exact approval phrase.');
+if (gateBv2.status === 'approved') {
+  if (gateBv2.approved !== true || !gateBv2.approvedAt || !gateBv2.approvedBy) {
+    errors.push('Gate B v2 approved status must include approved=true, approvedAt, and approvedBy.');
+  }
+} else if (gateBv2.approved !== false) {
+  errors.push('Gate B v2 non-approved status must set approved=false.');
+}
 
 const runtimeText = await fs.readFile(path.join(rootDir, 'src', 'scenes', 'ArtLabScene.ts'), 'utf8');
 const titleRuntimeText = await fs.readFile(path.join(rootDir, 'src', 'scenes', 'TitleScene.ts'), 'utf8');

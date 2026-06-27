@@ -1,12 +1,8 @@
 # Gate B v2 Approval Request
 
-Gate B v1 is rejected. Gate B v2 image-generated Art Lock package is ready for explicit human review.
+Gate B v1 is rejected. Gate B v2 image-generated Art Lock package has been explicitly approved.
 
-Gate B v2 approval requires explicit human review. Reply with exactly:
-
-`Approve Gate B v2`
-
-Silence is not approval. Passing automated checks is not approval.
+Approval recorded in `art/approvals/GATE_B_V2_STATUS.json` at `2026-06-27T08:52:45.3607339+09:00`.
 
 ## Primary Review Files
 

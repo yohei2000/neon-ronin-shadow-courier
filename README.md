@@ -18,13 +18,7 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 
 - Gate A: approved via `Approve Gate A` on 2026-06-26.
 - Gate B v1: rejected.
-- Gate B v2: pending explicit human approval.
-
-To approve Gate B v2 after reviewing the evidence, reply exactly:
-
-```text
-Approve Gate B v2
-```
+- Gate B v2: approved by explicit human input on 2026-06-27.
 
 ## Runtime
 
@@ -86,6 +80,5 @@ The reference package is user-provided specification material and is not runtime
 ## Known Limitations
 
 - This remains an Art Lock package, not the five-stage game.
-- Gate B v2 is not approved yet.
 - Some generated sprite sheets still need future alpha/cutout cleanup before Stage 1 gameplay integration.
-- Stage 1 integration should start only after Gate B v2 approval.
+- Stage 1 integration should use the approved Gate B v2 visual system.

@@ -138,8 +138,14 @@ if (generationLog) {
 const v1Rejection = await requireFile('art/approvals/GATE_B_V1_REJECTION.md', { minBytes: 100 });
 const v2Status = await readJson('art/approvals/GATE_B_V2_STATUS.json');
 if (!v1Rejection) errors.push('Gate B v1 rejection file is required.');
-if (v2Status && (v2Status.approved !== false || v2Status.approvalPhrase !== 'Approve Gate B v2')) {
-  errors.push('Gate B v2 status must remain unapproved and use the exact approval phrase.');
+if (v2Status) {
+  if (v2Status.approvalPhrase !== 'Approve Gate B v2') errors.push('Gate B v2 status must preserve the exact approval phrase.');
+  if (v2Status.status === 'approved') {
+    if (v2Status.approved !== true) errors.push('Gate B v2 approved status must set approved=true.');
+    if (!v2Status.approvedAt || !v2Status.approvedBy) errors.push('Gate B v2 approved status must record approvedAt and approvedBy.');
+  } else if (v2Status.approved !== false) {
+    errors.push('Gate B v2 non-approved status must set approved=false.');
+  }
 }
 
 if (totalCandidates < 150) {

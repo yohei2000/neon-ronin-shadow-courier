@@ -1,6 +1,6 @@
 # Reference Compliance Matrix
 
-Status: Gate B v1 rejected. Gate B v2 image-generated package is in progress/pending explicit human approval.
+Status: Gate B v1 rejected. Gate B v2 image-generated package is approved by explicit human input on 2026-06-27.
 
 | Ref | Requirement | Gate B v2 Implementation Files | Runtime State / Screenshot | Automated Check | Status |
 |---|---|---|---|---|---|
@@ -27,6 +27,6 @@ Status: Gate B v1 rejected. Gate B v2 image-generated package is in progress/pen
 - Console report: `art/final-v2/console-report.json`
 - Revision rounds: `art/reviews/gate-b-v2/round-01/`, `round-02/`, `round-03/`
 
-## Remaining Gate
+## Gate State
 
-Gate B v2 requires explicit human approval with `Approve Gate B v2`. Until then, this is a review package, not an approved final Art Lock.
+Gate B v2 is approved. Gate B v1 remains rejected and must not be used as approved final art.

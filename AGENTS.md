@@ -19,7 +19,8 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 ## Current Gate State
 
 - Gate A: approved by explicit human phrase `Approve Gate A` on 2026-06-26.
-- Gate B: package generated; pending explicit human approval.
+- Gate B v1: rejected as visually below product level.
+- Gate B v2: approved by explicit human input `ゲートBを承認します` on 2026-06-27.
 - Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
 
 Gate A evidence currently includes:
@@ -70,6 +71,6 @@ Final Art Lock commands from `ART_LOCK_GOAL.md` must inspect real final assets, 
 
 ## Next Step
 
-Request explicit Gate B approval using the exact phrase `Approve Gate B`. Do not claim final Art Lock completion until that approval is received.
+Gate B v2 is approved. The next implementation scope should use this approved visual system rather than changing the art direction.
 
 Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is `BootScene -> PreloadScene -> TitleScene`, with deterministic `ArtLabScene` review states available via `?scene=artlab&state=...`.

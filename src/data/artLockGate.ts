@@ -1,6 +1,6 @@
 export const ArtLockPhase = 'gate-b-v2-image-generated-art-lock-review' as const;
 export const GateAApprovalStatus = 'APPROVED_2026-06-26' as const;
-export const GateBApprovalStatus = 'PENDING_HUMAN_APPROVAL' as const;
+export const GateBApprovalStatus = 'APPROVED_2026-06-27' as const;
 
 export const ReferenceIds = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const;
 

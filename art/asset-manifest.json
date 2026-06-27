@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T23:20:45.585Z",
+  "generatedAt": "2026-06-27T00:17:47.603Z",
   "phase": "gate-b-v2-image-generated-art-lock-review",
   "sourcePipeline": "native Codex image_gen -> art/generated raw archives -> scripts/process-generated-v2.mjs -> final-v2 runtime PNGs",
   "noRemoteRuntimeDependencies": true,

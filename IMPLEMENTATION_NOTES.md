@@ -39,12 +39,12 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `art:validate-assets` checks manifests, runtime assets, screenshots, revision rounds, approvals, and scene asset usage.
 - `art:screenshots` captures `art/final-v2/` plus `art/reviews/gate-b-v2/round-01..03/`.
 - `art:review-report` writes concrete v2 review files and `art/reviews/gate-b-v2/final-scorecard.*`.
-- `art:audit` treats Gate B v2 approval as the remaining human gate.
+- `art:audit` verifies Gate B v2 approval as part of final Art Lock completion.
 
 ## Gate Status
 
 - Gate A: approved.
 - Gate B v1: rejected.
-- Gate B v2: pending human approval with exact phrase `Approve Gate B v2`.
+- Gate B v2: approved by explicit human input on 2026-06-27.
 
-Do not claim final Art Lock completion until Gate B v2 is explicitly approved.
+The approved Gate B v2 visual system is the reference for the next Stage 1 integration pass.

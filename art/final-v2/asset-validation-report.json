@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T23:24:21.187Z",
+  "generatedAt": "2026-06-27T00:21:29.898Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -40,7 +40,7 @@
     },
     {
       "file": "art/final-v2/screenshot-report.json",
-      "bytes": 210492
+      "bytes": 210300
     },
     {
       "file": "art/final-v2/performance-report.md",
@@ -102,7 +102,7 @@
     },
     {
       "file": "art/approvals/GATE_B_V2_STATUS.json",
-      "bytes": 602
+      "bytes": 698
     },
     {
       "file": "art/approvals/GATE_A_STATUS.json",
@@ -356,77 +356,77 @@
       "file": "art/reviews/gate-b-v2/round-01/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 878298
+      "bytes": 878158
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 168380
+      "bytes": 168220
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 690283
+      "bytes": 690395
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 798349
+      "bytes": 798463
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 620057
+      "bytes": 620132
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/player-contrast.png",
       "width": 960,
       "height": 540,
-      "bytes": 427319
+      "bytes": 427401
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/slash.png",
       "width": 960,
       "height": 540,
-      "bytes": 624216
+      "bytes": 624417
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 637999
+      "bytes": 638229
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 760532
+      "bytes": 760651
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/parallax.png",
       "width": 960,
       "height": 540,
-      "bytes": 690202
+      "bytes": 690317
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/hud.png",
       "width": 960,
       "height": 540,
-      "bytes": 618924
+      "bytes": 618999
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 147286
+      "bytes": 147291
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/review.md",
-      "bytes": 1386
+      "bytes": 1398
     },
     {
       "file": "art/reviews/gate-b-v2/round-01/changes.md",
@@ -436,77 +436,77 @@
       "file": "art/reviews/gate-b-v2/round-02/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 878298
+      "bytes": 878158
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 168380
+      "bytes": 168220
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 690283
+      "bytes": 690395
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 798349
+      "bytes": 798463
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 620057
+      "bytes": 620132
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/player-contrast.png",
       "width": 960,
       "height": 540,
-      "bytes": 427319
+      "bytes": 427401
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/slash.png",
       "width": 960,
       "height": 540,
-      "bytes": 624216
+      "bytes": 624417
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 637999
+      "bytes": 638229
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 760532
+      "bytes": 760651
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/parallax.png",
       "width": 960,
       "height": 540,
-      "bytes": 690202
+      "bytes": 690317
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/hud.png",
       "width": 960,
       "height": 540,
-      "bytes": 618924
+      "bytes": 618999
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 147286
+      "bytes": 147291
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/review.md",
-      "bytes": 1386
+      "bytes": 1398
     },
     {
       "file": "art/reviews/gate-b-v2/round-02/changes.md",
@@ -516,77 +516,77 @@
       "file": "art/reviews/gate-b-v2/round-03/title-desktop.png",
       "width": 960,
       "height": 540,
-      "bytes": 878298
+      "bytes": 878158
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/title-mobile.png",
       "width": 390,
       "height": 844,
-      "bytes": 168380
+      "bytes": 168220
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/artlab-neutral.png",
       "width": 960,
       "height": 540,
-      "bytes": 690283
+      "bytes": 690395
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/artlab-busy.png",
       "width": 960,
       "height": 540,
-      "bytes": 798349
+      "bytes": 798463
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/player-motion.png",
       "width": 960,
       "height": 540,
-      "bytes": 620057
+      "bytes": 620132
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/player-contrast.png",
       "width": 960,
       "height": 540,
-      "bytes": 427319
+      "bytes": 427401
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/slash.png",
       "width": 960,
       "height": 540,
-      "bytes": 624216
+      "bytes": 624417
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/enemy.png",
       "width": 960,
       "height": 540,
-      "bytes": 637999
+      "bytes": 638229
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/warden-telegraph.png",
       "width": 960,
       "height": 540,
-      "bytes": 760532
+      "bytes": 760651
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/parallax.png",
       "width": 960,
       "height": 540,
-      "bytes": 690202
+      "bytes": 690317
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/hud.png",
       "width": 960,
       "height": 540,
-      "bytes": 618924
+      "bytes": 618999
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/mobile-controls.png",
       "width": 390,
       "height": 844,
-      "bytes": 147286
+      "bytes": 147291
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/review.md",
-      "bytes": 1386
+      "bytes": 1398
     },
     {
       "file": "art/reviews/gate-b-v2/round-03/changes.md",

@@ -79,7 +79,7 @@ export class TitleScene extends Phaser.Scene {
     this.add.zone(724, 388, 220, 42).setInteractive({ useHandCursor: true }).on('pointerup', () => this.scene.start(SceneKey.ArtLab));
     this.add.zone(724, 432, 220, 42).setInteractive({ useHandCursor: true }).on('pointerup', () => this.scene.start(SceneKey.ArtLab, { state: 'neutral' }));
 
-    this.add.text(58, 504, 'Gate B v1 rejected. Gate B v2 pending explicit human approval.', {
+    this.add.text(58, 504, 'Gate B v1 rejected. Gate B v2 approved on 2026-06-27.', {
       fontFamily: 'Consolas, monospace',
       fontSize: '13px',
       color: PaletteHex.paleMoonMist

@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import fs from 'node:fs';
 
 const commands = [
   ['run', 'art:refs'],
@@ -31,4 +32,9 @@ for (const args of commands) {
   }
 }
 
-console.log('art:all PASS final Art Lock Gate B package is ready for explicit human review.');
+const gateBv2 = JSON.parse(fs.readFileSync('art/approvals/GATE_B_V2_STATUS.json', 'utf8'));
+console.log(
+  gateBv2.status === 'approved' && gateBv2.approved === true
+    ? 'art:all PASS final Art Lock Gate B package is approved and complete.'
+    : 'art:all PASS final Art Lock Gate B package is ready for explicit human review.'
+);

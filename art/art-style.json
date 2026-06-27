@@ -2,7 +2,7 @@
   "project": "Neon Ronin: Shadow Courier",
   "phase": "gate-b-v2-image-generated-art-lock-review",
   "gateBv1": "rejected as visually below product level",
-  "gateBv2Approval": "pending explicit human approval",
+  "gateBv2Approval": "approved by explicit human input on 2026-06-27",
   "sourcePipeline": "native Codex image_gen raw outputs -> art/generated -> art/source -> art/final-v2 runtime PNGs",
   "logicalResolution": {
     "width": 960,

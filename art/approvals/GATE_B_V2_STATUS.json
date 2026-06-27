@@ -1,15 +1,18 @@
 {
   "gate": "B v2",
   "name": "Final Art Lock - Image Generated Rework",
-  "status": "pending_human_approval",
-  "approved": false,
+  "status": "approved",
+  "approved": true,
+  "approvedAt": "2026-06-27T08:52:45.3607339+09:00",
+  "approvedBy": "human-user",
+  "approvalInput": "ゲートBを承認します",
   "approvalPhrase": "Approve Gate B v2",
   "humanSelectionApproval": "not provided, proceeded by score",
   "requestFile": "art/approvals/GATE_B_V2_REQUEST.md",
   "notes": [
     "Gate B v1 is rejected as visually below product level.",
     "Gate B v2 requires real image-generated or image-edited source assets.",
-    "Passing automated commands does not approve Gate B v2.",
-    "Gate B v2 approval requires the user to explicitly reply with the approval phrase."
+    "Passing automated commands did not approve Gate B v2.",
+    "Gate B v2 was approved by explicit human input after review."
   ]
 }

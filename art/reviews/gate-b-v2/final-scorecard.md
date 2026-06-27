@@ -1,9 +1,9 @@
 # Gate B v2 Final Scorecard
 
-Generated: 2026-06-26T23:24:25.537Z
+Generated: 2026-06-27T00:21:33.788Z
 
 - Gate B v1: REJECTED
-- Gate B v2: PENDING HUMAN APPROVAL
+- Gate B v2: APPROVED
 - Median score: 4.6
 - Minimum score: 4.2
 

@@ -11,4 +11,4 @@ Round 3 inspected the actual captured PNGs in this folder after image-generated 
 - warden-telegraph.png: telegraph board shows phase variety with amber/vermilion enemy warning language; hit timing is documented by manifest.
 - mobile-controls.png: generated UI material is stylistically integrated; candidate labels were cropped out for runtime controls.
 
-Decision: PASS for continuing the v2 art-lock package, with the remaining risks documented for human Gate B v2 review.
+Decision: PASS for the approved Gate B v2 art-lock package, with remaining risks documented for the next Stage 1 integration pass.

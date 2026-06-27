@@ -4,7 +4,7 @@ export interface ArtLockQaState {
   readonly scene: 'GateAReviewScene' | 'PreloadScene' | 'TitleScene' | 'ArtLabScene';
   readonly phase: 'gate-b-final-art-lock-review' | 'gate-b-v2-image-generated-art-lock-review';
   readonly gateAApproval: 'APPROVED_2026-06-26';
-  readonly gateBApproval: 'NOT_STARTED' | 'PENDING_HUMAN_APPROVAL' | 'GATE_B_V1_REJECTED__GATE_B_V2_PENDING_HUMAN_APPROVAL';
+  readonly gateBApproval: 'NOT_STARTED' | 'PENDING_HUMAN_APPROVAL' | 'GATE_B_V1_REJECTED__GATE_B_V2_PENDING_HUMAN_APPROVAL' | 'APPROVED_2026-06-27';
   readonly references: typeof ReferenceIds;
   readonly evidenceFiles: typeof GateAEvidenceFiles;
   readonly selectedDirection: typeof SelectedDirection;

@@ -1,10 +1,10 @@
 # Gate B v2 Package Report
 
-Generated: 2026-06-26T23:24:25.544Z
+Generated: 2026-06-27T00:21:33.795Z
 
-Status: READY_FOR_HUMAN_GATE_B_V2_REVIEW
+Status: APPROVED_FINAL_ART_LOCK
 
-Gate B v2 approval is explicit-human-input only.
+Gate B v2 approval has been recorded from explicit human input.
 
 ## Reports
 

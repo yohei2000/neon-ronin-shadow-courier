@@ -16,7 +16,11 @@ describe('Art Lock scope', () => {
 
   it('keeps approval gates explicit', () => {
     expect(GateAApprovalStatus).toBe('APPROVED_2026-06-26');
-    expect(GateBApprovalStatus).toBe('PENDING_HUMAN_APPROVAL');
+    expect(GateBApprovalStatus).toBe('APPROVED_2026-06-27');
+    const gateBv2Status = JSON.parse(fs.readFileSync(path.resolve('art', 'approvals', 'GATE_B_V2_STATUS.json'), 'utf8'));
+    expect(gateBv2Status.status).toBe('approved');
+    expect(gateBv2Status.approved).toBe(true);
+    expect(gateBv2Status.approvedBy).toBe('human-user');
   });
 
   it('tracks all A-H references and Gate A evidence files', () => {

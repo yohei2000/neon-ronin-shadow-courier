@@ -11,7 +11,7 @@
 
 - No final runtime asset points to the A-H reference sheets.
 - Runtime assets map back to art/generated raw outputs through asset-manifest source fields.
-- Gate B v1 is explicitly rejected and Gate B v2 remains unapproved pending human review.
+- Gate B v1 is explicitly rejected and Gate B v2 is approved by explicit human review.
 
 ## Improved Versus Gate B v1
 

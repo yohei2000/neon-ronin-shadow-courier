@@ -28,6 +28,27 @@ if (!address || typeof address === 'string') {
 const baseUrl = `http://127.0.0.1:${address.port}/`;
 const browser = await chromium.launch({ headless: true });
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function saveScreenshot(page, outputPath) {
+  let lastError;
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const tempPath = `${outputPath}.${process.pid}.${attempt}.tmp`;
+    try {
+      const png = await page.screenshot({ fullPage: true, type: 'png' });
+      await fs.writeFile(tempPath, png);
+      await fs.rm(outputPath, { force: true });
+      await fs.rename(tempPath, outputPath);
+      return;
+    } catch (error) {
+      lastError = error;
+      await fs.rm(tempPath, { force: true }).catch(() => {});
+      await wait(150 * attempt);
+    }
+  }
+  throw lastError;
+}
+
 async function capture(page, item, outputDir = finalDir) {
   const query = item.scene === 'title'
     ? ''
@@ -49,7 +70,7 @@ async function capture(page, item, outputDir = finalDir) {
   const qa = await page.evaluate(() => window.__NEON_RONIN_ART_LOCK__);
   const outputPath = path.join(outputDir, item.file);
   await ensureDir(path.dirname(outputPath));
-  await page.screenshot({ path: outputPath, fullPage: true });
+  await saveScreenshot(page, outputPath);
   screenshots.push({
     file: path.relative(rootDir, outputPath).replaceAll('\\', '/'),
     url: query || '/',
@@ -146,7 +167,7 @@ try {
       '- warden-telegraph.png: telegraph board shows phase variety with amber/vermilion enemy warning language; hit timing is documented by manifest.',
       '- mobile-controls.png: generated UI material is stylistically integrated; candidate labels were cropped out for runtime controls.',
       '',
-      'Decision: PASS for continuing the v2 art-lock package, with the remaining risks documented for human Gate B v2 review.',
+      'Decision: PASS for the approved Gate B v2 art-lock package, with remaining risks documented for the next Stage 1 integration pass.',
       ''
     ].join('\n'), 'utf8');
     await fs.writeFile(path.join(roundDir, 'changes.md'), [
