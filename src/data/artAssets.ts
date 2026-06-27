@@ -1,3 +1,5 @@
+import { ApprovedArtUrlByKey } from './approvedArtManifest';
+
 export const ArtAssetKey = {
   Player: 'player-spritesheet',
   PlayerMaster: 'player-master',
@@ -12,6 +14,7 @@ export const ArtAssetKey = {
   BrushKit: 'brush-kit',
   SignAtlas: 'sign-atlas',
   TitleComposition: 'title-composition',
+  EnvironmentKey: 'environment-key',
   LayerFarSky: 'layer-far-sky',
   LayerDistantSkyline: 'layer-distant-skyline',
   LayerMidRoofsSigns: 'layer-mid-roofs-signs',
@@ -27,29 +30,30 @@ export const ArtAssetKey = {
 export type ArtAssetKey = (typeof ArtAssetKey)[keyof typeof ArtAssetKey];
 
 export const ArtImageAssets: Record<ArtAssetKey, string> = {
-  [ArtAssetKey.Player]: new URL('../../art/final-v2/assets/player-spritesheet.png', import.meta.url).href,
-  [ArtAssetKey.PlayerMaster]: new URL('../../art/final-v2/assets/player-master.png', import.meta.url).href,
-  [ArtAssetKey.Enemy]: new URL('../../art/final-v2/assets/enemy-spritesheet.png', import.meta.url).href,
-  [ArtAssetKey.LanternWarden]: new URL('../../art/final-v2/assets/lantern-warden-spritesheet.png', import.meta.url).href,
-  [ArtAssetKey.KiteWraith]: new URL('../../art/final-v2/assets/kite-wraith-preview.png', import.meta.url).href,
-  [ArtAssetKey.Slash]: new URL('../../art/final-v2/assets/slash-flipbook.png', import.meta.url).href,
-  [ArtAssetKey.Telegraph]: new URL('../../art/final-v2/assets/telegraph-flipbook.png', import.meta.url).href,
-  [ArtAssetKey.UiKit]: new URL('../../art/final-v2/assets/ui-kit.png', import.meta.url).href,
-  [ArtAssetKey.TitleMenuPanel]: new URL('../../art/final-v2/assets/title-menu-panel.png', import.meta.url).href,
-  [ArtAssetKey.MobileControlsKit]: new URL('../../art/final-v2/assets/mobile-controls-kit.png', import.meta.url).href,
-  [ArtAssetKey.BrushKit]: new URL('../../art/final-v2/assets/brush-kit.png', import.meta.url).href,
-  [ArtAssetKey.SignAtlas]: new URL('../../art/final-v2/assets/sign-atlas.png', import.meta.url).href,
-  [ArtAssetKey.TitleComposition]: new URL('../../art/final-v2/assets/title-composition.png', import.meta.url).href,
-  [ArtAssetKey.LayerFarSky]: new URL('../../art/final-v2/assets/layer-far-sky.png', import.meta.url).href,
-  [ArtAssetKey.LayerDistantSkyline]: new URL('../../art/final-v2/assets/layer-distant-skyline.png', import.meta.url).href,
-  [ArtAssetKey.LayerMidRoofsSigns]: new URL('../../art/final-v2/assets/layer-mid-roofs-signs.png', import.meta.url).href,
-  [ArtAssetKey.LayerGameplay]: new URL('../../art/final-v2/assets/layer-gameplay-layer.png', import.meta.url).href,
-  [ArtAssetKey.LayerNearProps]: new URL('../../art/final-v2/assets/layer-near-props.png', import.meta.url).href,
-  [ArtAssetKey.LayerNearPropsFront]: new URL('../../art/final-v2/assets/layer-near-props-front.png', import.meta.url).href,
-  [ArtAssetKey.LayerForegroundOcclusion]: new URL('../../art/final-v2/assets/layer-foreground-occlusion.png', import.meta.url).href,
-  [ArtAssetKey.LightingMoonlight]: new URL('../../art/final-v2/assets/lighting-moonlight-lantern-gold.png', import.meta.url).href,
-  [ArtAssetKey.LightingNeon]: new URL('../../art/final-v2/assets/lighting-cyan-magenta-neon.png', import.meta.url).href,
-  [ArtAssetKey.LightingWarmCool]: new URL('../../art/final-v2/assets/lighting-warm-cool-alley.png', import.meta.url).href
+  [ArtAssetKey.Player]: ApprovedArtUrlByKey[ArtAssetKey.Player],
+  [ArtAssetKey.PlayerMaster]: ApprovedArtUrlByKey[ArtAssetKey.PlayerMaster],
+  [ArtAssetKey.Enemy]: ApprovedArtUrlByKey[ArtAssetKey.Enemy],
+  [ArtAssetKey.LanternWarden]: ApprovedArtUrlByKey[ArtAssetKey.LanternWarden],
+  [ArtAssetKey.KiteWraith]: ApprovedArtUrlByKey[ArtAssetKey.KiteWraith],
+  [ArtAssetKey.Slash]: ApprovedArtUrlByKey[ArtAssetKey.Slash],
+  [ArtAssetKey.Telegraph]: ApprovedArtUrlByKey[ArtAssetKey.Telegraph],
+  [ArtAssetKey.UiKit]: ApprovedArtUrlByKey[ArtAssetKey.UiKit],
+  [ArtAssetKey.TitleMenuPanel]: ApprovedArtUrlByKey[ArtAssetKey.TitleMenuPanel],
+  [ArtAssetKey.MobileControlsKit]: ApprovedArtUrlByKey[ArtAssetKey.MobileControlsKit],
+  [ArtAssetKey.BrushKit]: ApprovedArtUrlByKey[ArtAssetKey.BrushKit],
+  [ArtAssetKey.SignAtlas]: ApprovedArtUrlByKey[ArtAssetKey.SignAtlas],
+  [ArtAssetKey.TitleComposition]: ApprovedArtUrlByKey[ArtAssetKey.TitleComposition],
+  [ArtAssetKey.EnvironmentKey]: ApprovedArtUrlByKey[ArtAssetKey.EnvironmentKey],
+  [ArtAssetKey.LayerFarSky]: ApprovedArtUrlByKey[ArtAssetKey.LayerFarSky],
+  [ArtAssetKey.LayerDistantSkyline]: ApprovedArtUrlByKey[ArtAssetKey.LayerDistantSkyline],
+  [ArtAssetKey.LayerMidRoofsSigns]: ApprovedArtUrlByKey[ArtAssetKey.LayerMidRoofsSigns],
+  [ArtAssetKey.LayerGameplay]: ApprovedArtUrlByKey[ArtAssetKey.LayerGameplay],
+  [ArtAssetKey.LayerNearProps]: ApprovedArtUrlByKey[ArtAssetKey.LayerNearProps],
+  [ArtAssetKey.LayerNearPropsFront]: ApprovedArtUrlByKey[ArtAssetKey.LayerNearPropsFront],
+  [ArtAssetKey.LayerForegroundOcclusion]: ApprovedArtUrlByKey[ArtAssetKey.LayerForegroundOcclusion],
+  [ArtAssetKey.LightingMoonlight]: ApprovedArtUrlByKey[ArtAssetKey.LightingMoonlight],
+  [ArtAssetKey.LightingNeon]: ApprovedArtUrlByKey[ArtAssetKey.LightingNeon],
+  [ArtAssetKey.LightingWarmCool]: ApprovedArtUrlByKey[ArtAssetKey.LightingWarmCool]
 };
 
 export const PlayerAnimationFrames = {

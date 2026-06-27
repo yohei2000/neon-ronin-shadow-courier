@@ -17,6 +17,7 @@
     "art:gate-status": "node scripts/art-gate-status.mjs",
     "art:gate-a-smoke": "node scripts/art-gate-a-smoke.mjs",
     "art:validate-assets": "node scripts/validate-art-assets.mjs",
+    "art:validate-freeze": "node scripts/validate-approved-art-freeze.mjs",
     "art:validate-sign-density": "node scripts/validate-sign-density.mjs",
     "art:validate-animations": "node scripts/validate-animations.mjs",
     "art:validate-vfx": "node scripts/validate-vfx.mjs",

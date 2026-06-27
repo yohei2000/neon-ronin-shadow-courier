@@ -10,12 +10,14 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `art/generated/` contains raw native `image_gen` outputs and logs.
 - `art/source/` contains selected/refined v2 source assets.
 - `art/final-v2/` contains v2 runtime screenshots, reports, and processed assets.
+- `src/assets/approved-art/` contains frozen production copies of the approved runtime PNGs.
+- `src/data/approvedArtManifest.ts` is the Stage1 runtime asset contract.
 
 ## Runtime
 
 - `BootScene -> PreloadScene -> TitleScene` by default.
 - `?scene=artlab&state=<state>` boots deterministic `ArtLabScene` review stations.
-- Runtime assets are loaded from `art/final-v2/assets/`.
+- Runtime assets are loaded from `src/assets/approved-art/`.
 - The QA bridge is `window.__NEON_RONIN_ART_LOCK__`.
 
 ## Image Generation Route
@@ -31,6 +33,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `scripts/process-generated-v2.mjs` processes recovered native image outputs into `art/source/` and `art/final-v2/assets/`.
 - `scripts/build-art-atlases.mjs` writes `art/final-v2/atlas-manifest.json`.
 - `scripts/generate-art-contact-sheets.mjs` verifies final-v2 contact sheets.
+- `scripts/validate-approved-art-freeze.mjs` verifies that frozen production copies match approved `art/final-v2/assets/` byte-for-byte and map back to `art/source/` or `art/final-v2/`.
 - Runtime manifests remain `art/asset-manifest.json`, `art/animation-manifest.json`, `art/vfx-manifest.json`, `art/telegraph-manifest.json`, and `art/sign-density-scenes.json`.
 
 ## Validation
@@ -40,6 +43,9 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `art:screenshots` captures `art/final-v2/` plus `art/reviews/gate-b-v2/round-01..03/`.
 - `art:review-report` writes concrete v2 review files and `art/reviews/gate-b-v2/final-scorecard.*`.
 - `art:audit` verifies Gate B v2 approval as part of final Art Lock completion.
+- `art:validate-freeze` is the normal post-approval check for Stage1 integration.
+
+Do not run `art:process` for normal Stage1 integration after freeze. It is reserved for a new explicit art-change gate.
 
 ## Gate Status
 

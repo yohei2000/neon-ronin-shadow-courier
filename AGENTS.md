@@ -22,6 +22,7 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 - Gate B v1: rejected as visually below product level.
 - Gate B v2: approved by explicit human input `ゲートBを承認します` on 2026-06-27.
 - Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
+- Art Lock freeze: Gate B v2 core art is frozen. Runtime production assets are normalized under `src/assets/approved-art/` and indexed by `src/data/approvedArtManifest.ts`.
 
 Gate A evidence currently includes:
 
@@ -43,6 +44,7 @@ Use `npm.cmd` on Windows PowerShell.
 Current Art Lock commands:
 
 ```bash
+npm.cmd run art:validate-freeze
 npm.cmd run art:refs
 npm.cmd run art:process
 npm.cmd run art:atlas
@@ -58,7 +60,7 @@ npm.cmd run art:review-report
 npm.cmd run art:all
 ```
 
-Final Art Lock commands from `ART_LOCK_GOAL.md` must inspect real final assets, screenshots, revision rounds, scorecards, and approvals.
+After freeze, use `art:validate-freeze` for normal Stage1 asset checks. Do not run `art:process` unless a new explicit art-change gate authorizes regeneration/reprocessing.
 
 ## Handoff Rules
 
@@ -73,4 +75,4 @@ Final Art Lock commands from `ART_LOCK_GOAL.md` must inspect real final assets, 
 
 Gate B v2 is approved. The next implementation scope should use this approved visual system rather than changing the art direction.
 
-Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is `BootScene -> PreloadScene -> TitleScene`, with deterministic `ArtLabScene` review states available via `?scene=artlab&state=...`.
+Legacy Stage 1 runtime, tests, scripts, and `artifacts/qa` evidence have already been removed from the runnable source tree. The current runtime is `BootScene -> PreloadScene -> TitleScene`, with deterministic `ArtLabScene` review states available via `?scene=artlab&state=...`. Stage1 integration must consume the approved asset manifest rather than direct `art/final-v2/assets/` paths.

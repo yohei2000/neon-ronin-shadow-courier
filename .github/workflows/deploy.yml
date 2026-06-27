@@ -39,8 +39,12 @@ jobs:
       - name: Unit tests
         run: npm run test
 
-      - name: Art Lock QA package
-        run: npm run art:all
+      - name: Approved Art Freeze QA
+        run: |
+          npm run art:validate-freeze
+          npm run art:validate-generated
+          npm run art:validate-assets
+          npm run art:audit
 
       - name: Build for Pages
         run: npm run build

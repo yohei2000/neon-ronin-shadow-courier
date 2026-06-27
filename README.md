@@ -25,6 +25,8 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Default route: image-generated Gate B v2 title screen.
 - Art Lab route: `?scene=artlab&state=neutral`
 - Mobile controls review: `?scene=artlab&state=mobile-controls`
+- Approved production assets: `src/assets/approved-art/`
+- Approved runtime manifest: `src/data/approvedArtManifest.ts`
 
 Runtime states include `busy`, `player-motion`, `player-contrast`, `player-scale`, `enemy`, `kite-wraith`, `warden-telegraph`, `slash`, `parallax`, `sign-density`, `ui-desktop`, `ui-mobile`, `lighting-moonlight`, `lighting-neon`, `lighting-warm`, `high-contrast`, `reduced-fx`, and `grayscale`.
 
@@ -42,6 +44,7 @@ npm.cmd run art:process
 npm.cmd run art:atlas
 npm.cmd run art:contact-sheets
 npm.cmd run art:validate-assets
+npm.cmd run art:validate-freeze
 npm.cmd run art:validate-sign-density
 npm.cmd run art:validate-animations
 npm.cmd run art:validate-vfx
@@ -55,12 +58,15 @@ npm.cmd run art:all
 
 `art:generate` validates native image-generation evidence. The actual native `image_gen` calls were performed through Codex and preserved under `art/generated/`.
 
+After Gate B v2 freeze, do not regenerate core art for normal Stage1 work. Use `art:validate-freeze` to confirm `src/assets/approved-art/` remains byte-identical to `art/final-v2/assets/` and that every Stage1 runtime asset maps back to `art/source/` or `art/final-v2/`.
+
 ## Key Review Files
 
 - `art/approvals/GATE_B_V1_REJECTION.md`
 - `art/approvals/GATE_B_V2_REQUEST.md`
 - `art/approvals/GATE_B_V2_SCREENSHOT_LINKS.md`
 - `art/approvals/GATE_B_V2_HUMAN_CHECKLIST.md`
+- `ART_LOCK_FREEZE.md`
 - `art/generated/GENERATION_LOG.md`
 - `art/final-v2/title-desktop.png`
 - `art/final-v2/title-mobile.png`
@@ -74,6 +80,8 @@ npm.cmd run art:all
 ## Asset Ownership
 
 Gate B v2 runtime assets under `art/final-v2/assets/` are project-owned outputs processed from native Codex `image_gen` results stored under `art/generated/` and selected/refined source files under `art/source/`.
+
+Frozen production copies live under `src/assets/approved-art/` and are loaded through `src/data/approvedArtManifest.ts`.
 
 The reference package is user-provided specification material and is not runtime art.
 

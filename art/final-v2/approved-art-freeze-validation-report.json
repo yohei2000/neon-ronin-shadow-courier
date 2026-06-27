@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-06-27T00:44:13.186Z",
+  "valid": true,
+  "productionDir": "src/assets/approved-art",
+  "sourceManifest": "art/asset-manifest.json",
+  "approvedManifest": "src/data/approvedArtManifest.ts",
+  "checked": [
+    {
+      "key": "player-spritesheet",
+      "productionPath": "src/assets/approved-art/player-spritesheet.png",
+      "approvedSourcePath": "art/final-v2/assets/player-spritesheet.png",
+      "bytes": 689262,
+      "same": true
+    },
+    {
+      "key": "player-master",
+      "productionPath": "src/assets/approved-art/player-master.png",
+      "approvedSourcePath": "art/final-v2/assets/player-master.png",
+      "bytes": 185801,
+      "same": true
+    },
+    {
+      "key": "enemy-spritesheet",
+      "productionPath": "src/assets/approved-art/enemy-spritesheet.png",
+      "approvedSourcePath": "art/final-v2/assets/enemy-spritesheet.png",
+      "bytes": 124213,
+      "same": true
+    },
+    {
+      "key": "lantern-warden-spritesheet",
+      "productionPath": "src/assets/approved-art/lantern-warden-spritesheet.png",
+      "approvedSourcePath": "art/final-v2/assets/lantern-warden-spritesheet.png",
+      "bytes": 255058,
+      "same": true
+    },
+    {
+      "key": "kite-wraith-preview",
+      "productionPath": "src/assets/approved-art/kite-wraith-preview.png",
+      "approvedSourcePath": "art/final-v2/assets/kite-wraith-preview.png",
+      "bytes": 101697,
+      "same": true
+    },
+    {
+      "key": "slash-flipbook",
+      "productionPath": "src/assets/approved-art/slash-flipbook.png",
+      "approvedSourcePath": "art/final-v2/assets/slash-flipbook.png",
+      "bytes": 77692,
+      "same": true
+    },
+    {
+      "key": "telegraph-flipbook",
+      "productionPath": "src/assets/approved-art/telegraph-flipbook.png",
+      "approvedSourcePath": "art/final-v2/assets/telegraph-flipbook.png",
+      "bytes": 566537,
+      "same": true
+    },
+    {
+      "key": "ui-kit",
+      "productionPath": "src/assets/approved-art/ui-kit.png",
+      "approvedSourcePath": "art/final-v2/assets/ui-kit.png",
+      "bytes": 554287,
+      "same": true
+    },
+    {
+      "key": "title-menu-panel",
+      "productionPath": "src/assets/approved-art/title-menu-panel.png",
+      "approvedSourcePath": "art/final-v2/assets/title-menu-panel.png",
+      "bytes": 181457,
+      "same": true
+    },
+    {
+      "key": "mobile-controls-kit",
+      "productionPath": "src/assets/approved-art/mobile-controls-kit.png",
+      "approvedSourcePath": "art/final-v2/assets/mobile-controls-kit.png",
+      "bytes": 287210,
+      "same": true
+    },
+    {
+      "key": "brush-kit",
+      "productionPath": "src/assets/approved-art/brush-kit.png",
+      "approvedSourcePath": "art/final-v2/assets/brush-kit.png",
+      "bytes": 240285,
+      "same": true
+    },
+    {
+      "key": "sign-atlas",
+      "productionPath": "src/assets/approved-art/sign-atlas.png",
+      "approvedSourcePath": "art/final-v2/assets/sign-atlas.png",
+      "bytes": 1195460,
+      "same": true
+    },
+    {
+      "key": "title-composition",
+      "productionPath": "src/assets/approved-art/title-composition.png",
+      "approvedSourcePath": "art/final-v2/assets/title-composition.png",
+      "bytes": 875416,
+      "same": true
+    },
+    {
+      "key": "environment-key",
+      "productionPath": "src/assets/approved-art/environment-key.png",
+      "approvedSourcePath": "art/final-v2/assets/environment-key.png",
+      "bytes": 910200,
+      "same": true
+    },
+    {
+      "key": "layer-far-sky",
+      "productionPath": "src/assets/approved-art/layer-far-sky.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-far-sky.png",
+      "bytes": 837256,
+      "same": true
+    },
+    {
+      "key": "layer-distant-skyline",
+      "productionPath": "src/assets/approved-art/layer-distant-skyline.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-distant-skyline.png",
+      "bytes": 892489,
+      "same": true
+    },
+    {
+      "key": "layer-mid-roofs-signs",
+      "productionPath": "src/assets/approved-art/layer-mid-roofs-signs.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-mid-roofs-signs.png",
+      "bytes": 936007,
+      "same": true
+    },
+    {
+      "key": "layer-gameplay-layer",
+      "productionPath": "src/assets/approved-art/layer-gameplay-layer.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-gameplay-layer.png",
+      "bytes": 1009919,
+      "same": true
+    },
+    {
+      "key": "layer-near-props",
+      "productionPath": "src/assets/approved-art/layer-near-props.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-near-props.png",
+      "bytes": 849568,
+      "same": true
+    },
+    {
+      "key": "layer-near-props-front",
+      "productionPath": "src/assets/approved-art/layer-near-props-front.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-near-props-front.png",
+      "bytes": 849685,
+      "same": true
+    },
+    {
+      "key": "layer-foreground-occlusion",
+      "productionPath": "src/assets/approved-art/layer-foreground-occlusion.png",
+      "approvedSourcePath": "art/final-v2/assets/layer-foreground-occlusion.png",
+      "bytes": 909209,
+      "same": true
+    },
+    {
+      "key": "lighting-moonlight-lantern-gold",
+      "productionPath": "src/assets/approved-art/lighting-moonlight-lantern-gold.png",
+      "approvedSourcePath": "art/final-v2/assets/lighting-moonlight-lantern-gold.png",
+      "bytes": 733407,
+      "same": true
+    },
+    {
+      "key": "lighting-cyan-magenta-neon",
+      "productionPath": "src/assets/approved-art/lighting-cyan-magenta-neon.png",
+      "approvedSourcePath": "art/final-v2/assets/lighting-cyan-magenta-neon.png",
+      "bytes": 875416,
+      "same": true
+    },
+    {
+      "key": "lighting-warm-cool-alley",
+      "productionPath": "src/assets/approved-art/lighting-warm-cool-alley.png",
+      "approvedSourcePath": "art/final-v2/assets/lighting-warm-cool-alley.png",
+      "bytes": 734755,
+      "same": true
+    }
+  ],
+  "errors": []
+}

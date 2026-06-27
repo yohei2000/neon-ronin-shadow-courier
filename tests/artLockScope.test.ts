@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { ApprovedArtManifest } from '../src/data/approvedArtManifest';
 import { GateAEvidenceFiles, GateAApprovalStatus, GateBApprovalStatus, ReferenceIds } from '../src/data/artLockGate';
 
 describe('Art Lock scope', () => {
@@ -44,6 +45,19 @@ describe('Art Lock scope', () => {
       'sign-density-scenes.json'
     ]) {
       expect(fs.existsSync(path.resolve('art', file))).toBe(true);
+    }
+  });
+
+  it('freezes approved Stage1 runtime art into the production asset path', () => {
+    expect(ApprovedArtManifest.length).toBe(24);
+    for (const entry of ApprovedArtManifest) {
+      expect(entry.stage1Runtime).toBe(true);
+      expect(entry.productionPath).toBe(`src/assets/approved-art/${entry.fileName}`);
+      expect(entry.approvedSourcePath).toBe(`art/final-v2/assets/${entry.fileName}`);
+      expect(entry.lineagePath.startsWith('art/source/') || entry.lineagePath.startsWith('art/final-v2/')).toBe(true);
+      expect(fs.existsSync(path.resolve(entry.productionPath))).toBe(true);
+      expect(fs.existsSync(path.resolve(entry.approvedSourcePath))).toBe(true);
+      expect(fs.existsSync(path.resolve(entry.lineagePath))).toBe(true);
     }
   });
 });
