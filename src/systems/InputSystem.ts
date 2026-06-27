@@ -13,7 +13,7 @@ export type Stage1InputSnapshot = {
   readonly restartPressed: boolean;
 };
 
-type TouchButton = 'left' | 'right' | 'jump' | 'attack' | 'pause';
+export type TouchButton = 'left' | 'right' | 'jump' | 'attack' | 'pause';
 
 export class InputSystem {
   private readonly keys: Record<string, Phaser.Input.Keyboard.Key>;
@@ -92,6 +92,16 @@ export class InputSystem {
 
   setTouchButton(button: TouchButton, pressed: boolean): void {
     this.touch.set(button, pressed);
+  }
+
+  getTouchButtons(): Record<TouchButton, boolean> {
+    return {
+      left: this.touch.get('left') === true,
+      right: this.touch.get('right') === true,
+      jump: this.touch.get('jump') === true,
+      attack: this.touch.get('attack') === true,
+      pause: this.touch.get('pause') === true
+    };
   }
 
   getSnapshot(): Stage1InputSnapshot {

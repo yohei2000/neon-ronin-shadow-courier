@@ -3,10 +3,10 @@ import { expect, test, type Page } from '@playwright/test';
 type StageState = {
   scene?: string;
   stageClear?: boolean;
-  player?: { x: number; y: number; slashing: boolean; damageTaken?: number };
+  player?: { x: number; y: number; onGround?: boolean; slashing: boolean; damageTaken?: number };
   checkpointCount?: number;
   wardenDefeated?: boolean;
-  touch?: { visible: boolean };
+  touch?: { visible: boolean; buttons?: Record<'left' | 'right' | 'jump' | 'attack' | 'pause', boolean> };
   e2eIntegrity?: { debugTeleport: boolean; hiddenClearStageCall: boolean };
 };
 
@@ -41,6 +41,30 @@ const gamePoint = async (page: Page, x: number, y: number) => {
     x: rect.x + (x / 960) * rect.width,
     y: rect.y + (y / 540) * rect.height
   };
+};
+
+const cdpTouchPoint = (point: { x: number; y: number }, id: number) => ({
+  x: Math.round(point.x),
+  y: Math.round(point.y),
+  radiusX: 12,
+  radiusY: 12,
+  rotationAngle: 0,
+  force: 0.7,
+  id
+});
+
+const holdTouchPoints = async (page: Page, points: { x: number; y: number }[], holdMs: number) => {
+  const client = await page.context().newCDPSession(page);
+  try {
+    await client.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: points.map((point, index) => cdpTouchPoint(point, index + 1))
+    });
+    await page.waitForTimeout(holdMs);
+  } finally {
+    await client.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }).catch(() => undefined);
+    await client.detach().catch(() => undefined);
+  }
 };
 
 const runKeyboardRouteToClear = async (page: Page) => {
@@ -167,6 +191,17 @@ test.describe('Stage1 playable vertical slice', () => {
     await page.mouse.up();
     const afterJump = (await state(page)).player;
     expect(afterJump?.y).toBeLessThan(afterLeft!.y);
+    await expect.poll(async () => (await state(page)).player?.onGround).toBe(true);
+
+    const rightButton = await gamePoint(page, 205, 452);
+    const simultaneousBefore = (await state(page)).player;
+    await holdTouchPoints(page, [rightButton, jumpButton], 220);
+    const simultaneousAfter = (await state(page)).player;
+    expect(simultaneousAfter?.x).toBeGreaterThan(simultaneousBefore!.x + 4);
+    expect(simultaneousAfter?.y).toBeLessThan(simultaneousBefore!.y - 8);
+    const touchButtons = (await state(page)).touch?.buttons;
+    expect(touchButtons?.right).not.toBe(true);
+    expect(touchButtons?.jump).not.toBe(true);
 
     const attackButton = await gamePoint(page, 866, 426);
     await page.mouse.move(attackButton.x, attackButton.y);

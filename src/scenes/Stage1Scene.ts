@@ -393,7 +393,7 @@ export class Stage1Scene extends Phaser.Scene {
       moonGateActive: this.warden?.dead === true,
       paused: this.paused,
       gameOver: this.gameOver,
-      touch: { visible: this.touchControls?.isVisible() === true },
+      touch: { visible: this.touchControls?.isVisible() === true, buttons: this.inputSystem?.getTouchButtons() },
       e2eIntegrity: {
         debugTeleport: false,
         hiddenClearStageCall: false

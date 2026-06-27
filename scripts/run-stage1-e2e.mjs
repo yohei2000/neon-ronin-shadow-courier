@@ -97,6 +97,28 @@ const gamePoint = async (page, x, y) => {
     y: rect.y + (y / 540) * rect.height
   };
 };
+const cdpTouchPoint = (point, id) => ({
+  x: Math.round(point.x),
+  y: Math.round(point.y),
+  radiusX: 12,
+  radiusY: 12,
+  rotationAngle: 0,
+  force: 0.7,
+  id
+});
+const holdTouchPoints = async (page, points, holdMs) => {
+  const client = await page.context().newCDPSession(page);
+  try {
+    await client.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: points.map((point, index) => cdpTouchPoint(point, index + 1))
+    });
+    await page.waitForTimeout(holdMs);
+  } finally {
+    await client.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }).catch(() => undefined);
+    await client.detach().catch(() => undefined);
+  }
+};
 const runKeyboardRouteToClear = async (page) => {
   const started = Date.now();
   let rightDown = false;
@@ -345,13 +367,22 @@ if (shouldRun('mobile-controls')) await record('mobile-controls', () =>
     await page.mouse.up();
     const afterJump = (await state(page)).player;
     assert(afterJump.y < afterLeft.y, `jump touch did not affect y: before ${afterLeft.y}, after ${afterJump.y}`);
+    await waitFor(async () => (await state(page)).player?.onGround === true, 'player did not land after jump touch', 3000);
+    const rightButton = await gamePoint(page, 205, 452);
+    const simultaneousBefore = (await state(page)).player;
+    await holdTouchPoints(page, [rightButton, jumpButton], 220);
+    const simultaneousAfter = (await state(page)).player;
+    const touchButtons = (await state(page)).touch?.buttons;
+    assert(simultaneousAfter.x > simultaneousBefore.x + 4, `right+jump touch did not preserve horizontal movement: before ${simultaneousBefore.x}, after ${simultaneousAfter.x}`);
+    assert(simultaneousAfter.y < simultaneousBefore.y - 8, `right+jump touch did not jump: before ${simultaneousBefore.y}, after ${simultaneousAfter.y}`);
+    assert(touchButtons?.right !== true && touchButtons?.jump !== true, 'right+jump touch buttons remained stuck after release');
     const attackButton = await gamePoint(page, 866, 426);
     await page.mouse.move(attackButton.x, attackButton.y);
     await page.mouse.down();
     await page.waitForTimeout(80);
     await page.mouse.up();
     await waitFor(async () => (await state(page)).player?.slashing === true, 'attack touch did not create slash state');
-    return { viewport: '390x844', touchControls: true };
+    return { viewport: '390x844', touchControls: true, simultaneousRightJump: true };
   })
 );
 

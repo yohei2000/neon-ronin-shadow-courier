@@ -95,4 +95,6 @@ Runtime asset note: Stage1 character, slash, telegraph, Lantern Warden, backgrou
 
 Runtime movement note: Stage1 player movement now uses acceleration/deceleration tuning in `Stage1Tuning` rather than direct velocity lerp. Player, Ink Crawler, and Lantern Warden sprites have explicit visual ground offsets so frozen runtime cutouts visually contact platform tops while collision bodies stay aligned to gameplay geometry.
 
+Runtime mobile-control note: Stage1 touch controls must support simultaneous movement and jump/attack input. Keep Phaser configured with multiple active pointers and keep touch-button state keyed by pointer id so releasing one finger does not clear another held control.
+
 `npm.cmd run qa:assets-stage1` includes runtime pixel auditing for edge cuts and paper-background residue. Keep this audit strict; fix the derived runtime asset or crop coordinates instead of weakening the validator.

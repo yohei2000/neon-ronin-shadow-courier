@@ -25,6 +25,9 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
+  input: {
+    activePointers: 4
+  },
   scene: [BootScene, PreloadScene, TitleScene, ControlsScene, SettingsScene, CreditsScene, Stage1Scene, StageClearScene, ArtLabScene, GateAReviewScene],
   title: 'Neon Ronin: Shadow Courier - Stage 1',
   banner: false

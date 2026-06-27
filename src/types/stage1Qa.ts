@@ -1,4 +1,5 @@
 import type { PlayerRuntimeState } from '../entities/Player';
+import type { TouchButton } from '../systems/InputSystem';
 
 export type Stage1QaState = {
   readonly scene: 'Stage1Scene' | 'StageClearScene';
@@ -13,7 +14,7 @@ export type Stage1QaState = {
   readonly moonGateActive?: boolean;
   readonly paused?: boolean;
   readonly gameOver?: boolean;
-  readonly touch?: { readonly visible: boolean };
+  readonly touch?: { readonly visible: boolean; readonly buttons?: Record<TouchButton, boolean> };
   readonly e2eIntegrity?: {
     readonly debugTeleport: false;
     readonly hiddenClearStageCall: false;
