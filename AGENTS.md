@@ -91,4 +91,4 @@ Gate B v2 is approved and frozen. Stage1 integration must consume the approved a
 
 Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flow `TitleScene -> Stage1Scene -> StageClearScene`. Deterministic `ArtLabScene` review states remain available via `?scene=artlab&state=...`.
 
-Player runtime visual note: until a true hand-authored animation atlas is approved, the Stage1 player body uses the approved `player-master` texture as one display object with transform-only poses. Do not re-enable the generated `player-spritesheet` for the player body, because its generated contact-sheet layout can expose adjacent poses and make the character appear split.
+Runtime animation note: Stage1 character animation uses derived, fixed-cell sprite sheets under `src/assets/runtime/`. They are cut from frozen approved art by `npm.cmd run art:runtime-sheets` so each runtime frame contains one character/enemy only. Do not point gameplay directly back at the generated contact-sheet layouts in `player-spritesheet`, `enemy-spritesheet`, or `kite-wraith-preview`, because those sheets can expose adjacent poses and make actors appear split.

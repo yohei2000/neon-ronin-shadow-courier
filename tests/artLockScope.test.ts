@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { ApprovedArtManifest } from '../src/data/approvedArtManifest';
-import { ArtAssetKey, RuntimePlayerVisualConfig } from '../src/data/artAssets';
+import { ArtAssetKey, RuntimePlayerVisualConfig, RuntimeSpriteAssetKey, RuntimeStage1SpriteKeys } from '../src/data/artAssets';
 import { GateAEvidenceFiles, GateAApprovalStatus, GateBApprovalStatus, ReferenceIds } from '../src/data/artLockGate';
 
 describe('Art Lock scope', () => {
@@ -63,8 +63,21 @@ describe('Art Lock scope', () => {
     }
   });
 
-  it('keeps the runtime player body on one approved master texture', () => {
-    expect(RuntimePlayerVisualConfig.textureKey).toBe(ArtAssetKey.PlayerMaster);
+  it('uses safe derived runtime sprite sheets for Stage1 character animation', () => {
+    expect(RuntimePlayerVisualConfig.textureKey).toBe(RuntimeSpriteAssetKey.Player);
     expect(RuntimePlayerVisualConfig.textureKey).not.toBe(ArtAssetKey.Player);
+    expect(RuntimeStage1SpriteKeys).toEqual([
+      'player-runtime-spritesheet',
+      'ink-crawler-runtime-spritesheet',
+      'kite-wraith-runtime-spritesheet'
+    ]);
+    for (const file of [
+      'src/assets/runtime/player-runtime-spritesheet.png',
+      'src/assets/runtime/ink-crawler-runtime-spritesheet.png',
+      'src/assets/runtime/kite-wraith-runtime-spritesheet.png',
+      'src/assets/runtime/runtime-sprite-sheets.json'
+    ]) {
+      expect(fs.existsSync(path.resolve(file))).toBe(true);
+    }
   });
 });

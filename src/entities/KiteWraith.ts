@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { Palette } from '../config/palette';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import type { Stage1EnemyDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
 import type { StageEnemy } from './types';
@@ -10,7 +10,7 @@ export class KiteWraith implements StageEnemy {
   readonly kind = 'kite-wraith' as const;
   readonly damage = 1;
   dead = false;
-  private readonly image: Phaser.GameObjects.Image;
+  private readonly image: Phaser.GameObjects.Sprite;
   private readonly spawnY: number;
   private direction: -1 | 1 = -1;
   private hp = 2;
@@ -19,7 +19,12 @@ export class KiteWraith implements StageEnemy {
   constructor(scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
     this.spawnY = definition.y;
-    this.image = scene.add.image(definition.x, definition.y, ArtAssetKey.KiteWraith).setScale(0.28).setDepth(24);
+    this.image = scene.add
+      .sprite(definition.x, definition.y, RuntimeSpriteAssetKey.KiteWraith, 0)
+      .setOrigin(0.5, 0.58)
+      .setScale(0.38)
+      .setDepth(24);
+    this.image.play('kite-wraith-drift');
   }
 
   update(deltaMs: number, playerX: number): void {
@@ -48,6 +53,10 @@ export class KiteWraith implements StageEnemy {
     if (this.dead) return false;
     this.hp -= amount;
     this.image.setTint(Palette.enemyAmber);
+    this.image.play('kite-wraith-hit', true);
+    this.image.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+      if (!this.dead) this.image.play('kite-wraith-drift', true);
+    });
     if (this.hp <= 0) {
       this.dead = true;
       this.image.setVisible(false);

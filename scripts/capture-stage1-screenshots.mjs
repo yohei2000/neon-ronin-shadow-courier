@@ -36,6 +36,8 @@ const jump = async (page, holdMs = 95) => {
   await page.keyboard.up('Space');
 };
 const releaseMovementKeys = async (page) => {
+  await page.keyboard.up('a');
+  await page.keyboard.up('d');
   await page.keyboard.up('ArrowLeft');
   await page.keyboard.up('ArrowRight');
   await page.keyboard.up('Space');
@@ -71,17 +73,20 @@ const captureRoute = async (page) => {
     if (down) {
       if (now - lastRightRefresh > 650) {
         await page.keyboard.up('ArrowRight');
+        await page.keyboard.up('d');
         lastRightRefresh = now;
       }
       await page.keyboard.down('ArrowRight');
+      await page.keyboard.down('d');
     } else {
       await page.keyboard.up('ArrowRight');
+      await page.keyboard.up('d');
     }
   };
 
   await setRight(true);
   const started = Date.now();
-  while (Date.now() - started < 115000) {
+  while (Date.now() - started < 160000) {
     const current = await state(page);
     if (current.scene === 'StageClearScene') {
       await setRight(false);
@@ -106,12 +111,12 @@ const captureRoute = async (page) => {
     if (player.x > lastProgressX + 6) {
       lastProgressX = player.x;
       lastProgressAt = now;
-    } else if (player.x < 1700 && now - lastProgressAt > 2200) {
+    } else if (now - lastProgressAt > 2200 && (player.x < 1700 || current.wardenDefeated)) {
       await releaseMovementKeys(page);
       await setRight(true);
       lastProgressAt = now;
       lastJump = now;
-      await jump(page, 240);
+      await jump(page, current.wardenDefeated ? 120 : 240);
       continue;
     }
 
@@ -119,8 +124,10 @@ const captureRoute = async (page) => {
       lastShaftRecovery = now;
       await setRight(false);
       await page.keyboard.down('ArrowLeft');
+      await page.keyboard.down('a');
       await page.waitForTimeout(220);
       await page.keyboard.up('ArrowLeft');
+      await page.keyboard.up('a');
       await setRight(true);
       lastJump = Date.now();
       await jump(page, 260);

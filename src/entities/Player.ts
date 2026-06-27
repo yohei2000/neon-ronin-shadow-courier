@@ -22,20 +22,20 @@ export type PlayerRuntimeState = {
 
 type PlayerVisualPose = 'idle' | 'run' | 'jumpRise' | 'fall' | 'wallSlide' | 'wallKick' | 'groundSlash' | 'airSlash' | 'hurt';
 
-const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly scaleX: number; readonly scaleY: number; readonly angle: number; readonly offsetY: number }> = {
-  idle: { scaleX: 1, scaleY: 1, angle: 0, offsetY: 0 },
-  run: { scaleX: 1.08, scaleY: 0.94, angle: -3, offsetY: 1 },
-  jumpRise: { scaleX: 0.98, scaleY: 1.06, angle: -8, offsetY: -4 },
-  fall: { scaleX: 1.02, scaleY: 0.98, angle: 6, offsetY: 2 },
-  wallSlide: { scaleX: 0.95, scaleY: 1.04, angle: 8, offsetY: 1 },
-  wallKick: { scaleX: 1.10, scaleY: 0.92, angle: -12, offsetY: -2 },
-  groundSlash: { scaleX: 1.12, scaleY: 0.92, angle: -5, offsetY: 1 },
-  airSlash: { scaleX: 1.08, scaleY: 0.96, angle: -10, offsetY: -2 },
-  hurt: { scaleX: 0.96, scaleY: 1.03, angle: 10, offsetY: 0 }
+const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; readonly offsetY: number }> = {
+  idle: { angle: 0, offsetY: 0 },
+  run: { angle: -2, offsetY: 1 },
+  jumpRise: { angle: -6, offsetY: -4 },
+  fall: { angle: 5, offsetY: 2 },
+  wallSlide: { angle: 6, offsetY: 1 },
+  wallKick: { angle: -9, offsetY: -2 },
+  groundSlash: { angle: -3, offsetY: 1 },
+  airSlash: { angle: -8, offsetY: -2 },
+  hurt: { angle: 8, offsetY: 0 }
 };
 
 export class Player {
-  readonly sprite: Phaser.GameObjects.Image;
+  readonly sprite: Phaser.GameObjects.Sprite;
   private readonly slashSprite: Phaser.GameObjects.Sprite;
   private x: number;
   private y: number;
@@ -64,10 +64,12 @@ export class Player {
     this.respawnX = startX;
     this.respawnY = startY;
     this.sprite = scene.add
-      .image(this.x, this.y, RuntimePlayerVisualConfig.textureKey)
+      .sprite(this.x, this.y, RuntimePlayerVisualConfig.textureKey, 25)
+      .setOrigin(0.5, 0.76)
       .setScale(RuntimePlayerVisualConfig.scale)
       .setDepth(30);
     this.slashSprite = scene.add.sprite(this.x, this.y, ArtAssetKey.Slash, 0).setScale(0.58).setDepth(31).setVisible(false);
+    this.sprite.play('player-idle');
   }
 
   update(input: Stage1InputSnapshot, platforms: readonly Stage1Platform[], nowMs: number, deltaMs: number, paused = false): SlashState {
@@ -267,8 +269,9 @@ export class Player {
 
     this.sprite.setPosition(this.x, this.y + transform.offsetY + motionBob);
     this.sprite.setFlipX(this.facing < 0);
-    this.sprite.setScale(baseScale * transform.scaleX, baseScale * transform.scaleY);
+    this.sprite.setScale(baseScale);
     this.sprite.setAngle(transform.angle * this.facing);
+    this.sprite.play(`player-${pose}`, true);
 
     if (pose === 'hurt') {
       this.sprite.setTint(Palette.dangerCoral);

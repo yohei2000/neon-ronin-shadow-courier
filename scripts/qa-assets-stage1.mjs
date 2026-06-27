@@ -35,6 +35,9 @@ const srcTextBundle = runtimeScanFiles.map((file) => `${file}\n${read(file)}`).j
 const stage1TextBundle = stage1RuntimeFiles.map((file) => `${file}\n${read(file)}`).join('\n');
 const requiredAnimations = [
   'ink-crawler-patrol',
+  'ink-crawler-hit',
+  'kite-wraith-drift',
+  'kite-wraith-hit',
   'warden-idle',
   'warden-telegraph',
   'warden-attack',
@@ -54,6 +57,11 @@ const requiredTextures = [
   'MobileControlsKit',
   'LayerGameplay',
   'TitleMenuPanel'
+];
+const requiredRuntimeSpriteKeys = [
+  'player-runtime-spritesheet',
+  'ink-crawler-runtime-spritesheet',
+  'kite-wraith-runtime-spritesheet'
 ];
 
 const byteEqual = (a, b) => {
@@ -82,11 +90,13 @@ const checks = [
   check('no-remote-runtime-assets', !/https?:\/\//.test(srcTextBundle), 'runtime source requests no remote assets'),
   check('no-stage1-primitive-placeholder-art', !/\.add\.(rectangle|graphics)\(/.test(stage1TextBundle), 'Stage1 character/enemy/UI/environment visuals use approved images'),
   check('required-textures-loaded', requiredTextures.every((key) => `${preloadText}\n${artAssetsText}`.includes(`ArtAssetKey.${key}`)), requiredTextures.join(', ')),
+  check('runtime-sprite-sheets-exist', requiredRuntimeSpriteKeys.every((file) => fs.existsSync(path.resolve('src', 'assets', 'runtime', `${file}.png`))), requiredRuntimeSpriteKeys.join(', ')),
   check(
     'required-animations-created',
     requiredAnimations.every((key) => preloadText.includes(key)) &&
       requiredPlayerAnimationNames.every((name) => new RegExp(`\\b${name}:`).test(artAssetsText)) &&
-      preloadText.includes('player-${name}'),
+      preloadText.includes('player-${name}') &&
+      preloadText.includes('RuntimeSpriteAssetKey.Player'),
     [...requiredPlayerAnimationNames.map((name) => `player-${name}`), ...requiredAnimations].join(', ')
   )
 ];

@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
-import { ArtAssetKey, RuntimeAssetKeys } from '../data/artAssets';
+import { ArtAssetKey, RuntimeAssetKeys, RuntimeSpriteAssetKey, RuntimeStage1SpriteKeys } from '../data/artAssets';
 import {
   ArtLockPhase,
   GateAApprovalStatus,
@@ -156,17 +156,19 @@ export class ArtLabScene extends Phaser.Scene {
   }
 
   private drawNeutralStation(): void {
-    this.add.image(490, 300, ArtAssetKey.PlayerMaster).setScale(0.35);
+    const player = this.add.sprite(490, 300, RuntimeSpriteAssetKey.Player, 25).setScale(0.56);
+    player.play('player-idle');
     this.add.sprite(586, 344, ArtAssetKey.Slash, 3).setScale(0.8).setAlpha(0.88);
-    this.add.image(768, 294, ArtAssetKey.KiteWraith).setScale(0.45).setAlpha(0.92);
+    const kite = this.add.sprite(768, 294, RuntimeSpriteAssetKey.KiteWraith, 1).setScale(0.52).setAlpha(0.92);
+    kite.play('kite-wraith-drift');
     this.add.image(180, 340, ArtAssetKey.SignAtlas).setScale(0.32).setAlpha(0.74);
     this.caption('Neutral production review: final player master, motion arc, signage, and layered alley share one palette.');
   }
 
   private drawBusyReadabilityStation(): void {
     this.add.image(480, 270, ArtAssetKey.TitleComposition).setAlpha(0.52);
-    this.add.image(318, 360, ArtAssetKey.PlayerMaster).setScale(0.31);
-    this.add.sprite(608, 372, ArtAssetKey.Enemy, 1).setScale(0.82);
+    this.add.sprite(318, 360, RuntimeSpriteAssetKey.Player, 6).setScale(0.56);
+    this.add.sprite(608, 372, RuntimeSpriteAssetKey.InkCrawler, 2).setScale(0.54);
     this.add.sprite(770, 320, ArtAssetKey.LanternWarden, 3).setScale(0.72);
     this.add.sprite(454, 326, ArtAssetKey.Slash, 3).setScale(0.72);
     this.caption('Busy Neon Alley readability station: player cyan/magenta identity remains separated from enemy amber/vermilion threats.');
@@ -174,20 +176,18 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawPlayerMotionStation(): void {
     const poses = [
-      { label: 'idle', angle: 0, scaleX: 0.26, scaleY: 0.26, y: 328 },
-      { label: 'run', angle: -3, scaleX: 0.28, scaleY: 0.24, y: 330 },
-      { label: 'jump', angle: -8, scaleX: 0.25, scaleY: 0.27, y: 316 },
-      { label: 'wall', angle: 8, scaleX: 0.24, scaleY: 0.27, y: 326 },
-      { label: 'slash', angle: -5, scaleX: 0.29, scaleY: 0.24, y: 330 }
+      { label: 'idle', frame: 25, anim: 'idle', y: 330 },
+      { label: 'run', frame: 6, anim: 'run', y: 330 },
+      { label: 'jump', frame: 12, anim: 'jumpRise', y: 318 },
+      { label: 'wall', frame: 17, anim: 'wallSlide', y: 326 },
+      { label: 'slash', frame: 23, anim: 'groundSlash', y: 330 }
     ];
     poses.forEach((pose, index) => {
-      this.add
-        .image(150 + index * 170, pose.y, ArtAssetKey.PlayerMaster)
-        .setScale(pose.scaleX, pose.scaleY)
-        .setAngle(pose.angle);
+      const sprite = this.add.sprite(150 + index * 170, pose.y, RuntimeSpriteAssetKey.Player, pose.frame).setScale(0.56);
+      sprite.play(`player-${pose.anim}`);
       this.label(112 + index * 170, 436, pose.label);
     });
-    this.caption('Motion station: runtime player uses one approved master image with transform-only poses, so the character never splits across frames.');
+    this.caption('Motion station: runtime player uses safe derived animation frames for idle, run, jump, wall, and slash states.');
   }
 
   private drawPlayerContrastStation(): void {
@@ -195,16 +195,16 @@ export class ArtLabScene extends Phaser.Scene {
     fills.forEach((fill, index) => {
       const x = 56 + index * 176;
       this.add.rectangle(x + 70, 258, 138, 276, Number.parseInt(fill.slice(1), 16)).setStrokeStyle(1, Palette.neutralGray, 0.55);
-      this.add.image(x + 70, 310, ArtAssetKey.PlayerMaster).setScale(0.25).setAngle(index % 2 ? -3 : 0);
+      this.add.sprite(x + 70, 310, RuntimeSpriteAssetKey.Player, index % 2 ? 6 : 25).setScale(0.56);
       this.label(x + 20, 416, `contrast ${index + 1}`);
     });
     this.caption('Contrast station: player survives white, gray, dark-blue, black, and mixed backgrounds.');
   }
 
   private drawPlayerScaleStation(): void {
-    this.add.image(280, 320, ArtAssetKey.PlayerMaster).setScale(0.27);
-    this.add.image(470, 334, ArtAssetKey.PlayerMaster).setScale(0.20);
-    this.add.image(624, 348, ArtAssetKey.PlayerMaster).setScale(0.15);
+    this.add.sprite(280, 320, RuntimeSpriteAssetKey.Player, 25).setScale(0.44);
+    this.add.sprite(470, 334, RuntimeSpriteAssetKey.Player, 6).setScale(0.33);
+    this.add.sprite(624, 348, RuntimeSpriteAssetKey.Player, 12).setScale(0.25);
     this.label(250, 420, '64px');
     this.label(444, 420, '48px');
     this.label(602, 420, '32px');
@@ -213,15 +213,16 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawEnemyStation(): void {
     [0, 1, 2, 3].forEach((frame, index) => {
-      this.add.sprite(190 + index * 170, 342, ArtAssetKey.Enemy, frame).setScale(0.9);
+      this.add.sprite(190 + index * 170, 342, RuntimeSpriteAssetKey.InkCrawler, frame).setScale(0.68);
       this.label(148 + index * 170, 430, ['idle', 'telegraph', 'release', 'recover'][index]);
     });
-    this.add.image(770, 268, ArtAssetKey.KiteWraith).setScale(0.48);
+    this.add.sprite(770, 268, RuntimeSpriteAssetKey.KiteWraith, 1).setScale(0.58);
     this.caption('Enemy station: Ink Crawler states plus Kite Wraith preview use the enemy amber/vermilion group, separate from player cyan/magenta.');
   }
 
   private drawKiteWraithStation(): void {
-    this.add.image(470, 278, ArtAssetKey.KiteWraith).setScale(0.85);
+    const sprite = this.add.sprite(470, 278, RuntimeSpriteAssetKey.KiteWraith, 1).setScale(0.78);
+    sprite.play('kite-wraith-drift');
     this.add.sprite(615, 320, ArtAssetKey.Slash, 2).setScale(0.5).setTint(Palette.neonCyan);
     this.caption('Kite Wraith preview: forward hostile motion uses enemy amber/vermilion, kept distinct from player cyan/magenta identity.');
   }
@@ -292,7 +293,7 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawGrayscaleStation(): void {
     this.add.image(480, 292, ArtAssetKey.TitleComposition).setAlpha(0.78).setTint(0xb8b8b8);
-    this.add.image(320, 360, ArtAssetKey.PlayerMaster).setScale(0.25).setTint(0xd0d0d0);
+    this.add.sprite(320, 360, RuntimeSpriteAssetKey.Player, 25).setScale(0.56).setTint(0xd0d0d0);
     this.add.sprite(576, 344, ArtAssetKey.Slash, 3).setScale(0.72).setTint(0xc0c0c0);
     this.caption('Grayscale review mode: value separation remains readable without relying on hue alone.');
   }
@@ -326,7 +327,7 @@ export class ArtLabScene extends Phaser.Scene {
       selectedDirection: SelectedDirection,
       finalProductionRuntime: true,
       state: this.currentState,
-      assetKeys: RuntimeAssetKeys,
+      assetKeys: [...RuntimeAssetKeys, ...RuntimeStage1SpriteKeys],
       lightingPreset: this.lightingPreset,
       reducedFx: this.reducedFx,
       mobileReviewReady: true

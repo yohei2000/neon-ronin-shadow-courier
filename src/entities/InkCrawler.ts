@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { ArtAssetKey } from '../data/artAssets';
+import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import type { Stage1EnemyDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
 import type { StageEnemy } from './types';
@@ -15,7 +15,11 @@ export class InkCrawler implements StageEnemy {
 
   constructor(scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
-    this.sprite = scene.add.sprite(definition.x, definition.y, ArtAssetKey.Enemy, 0).setScale(0.58).setDepth(25);
+    this.sprite = scene.add
+      .sprite(definition.x, definition.y, RuntimeSpriteAssetKey.InkCrawler, 0)
+      .setOrigin(0.5, 0.74)
+      .setScale(0.54)
+      .setDepth(25);
     this.sprite.play('ink-crawler-patrol');
   }
 
@@ -41,7 +45,7 @@ export class InkCrawler implements StageEnemy {
   takeHit(amount: number): boolean {
     if (this.dead) return false;
     this.hp -= amount;
-    this.sprite.setFrame(2);
+    this.sprite.play('ink-crawler-hit', true);
     this.sprite.setAlpha(0.72);
     if (this.hp <= 0) {
       this.dead = true;

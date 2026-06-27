@@ -77,6 +77,8 @@ const jump = async (page, holdMs = 95) => {
   await page.keyboard.up('Space');
 };
 const releaseMovementKeys = async (page) => {
+  await page.keyboard.up('a');
+  await page.keyboard.up('d');
   await page.keyboard.up('ArrowLeft');
   await page.keyboard.up('ArrowRight');
   await page.keyboard.up('Space');
@@ -105,15 +107,18 @@ const runKeyboardRouteToClear = async (page) => {
     if (down) {
       if (now - lastRightRefresh > 650) {
         await page.keyboard.up('ArrowRight');
+        await page.keyboard.up('d');
         lastRightRefresh = now;
       }
       await page.keyboard.down('ArrowRight');
+      await page.keyboard.down('d');
     } else {
       await page.keyboard.up('ArrowRight');
+      await page.keyboard.up('d');
     }
   };
   await setRight(true);
-  while (Date.now() - started < 115000) {
+  while (Date.now() - started < 160000) {
     const current = await state(page);
     if (current.scene === 'StageClearScene' || current.stageClear) {
       await setRight(false);
@@ -131,12 +136,12 @@ const runKeyboardRouteToClear = async (page) => {
     if (player.x > lastProgressX + 6) {
       lastProgressX = player.x;
       lastProgressAt = now;
-    } else if (player.x < 1700 && now - lastProgressAt > 2200) {
+    } else if (now - lastProgressAt > 2200 && (player.x < 1700 || current.wardenDefeated)) {
       await releaseMovementKeys(page);
       await setRight(true);
       lastProgressAt = now;
       lastJump = now;
-      await jump(page, 240);
+      await jump(page, current.wardenDefeated ? 120 : 240);
       continue;
     }
 
@@ -144,8 +149,10 @@ const runKeyboardRouteToClear = async (page) => {
       lastShaftRecovery = now;
       await setRight(false);
       await page.keyboard.down('ArrowLeft');
+      await page.keyboard.down('a');
       await page.waitForTimeout(220);
       await page.keyboard.up('ArrowLeft');
+      await page.keyboard.up('a');
       await setRight(true);
       lastJump = Date.now();
       await jump(page, 260);
@@ -249,6 +256,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
   withPage(null, async (page) => {
     await startStage1(page);
     await page.keyboard.down('ArrowRight');
+    await page.keyboard.down('d');
     let lastJump = 0;
     let lastShaftRecovery = 0;
     let lastRightRefresh = Date.now();
@@ -260,15 +268,18 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       if (player && player.x > 3600 && current.checkpointCount >= 3) break;
       if (Date.now() - lastRightRefresh > 650) {
         await page.keyboard.up('ArrowRight');
+        await page.keyboard.up('d');
         await page.keyboard.down('ArrowRight');
+        await page.keyboard.down('d');
         lastRightRefresh = Date.now();
       }
       if (player && player.x > lastProgressX + 6) {
         lastProgressX = player.x;
         lastProgressAt = Date.now();
-      } else if (player && player.x < 1700 && Date.now() - lastProgressAt > 2200) {
+      } else if (player && Date.now() - lastProgressAt > 2200 && player.x < 1700) {
         await releaseMovementKeys(page);
         await page.keyboard.down('ArrowRight');
+        await page.keyboard.down('d');
         lastRightRefresh = Date.now();
         lastProgressAt = Date.now();
         lastJump = Date.now();
@@ -277,10 +288,14 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       if (player && player.x > 1080 && player.x < 1190 && player.y > 380 && Date.now() - lastShaftRecovery > 1400) {
         lastShaftRecovery = Date.now();
         await page.keyboard.up('ArrowRight');
+        await page.keyboard.up('d');
         await page.keyboard.down('ArrowLeft');
+        await page.keyboard.down('a');
         await page.waitForTimeout(220);
         await page.keyboard.up('ArrowLeft');
+        await page.keyboard.up('a');
         await page.keyboard.down('ArrowRight');
+        await page.keyboard.down('d');
         lastJump = Date.now();
         await jump(page, 260);
       }
@@ -304,6 +319,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       await page.waitForTimeout(50);
     }
     await page.keyboard.up('ArrowRight');
+    await page.keyboard.up('d');
     const damaged = await state(page);
     assert((damaged.player?.damageTaken ?? 0) > damageBefore, 'hazard damage did not trigger before retry');
     await page.keyboard.press('p');

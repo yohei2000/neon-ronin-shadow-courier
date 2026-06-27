@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T03:15:16.974Z",
+  "generatedAt": "2026-06-27T06:22:04.338Z",
   "passed": true,
   "checks": [
     {
@@ -48,9 +48,14 @@
       "detail": "Player, Enemy, LanternWarden, KiteWraith, Slash, Telegraph, UiKit, MobileControlsKit, LayerGameplay, TitleMenuPanel"
     },
     {
+      "id": "runtime-sprite-sheets-exist",
+      "passed": true,
+      "detail": "player-runtime-spritesheet, ink-crawler-runtime-spritesheet, kite-wraith-runtime-spritesheet"
+    },
+    {
       "id": "required-animations-created",
       "passed": true,
-      "detail": "player-idle, player-run, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-arc"
+      "detail": "player-idle, player-run, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, kite-wraith-drift, kite-wraith-hit, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-arc"
     }
   ],
   "productionAssets": [

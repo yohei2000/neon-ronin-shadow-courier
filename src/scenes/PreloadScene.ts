@@ -1,7 +1,15 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
-import { ArtAssetKey, ArtImageAssets, PlayerAnimationFrames } from '../data/artAssets';
+import {
+  ArtAssetKey,
+  ArtImageAssets,
+  InkCrawlerAnimationFrames,
+  KiteWraithAnimationFrames,
+  PlayerAnimationFrames,
+  RuntimeSpriteAssetKey,
+  RuntimeSpriteImageAssets
+} from '../data/artAssets';
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -32,6 +40,18 @@ export class PreloadScene extends Phaser.Scene {
       frameWidth: 128,
       frameHeight: 160
     });
+    this.load.spritesheet(RuntimeSpriteAssetKey.Player, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.Player], {
+      frameWidth: 256,
+      frameHeight: 192
+    });
+    this.load.spritesheet(RuntimeSpriteAssetKey.InkCrawler, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.InkCrawler], {
+      frameWidth: 192,
+      frameHeight: 144
+    });
+    this.load.spritesheet(RuntimeSpriteAssetKey.KiteWraith, RuntimeSpriteImageAssets[RuntimeSpriteAssetKey.KiteWraith], {
+      frameWidth: 192,
+      frameHeight: 192
+    });
 
     const spritesheetKeys = new Set<string>([
       ArtAssetKey.Player,
@@ -60,16 +80,16 @@ export class PreloadScene extends Phaser.Scene {
       if (this.anims.exists(key)) continue;
       this.anims.create({
         key,
-        frames: this.anims.generateFrameNumbers(ArtAssetKey.Player, {
-          start: config.start,
-          end: config.start + config.frames - 1
-        }),
+        frames: config.frames.map((frame) => ({ key: RuntimeSpriteAssetKey.Player, frame })),
         frameRate: config.frameRate,
         repeat: config.repeat
       });
     }
 
-    this.createAnimation('ink-crawler-patrol', ArtAssetKey.Enemy, 0, 3, 8, -1);
+    this.createFrameListAnimation('ink-crawler-patrol', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.patrol.frames, 8, -1);
+    this.createFrameListAnimation('ink-crawler-hit', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.hit.frames, 12, 0);
+    this.createFrameListAnimation('kite-wraith-drift', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.drift.frames, 6, -1);
+    this.createFrameListAnimation('kite-wraith-hit', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.hit.frames, 10, 0);
     this.createAnimation('warden-idle', ArtAssetKey.LanternWarden, 0, 1, 5, -1);
     this.createAnimation('warden-telegraph', ArtAssetKey.LanternWarden, 2, 3, 7, -1);
     this.createAnimation('warden-attack', ArtAssetKey.LanternWarden, 4, 5, 10, -1);
@@ -83,6 +103,16 @@ export class PreloadScene extends Phaser.Scene {
     this.anims.create({
       key,
       frames: this.anims.generateFrameNumbers(assetKey, { start, end }),
+      frameRate,
+      repeat
+    });
+  }
+
+  private createFrameListAnimation(key: string, assetKey: RuntimeSpriteAssetKey, frames: readonly number[], frameRate: number, repeat: number): void {
+    if (this.anims.exists(key)) return;
+    this.anims.create({
+      key,
+      frames: frames.map((frame) => ({ key: assetKey, frame })),
       frameRate,
       repeat
     });
