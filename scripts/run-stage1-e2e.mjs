@@ -314,7 +314,7 @@ const runKeyboardRouteToClear = async (page) => {
       (player.x > 760 && player.x < 1060) ||
       (player.x > 1880 && player.x < 2180) ||
       (player.x > 2540 && player.x < 3180) ||
-      (player.x > 4300 && player.x < 4500) ||
+      (player.x > 4300 && player.x < 4840) ||
       (player.x > 5520 && !current.wardenDefeated);
     if (attackNow && now - lastSlash > 300) {
       lastSlash = now;
