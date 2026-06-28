@@ -129,7 +129,7 @@ export const Stage1Tuning = {
   groundAcceleration: 235,
   groundDeceleration: 560,
   groundTurnDeceleration: 260,
-  airAcceleration: 340,
+  airAcceleration: 520,
   airDeceleration: 300,
   airTurnDeceleration: 260,
   jumpVelocity: -560,

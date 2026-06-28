@@ -191,14 +191,22 @@ const runKeyboardRouteToClear = async (page) => {
     }
     if (!current.wardenDefeated && player.x > 5480) {
       await setRight(false);
+      if (current.warden?.state === 'active' && player.onGround && now - lastJump > 240) {
+        lastJump = now;
+        await jump(page, 145);
+      }
+      if (now - lastSlash > 240) {
+        lastSlash = now;
+        await slash(page);
+      }
       if (player.x < 5570) {
         await setRight(true);
-        await page.waitForTimeout(55);
+        await page.waitForTimeout(current.warden?.state === 'active' ? 35 : 70);
         await setRight(false);
       } else if (player.x > 5830) {
         await page.keyboard.down('ArrowLeft');
         await page.keyboard.down('a');
-        await page.waitForTimeout(90);
+        await page.waitForTimeout(110);
         await page.keyboard.up('ArrowLeft');
         await page.keyboard.up('a');
       } else {
@@ -397,10 +405,14 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     let lastRightRefresh = Date.now();
     let lastProgressX = 0;
     let lastProgressAt = Date.now();
-    for (let i = 0; i < 1000; i += 1) {
+    const started = Date.now();
+    while (Date.now() - started < routeTimeoutMs) {
       const current = await state(page);
       const player = current.player;
       if (player && player.x > 3600 && current.checkpointCount >= 3) break;
+      if (current.gameOver) {
+        throw new Error(`checkpoint route game over at ${JSON.stringify(current)}`);
+      }
       if (Date.now() - lastRightRefresh > 650) {
         await page.keyboard.up('ArrowRight');
         await page.keyboard.up('d');
@@ -445,9 +457,15 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       }
       if (player && player.x > 2040 && player.x < 2305 && Date.now() - lastJump > 360) {
         lastJump = Date.now();
-        await jump(page, 80);
+        await jump(page, 110);
       }
-      if (player && player.x > 2540 && player.x < 3180 && Date.now() - lastSlash > 300) {
+      if (
+        player &&
+        ((player.x > 760 && player.x < 1060) ||
+          (player.x > 1880 && player.x < 2180) ||
+          (player.x > 2540 && player.x < 3180)) &&
+        Date.now() - lastSlash > 300
+      ) {
         lastSlash = Date.now();
         await slash(page);
       }
