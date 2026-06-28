@@ -241,6 +241,10 @@ const captureRoute = async (page) => {
     }
 
     const inThornRun = player.x > 4240 && player.x < 4940;
+    if (inThornRun && player.y > 365 && now - lastJump > 180) {
+      lastJump = now;
+      await jump(page, player.x > 4600 ? 360 : 300);
+    }
     if (
       ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
         (player.x > 2040 && player.x < 2305) ||
