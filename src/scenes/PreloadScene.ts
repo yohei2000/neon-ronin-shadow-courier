@@ -124,7 +124,8 @@ export class PreloadScene extends Phaser.Scene {
     this.createFrameListAnimation('warden-attack', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.attack.frames, LanternWardenAnimationFrames.attack.frameRate, LanternWardenAnimationFrames.attack.repeat);
     this.createFrameListAnimation('warden-recovery', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.recovery.frames, LanternWardenAnimationFrames.recovery.frameRate, LanternWardenAnimationFrames.recovery.repeat);
     this.createFrameListAnimation('warden-defeat', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.defeat.frames, LanternWardenAnimationFrames.defeat.frameRate, LanternWardenAnimationFrames.defeat.repeat);
-    this.createFrameListAnimation('slash-arc', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.arc.frames, SlashAnimationFrames.arc.frameRate, SlashAnimationFrames.arc.repeat);
+    this.createFrameListAnimation('slash-ground', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.ground.frames, SlashAnimationFrames.ground.frameRate, SlashAnimationFrames.ground.repeat);
+    this.createFrameListAnimation('slash-air', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.air.frames, SlashAnimationFrames.air.frameRate, SlashAnimationFrames.air.repeat);
   }
 
   private createFrameListAnimation(key: string, assetKey: RuntimeSpriteAssetKey, frames: readonly number[], frameRate: number, repeat: number): void {

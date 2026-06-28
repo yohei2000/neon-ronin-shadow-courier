@@ -46,9 +46,22 @@ const requiredAnimations = [
   'warden-attack',
   'warden-recovery',
   'warden-defeat',
-  'slash-arc'
+  'slash-ground',
+  'slash-air'
 ];
-const requiredPlayerAnimationNames = ['idle', 'run', 'wallSlide', 'wallKick', 'groundSlash', 'airSlash'];
+const requiredPlayerAnimationNames = [
+  'idle',
+  'run',
+  'smallJump',
+  'bigJumpRise',
+  'speedFlipJump',
+  'apex',
+  'fall',
+  'wallSlide',
+  'wallKick',
+  'groundSlash',
+  'airSlash'
+];
 const requiredTextures = [
   'Player',
   'Enemy',

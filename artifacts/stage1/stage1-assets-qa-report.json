@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T02:56:25.843Z",
+  "generatedAt": "2026-06-28T12:12:51.184Z",
   "passed": true,
   "checks": [
     {
@@ -70,7 +70,7 @@
     {
       "id": "required-animations-created",
       "passed": true,
-      "detail": "player-idle, player-run, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, kite-wraith-drift, kite-wraith-hit, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-arc"
+      "detail": "player-idle, player-run, player-smallJump, player-bigJumpRise, player-speedFlipJump, player-apex, player-fall, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, kite-wraith-drift, kite-wraith-hit, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-ground, slash-air"
     }
   ],
   "runtimeAssetAudit": [
@@ -78,12 +78,12 @@
       "id": "player-runtime-spritesheet",
       "file": "src/assets/runtime/player-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 27,
+      "activeFrames": 67,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0003125488357555868,
-      "maxHaloRatio": 0.0005805274506551667,
-      "maxAverageLuma": 49.00474968286283,
-      "minOpaqueRatio": 0.1195068359375
+      "maxBeigeRatio": 0.0005291938613512083,
+      "maxHaloRatio": 0.0006836204539239814,
+      "maxAverageLuma": 48.94494910449691,
+      "minOpaqueRatio": 0.10546875
     },
     {
       "id": "ink-crawler-runtime-spritesheet",
@@ -111,12 +111,12 @@
       "id": "slash-runtime-spritesheet",
       "file": "src/assets/runtime/slash-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 4,
-      "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.011353711790393014,
+      "activeFrames": 14,
+      "maxEdgeRatio": 0.013969171483622351,
+      "maxBeigeRatio": 0.005685856432125089,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 129.782823871907,
-      "minOpaqueRatio": 0.07197265625
+      "maxAverageLuma": 151.67034482758604,
+      "minOpaqueRatio": 0.002864583333333333
     },
     {
       "id": "telegraph-runtime-spritesheet",

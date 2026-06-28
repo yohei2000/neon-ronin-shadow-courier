@@ -1,82 +1,126 @@
 {
-  "generatedAt": "2026-06-27T00:17:47.605Z",
-  "phase": "gate-b-v2",
+  "generatedAt": "2026-06-28T00:00:00.000Z",
+  "phase": "gate-b-v2-animation-expansion-v1",
+  "artLockException": "Animation Expansion Gate allows player and slash runtime animation expansion only; Stage1 enemies, environment, UI, physics, hitboxes, and campaign scope remain unchanged.",
   "player": {
-    "spritesheet": "art/final-v2/assets/player-spritesheet.png",
+    "spritesheet": "art/source/player/player-animation-master-sheet.png",
     "frameSize": {
-      "width": 128,
-      "height": 128
+      "width": 256,
+      "height": 192
+    },
+    "sourceGrid": {
+      "columns": 6,
+      "rows": 8,
+      "cellWidth": 170.6666666667,
+      "cellHeight": 192
+    },
+    "runtimeSpritesheet": "src/assets/runtime/player-runtime-spritesheet.png",
+    "runtimeFrameSize": {
+      "width": 256,
+      "height": 192
     },
     "origin": {
       "x": 0.5,
-      "y": 0.78
+      "y": 0.76
     },
     "states": {
       "idle": {
         "frames": 6,
         "start": 0,
-        "frameDurationSeconds": 0.11,
+        "frameDurationSeconds": 0.142,
         "stableOrigin": true
       },
       "run": {
         "frames": 8,
         "start": 6,
-        "frameDurationSeconds": 0.08,
+        "frameDurationSeconds": 0.056,
         "stableOrigin": true
       },
-      "jump-rise": {
-        "frames": 3,
+      "small-jump": {
+        "frames": 4,
         "start": 14,
-        "frameDurationSeconds": 0.1,
+        "frameDurationSeconds": 0.077,
+        "stableOrigin": true
+      },
+      "big-jump-rise": {
+        "frames": 5,
+        "start": 18,
+        "frameDurationSeconds": 0.071,
+        "stableOrigin": true
+      },
+      "speed-flip-jump": {
+        "frames": 8,
+        "start": 23,
+        "frameDurationSeconds": 0.05,
         "stableOrigin": true
       },
       "apex": {
         "frames": 2,
-        "start": 17,
-        "frameDurationSeconds": 0.1,
+        "start": 31,
+        "frameDurationSeconds": 0.167,
         "stableOrigin": true
       },
       "fall": {
-        "frames": 2,
-        "start": 19,
-        "frameDurationSeconds": 0.1,
+        "frames": 3,
+        "start": 33,
+        "frameDurationSeconds": 0.125,
         "stableOrigin": true
       },
       "wall-slide": {
         "frames": 4,
-        "start": 21,
-        "frameDurationSeconds": 0.1,
+        "start": 36,
+        "frameDurationSeconds": 0.125,
         "stableOrigin": true
       },
       "wall-kick": {
         "frames": 4,
-        "start": 25,
-        "frameDurationSeconds": 0.08,
+        "start": 40,
+        "frameDurationSeconds": 0.071,
         "stableOrigin": true
       },
       "ground-slash": {
         "frames": 8,
-        "start": 29,
-        "frameDurationSeconds": 0.05,
+        "start": 44,
+        "frameDurationSeconds": 0.042,
         "stableOrigin": true
       },
       "air-slash": {
         "frames": 6,
-        "start": 37,
-        "frameDurationSeconds": 0.055,
+        "start": 52,
+        "frameDurationSeconds": 0.045,
         "stableOrigin": true
       },
       "hurt": {
         "frames": 3,
-        "start": 43,
+        "start": 58,
         "frameDurationSeconds": 0.1,
         "stableOrigin": true
       },
       "checkpoint-respawn": {
         "frames": 6,
-        "start": 46,
-        "frameDurationSeconds": 0.1,
+        "start": 61,
+        "frameDurationSeconds": 0.125,
         "stableOrigin": true
+      }
+    }
+  },
+  "slash": {
+    "source": "art/source/vfx/slash-flipbook.png",
+    "runtimeSpritesheet": "src/assets/runtime/slash-runtime-spritesheet.png",
+    "runtimeFrameSize": {
+      "width": 192,
+      "height": 160
+    },
+    "states": {
+      "ground": {
+        "frames": 8,
+        "start": 0,
+        "frameDurationSeconds": 0.033
+      },
+      "air": {
+        "frames": 6,
+        "start": 8,
+        "frameDurationSeconds": 0.036
       }
     }
   },

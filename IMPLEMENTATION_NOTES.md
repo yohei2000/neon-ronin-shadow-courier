@@ -10,6 +10,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `art/generated/` contains raw native `image_gen` outputs and logs.
 - `art/source/` contains selected/refined v2 source assets.
 - `art/final-v2/` contains v2 runtime screenshots, reports, and processed assets.
+- `art/final-v3-animation/` records the scoped Animation Expansion Gate manifest.
 - `src/assets/approved-art/` contains frozen production copies of the approved runtime PNGs.
 - `src/data/approvedArtManifest.ts` is the Stage1 runtime asset contract.
 - `src/data/stage1Content.json` and `src/data/stage1.ts` own the Stage1 layout/content rules.
@@ -29,6 +30,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 
 - `Stage1Scene` orchestrates stage flow, checkpoints, pickups, hazards, miniboss clear, pause, retry, and QA telemetry.
 - `Player` owns movement state, coyote time, jump buffer, wall slide/kick, slash phases, hurt state, knockback, invulnerability, and checkpoint respawn.
+- `Player` also owns runtime visual pose selection. It chooses small jump on early jump release, big jump rise for normal rising jumps, speed flip jump when horizontal speed is near max, and separate ground/air slash visuals based on whether the slash started grounded.
 - `InkCrawler`, `KiteWraith`, and `LanternWarden` own enemy behavior.
 - `InputSystem` unifies keyboard and touch input.
 - `TouchControls` renders derived single-frame mobile control art and routes touches through `InputSystem`.
@@ -46,7 +48,8 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 ## Asset Pipeline
 
 - `scripts/process-generated-v2.mjs` processes recovered native image outputs into `art/source/` and `art/final-v2/assets/`.
-- `scripts/build-runtime-sprite-sheets.mjs` derives safe Stage1 runtime sheets/layers from frozen approved art, including character/enemy frames, VFX, cleaned parallax layers, ground/platform tiles, Moon Gate, item icons, and touch controls.
+- `scripts/build-runtime-sprite-sheets.mjs` derives safe Stage1 runtime sheets/layers from frozen approved art and scoped Animation Expansion Gate sources, including character/enemy frames, VFX, cleaned parallax layers, ground/platform tiles, Moon Gate, item icons, and touch controls.
+- Player runtime extraction is component-row driven from `art/source/player/player-animation-master-sheet.png` so each runtime frame contains one actor pose. Slash runtime extraction masks `art/source/vfx/slash-flipbook.png` into separate ground and air VFX sequences and removes source review labels.
 - `scripts/build-art-atlases.mjs` writes `art/final-v2/atlas-manifest.json`.
 - `scripts/generate-art-contact-sheets.mjs` verifies final-v2 contact sheets.
 - `scripts/validate-approved-art-freeze.mjs` verifies that frozen production copies match approved `art/final-v2/assets/` byte-for-byte and map back to `art/source/` or `art/final-v2/`.
@@ -68,10 +71,13 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 
 Do not run `art:process` for normal Stage1 integration after freeze. It is reserved for a new explicit art-change gate.
 
+`art:runtime-sheets` is allowed for the Animation Expansion Gate because it regenerates derived runtime sheets only; it does not regenerate or overwrite frozen approved core art.
+
 ## Gate Status
 
 - Gate A: approved.
 - Gate B v1: rejected.
 - Gate B v2: approved by explicit human input on 2026-06-27.
+- Animation Expansion Gate: scoped approval on 2026-06-28 for Stage1 player/slash runtime animation expansion only.
 
 The approved Gate B v2 visual system is now the runtime art basis for Stage 1.

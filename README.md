@@ -19,6 +19,7 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Gate A: approved via `Approve Gate A` on 2026-06-26.
 - Gate B v1: rejected.
 - Gate B v2: approved by explicit human input on 2026-06-27.
+- Animation Expansion Gate: opened on 2026-06-28 for Stage1 player/slash runtime animation only. Core Gate B v2 art remains the base; runtime player and slash sheets may derive from `art/source/player/player-animation-master-sheet.png` and `art/source/vfx/slash-flipbook.png`.
 
 ## Runtime
 
@@ -31,6 +32,8 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Safe Stage1 derived runtime cutouts: `src/assets/runtime/`
 
 Stage 1 includes 10 named sections, checkpoints, exactly 3 hidden scrolls, 24 seal pickups, health/energy pickups, hazards, Ink Crawler and Kite Wraith encounters, a Lantern Warden miniboss, Moon Gate clear, settings, save data, pause, retry checkpoint, and mobile virtual controls.
+
+Player runtime animation now separates idle, run, small jump, big jump rise, speed flip jump, apex, fall, wall slide, wall kick, ground slash, air slash, hurt, and checkpoint respawn. Slash VFX has separate ground and air runtime sequences.
 
 Art Lab runtime states remain available for visual review: `busy`, `player-motion`, `player-contrast`, `player-scale`, `enemy`, `kite-wraith`, `warden-telegraph`, `slash`, `parallax`, `sign-density`, `ui-desktop`, `ui-mobile`, `lighting-moonlight`, `lighting-neon`, `lighting-warm`, `high-contrast`, `reduced-fx`, and `grayscale`.
 
@@ -78,6 +81,8 @@ Stage1 gameplay should use `src/assets/runtime/` for fixed-cell actors, VFX, cle
 - `art/approvals/GATE_B_V2_SCREENSHOT_LINKS.md`
 - `art/approvals/GATE_B_V2_HUMAN_CHECKLIST.md`
 - `ART_LOCK_FREEZE.md`
+- `ANIMATION_EXPANSION_GATE.md`
+- `art/final-v3-animation/animation-expansion-manifest.json`
 - `artifacts/stage1/stage1-acceptance-report.md`
 - `artifacts/stage1/e2e-report.json`
 - `artifacts/stage1/console-report.json`
@@ -103,4 +108,4 @@ The reference package is user-provided specification material and is not runtime
 
 - Scope is intentionally Stage 1 only. Stage 2+, world map, final boss, dash, projectile, charged slash, and ultimate systems are not implemented.
 - Lantern Warden is a Stage 1 miniboss, not the campaign final boss.
-- Core art is frozen; future art changes require a new explicit art-change gate.
+- Core art remains frozen outside the approved Animation Expansion Gate. Future broader art changes require a new explicit art-change gate.

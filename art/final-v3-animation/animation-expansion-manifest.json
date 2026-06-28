@@ -1,0 +1,30 @@
+{
+  "phase": "gate-b-v2-animation-expansion-v1",
+  "playerRuntimeSource": "art/source/player/player-animation-master-sheet.png",
+  "slashRuntimeSource": "art/source/vfx/slash-flipbook.png",
+  "runtimeOutputs": [
+    "src/assets/runtime/player-runtime-spritesheet.png",
+    "src/assets/runtime/slash-runtime-spritesheet.png"
+  ],
+  "frameCounts": {
+    "player": {
+      "idle": 6,
+      "run": 8,
+      "smallJump": 4,
+      "bigJumpRise": 5,
+      "speedFlipJump": 8,
+      "apex": 2,
+      "fall": 3,
+      "wallSlide": 4,
+      "wallKick": 4,
+      "groundSlash": 8,
+      "airSlash": 6,
+      "hurt": 3,
+      "checkpointRespawn": 6
+    },
+    "slash": {
+      "ground": 8,
+      "air": 6
+    }
+  }
+}

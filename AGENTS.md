@@ -21,6 +21,7 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 - Gate A: approved by explicit human phrase `Approve Gate A` on 2026-06-26.
 - Gate B v1: rejected as visually below product level.
 - Gate B v2: approved by explicit human input `ゲートBを承認します` on 2026-06-27.
+- Animation Expansion Gate: scoped approval on 2026-06-28 for Stage1 player/slash runtime animation expansion only. Do not treat this as approval for Stage2+, world map, final boss, dash/projectile/charged slash/ultimate, or broad campaign systems.
 - Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
 - Art Lock freeze: Gate B v2 core art is frozen. Runtime production assets are normalized under `src/assets/approved-art/` and indexed by `src/data/approvedArtManifest.ts`.
 
@@ -91,7 +92,9 @@ Gate B v2 is approved and frozen. Stage1 integration must consume the approved a
 
 Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flow `TitleScene -> Stage1Scene -> StageClearScene`. Deterministic `ArtLabScene` review states remain available via `?scene=artlab&state=...`.
 
-Runtime asset note: Stage1 character, slash, telegraph, Lantern Warden, background, ground/platform, Moon Gate, item icons, HUD panels, and mobile controls use derived assets under `src/assets/runtime/`. They are cut from frozen approved art by `npm.cmd run art:runtime-sheets` so each runtime frame contains one actor/effect/icon/layer only. Do not point gameplay directly back at generated contact-sheet layouts such as `player-spritesheet`, `enemy-spritesheet`, `kite-wraith-preview`, `slash-flipbook`, `telegraph-flipbook`, `lantern-warden-spritesheet`, `ui-kit`, `mobile-controls-kit`, or paper-backed `layer-*` environment sheets, because those sheets can expose adjacent poses, white paper backgrounds, UI kit fragments, or half-cut frames.
+Runtime asset note: Stage1 character, slash, telegraph, Lantern Warden, background, ground/platform, Moon Gate, item icons, HUD panels, and mobile controls use derived assets under `src/assets/runtime/`. They are cut from frozen approved art and scoped Animation Expansion Gate sources by `npm.cmd run art:runtime-sheets` so each runtime frame contains one actor/effect/icon/layer only. Do not point gameplay directly back at generated contact-sheet layouts such as `player-spritesheet`, `enemy-spritesheet`, `kite-wraith-preview`, `slash-flipbook`, `telegraph-flipbook`, `lantern-warden-spritesheet`, `ui-kit`, `mobile-controls-kit`, or paper-backed `layer-*` environment sheets, because those sheets can expose adjacent poses, white paper backgrounds, UI kit fragments, or half-cut frames.
+
+Runtime animation note: Player runtime animation now uses idle 6, run 8, small jump 4, big jump rise 5, speed flip jump 8, apex 2, fall 3, wall slide 4, wall kick 4, ground slash 8, air slash 6, hurt 3, and checkpoint respawn 6 frames. Slash runtime animation uses separate ground 8 and air 6 frame sequences. The implementation is documented in `ANIMATION_EXPANSION_GATE.md` and `art/final-v3-animation/animation-expansion-manifest.json`.
 
 Runtime cutout note: `npm.cmd run art:runtime-sheets` applies a deterministic white/gray matte cleanup pass to player, Ink Crawler, Kite Wraith, and Lantern Warden runtime sprite sheets. Keep this in the runtime derivation step rather than editing frozen approved core art directly.
 

@@ -154,7 +154,7 @@ export class ArtLabScene extends Phaser.Scene {
   }
 
   private drawNeutralStation(): void {
-    const player = this.add.sprite(490, 300, RuntimeSpriteAssetKey.Player, 25).setScale(0.56);
+    const player = this.add.sprite(490, 300, RuntimeSpriteAssetKey.Player, 0).setScale(0.56);
     player.play('player-idle');
     this.add.sprite(586, 344, RuntimeSpriteAssetKey.Slash, 2).setScale(0.8).setAlpha(0.88);
     const kite = this.add.sprite(768, 294, RuntimeSpriteAssetKey.KiteWraith, 0).setScale(0.52).setAlpha(0.92);
@@ -174,11 +174,11 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawPlayerMotionStation(): void {
     const poses = [
-      { label: 'idle', frame: 25, anim: 'idle', y: 330 },
+      { label: 'idle', frame: 0, anim: 'idle', y: 330 },
       { label: 'run', frame: 6, anim: 'run', y: 330 },
-      { label: 'jump', frame: 12, anim: 'jumpRise', y: 318 },
-      { label: 'wall', frame: 17, anim: 'wallSlide', y: 326 },
-      { label: 'slash', frame: 23, anim: 'groundSlash', y: 330 }
+      { label: 'jump', frame: 18, anim: 'bigJumpRise', y: 318 },
+      { label: 'flip', frame: 23, anim: 'speedFlipJump', y: 314 },
+      { label: 'slash', frame: 44, anim: 'groundSlash', y: 330 }
     ];
     poses.forEach((pose, index) => {
       const sprite = this.add.sprite(150 + index * 170, pose.y, RuntimeSpriteAssetKey.Player, pose.frame).setScale(0.56);
@@ -193,16 +193,16 @@ export class ArtLabScene extends Phaser.Scene {
     fills.forEach((fill, index) => {
       const x = 56 + index * 176;
       this.add.rectangle(x + 70, 258, 138, 276, Number.parseInt(fill.slice(1), 16)).setStrokeStyle(1, Palette.neutralGray, 0.55);
-      this.add.sprite(x + 70, 310, RuntimeSpriteAssetKey.Player, index % 2 ? 6 : 25).setScale(0.56);
+      this.add.sprite(x + 70, 310, RuntimeSpriteAssetKey.Player, index % 2 ? 6 : 0).setScale(0.56);
       this.label(x + 20, 416, `contrast ${index + 1}`);
     });
     this.caption('Contrast station: player survives white, gray, dark-blue, black, and mixed backgrounds.');
   }
 
   private drawPlayerScaleStation(): void {
-    this.add.sprite(280, 320, RuntimeSpriteAssetKey.Player, 25).setScale(0.44);
+    this.add.sprite(280, 320, RuntimeSpriteAssetKey.Player, 0).setScale(0.44);
     this.add.sprite(470, 334, RuntimeSpriteAssetKey.Player, 6).setScale(0.33);
-    this.add.sprite(624, 348, RuntimeSpriteAssetKey.Player, 12).setScale(0.25);
+    this.add.sprite(624, 348, RuntimeSpriteAssetKey.Player, 18).setScale(0.25);
     this.label(250, 420, '64px');
     this.label(444, 420, '48px');
     this.label(602, 420, '32px');
@@ -236,11 +236,11 @@ export class ArtLabScene extends Phaser.Scene {
     if (this.currentState === 'slash-bright') {
       this.add.rectangle(480, 288, 820, 310, Palette.warmPaper, 0.86);
     }
-    [0, 1, 2, 3].forEach((frame, index) => {
-      this.add.sprite(180 + index * 188, 292, RuntimeSpriteAssetKey.Slash, frame).setScale(1.08);
-      this.label(132 + index * 188, 424, ['anticipation', 'active', 'breakup', 'fade'][index]);
+    [0, 2, 4, 7, 8, 10, 12].forEach((frame, index) => {
+      this.add.sprite(96 + index * 128, 292, RuntimeSpriteAssetKey.Slash, frame).setScale(0.92);
+      this.label(56 + index * 128, 424, ['ground 1', 'ground 3', 'ground 5', 'ground 8', 'air 1', 'air 3', 'air 5'][index]);
     });
-    this.caption('Slash station: four-phase Reference G timing with magenta core, ink edge, cyan sparks, and bounded breakup.');
+    this.caption('Slash station: ground and air slash timelines use separate runtime frames with magenta core, ink edge, cyan sparks, and bounded breakup.');
   }
 
   private drawParallaxStation(): void {
@@ -293,7 +293,7 @@ export class ArtLabScene extends Phaser.Scene {
 
   private drawGrayscaleStation(): void {
     this.add.image(480, 292, ArtAssetKey.TitleComposition).setAlpha(0.78).setTint(0xb8b8b8);
-    this.add.sprite(320, 360, RuntimeSpriteAssetKey.Player, 25).setScale(0.56).setTint(0xd0d0d0);
+    this.add.sprite(320, 360, RuntimeSpriteAssetKey.Player, 0).setScale(0.56).setTint(0xd0d0d0);
     this.add.sprite(576, 344, RuntimeSpriteAssetKey.Slash, 2).setScale(0.72).setTint(0xc0c0c0);
     this.caption('Grayscale review mode: value separation remains readable without relying on hue alone.');
   }

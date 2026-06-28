@@ -1,208 +1,1145 @@
 {
-  "generatedAt": "2026-06-27T23:39:03.939Z",
+  "generatedAt": "2026-06-28T11:56:24.330Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
       "id": "player-runtime-spritesheet",
-      "source": "src/assets/approved-art/player-spritesheet.png",
+      "source": "art/source/player/player-animation-master-sheet.png",
       "output": "src/assets/runtime/player-runtime-spritesheet.png",
-      "width": 1536,
-      "height": 960,
+      "width": 2048,
+      "height": 1728,
       "frameWidth": 256,
       "frameHeight": 192,
+      "sequences": [
+        {
+          "id": "idle",
+          "frames": 6
+        },
+        {
+          "id": "run",
+          "frames": 8
+        },
+        {
+          "id": "smallJump",
+          "frames": 4
+        },
+        {
+          "id": "bigJumpRise",
+          "frames": 5
+        },
+        {
+          "id": "speedFlipJump",
+          "frames": 8
+        },
+        {
+          "id": "apex",
+          "frames": 2
+        },
+        {
+          "id": "fall",
+          "frames": 3
+        },
+        {
+          "id": "wallSlide",
+          "frames": 4
+        },
+        {
+          "id": "wallKick",
+          "frames": 4
+        },
+        {
+          "id": "groundSlash",
+          "frames": 8
+        },
+        {
+          "id": "airSlash",
+          "frames": 6
+        },
+        {
+          "id": "hurt",
+          "frames": 3
+        },
+        {
+          "id": "checkpointRespawn",
+          "frames": 6
+        }
+      ],
       "matteCleanup": {
-        "removed": 55864,
+        "removed": 139650,
         "darkened": 0
       },
       "frames": [
         {
-          "x": 48,
-          "y": 0,
-          "width": 129,
-          "height": 92,
-          "pixels": 5336
-        },
-        {
-          "x": 205,
-          "y": 0,
-          "width": 135,
-          "height": 93,
-          "pixels": 5223
-        },
-        {
-          "x": 374,
-          "y": 0,
-          "width": 136,
-          "height": 93,
-          "pixels": 5374
-        },
-        {
-          "x": 539,
-          "y": 0,
-          "width": 115,
-          "height": 93,
-          "pixels": 5043
-        },
-        {
-          "x": 676,
-          "y": 0,
-          "width": 115,
-          "height": 93,
-          "pixels": 4648
-        },
-        {
-          "x": 828,
-          "y": 0,
-          "width": 124,
-          "height": 93,
-          "pixels": 4808
-        },
-        {
-          "x": 398,
-          "y": 131,
-          "width": 122,
-          "height": 141,
-          "pixels": 7354
-        },
-        {
-          "x": 74,
-          "y": 141,
-          "width": 120,
-          "height": 141,
-          "pixels": 7116
-        },
-        {
-          "x": 556,
-          "y": 142,
-          "width": 124,
-          "height": 132,
-          "pixels": 7361
-        },
-        {
-          "x": 721,
-          "y": 143,
+          "sequence": "idle",
+          "stateFrame": 0,
+          "componentRow": 0,
+          "componentColumn": 0,
+          "x": 60,
+          "y": 57,
           "width": 113,
-          "height": 138,
-          "pixels": 7114
+          "height": 169,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 113,
+            "height": 169
+          }
         },
         {
-          "x": 228,
-          "y": 145,
-          "width": 120,
-          "height": 128,
-          "pixels": 6637
+          "sequence": "idle",
+          "stateFrame": 1,
+          "componentRow": 0,
+          "componentColumn": 1,
+          "x": 209,
+          "y": 58,
+          "width": 118,
+          "height": 169,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 118,
+            "height": 169
+          }
         },
         {
-          "x": 233,
-          "y": 320,
-          "width": 113,
-          "height": 143,
-          "pixels": 6716
+          "sequence": "idle",
+          "stateFrame": 2,
+          "componentRow": 0,
+          "componentColumn": 2,
+          "x": 360,
+          "y": 59,
+          "width": 115,
+          "height": 168,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 115,
+            "height": 168
+          }
         },
         {
-          "x": 399,
-          "y": 322,
-          "width": 109,
-          "height": 147,
-          "pixels": 7082
+          "sequence": "idle",
+          "stateFrame": 3,
+          "componentRow": 0,
+          "componentColumn": 3,
+          "x": 512,
+          "y": 60,
+          "width": 118,
+          "height": 168,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 118,
+            "height": 168
+          }
         },
         {
-          "x": 69,
-          "y": 327,
+          "sequence": "idle",
+          "stateFrame": 4,
+          "componentRow": 0,
+          "componentColumn": 4,
+          "x": 651,
+          "y": 61,
+          "width": 118,
+          "height": 167,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 118,
+            "height": 167
+          }
+        },
+        {
+          "sequence": "idle",
+          "stateFrame": 5,
+          "componentRow": 0,
+          "componentColumn": 5,
+          "x": 814,
+          "y": 62,
           "width": 107,
-          "height": 135,
-          "pixels": 7047
+          "height": 166,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 107,
+            "height": 166
+          }
         },
         {
-          "x": 704,
-          "y": 331,
-          "width": 121,
-          "height": 144,
-          "pixels": 7410
+          "sequence": "run",
+          "stateFrame": 0,
+          "componentRow": 1,
+          "componentColumn": 0,
+          "x": 43,
+          "y": 267,
+          "width": 141,
+          "height": 150,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 141,
+            "height": 150
+          }
         },
         {
-          "x": 553,
-          "y": 333,
-          "width": 117,
-          "height": 140,
-          "pixels": 7178
-        },
-        {
-          "x": 526,
-          "y": 504,
-          "width": 94,
-          "height": 159,
-          "pixels": 6432
-        },
-        {
-          "x": 253,
-          "y": 505,
-          "width": 84,
-          "height": 154,
-          "pixels": 5463
-        },
-        {
-          "x": 387,
-          "y": 507,
-          "width": 76,
-          "height": 153,
-          "pixels": 5429
-        },
-        {
-          "x": 71,
-          "y": 509,
-          "width": 81,
-          "height": 144,
-          "pixels": 5526
-        },
-        {
-          "x": 661,
-          "y": 517,
-          "width": 209,
-          "height": 142,
-          "pixels": 10476
-        },
-        {
-          "x": 850,
-          "y": 537,
+          "sequence": "run",
+          "stateFrame": 1,
+          "componentRow": 1,
+          "componentColumn": 1,
+          "x": 200,
+          "y": 267,
           "width": 150,
-          "height": 114,
-          "pixels": 6126
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 151
+          }
         },
         {
-          "x": 245,
-          "y": 703,
-          "width": 200,
-          "height": 128,
-          "pixels": 8348
+          "sequence": "run",
+          "stateFrame": 2,
+          "componentRow": 1,
+          "componentColumn": 2,
+          "x": 369,
+          "y": 272,
+          "width": 152,
+          "height": 146,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 152,
+            "height": 146
+          }
         },
         {
-          "x": 47,
-          "y": 705,
-          "width": 193,
-          "height": 126,
-          "pixels": 8533
+          "sequence": "run",
+          "stateFrame": 3,
+          "componentRow": 1,
+          "componentColumn": 3,
+          "x": 533,
+          "y": 278,
+          "width": 134,
+          "height": 140,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 140
+          }
         },
         {
-          "x": 647,
-          "y": 707,
-          "width": 178,
-          "height": 126,
-          "pixels": 9441
+          "sequence": "run",
+          "stateFrame": 4,
+          "componentRow": 1,
+          "componentColumn": 4,
+          "x": 671,
+          "y": 273,
+          "width": 134,
+          "height": 145,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 145
+          }
         },
         {
-          "x": 845,
-          "y": 712,
+          "sequence": "run",
+          "stateFrame": 5,
+          "componentRow": 1,
+          "componentColumn": 5,
+          "x": 823,
+          "y": 272,
+          "width": 140,
+          "height": 146,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 146
+          }
+        },
+        {
+          "sequence": "run",
+          "stateFrame": 6,
+          "componentRow": 1,
+          "componentColumn": 2,
+          "x": 369,
+          "y": 272,
+          "width": 152,
+          "height": 146,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 152,
+            "height": 146
+          }
+        },
+        {
+          "sequence": "run",
+          "stateFrame": 7,
+          "componentRow": 1,
+          "componentColumn": 4,
+          "x": 671,
+          "y": 273,
+          "width": 134,
+          "height": 145,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 145
+          }
+        },
+        {
+          "sequence": "smallJump",
+          "stateFrame": 0,
+          "componentRow": 2,
+          "componentColumn": 0,
+          "x": 69,
+          "y": 456,
           "width": 130,
-          "height": 120,
-          "pixels": 6557
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 130,
+            "height": 151
+          }
         },
         {
-          "x": 444,
-          "y": 713,
+          "sequence": "smallJump",
+          "stateFrame": 1,
+          "componentRow": 2,
+          "componentColumn": 1,
+          "x": 223,
+          "y": 460,
+          "width": 130,
+          "height": 138,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 130,
+            "height": 138
+          }
+        },
+        {
+          "sequence": "smallJump",
+          "stateFrame": 2,
+          "componentRow": 2,
+          "componentColumn": 2,
+          "x": 393,
+          "y": 446,
+          "width": 132,
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 132,
+            "height": 151
+          }
+        },
+        {
+          "sequence": "smallJump",
+          "stateFrame": 3,
+          "componentRow": 2,
+          "componentColumn": 3,
+          "x": 551,
+          "y": 457,
+          "width": 134,
+          "height": 142,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 142
+          }
+        },
+        {
+          "sequence": "bigJumpRise",
+          "stateFrame": 0,
+          "componentRow": 2,
+          "componentColumn": 0,
+          "x": 69,
+          "y": 456,
+          "width": 130,
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 130,
+            "height": 151
+          }
+        },
+        {
+          "sequence": "bigJumpRise",
+          "stateFrame": 1,
+          "componentRow": 2,
+          "componentColumn": 1,
+          "x": 223,
+          "y": 460,
+          "width": 130,
+          "height": 138,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 130,
+            "height": 138
+          }
+        },
+        {
+          "sequence": "bigJumpRise",
+          "stateFrame": 2,
+          "componentRow": 2,
+          "componentColumn": 2,
+          "x": 393,
+          "y": 446,
+          "width": 132,
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 132,
+            "height": 151
+          }
+        },
+        {
+          "sequence": "bigJumpRise",
+          "stateFrame": 3,
+          "componentRow": 2,
+          "componentColumn": 3,
+          "x": 551,
+          "y": 457,
+          "width": 134,
+          "height": 142,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 142
+          }
+        },
+        {
+          "sequence": "bigJumpRise",
+          "stateFrame": 4,
+          "componentRow": 2,
+          "componentColumn": 4,
+          "x": 716,
+          "y": 458,
+          "width": 123,
+          "height": 148,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 123,
+            "height": 148
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 0,
+          "componentRow": 2,
+          "componentColumn": 0,
+          "x": 69,
+          "y": 456,
+          "width": 130,
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 130,
+            "height": 151
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 1,
+          "componentRow": 2,
+          "componentColumn": 1,
+          "x": 223,
+          "y": 460,
+          "width": 130,
+          "height": 138,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 130,
+            "height": 138
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 2,
+          "componentRow": 2,
+          "componentColumn": 2,
+          "x": 393,
+          "y": 446,
+          "width": 132,
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 132,
+            "height": 151
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 3,
+          "componentRow": 2,
+          "componentColumn": 3,
+          "x": 551,
+          "y": 457,
+          "width": 134,
+          "height": 142,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 142
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 4,
+          "componentRow": 2,
+          "componentColumn": 4,
+          "x": 716,
+          "y": 458,
+          "width": 123,
+          "height": 148,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 123,
+            "height": 148
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 5,
+          "componentRow": 2,
+          "componentColumn": 3,
+          "x": 551,
+          "y": 457,
+          "width": 134,
+          "height": 142,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 142
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 6,
+          "componentRow": 2,
+          "componentColumn": 2,
+          "x": 393,
+          "y": 446,
+          "width": 132,
+          "height": 151,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 132,
+            "height": 151
+          }
+        },
+        {
+          "sequence": "speedFlipJump",
+          "stateFrame": 7,
+          "componentRow": 1,
+          "componentColumn": 5,
+          "x": 823,
+          "y": 272,
+          "width": 140,
+          "height": 146,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 146
+          }
+        },
+        {
+          "sequence": "apex",
+          "stateFrame": 0,
+          "componentRow": 2,
+          "componentColumn": 3,
+          "x": 551,
+          "y": 457,
+          "width": 134,
+          "height": 142,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 142
+          }
+        },
+        {
+          "sequence": "apex",
+          "stateFrame": 1,
+          "componentRow": 2,
+          "componentColumn": 4,
+          "x": 716,
+          "y": 458,
+          "width": 123,
+          "height": 148,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 123,
+            "height": 148
+          }
+        },
+        {
+          "sequence": "fall",
+          "stateFrame": 0,
+          "componentRow": 2,
+          "componentColumn": 4,
+          "x": 716,
+          "y": 458,
+          "width": 123,
+          "height": 148,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 123,
+            "height": 148
+          }
+        },
+        {
+          "sequence": "fall",
+          "stateFrame": 1,
+          "componentRow": 2,
+          "componentColumn": 3,
+          "x": 551,
+          "y": 457,
+          "width": 134,
+          "height": 142,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 134,
+            "height": 142
+          }
+        },
+        {
+          "sequence": "fall",
+          "stateFrame": 2,
+          "componentRow": 4,
+          "componentColumn": 5,
+          "x": 845,
+          "y": 852,
+          "width": 160,
+          "height": 124,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 160,
+            "height": 124
+          }
+        },
+        {
+          "sequence": "wallSlide",
+          "stateFrame": 0,
+          "componentRow": 3,
+          "componentColumn": 0,
+          "x": 64,
+          "y": 642,
+          "width": 117,
+          "height": 145,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 117,
+            "height": 145
+          }
+        },
+        {
+          "sequence": "wallSlide",
+          "stateFrame": 1,
+          "componentRow": 3,
+          "componentColumn": 1,
+          "x": 228,
+          "y": 635,
+          "width": 123,
+          "height": 153,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 123,
+            "height": 153
+          }
+        },
+        {
+          "sequence": "wallSlide",
+          "stateFrame": 2,
+          "componentRow": 3,
+          "componentColumn": 2,
+          "x": 394,
+          "y": 637,
+          "width": 119,
+          "height": 157,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 119,
+            "height": 157
+          }
+        },
+        {
+          "sequence": "wallSlide",
+          "stateFrame": 3,
+          "componentRow": 3,
+          "componentColumn": 3,
+          "x": 548,
+          "y": 648,
+          "width": 127,
+          "height": 150,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 127,
+            "height": 150
+          }
+        },
+        {
+          "sequence": "wallKick",
+          "stateFrame": 0,
+          "componentRow": 4,
+          "componentColumn": 2,
+          "x": 382,
+          "y": 822,
+          "width": 86,
+          "height": 163,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 86,
+            "height": 163
+          }
+        },
+        {
+          "sequence": "wallKick",
+          "stateFrame": 1,
+          "componentRow": 4,
+          "componentColumn": 3,
+          "x": 521,
+          "y": 819,
+          "width": 104,
+          "height": 169,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 104,
+            "height": 169
+          }
+        },
+        {
+          "sequence": "wallKick",
+          "stateFrame": 2,
+          "componentRow": 4,
+          "componentColumn": 4,
+          "x": 656,
+          "y": 832,
+          "width": 219,
+          "height": 152,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 219,
+            "height": 152
+          }
+        },
+        {
+          "sequence": "wallKick",
+          "stateFrame": 3,
+          "componentRow": 4,
+          "componentColumn": 5,
+          "x": 845,
+          "y": 852,
+          "width": 160,
+          "height": 124,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 160,
+            "height": 124
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 0,
+          "componentRow": 5,
+          "componentColumn": 0,
+          "x": 42,
+          "y": 1020,
+          "width": 203,
+          "height": 136,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 203,
+            "height": 136
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 1,
+          "componentRow": 5,
+          "componentColumn": 1,
+          "x": 240,
+          "y": 1018,
+          "width": 210,
+          "height": 138,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 210,
+            "height": 138
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 2,
+          "componentRow": 5,
+          "componentColumn": 2,
+          "x": 439,
+          "y": 1028,
+          "width": 215,
+          "height": 129,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 215,
+            "height": 129
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 3,
+          "componentRow": 5,
+          "componentColumn": 3,
+          "x": 642,
+          "y": 1022,
+          "width": 188,
+          "height": 136,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 188,
+            "height": 136
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 4,
+          "componentRow": 5,
+          "componentColumn": 4,
+          "x": 840,
+          "y": 1027,
+          "width": 140,
+          "height": 130,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 130
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 5,
+          "componentRow": 5,
+          "componentColumn": 3,
+          "x": 642,
+          "y": 1022,
+          "width": 188,
+          "height": 136,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 188,
+            "height": 136
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 6,
+          "componentRow": 5,
+          "componentColumn": 2,
+          "x": 439,
+          "y": 1028,
+          "width": 215,
+          "height": 129,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 215,
+            "height": 129
+          }
+        },
+        {
+          "sequence": "groundSlash",
+          "stateFrame": 7,
+          "componentRow": 5,
+          "componentColumn": 4,
+          "x": 840,
+          "y": 1027,
+          "width": 140,
+          "height": 130,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 140,
+            "height": 130
+          }
+        },
+        {
+          "sequence": "airSlash",
+          "stateFrame": 0,
+          "componentRow": 6,
+          "componentColumn": 0,
+          "x": 61,
+          "y": 1184,
+          "width": 151,
+          "height": 135,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 151,
+            "height": 135
+          }
+        },
+        {
+          "sequence": "airSlash",
+          "stateFrame": 1,
+          "componentRow": 6,
+          "componentColumn": 1,
+          "x": 254,
+          "y": 1182,
+          "width": 159,
+          "height": 137,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 159,
+            "height": 137
+          }
+        },
+        {
+          "sequence": "airSlash",
+          "stateFrame": 2,
+          "componentRow": 6,
+          "componentColumn": 2,
+          "x": 458,
+          "y": 1184,
+          "width": 171,
+          "height": 136,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 171,
+            "height": 136
+          }
+        },
+        {
+          "sequence": "airSlash",
+          "stateFrame": 3,
+          "componentRow": 6,
+          "componentColumn": 3,
+          "x": 629,
+          "y": 1187,
           "width": 205,
+          "height": 133,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 205,
+            "height": 133
+          }
+        },
+        {
+          "sequence": "airSlash",
+          "stateFrame": 4,
+          "componentRow": 6,
+          "componentColumn": 4,
+          "x": 833,
+          "y": 1204,
+          "width": 124,
+          "height": 117,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 124,
+            "height": 117
+          }
+        },
+        {
+          "sequence": "airSlash",
+          "stateFrame": 5,
+          "componentRow": 6,
+          "componentColumn": 3,
+          "x": 629,
+          "y": 1187,
+          "width": 205,
+          "height": 133,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 205,
+            "height": 133
+          }
+        },
+        {
+          "sequence": "hurt",
+          "stateFrame": 0,
+          "componentRow": 7,
+          "componentColumn": 0,
+          "x": 63,
+          "y": 1355,
+          "width": 133,
+          "height": 136,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 133,
+            "height": 136
+          }
+        },
+        {
+          "sequence": "hurt",
+          "stateFrame": 1,
+          "componentRow": 7,
+          "componentColumn": 1,
+          "x": 265,
+          "y": 1373,
+          "width": 125,
           "height": 119,
-          "pixels": 8288
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 125,
+            "height": 119
+          }
+        },
+        {
+          "sequence": "hurt",
+          "stateFrame": 2,
+          "componentRow": 7,
+          "componentColumn": 2,
+          "x": 419,
+          "y": 1377,
+          "width": 144,
+          "height": 116,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 144,
+            "height": 116
+          }
+        },
+        {
+          "sequence": "checkpointRespawn",
+          "stateFrame": 0,
+          "componentRow": 7,
+          "componentColumn": 0,
+          "x": 63,
+          "y": 1355,
+          "width": 133,
+          "height": 136,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 133,
+            "height": 136
+          }
+        },
+        {
+          "sequence": "checkpointRespawn",
+          "stateFrame": 1,
+          "componentRow": 7,
+          "componentColumn": 1,
+          "x": 265,
+          "y": 1373,
+          "width": 125,
+          "height": 119,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 125,
+            "height": 119
+          }
+        },
+        {
+          "sequence": "checkpointRespawn",
+          "stateFrame": 2,
+          "componentRow": 7,
+          "componentColumn": 2,
+          "x": 419,
+          "y": 1377,
+          "width": 144,
+          "height": 116,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 144,
+            "height": 116
+          }
+        },
+        {
+          "sequence": "checkpointRespawn",
+          "stateFrame": 3,
+          "componentRow": 7,
+          "componentColumn": 3,
+          "x": 607,
+          "y": 1382,
+          "width": 121,
+          "height": 110,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 121,
+            "height": 110
+          }
+        },
+        {
+          "sequence": "checkpointRespawn",
+          "stateFrame": 4,
+          "componentRow": 7,
+          "componentColumn": 4,
+          "x": 783,
+          "y": 1405,
+          "width": 164,
+          "height": 88,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 164,
+            "height": 88
+          }
+        },
+        {
+          "sequence": "checkpointRespawn",
+          "stateFrame": 5,
+          "componentRow": 0,
+          "componentColumn": 0,
+          "x": 60,
+          "y": 57,
+          "width": 113,
+          "height": 169,
+          "trim": {
+            "x": 0,
+            "y": 0,
+            "width": 113,
+            "height": 169
+          }
         }
       ]
     },
@@ -322,10 +1259,10 @@
     },
     {
       "id": "slash-runtime-spritesheet",
-      "source": "src/assets/approved-art/slash-flipbook.png",
+      "source": "art/source/vfx/slash-flipbook.png",
       "output": "src/assets/runtime/slash-runtime-spritesheet.png",
-      "width": 768,
-      "height": 160,
+      "width": 1344,
+      "height": 320,
       "frameWidth": 192,
       "frameHeight": 160,
       "matteCleanup": {
@@ -334,6 +1271,17 @@
       },
       "frames": [
         {
+          "sequence": "ground",
+          "stateFrame": 0,
+          "sourceFrame": 0,
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "ground",
+          "stateFrame": 1,
           "sourceFrame": 1,
           "x": 128,
           "y": 0,
@@ -341,6 +1289,8 @@
           "height": 160
         },
         {
+          "sequence": "ground",
+          "stateFrame": 2,
           "sourceFrame": 2,
           "x": 256,
           "y": 0,
@@ -348,6 +1298,26 @@
           "height": 160
         },
         {
+          "sequence": "ground",
+          "stateFrame": 3,
+          "sourceFrame": 3,
+          "x": 384,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "ground",
+          "stateFrame": 4,
+          "sourceFrame": 4,
+          "x": 512,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "ground",
+          "stateFrame": 5,
           "sourceFrame": 5,
           "x": 640,
           "y": 0,
@@ -355,8 +1325,73 @@
           "height": 160
         },
         {
+          "sequence": "ground",
+          "stateFrame": 6,
           "sourceFrame": 6,
           "x": 768,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "ground",
+          "stateFrame": 7,
+          "sourceFrame": 7,
+          "x": 896,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "air",
+          "stateFrame": 0,
+          "sourceFrame": 0,
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "air",
+          "stateFrame": 1,
+          "sourceFrame": 1,
+          "x": 128,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "air",
+          "stateFrame": 2,
+          "sourceFrame": 2,
+          "x": 256,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "air",
+          "stateFrame": 3,
+          "sourceFrame": 3,
+          "x": 384,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "air",
+          "stateFrame": 4,
+          "sourceFrame": 4,
+          "x": 512,
+          "y": 0,
+          "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "air",
+          "stateFrame": 5,
+          "sourceFrame": 5,
+          "x": 640,
           "y": 0,
           "width": 128,
           "height": 160
@@ -423,7 +1458,7 @@
       "frameWidth": 256,
       "frameHeight": 256,
       "matteCleanup": {
-        "removed": 6261,
+        "removed": 6260,
         "darkened": 0
       },
       "frames": [

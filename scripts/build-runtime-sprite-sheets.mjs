@@ -7,18 +7,6 @@ const runtimeDir = path.join(rootDir, 'src', 'assets', 'runtime');
 
 const sheetSpecs = [
   {
-    id: 'player-runtime-spritesheet',
-    source: 'src/assets/approved-art/player-spritesheet.png',
-    output: 'src/assets/runtime/player-runtime-spritesheet.png',
-    frameWidth: 256,
-    frameHeight: 192,
-    columns: 6,
-    minPixels: 3000,
-    alphaThreshold: 12,
-    bottomPadding: 12,
-    maxFrames: 27
-  },
-  {
     id: 'ink-crawler-runtime-spritesheet',
     source: 'src/assets/approved-art/enemy-spritesheet.png',
     output: 'src/assets/runtime/ink-crawler-runtime-spritesheet.png',
@@ -44,17 +32,55 @@ const sheetSpecs = [
   }
 ];
 
+const masterFrame = (row, column) => ({ componentRow: row, componentColumn: column });
+
+const explicitGridSheetSpecs = [
+  {
+    id: 'player-runtime-spritesheet',
+    source: 'art/source/player/player-animation-master-sheet.png',
+    output: 'src/assets/runtime/player-runtime-spritesheet.png',
+    frameWidth: 256,
+    frameHeight: 192,
+    columns: 8,
+    alphaThreshold: 12,
+    componentMinPixels: 2500,
+    trimMargin: 5,
+    bottomPadding: 12,
+    maxScale: 1.32,
+    sequences: [
+      { id: 'idle', frames: [masterFrame(0, 0), masterFrame(0, 1), masterFrame(0, 2), masterFrame(0, 3), masterFrame(0, 4), masterFrame(0, 5)] },
+      { id: 'run', frames: [masterFrame(1, 0), masterFrame(1, 1), masterFrame(1, 2), masterFrame(1, 3), masterFrame(1, 4), masterFrame(1, 5), masterFrame(1, 2), masterFrame(1, 4)] },
+      { id: 'smallJump', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3)] },
+      { id: 'bigJumpRise', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4)] },
+      { id: 'speedFlipJump', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4), masterFrame(2, 3), masterFrame(2, 2), masterFrame(1, 5)] },
+      { id: 'apex', frames: [masterFrame(2, 3), masterFrame(2, 4)] },
+      { id: 'fall', frames: [masterFrame(2, 4), masterFrame(2, 3), masterFrame(4, 5)] },
+      { id: 'wallSlide', frames: [masterFrame(3, 0), masterFrame(3, 1), masterFrame(3, 2), masterFrame(3, 3)] },
+      { id: 'wallKick', frames: [masterFrame(4, 2), masterFrame(4, 3), masterFrame(4, 4), masterFrame(4, 5)] },
+      { id: 'groundSlash', frames: [masterFrame(5, 0), masterFrame(5, 1), masterFrame(5, 2), masterFrame(5, 3), masterFrame(5, 4), masterFrame(5, 3), masterFrame(5, 2), masterFrame(5, 4)] },
+      { id: 'airSlash', frames: [masterFrame(6, 0), masterFrame(6, 1), masterFrame(6, 2), masterFrame(6, 3), masterFrame(6, 4), masterFrame(6, 3)] },
+      { id: 'hurt', frames: [masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2)] },
+      { id: 'checkpointRespawn', frames: [masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(0, 0)] }
+    ]
+  }
+];
+
 const gridSheetSpecs = [
   {
     id: 'slash-runtime-spritesheet',
-    source: 'src/assets/approved-art/slash-flipbook.png',
+    source: 'art/source/vfx/slash-flipbook.png',
     output: 'src/assets/runtime/slash-runtime-spritesheet.png',
     sourceFrameWidth: 128,
     sourceFrameHeight: 160,
     frameWidth: 192,
     frameHeight: 160,
-    columns: 4,
-    frameIndices: [1, 2, 5, 6]
+    columns: 7,
+    mask: 'player-slash',
+    removeLabelZone: true,
+    sequences: [
+      { id: 'ground', frameIndices: [0, 1, 2, 3, 4, 5, 6, 7] },
+      { id: 'air', frameIndices: [0, 1, 2, 3, 4, 5], rotate: -10, offsetY: -12, scale: 0.9 }
+    ]
   },
   {
     id: 'telegraph-runtime-spritesheet',
@@ -305,6 +331,237 @@ const matteCleanupSource = String.raw`
 
 const results = [];
 try {
+  for (const spec of explicitGridSheetSpecs) {
+    const sourcePath = path.join(rootDir, spec.source);
+    const outputPath = path.join(rootDir, spec.output);
+    const bytes = await fs.readFile(sourcePath);
+    const dataUrl = `data:image/png;base64,${bytes.toString('base64')}`;
+    const result = await page.evaluate(async ({ spec, dataUrl, matteCleanupSource }) => {
+      const cleanCharacterMatte = eval(matteCleanupSource);
+      const image = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Unable to load ${spec.source}`));
+        img.src = dataUrl;
+      });
+
+      const sourceCanvas = document.createElement('canvas');
+      sourceCanvas.width = image.naturalWidth;
+      sourceCanvas.height = image.naturalHeight;
+      const sourceContext = sourceCanvas.getContext('2d', { willReadFrequently: true });
+      if (!sourceContext) throw new Error('2D canvas unavailable');
+      sourceContext.clearRect(0, 0, sourceCanvas.width, sourceCanvas.height);
+      sourceContext.drawImage(image, 0, 0);
+
+      const detectComponents = () => {
+        const imageData = sourceContext.getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
+        const { data, width, height } = imageData;
+        const visited = new Uint8Array(width * height);
+        const solid = new Uint8Array(width * height);
+        const queue = [];
+        for (let index = 0; index < solid.length; index += 1) {
+          solid[index] = data[index * 4 + 3] > (spec.alphaThreshold ?? 12) ? 1 : 0;
+        }
+        const enqueue = (index) => {
+          if (index < 0 || index >= solid.length || !solid[index] || visited[index]) return;
+          visited[index] = 1;
+          queue.push(index);
+        };
+        const components = [];
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const start = y * width + x;
+            if (!solid[start] || visited[start]) continue;
+            let minX = x;
+            let minY = y;
+            let maxX = x;
+            let maxY = y;
+            let pixels = 0;
+            queue.length = 0;
+            enqueue(start);
+            for (let cursor = 0; cursor < queue.length; cursor += 1) {
+              const index = queue[cursor];
+              const cx = index % width;
+              const cy = Math.floor(index / width);
+              pixels += 1;
+              minX = Math.min(minX, cx);
+              minY = Math.min(minY, cy);
+              maxX = Math.max(maxX, cx);
+              maxY = Math.max(maxY, cy);
+              if (cx > 0) enqueue(index - 1);
+              if (cx < width - 1) enqueue(index + 1);
+              if (cy > 0) enqueue(index - width);
+              if (cy < height - 1) enqueue(index + width);
+            }
+            if (pixels >= (spec.componentMinPixels ?? 2500)) {
+              components.push({
+                x: minX,
+                y: minY,
+                width: maxX - minX + 1,
+                height: maxY - minY + 1,
+                pixels,
+                row: Math.floor(((minY + maxY) / 2) / 192)
+              });
+            }
+          }
+        }
+        return components
+          .sort((a, b) => (a.row - b.row) || (a.x - b.x))
+          .reduce((byRow, component) => {
+            if (!byRow[component.row]) byRow[component.row] = [];
+            byRow[component.row].push(component);
+            return byRow;
+          }, {});
+      };
+      const componentsByRow = detectComponents();
+
+      const frames = spec.sequences.flatMap((sequence) =>
+        sequence.frames.map((frame, stateFrame) => ({
+          ...frame,
+          sequence: sequence.id,
+          stateFrame
+        }))
+      );
+      const rows = Math.ceil(frames.length / spec.columns);
+      const targetCanvas = document.createElement('canvas');
+      targetCanvas.width = spec.frameWidth * spec.columns;
+      targetCanvas.height = spec.frameHeight * rows;
+      const targetContext = targetCanvas.getContext('2d', { willReadFrequently: true });
+      if (!targetContext) throw new Error('2D canvas unavailable');
+      targetContext.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
+      targetContext.imageSmoothingEnabled = true;
+      targetContext.imageSmoothingQuality = 'high';
+
+      const trimSourceFrame = (frame) => {
+        const component = componentsByRow[frame.componentRow]?.[frame.componentColumn];
+        if (!component) {
+          throw new Error(`Missing player component row ${frame.componentRow} column ${frame.componentColumn}`);
+        }
+        const componentMargin = spec.trimMargin ?? 0;
+        const sourceX = Math.max(0, component.x - componentMargin);
+        const sourceY = Math.max(0, component.y - componentMargin);
+        const sourceRight = Math.min(sourceCanvas.width - 1, component.x + component.width - 1 + componentMargin);
+        const sourceBottom = Math.min(sourceCanvas.height - 1, component.y + component.height - 1 + componentMargin);
+        const sourceWidth = sourceRight - sourceX + 1;
+        const sourceHeight = sourceBottom - sourceY + 1;
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.ceil(sourceWidth);
+        canvas.height = Math.ceil(sourceHeight);
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        if (!context) throw new Error('2D canvas unavailable');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(sourceCanvas, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const { data, width, height } = imageData;
+        let minX = width;
+        let minY = height;
+        let maxX = -1;
+        let maxY = -1;
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const alpha = data[(y * width + x) * 4 + 3];
+            if (alpha <= (spec.alphaThreshold ?? 12)) continue;
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
+          }
+        }
+        if (maxX < minX || maxY < minY) {
+          return { canvas, sourceX, sourceY, sourceWidth, sourceHeight, trimX: 0, trimY: 0, trimWidth: 1, trimHeight: 1, empty: true };
+        }
+        const margin = spec.trimMargin ?? 0;
+        const trimX = Math.max(0, minX - margin);
+        const trimY = Math.max(0, minY - margin);
+        const trimRight = Math.min(width - 1, maxX + margin);
+        const trimBottom = Math.min(height - 1, maxY + margin);
+        return {
+          canvas,
+          sourceX,
+          sourceY,
+          sourceWidth,
+          sourceHeight,
+          trimX,
+          trimY,
+          trimWidth: trimRight - trimX + 1,
+          trimHeight: trimBottom - trimY + 1,
+          empty: false
+        };
+      };
+
+      const renderedFrames = frames.map((frame, index) => {
+        const column = index % spec.columns;
+        const row = Math.floor(index / spec.columns);
+        const trimmed = trimSourceFrame(frame);
+        if (!trimmed.empty) {
+          const fitScale = Math.min(
+            (spec.frameWidth - 18) / trimmed.trimWidth,
+            (spec.frameHeight - spec.bottomPadding - 8) / trimmed.trimHeight,
+            spec.maxScale ?? 1.35
+          );
+          const drawWidth = trimmed.trimWidth * fitScale;
+          const drawHeight = trimmed.trimHeight * fitScale;
+          const dx = column * spec.frameWidth + (spec.frameWidth - drawWidth) / 2;
+          const dy = row * spec.frameHeight + spec.frameHeight - spec.bottomPadding - drawHeight;
+          targetContext.drawImage(
+            trimmed.canvas,
+            trimmed.trimX,
+            trimmed.trimY,
+            trimmed.trimWidth,
+            trimmed.trimHeight,
+            dx,
+            dy,
+            drawWidth,
+            drawHeight
+          );
+        }
+        return {
+          sequence: frame.sequence,
+          stateFrame: frame.stateFrame,
+          componentRow: frame.componentRow,
+          componentColumn: frame.componentColumn,
+          x: trimmed.sourceX,
+          y: trimmed.sourceY,
+          width: trimmed.sourceWidth,
+          height: trimmed.sourceHeight,
+          trim: {
+            x: trimmed.trimX,
+            y: trimmed.trimY,
+            width: trimmed.trimWidth,
+            height: trimmed.trimHeight
+          }
+        };
+      });
+      const matteCleanup = cleanCharacterMatte(targetCanvas, spec.frameWidth, spec.frameHeight);
+
+      return {
+        id: spec.id,
+        width: targetCanvas.width,
+        height: targetCanvas.height,
+        frameWidth: spec.frameWidth,
+        frameHeight: spec.frameHeight,
+        sequences: spec.sequences.map((sequence) => ({ id: sequence.id, frames: sequence.frames.length })),
+        frames: renderedFrames,
+        matteCleanup,
+        dataUrl: targetCanvas.toDataURL('image/png')
+      };
+    }, { spec, dataUrl, matteCleanupSource });
+
+    await fs.writeFile(outputPath, Buffer.from(result.dataUrl.replace(/^data:image\/png;base64,/, ''), 'base64'));
+    results.push({
+      id: result.id,
+      source: spec.source,
+      output: spec.output,
+      width: result.width,
+      height: result.height,
+      frameWidth: result.frameWidth,
+      frameHeight: result.frameHeight,
+      sequences: result.sequences,
+      matteCleanup: result.matteCleanup,
+      frames: result.frames
+    });
+  }
+
   for (const spec of sheetSpecs) {
     const sourcePath = path.join(rootDir, spec.source);
     const outputPath = path.join(rootDir, spec.output);
@@ -467,7 +724,17 @@ try {
       sourceContext.clearRect(0, 0, sourceCanvas.width, sourceCanvas.height);
       sourceContext.drawImage(image, 0, 0);
 
-      const frameCount = spec.cropFrames?.length ?? spec.frameIndices.length;
+      const sequenceFrames = spec.sequences?.flatMap((sequence) =>
+        sequence.frameIndices.map((sourceFrame, stateFrame) => ({
+          sourceFrame,
+          sequence: sequence.id,
+          stateFrame,
+          rotate: sequence.rotate ?? 0,
+          offsetY: sequence.offsetY ?? 0,
+          scale: sequence.scale ?? 1
+        }))
+      );
+      const frameCount = spec.cropFrames?.length ?? sequenceFrames?.length ?? spec.frameIndices.length;
       const rows = Math.ceil(frameCount / spec.columns);
       const targetCanvas = document.createElement('canvas');
       targetCanvas.width = spec.frameWidth * spec.columns;
@@ -481,6 +748,13 @@ try {
       const sourceColumns = spec.sourceFrameWidth ? Math.floor(sourceCanvas.width / spec.sourceFrameWidth) : 0;
       const sourceFrames =
         spec.cropFrames ??
+        sequenceFrames?.map((frame) => ({
+          ...frame,
+          x: (frame.sourceFrame % sourceColumns) * spec.sourceFrameWidth,
+          y: Math.floor(frame.sourceFrame / sourceColumns) * spec.sourceFrameHeight,
+          width: spec.sourceFrameWidth,
+          height: spec.sourceFrameHeight
+        })) ??
         spec.frameIndices.map((sourceFrame) => ({
           sourceFrame,
           x: (sourceFrame % sourceColumns) * spec.sourceFrameWidth,
@@ -489,6 +763,13 @@ try {
           height: spec.sourceFrameHeight
         }));
       const shouldKeepPixel = (red, green, blue, alpha) => {
+        if (spec.mask === 'player-slash') {
+          const luma = (red + green + blue) / 3;
+          const saturation = Math.max(red, green, blue) - Math.min(red, green, blue);
+          const magentaSlash = red > 112 && blue > 72 && red > green * 1.25;
+          const cyanSpark = green > 92 && blue > 118 && blue > red * 0.95;
+          return alpha > 14 && saturation > 34 && luma > 38 && (magentaSlash || cyanSpark);
+        }
         if (spec.mask !== 'enemy-warm') return alpha > 0;
         return alpha > 20 && red > 90 && red > blue * 1.25 && (green > 25 || red > 150);
       };
@@ -500,10 +781,22 @@ try {
         const column = index % spec.columns;
         const row = Math.floor(index / spec.columns);
         const fitScale = Math.min((spec.frameWidth - 14) / sourceWidth, (spec.frameHeight - 14) / sourceHeight, spec.maxScale ?? 1.35);
-        const drawWidth = sourceWidth * fitScale;
-        const drawHeight = sourceHeight * fitScale;
+        const drawWidth = sourceWidth * fitScale * (sourceFrame.scale ?? 1);
+        const drawHeight = sourceHeight * fitScale * (sourceFrame.scale ?? 1);
         const dx = column * spec.frameWidth + (spec.frameWidth - drawWidth) / 2;
-        const dy = row * spec.frameHeight + (spec.frameHeight - drawHeight) / 2;
+        const dy = row * spec.frameHeight + (spec.frameHeight - drawHeight) / 2 + (sourceFrame.offsetY ?? 0);
+        const drawFrameCanvas = (canvas) => {
+          const angleRadians = ((sourceFrame.rotate ?? 0) * Math.PI) / 180;
+          if (angleRadians === 0) {
+            targetContext.drawImage(canvas, 0, 0, sourceWidth, sourceHeight, dx, dy, drawWidth, drawHeight);
+            return;
+          }
+          targetContext.save();
+          targetContext.translate(column * spec.frameWidth + spec.frameWidth / 2, row * spec.frameHeight + spec.frameHeight / 2 + (sourceFrame.offsetY ?? 0));
+          targetContext.rotate(angleRadians);
+          targetContext.drawImage(canvas, 0, 0, sourceWidth, sourceHeight, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
+          targetContext.restore();
+        };
         if (spec.mask) {
           const maskCanvas = document.createElement('canvas');
           maskCanvas.width = sourceWidth;
@@ -513,16 +806,31 @@ try {
           maskContext.drawImage(sourceCanvas, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, sourceWidth, sourceHeight);
           const imageData = maskContext.getImageData(0, 0, sourceWidth, sourceHeight);
           for (let pixel = 0; pixel < imageData.data.length; pixel += 4) {
-            if (!shouldKeepPixel(imageData.data[pixel], imageData.data[pixel + 1], imageData.data[pixel + 2], imageData.data[pixel + 3])) {
+            const localPixel = pixel / 4;
+            const localX = localPixel % sourceWidth;
+            const localY = Math.floor(localPixel / sourceWidth);
+            const removeLabelZone = spec.removeLabelZone && localX < 42 && localY > 82 && localY < 137;
+            if (
+              removeLabelZone ||
+              !shouldKeepPixel(imageData.data[pixel], imageData.data[pixel + 1], imageData.data[pixel + 2], imageData.data[pixel + 3])
+            ) {
               imageData.data[pixel + 3] = 0;
             }
           }
           maskContext.putImageData(imageData, 0, 0);
-          targetContext.drawImage(maskCanvas, 0, 0, sourceWidth, sourceHeight, dx, dy, drawWidth, drawHeight);
+          drawFrameCanvas(maskCanvas);
         } else {
-          targetContext.drawImage(sourceCanvas, sourceX, sourceY, sourceWidth, sourceHeight, dx, dy, drawWidth, drawHeight);
+          const cropCanvas = document.createElement('canvas');
+          cropCanvas.width = sourceWidth;
+          cropCanvas.height = sourceHeight;
+          const cropContext = cropCanvas.getContext('2d');
+          if (!cropContext) throw new Error('2D canvas unavailable');
+          cropContext.drawImage(sourceCanvas, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, sourceWidth, sourceHeight);
+          drawFrameCanvas(cropCanvas);
         }
         return {
+          sequence: sourceFrame.sequence,
+          stateFrame: sourceFrame.stateFrame,
           sourceFrame: sourceFrame.sourceFrame,
           x: sourceX,
           y: sourceY,

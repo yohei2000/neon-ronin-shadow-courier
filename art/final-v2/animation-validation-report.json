@@ -1,10 +1,12 @@
 {
-  "generatedAt": "2026-06-27T00:21:31.481Z",
+  "generatedAt": "2026-06-28T11:51:19.397Z",
   "valid": true,
   "checkedStates": [
     "idle",
     "run",
-    "jump-rise",
+    "small-jump",
+    "big-jump-rise",
+    "speed-flip-jump",
     "apex",
     "fall",
     "wall-slide",
@@ -13,6 +15,10 @@
     "air-slash",
     "hurt",
     "checkpoint-respawn"
+  ],
+  "checkedSlashStates": [
+    "ground",
+    "air"
   ],
   "errors": []
 }

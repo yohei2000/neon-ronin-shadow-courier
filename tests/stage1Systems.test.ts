@@ -4,6 +4,7 @@ import { validateStage1 } from '../src/data/stageValidation';
 import { canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
 import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems/SaveSystem';
 import { resolveHorizontalVelocity } from '../src/systems/horizontalMotion';
+import { resolveInitialJumpVisualVariant, shouldUseSmallJumpVariant } from '../src/systems/playerVisualState';
 import { calculateStageRank } from '../src/systems/rank';
 
 class MemoryStorage implements Storage {
@@ -123,5 +124,19 @@ describe('Stage1 horizontal motion', () => {
     vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
     expect(vx).toBeLessThan(0);
     expect(vx).toBeGreaterThan(-12);
+  });
+});
+
+describe('Stage1 player visual state', () => {
+  it('selects a speed flip jump only when horizontal speed is near max run speed', () => {
+    expect(resolveInitialJumpVisualVariant(60, 122)).toBe('big');
+    expect(resolveInitialJumpVisualVariant(104, 122)).toBe('speedFlip');
+    expect(resolveInitialJumpVisualVariant(-104, 122)).toBe('speedFlip');
+  });
+
+  it('uses small jump visuals for early releases while still rising', () => {
+    expect(shouldUseSmallJumpVariant({ elapsedMs: 90, verticalVelocity: -260 })).toBe(true);
+    expect(shouldUseSmallJumpVariant({ elapsedMs: 260, verticalVelocity: -260 })).toBe(false);
+    expect(shouldUseSmallJumpVariant({ elapsedMs: 90, verticalVelocity: 80 })).toBe(false);
   });
 });

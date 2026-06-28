@@ -117,18 +117,22 @@ export const RuntimeTouchFrame = {
   Slash: 1
 } as const;
 
+const frameRange = (start: number, count: number): number[] => Array.from({ length: count }, (_, index) => start + index);
+
 export const PlayerAnimationFrames = {
-  idle: { frames: [25], frameRate: 1, repeat: -1 },
-  run: { frames: [6, 7, 8, 9, 10, 8], frameRate: 24, repeat: -1 },
-  jumpRise: { frames: [12], frameRate: 1, repeat: 0 },
-  apex: { frames: [14], frameRate: 1, repeat: -1 },
-  fall: { frames: [15], frameRate: 1, repeat: -1 },
-  wallSlide: { frames: [17], frameRate: 1, repeat: -1 },
-  wallKick: { frames: [20], frameRate: 1, repeat: 0 },
-  groundSlash: { frames: [23], frameRate: 1, repeat: 0 },
-  airSlash: { frames: [22], frameRate: 1, repeat: 0 },
-  hurt: { frames: [13], frameRate: 1, repeat: -1 },
-  checkpointRespawn: { frames: [25], frameRate: 1, repeat: -1 }
+  idle: { frames: frameRange(0, 6), frameRate: 7, repeat: -1 },
+  run: { frames: frameRange(6, 8), frameRate: 18, repeat: -1 },
+  smallJump: { frames: frameRange(14, 4), frameRate: 13, repeat: 0 },
+  bigJumpRise: { frames: frameRange(18, 5), frameRate: 14, repeat: 0 },
+  speedFlipJump: { frames: frameRange(23, 8), frameRate: 20, repeat: -1 },
+  apex: { frames: frameRange(31, 2), frameRate: 6, repeat: -1 },
+  fall: { frames: frameRange(33, 3), frameRate: 8, repeat: -1 },
+  wallSlide: { frames: frameRange(36, 4), frameRate: 8, repeat: -1 },
+  wallKick: { frames: frameRange(40, 4), frameRate: 14, repeat: 0 },
+  groundSlash: { frames: frameRange(44, 8), frameRate: 24, repeat: 0 },
+  airSlash: { frames: frameRange(52, 6), frameRate: 22, repeat: 0 },
+  hurt: { frames: frameRange(58, 3), frameRate: 10, repeat: -1 },
+  checkpointRespawn: { frames: frameRange(61, 6), frameRate: 8, repeat: -1 }
 } as const;
 
 export const RuntimePlayerVisualConfig = {
@@ -147,7 +151,8 @@ export const KiteWraithAnimationFrames = {
 } as const;
 
 export const SlashAnimationFrames = {
-  arc: { frames: [0, 1, 2, 3], frameRate: 32, repeat: 0 }
+  ground: { frames: frameRange(0, 8), frameRate: 30, repeat: 0 },
+  air: { frames: frameRange(8, 6), frameRate: 28, repeat: 0 }
 } as const;
 
 export const LanternWardenAnimationFrames = {

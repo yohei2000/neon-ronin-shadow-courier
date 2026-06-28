@@ -5,28 +5,52 @@ import { Stage1Data, Stage1Tuning, type Stage1Platform } from '../data/stage1';
 import type { Stage1InputSnapshot } from '../systems/InputSystem';
 import { centerRect, clamp, rectsOverlap, type MutableRect } from '../systems/geometry';
 import { resolveHorizontalVelocity } from '../systems/horizontalMotion';
+import {
+  resolveInitialJumpVisualVariant,
+  shouldUseSmallJumpVariant,
+  type JumpVisualVariant
+} from '../systems/playerVisualState';
 import { CombatSystem, type SlashState } from '../systems/CombatSystem';
 import type { DamageSource } from './types';
+
+export type PlayerVisualPose =
+  | 'idle'
+  | 'run'
+  | 'smallJump'
+  | 'bigJumpRise'
+  | 'speedFlipJump'
+  | 'apex'
+  | 'fall'
+  | 'wallSlide'
+  | 'wallKick'
+  | 'groundSlash'
+  | 'airSlash'
+  | 'hurt';
 
 export type PlayerRuntimeState = {
   readonly x: number;
   readonly y: number;
+  readonly vx: number;
+  readonly vy: number;
   readonly hp: number;
   readonly maxHp: number;
   readonly facing: -1 | 1;
   readonly onGround: boolean;
   readonly wallSliding: boolean;
   readonly slashing: boolean;
+  readonly pose: PlayerVisualPose;
+  readonly jumpVariant: JumpVisualVariant | null;
   readonly invulnerable: boolean;
   readonly damageTaken: number;
 };
 
-type PlayerVisualPose = 'idle' | 'run' | 'jumpRise' | 'fall' | 'wallSlide' | 'wallKick' | 'groundSlash' | 'airSlash' | 'hurt';
-
 const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; readonly offsetY: number }> = {
   idle: { angle: 0, offsetY: 0 },
   run: { angle: -2, offsetY: 1 },
-  jumpRise: { angle: -6, offsetY: -4 },
+  smallJump: { angle: -4, offsetY: -2 },
+  bigJumpRise: { angle: -7, offsetY: -5 },
+  speedFlipJump: { angle: -10, offsetY: -7 },
+  apex: { angle: -1, offsetY: -5 },
   fall: { angle: 5, offsetY: 2 },
   wallSlide: { angle: 6, offsetY: 1 },
   wallKick: { angle: -9, offsetY: -2 },
@@ -52,9 +76,13 @@ export class Player {
   private lastGroundedMs = -Infinity;
   private lastJumpPressedMs = -Infinity;
   private lastWallKickMs = -Infinity;
+  private jumpStartedMs = -Infinity;
+  private jumpVisualVariant: JumpVisualVariant | null = null;
   private slashElapsedMs = -1;
+  private slashStartedOnGround = true;
   private invulnerableUntilMs = 0;
   private lastDamageMs = -Infinity;
+  private lastResolvedPose: PlayerVisualPose = 'idle';
   private respawnX: number;
   private respawnY: number;
   private hp = 30;
@@ -67,7 +95,7 @@ export class Player {
     this.respawnX = startX;
     this.respawnY = startY;
     this.sprite = scene.add
-      .sprite(this.x, this.y, RuntimePlayerVisualConfig.textureKey, 25)
+      .sprite(this.x, this.y, RuntimePlayerVisualConfig.textureKey, 0)
       .setOrigin(0.5, 0.76)
       .setScale(RuntimePlayerVisualConfig.scale)
       .setDepth(30);
@@ -98,7 +126,11 @@ export class Player {
         this.vy = Stage1Tuning.wallKickY;
         this.facing = wallDir as -1 | 1;
         this.lastWallKickMs = nowMs;
+        this.jumpStartedMs = nowMs;
+        this.jumpVisualVariant = null;
       } else {
+        this.jumpStartedMs = nowMs;
+        this.jumpVisualVariant = resolveInitialJumpVisualVariant(this.vx);
         this.vy = Stage1Tuning.jumpVelocity;
       }
       this.onGround = false;
@@ -106,6 +138,12 @@ export class Player {
     }
 
     if (input.jumpReleased && this.vy < -210) {
+      if (
+        this.jumpVisualVariant === 'big' &&
+        shouldUseSmallJumpVariant({ elapsedMs: nowMs - this.jumpStartedMs, verticalVelocity: this.vy })
+      ) {
+        this.jumpVisualVariant = 'small';
+      }
       this.vy = -210;
     }
 
@@ -136,6 +174,7 @@ export class Player {
 
     if (input.attackPressed && this.slashElapsedMs < 0) {
       this.slashElapsedMs = 0;
+      this.slashStartedOnGround = this.onGround;
     }
 
     let slash = CombatSystem.buildSlashState(this.x, this.y, this.facing, -1);
@@ -162,6 +201,10 @@ export class Player {
     this.vx = 0;
     this.vy = 0;
     this.onGround = false;
+    this.wallSliding = false;
+    this.jumpStartedMs = -Infinity;
+    this.jumpVisualVariant = null;
+    this.slashElapsedMs = -1;
   }
 
   retryCheckpoint(): void {
@@ -178,6 +221,10 @@ export class Player {
     this.vy = 0;
     this.hp = this.maxHp;
     this.damageTaken = 0;
+    this.wallSliding = false;
+    this.jumpStartedMs = -Infinity;
+    this.jumpVisualVariant = null;
+    this.slashElapsedMs = -1;
   }
 
   heal(amount: number): void {
@@ -205,12 +252,16 @@ export class Player {
     return {
       x: Math.round(this.x),
       y: Math.round(this.y),
+      vx: Math.round(this.vx),
+      vy: Math.round(this.vy),
       hp: this.hp,
       maxHp: this.maxHp,
       facing: this.facing,
       onGround: this.onGround,
       wallSliding: this.wallSliding,
       slashing: this.slashElapsedMs >= 0,
+      pose: this.lastResolvedPose,
+      jumpVariant: this.jumpVisualVariant,
       invulnerable: this.scene.time.now < this.invulnerableUntilMs,
       damageTaken: this.damageTaken
     };
@@ -257,6 +308,8 @@ export class Player {
           this.vy = 0;
           this.onGround = true;
           this.lastGroundedMs = this.scene.time.now;
+          this.jumpStartedMs = -Infinity;
+          this.jumpVisualVariant = null;
         } else {
           this.y = platform.y + platform.height + this.getBody().height / 2;
           this.vy = 0;
@@ -268,14 +321,17 @@ export class Player {
   private syncVisuals(slash: SlashState | null): void {
     const nowMs = this.scene.time.now;
     const pose = this.resolveVisualPose(nowMs);
+    this.lastResolvedPose = pose;
     const transform = PlayerPoseTransforms[pose];
     const baseScale = RuntimePlayerVisualConfig.scale;
-    const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.7 : 0;
+    const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.5 : 0;
+    const flipProgress = clamp((nowMs - this.jumpStartedMs) / 560, 0, 1);
+    const dynamicAngle = pose === 'speedFlipJump' ? transform.angle - 360 * flipProgress : transform.angle;
 
     this.sprite.setPosition(this.x, this.y + PlayerVisualGroundOffsetY + transform.offsetY + motionBob);
     this.sprite.setFlipX(this.facing < 0);
     this.sprite.setScale(baseScale);
-    this.sprite.setAngle(transform.angle * this.facing);
+    this.sprite.setAngle(dynamicAngle * this.facing);
     this.sprite.play(`player-${pose}`, true);
 
     if (pose === 'hurt') {
@@ -290,13 +346,16 @@ export class Player {
       return;
     }
 
+    const slashAnimation = this.slashStartedOnGround ? 'slash-ground' : 'slash-air';
+    const slashOffsetY = this.slashStartedOnGround ? -16 : -30;
     this.slashSprite
       .setVisible(true)
-      .setPosition(this.x + this.facing * 52, this.y + PlayerVisualGroundOffsetY - 16)
+      .setPosition(this.x + this.facing * 52, this.y + PlayerVisualGroundOffsetY + slashOffsetY)
       .setFlipX(this.facing < 0)
+      .setScale(this.slashStartedOnGround ? 0.62 : 0.58)
       .setAlpha(slash.phase === 'active' ? 0.95 : 0.48)
       .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
-    this.slashSprite.play('slash-arc', true);
+    this.slashSprite.play(slashAnimation, true);
   }
 
   private resolveVisualPose(nowMs: number): PlayerVisualPose {
@@ -304,8 +363,14 @@ export class Player {
     if (this.slashElapsedMs >= 0) return this.onGround ? 'groundSlash' : 'airSlash';
     if (nowMs - this.lastWallKickMs < 180) return 'wallKick';
     if (this.wallSliding) return 'wallSlide';
-    if (!this.onGround && this.vy < -40) return 'jumpRise';
-    if (!this.onGround) return 'fall';
+    if (!this.onGround) {
+      if (this.jumpVisualVariant === 'speedFlip' && nowMs - this.jumpStartedMs < 680 && this.vy < Stage1Tuning.maxFallSpeed * 0.65) {
+        return 'speedFlipJump';
+      }
+      if (this.vy < -55) return this.jumpVisualVariant === 'small' ? 'smallJump' : 'bigJumpRise';
+      if (Math.abs(this.vy) <= 90) return 'apex';
+      return 'fall';
+    }
     if (Math.abs(this.vx) > 18) return 'run';
     return 'idle';
   }
