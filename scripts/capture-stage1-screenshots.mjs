@@ -139,14 +139,22 @@ const captureRoute = async (page) => {
     }
     if (!current.wardenDefeated && player.x > 5480) {
       await setRight(false);
+      if (current.warden?.state === 'active' && player.onGround && now - lastJump > 240) {
+        lastJump = now;
+        await jump(page, 145);
+      }
+      if (now - lastSlash > 240) {
+        lastSlash = now;
+        await slash(page);
+      }
       if (player.x < 5570) {
         await setRight(true);
-        await page.waitForTimeout(55);
+        await page.waitForTimeout(current.warden?.state === 'active' ? 35 : 70);
         await setRight(false);
       } else if (player.x > 5830) {
         await page.keyboard.down('ArrowLeft');
         await page.keyboard.down('a');
-        await page.waitForTimeout(90);
+        await page.waitForTimeout(110);
         await page.keyboard.up('ArrowLeft');
         await page.keyboard.up('a');
       } else {
