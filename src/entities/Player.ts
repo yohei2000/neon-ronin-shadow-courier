@@ -4,6 +4,7 @@ import { RuntimePlayerVisualConfig, RuntimeSpriteAssetKey } from '../data/artAss
 import { Stage1Data, Stage1Tuning, type Stage1Platform } from '../data/stage1';
 import type { Stage1InputSnapshot } from '../systems/InputSystem';
 import { centerRect, clamp, rectsOverlap, type MutableRect } from '../systems/geometry';
+import { resolveHorizontalVelocity } from '../systems/horizontalMotion';
 import { CombatSystem, type SlashState } from '../systems/CombatSystem';
 import type { DamageSource } from './types';
 
@@ -109,10 +110,12 @@ export class Player {
     }
 
     const dt = deltaMs / 1000;
-    const targetVx = input.moveX * Stage1Tuning.runSpeed;
-    const acceleration = this.resolveHorizontalAcceleration(targetVx);
-    this.vx = this.approach(this.vx, targetVx, acceleration * dt);
-    if (Math.abs(this.vx) < 1) this.vx = 0;
+    this.vx = resolveHorizontalVelocity({
+      currentVx: this.vx,
+      inputMoveX: input.moveX,
+      onGround: this.onGround,
+      dtSeconds: dt
+    });
 
     this.vy = Math.min(Stage1Tuning.maxFallSpeed, this.vy + Stage1Tuning.gravity * dt);
     this.wallSliding =
@@ -305,21 +308,5 @@ export class Player {
     if (!this.onGround) return 'fall';
     if (Math.abs(this.vx) > 18) return 'run';
     return 'idle';
-  }
-
-  private resolveHorizontalAcceleration(targetVx: number): number {
-    if (targetVx === 0) {
-      return this.onGround ? Stage1Tuning.groundDeceleration : Stage1Tuning.airDeceleration;
-    }
-    if (Math.sign(targetVx) !== Math.sign(this.vx) && Math.abs(this.vx) > 4) {
-      return Stage1Tuning.turnAcceleration;
-    }
-    return this.onGround ? Stage1Tuning.groundAcceleration : Stage1Tuning.airAcceleration;
-  }
-
-  private approach(current: number, target: number, maxDelta: number): number {
-    if (current < target) return Math.min(target, current + maxDelta);
-    if (current > target) return Math.max(target, current - maxDelta);
-    return target;
   }
 }

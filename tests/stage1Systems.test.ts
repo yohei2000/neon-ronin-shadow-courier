@@ -3,6 +3,7 @@ import { Stage1Data } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
 import { canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
 import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems/SaveSystem';
+import { resolveHorizontalVelocity } from '../src/systems/horizontalMotion';
 import { calculateStageRank } from '../src/systems/rank';
 
 class MemoryStorage implements Storage {
@@ -86,5 +87,41 @@ describe('Stage1 pure combat and rank helpers', () => {
     expect(calculateStageRank(160000, 2, 2)).toBe('A');
     expect(calculateStageRank(230000, 5, 0)).toBe('B');
     expect(calculateStageRank(320000, 8, 0)).toBe('C');
+  });
+});
+
+describe('Stage1 horizontal motion', () => {
+  it('ramps up toward max speed instead of snapping immediately', () => {
+    const firstFrame = resolveHorizontalVelocity({ currentVx: 0, inputMoveX: 1, onGround: true, dtSeconds: 0.032 });
+    expect(firstFrame).toBeGreaterThan(0);
+    expect(firstFrame).toBeLessThan(12);
+
+    let vx = 0;
+    for (let frame = 0; frame < 12; frame += 1) {
+      vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: 1, onGround: true, dtSeconds: 0.032 });
+    }
+    expect(vx).toBeGreaterThan(80);
+    expect(vx).toBeLessThan(122);
+
+    for (let frame = 0; frame < 8; frame += 1) {
+      vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: 1, onGround: true, dtSeconds: 0.032 });
+    }
+    expect(vx).toBe(122);
+  });
+
+  it('brakes to zero before accelerating in the opposite direction', () => {
+    let vx = 122;
+    vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
+    expect(vx).toBeGreaterThan(100);
+
+    for (let frame = 0; frame < 14; frame += 1) {
+      vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
+    }
+    expect(vx).toBeGreaterThanOrEqual(0);
+    expect(vx).toBeLessThan(18);
+
+    vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
+    expect(vx).toBeLessThan(0);
+    expect(vx).toBeGreaterThan(-12);
   });
 });
