@@ -297,10 +297,14 @@ const runKeyboardRouteToClear = async (page) => {
     const inThornRun = player.x > 4240 && player.x < 4940;
     const jumpNow =
       (player.x > 1030 && player.x < 1720 && player.y > 255) ||
-      (player.x > 2040 && player.x < 2305);
-    if (jumpNow && now - lastJump > (inThornRun ? 480 : 360)) {
+      (player.x > 2040 && player.x < 2305) ||
+      (player.x > 4080 && player.x < 4385) ||
+      (player.x > 4440 && player.x < 4760) ||
+      (player.x > 4760 && player.x < 4895);
+    if (jumpNow && now - lastJump > (inThornRun ? 300 : 360)) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? 210 : player.x > 4000 ? 180 : 110);
+      const thornJumpMs = player.x > 4760 ? 285 : player.x > 4440 ? 255 : 220;
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? thornJumpMs : player.x > 4000 ? 180 : 110);
     }
     const attackNow =
       (player.x > 760 && player.x < 1060) ||
