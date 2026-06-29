@@ -14,6 +14,30 @@ const overlaps = (a: RectData, b: RectData): boolean => {
 };
 
 const check = (id: string, passed: boolean, detail: string) => ({ id, passed, detail });
+const scrollCollectBody = (x: number, y: number): RectData => ({ x: x - 41, y: y - 29, width: 82, height: 58 });
+const playerStandingBody = (x: number, platformTop: number): RectData => ({ x: x - 21, y: platformTop - 72, width: 42, height: 72 });
+const scrollHasCollectionLane = (data: Stage1DataType, scroll: { readonly x: number; readonly y: number }): boolean => {
+  const scrollBody = scrollCollectBody(scroll.x, scroll.y);
+  return data.platforms.some((platform) => {
+    if (scroll.x < platform.x - 34 || scroll.x > platform.x + platform.width + 34) return false;
+    return overlaps(scrollBody, playerStandingBody(scroll.x, platform.y));
+  });
+};
+const firePassageCheck = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const spark = data.hazards.find((hazard) => hazard.id === 'timed-spark');
+  if (!spark) return { passed: false, detail: 'timed-spark missing' };
+  const sparkCenterX = spark.x + spark.width / 2;
+  const platform = data.platforms.find((item) => sparkCenterX >= item.x && sparkCenterX <= item.x + item.width);
+  if (!platform) return { passed: false, detail: 'no platform under timed-spark' };
+  const groundBody = playerStandingBody(sparkCenterX, platform.y);
+  const jumpBody = { ...groundBody, y: groundBody.y - 80 };
+  const groundThreat = overlaps(groundBody, spark);
+  const jumpClear = !overlaps(jumpBody, spark);
+  return {
+    passed: groundThreat && jumpClear,
+    detail: `groundThreat=${groundThreat}, jumpClear=${jumpClear}`
+  };
+};
 
 export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidationReport => {
   const names = data.sections.map((section) => section.name);
@@ -33,6 +57,8 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const orphanedEnemies = data.enemies.filter((enemy) => !sectionIdSet.has(enemy.sectionId));
   const orphanedCheckpoints = data.checkpoints.filter((checkpoint) => !sectionIdSet.has(checkpoint.sectionId));
   const orphanedScrolls = data.collectibles.scrolls.filter((scroll) => !sectionIdSet.has(scroll.routeId));
+  const unreachableScrolls = data.collectibles.scrolls.filter((scroll) => !scrollHasCollectionLane(data, scroll));
+  const firePassage = firePassageCheck(data);
 
   const checks = [
     check(
@@ -57,6 +83,8 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
       orphanedEnemies.length === 0 && orphanedCheckpoints.length === 0 && orphanedScrolls.length === 0,
       `${orphanedEnemies.length} orphaned enemies, ${orphanedCheckpoints.length} orphaned checkpoints, ${orphanedScrolls.length} orphaned scrolls`
     ),
+    check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
+    check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(
       'duration-targets',
       data.targetFirstClearSeconds.min === 180 &&

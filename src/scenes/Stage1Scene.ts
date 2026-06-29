@@ -102,6 +102,9 @@ export class Stage1Scene extends Phaser.Scene {
     const gameplayDelta = Math.min(delta, Stage1Tuning.maxFrameDeltaMs) * Stage1Tuning.gameSpeed;
     this.updateParallax();
     const slash = this.player.update(input, Stage1Data.platforms, time, gameplayDelta);
+    if (!this.warden.dead && this.player.getPosition().x > Stage1Data.warden.arena.x + Stage1Data.warden.arena.width - 92) {
+      this.player.constrainRight(Stage1Data.warden.arena.x + Stage1Data.warden.arena.width - 92);
+    }
     const playerPosition = this.player.getPosition();
     for (const enemy of this.enemies) {
       enemy.update(gameplayDelta, playerPosition.x, playerPosition.y);
@@ -198,7 +201,7 @@ export class Stage1Scene extends Phaser.Scene {
 
   private createCollectibles(): void {
     this.sealVisuals = Stage1Data.collectibles.seals.map((seal) => this.createCollectible(seal, 28, 22, RuntimeItemFrame.Seal, null));
-    this.scrollVisuals = Stage1Data.collectibles.scrolls.map((scroll) => this.createCollectible(scroll, 50, 32, RuntimeItemFrame.Scroll, null));
+    this.scrollVisuals = Stage1Data.collectibles.scrolls.map((scroll) => this.createCollectible(scroll, 50, 32, RuntimeItemFrame.Scroll, null, 82, 58));
     this.pickupVisuals = Stage1Data.collectibles.pickups.map((pickup) => ({
       ...this.createCollectible(
         pickup,
@@ -211,7 +214,15 @@ export class Stage1Scene extends Phaser.Scene {
     }));
   }
 
-  private createCollectible(item: Stage1Seal | Stage1Scroll | Stage1Pickup, width: number, height: number, frame: number, tint: number | null): CollectibleVisual {
+  private createCollectible(
+    item: Stage1Seal | Stage1Scroll | Stage1Pickup,
+    width: number,
+    height: number,
+    frame: number,
+    tint: number | null,
+    bodyWidth = width,
+    bodyHeight = height
+  ): CollectibleVisual {
     const image = this.add
       .sprite(item.x, item.y, RuntimeEnvironmentAssetKey.ItemIcons, frame)
       .setDisplaySize(width, height)
@@ -219,7 +230,7 @@ export class Stage1Scene extends Phaser.Scene {
     if (tint !== null) image.setTint(tint);
     return {
       id: item.id,
-      body: centerRect(item.x, item.y, width, height),
+      body: centerRect(item.x, item.y, bodyWidth, bodyHeight),
       image
     };
   }
@@ -250,12 +261,13 @@ export class Stage1Scene extends Phaser.Scene {
     const body = this.player.getBody();
     for (const enemy of this.enemies) {
       if (!enemy.dead && rectsOverlap(body, enemy.getBody())) {
-        this.player.takeDamage(enemy.damage, nowMs, 'enemy-contact');
+        const enemyBody = enemy.getBody();
+        this.player.takeDamage(enemy.damage, nowMs, 'enemy-contact', enemyBody.x + enemyBody.width / 2, enemy.id);
       }
     }
     for (const attack of this.warden.getAttackRects()) {
       if (rectsOverlap(body, attack)) {
-        this.player.takeDamage(1, nowMs, 'warden-attack');
+        this.player.takeDamage(1, nowMs, 'warden-attack', attack.x + attack.width / 2, 'lantern-warden');
       }
     }
   }
@@ -263,13 +275,17 @@ export class Stage1Scene extends Phaser.Scene {
   private resolveHazards(nowMs: number): void {
     const body = this.player.getBody();
     for (const hazard of this.hazardVisuals) {
-      const active = hazard.type !== 'timed-spark' || Math.sin(nowMs / 280) > -0.25;
+      const active = this.isHazardActive(hazard, nowMs);
       hazard.image.setAlpha(active ? (hazard.type === 'fall-pit' ? 0.30 : 0.78) : 0.24);
       if (active && rectsOverlap(body, hazard)) {
-        this.player.takeDamage(hazard.damage, nowMs, hazard.type === 'fall-pit' ? 'fall' : 'hazard');
+        this.player.takeDamage(hazard.damage, nowMs, hazard.type === 'fall-pit' ? 'fall' : 'hazard', hazard.x + hazard.width / 2, hazard.id);
         if (hazard.type === 'fall-pit') this.player.respawnAtCheckpoint();
       }
     }
+  }
+
+  private isHazardActive(hazard: Stage1Hazard, nowMs: number): boolean {
+    return hazard.type !== 'timed-spark' || Math.sin(nowMs / 280) > -0.25;
   }
 
   private resolveCheckpoints(nowMs: number): void {
@@ -389,6 +405,16 @@ export class Stage1Scene extends Phaser.Scene {
       checkpointCount: this.activatedCheckpoints.size,
       scrollsFound: this.collectedScrolls.size,
       sealsFound: this.collectedSeals.size,
+      hazards: this.hazardVisuals.map((hazard) => ({
+        id: hazard.id,
+        type: hazard.type,
+        active: this.isHazardActive(hazard, this.time.now),
+        x: hazard.x,
+        y: hazard.y,
+        width: hazard.width,
+        height: hazard.height
+      })),
+      enemies: this.enemies.map((enemy) => enemy.getRuntimeState()),
       warden: this.warden?.getHp(),
       wardenDefeated: this.warden?.dead === true,
       moonGateActive: this.warden?.dead === true,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T11:45:02.893Z",
+  "generatedAt": "2026-06-29T14:31:00.640Z",
   "passed": true,
   "checks": [
     {
@@ -71,6 +71,16 @@
       "id": "no-orphan-section-refs",
       "passed": true,
       "detail": "enemy section references"
+    },
+    {
+      "id": "scroll-collection-lanes",
+      "passed": true,
+      "detail": "all scrolls overlap reachable player lanes"
+    },
+    {
+      "id": "timed-spark-jump-clearance",
+      "passed": true,
+      "detail": "groundThreat=true, jumpClear=true"
     },
     {
       "id": "target-duration-recorded",

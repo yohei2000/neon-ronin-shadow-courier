@@ -117,8 +117,10 @@ export class PreloadScene extends Phaser.Scene {
 
     this.createFrameListAnimation('ink-crawler-patrol', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.patrol.frames, InkCrawlerAnimationFrames.patrol.frameRate, InkCrawlerAnimationFrames.patrol.repeat);
     this.createFrameListAnimation('ink-crawler-hit', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.hit.frames, InkCrawlerAnimationFrames.hit.frameRate, InkCrawlerAnimationFrames.hit.repeat);
+    this.createFrameListAnimation('ink-crawler-defeat', RuntimeSpriteAssetKey.InkCrawler, InkCrawlerAnimationFrames.defeat.frames, InkCrawlerAnimationFrames.defeat.frameRate, InkCrawlerAnimationFrames.defeat.repeat);
     this.createFrameListAnimation('kite-wraith-drift', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.drift.frames, KiteWraithAnimationFrames.drift.frameRate, KiteWraithAnimationFrames.drift.repeat);
     this.createFrameListAnimation('kite-wraith-hit', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.hit.frames, KiteWraithAnimationFrames.hit.frameRate, KiteWraithAnimationFrames.hit.repeat);
+    this.createFrameListAnimation('kite-wraith-defeat', RuntimeSpriteAssetKey.KiteWraith, KiteWraithAnimationFrames.defeat.frames, KiteWraithAnimationFrames.defeat.frameRate, KiteWraithAnimationFrames.defeat.repeat);
     this.createFrameListAnimation('warden-idle', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.idle.frames, LanternWardenAnimationFrames.idle.frameRate, LanternWardenAnimationFrames.idle.repeat);
     this.createFrameListAnimation('warden-telegraph', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.telegraph.frames, LanternWardenAnimationFrames.telegraph.frameRate, LanternWardenAnimationFrames.telegraph.repeat);
     this.createFrameListAnimation('warden-attack', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.attack.frames, LanternWardenAnimationFrames.attack.frameRate, LanternWardenAnimationFrames.attack.repeat);

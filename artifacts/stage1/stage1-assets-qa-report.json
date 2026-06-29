@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T11:45:06.247Z",
+  "generatedAt": "2026-06-29T14:31:03.706Z",
   "passed": true,
   "checks": [
     {
@@ -70,7 +70,7 @@
     {
       "id": "required-animations-created",
       "passed": true,
-      "detail": "player-idle, player-run, player-smallJump, player-bigJumpRise, player-speedFlipJump, player-apex, player-fall, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, kite-wraith-drift, kite-wraith-hit, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-ground, slash-air"
+      "detail": "player-idle, player-run, player-smallJump, player-bigJumpRise, player-speedFlipJump, player-apex, player-fall, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, ink-crawler-defeat, kite-wraith-drift, kite-wraith-hit, kite-wraith-defeat, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-ground, slash-air"
     }
   ],
   "runtimeAssetAudit": [
@@ -89,23 +89,23 @@
       "id": "ink-crawler-runtime-spritesheet",
       "file": "src/assets/runtime/ink-crawler-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 8,
-      "maxEdgeRatio": 0,
+      "activeFrames": 18,
+      "maxEdgeRatio": 0.07222222222222222,
       "maxBeigeRatio": 0,
-      "maxHaloRatio": 0.0005168849069607167,
-      "maxAverageLuma": 42.97330806286028,
-      "minOpaqueRatio": 0.15266927083333334
+      "maxHaloRatio": 0.0004508566275924256,
+      "maxAverageLuma": 36.69701019701022,
+      "minOpaqueRatio": 0.08199508101851852
     },
     {
       "id": "kite-wraith-runtime-spritesheet",
       "file": "src/assets/runtime/kite-wraith-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 4,
-      "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0005866249511145874,
-      "maxHaloRatio": 0.0014895729890764648,
-      "maxAverageLuma": 53.16087388282,
-      "minOpaqueRatio": 0.1387261284722222
+      "activeFrames": 18,
+      "maxEdgeRatio": 0.12213403880070546,
+      "maxBeigeRatio": 0.00039184952978056425,
+      "maxHaloRatio": 0.001002673796791444,
+      "maxAverageLuma": 53.14106168347921,
+      "minOpaqueRatio": 0.074462890625
     },
     {
       "id": "slash-runtime-spritesheet",

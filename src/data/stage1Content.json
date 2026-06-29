@@ -48,7 +48,7 @@
   "hazards": [
     { "id": "rooftop-fall-rescue", "type": "fall-pit", "x": 2158, "y": 445, "width": 82, "height": 360, "damage": 1 },
     { "id": "thorn-a", "type": "neon-thorn", "x": 4282, "y": 402, "width": 64, "height": 44, "damage": 1 },
-    { "id": "timed-spark", "type": "timed-spark", "x": 4565, "y": 360, "width": 82, "height": 56, "damage": 1 },
+    { "id": "timed-spark", "type": "timed-spark", "x": 4565, "y": 398, "width": 82, "height": 34, "damage": 1 },
     { "id": "thorn-b", "type": "neon-thorn", "x": 4660, "y": 402, "width": 72, "height": 44, "damage": 1 },
     { "id": "fall-rescue-b", "type": "fall-pit", "x": 4800, "y": 470, "width": 86, "height": 360, "damage": 1 }
   ],
@@ -81,8 +81,8 @@
     ],
     "scrolls": [
       { "id": "scroll-a", "routeId": "hidden-scroll-route-a", "x": 2505, "y": 178 },
-      { "id": "scroll-b", "routeId": "hidden-scroll-route-b", "x": 2960, "y": 520 },
-      { "id": "scroll-c", "routeId": "neon-thorn-run", "x": 4868, "y": 316 }
+      { "id": "scroll-b", "routeId": "hidden-scroll-route-b", "x": 2960, "y": 392 },
+      { "id": "scroll-c", "routeId": "neon-thorn-run", "x": 4868, "y": 350 }
     ],
     "pickups": [
       { "id": "health-01", "type": "health", "x": 1600, "y": 250 },
@@ -103,7 +103,7 @@
     "x": 5700,
     "y": 310,
     "arena": { "x": 5320, "y": 246, "width": 820, "height": 226 },
-    "hp": 12,
+    "hp": 8,
     "attackStates": ["lantern-sweep", "spark-drop", "rush-cut"]
   },
   "moonGate": { "id": "moon-gate", "x": 6500, "y": 328, "width": 118, "height": 170, "requiresWardenDefeated": true }

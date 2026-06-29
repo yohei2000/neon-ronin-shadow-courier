@@ -104,6 +104,8 @@ Runtime boss note: Lantern Warden is the Stage1 miniboss, not the campaign final
 
 Runtime item/UI note: Stage1 seal collectibles are rendered as koban coins and scroll collectibles as makimono scrolls in the derived `stage1-item-icons` runtime sheet. The mobile jump button is authored in the derived `stage1-touch-controls` sheet so the visual button and hit zone share a center. Keep these fixes in `npm.cmd run art:runtime-sheets`; do not edit frozen approved core art for this.
 
+Runtime enemy/hazard note: Ink Crawler and Kite Wraith runtime sheets now derive patrol/drift 8, hit 4, and defeat 6 frame sequences from frozen approved enemy art. Defeated small enemies play their defeat sequence and fade out instead of disappearing immediately. Player damage uses source-aware knockback with a short control lock, and the timed-spark fire hitbox is lower than the visual so a clean jump route can pass without fire damage.
+
 Runtime mobile-control note: Stage1 touch controls must support simultaneous movement and jump/attack input. Keep Phaser configured with multiple active pointers and keep touch-button state keyed by pointer id so releasing one finger does not clear another held control.
 
 `npm.cmd run qa:assets-stage1` includes runtime pixel auditing for edge cuts and paper-background residue. Keep this audit strict; fix the derived runtime asset or crop coordinates instead of weakening the validator.

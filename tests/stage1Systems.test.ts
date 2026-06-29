@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames } from '../src/data/artAssets';
 import { Stage1Data, Stage1Tuning } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
 import { CombatSystem, canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
@@ -182,5 +183,22 @@ describe('Stage1 player visual state', () => {
     expect(shouldUseSmallJumpVariant({ elapsedMs: 90, verticalVelocity: -260 })).toBe(true);
     expect(shouldUseSmallJumpVariant({ elapsedMs: 260, verticalVelocity: -260 })).toBe(false);
     expect(shouldUseSmallJumpVariant({ elapsedMs: 90, verticalVelocity: 80 })).toBe(false);
+  });
+});
+
+describe('Stage1 enemy animation coverage', () => {
+  it('gives small enemies multi-frame patrol, hit, and defeat motions', () => {
+    expect(InkCrawlerAnimationFrames.patrol.frames).toHaveLength(8);
+    expect(InkCrawlerAnimationFrames.hit.frames).toHaveLength(4);
+    expect(InkCrawlerAnimationFrames.defeat.frames).toHaveLength(6);
+    expect(KiteWraithAnimationFrames.drift.frames).toHaveLength(8);
+    expect(KiteWraithAnimationFrames.hit.frames).toHaveLength(4);
+    expect(KiteWraithAnimationFrames.defeat.frames).toHaveLength(6);
+  });
+
+  it('keeps damage knockback strong enough to read before input resumes', () => {
+    expect(Stage1Tuning.damageKnockbackX).toBeGreaterThan(Stage1Tuning.runSpeed);
+    expect(Stage1Tuning.hazardKnockbackX).toBeGreaterThan(Stage1Tuning.damageKnockbackX);
+    expect(Stage1Tuning.damageKnockbackControlLockMs).toBeGreaterThanOrEqual(240);
   });
 });

@@ -152,9 +152,11 @@ const captureRoute = async (page) => {
         await page.waitForTimeout(current.warden?.state === 'active' ? 35 : 70);
         await setRight(false);
       } else if (player.x > 5830) {
+        await page.keyboard.up('ArrowRight');
+        await page.keyboard.up('d');
         await page.keyboard.down('ArrowLeft');
         await page.keyboard.down('a');
-        await page.waitForTimeout(110);
+        await page.waitForTimeout(player.x > 5960 ? 950 : 560);
         await page.keyboard.up('ArrowLeft');
         await page.keyboard.up('a');
       } else {

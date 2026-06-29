@@ -1,4 +1,5 @@
 import type { PlayerRuntimeState } from '../entities/Player';
+import type { EnemyRuntimeState } from '../entities/types';
 import type { TouchButton } from '../systems/InputSystem';
 
 export type Stage1QaState = {
@@ -9,7 +10,17 @@ export type Stage1QaState = {
   readonly checkpointCount?: number;
   readonly scrollsFound?: number;
   readonly sealsFound?: number;
-  readonly warden?: { readonly current: number; readonly max: number; readonly state: string; readonly attack: string };
+  readonly hazards?: readonly {
+    readonly id: string;
+    readonly type: string;
+    readonly active: boolean;
+    readonly x: number;
+    readonly y: number;
+    readonly width: number;
+    readonly height: number;
+  }[];
+  readonly enemies?: readonly EnemyRuntimeState[];
+  readonly warden?: { readonly current: number; readonly max: number; readonly state: string; readonly attack: string; readonly projectileCount?: number };
   readonly wardenDefeated?: boolean;
   readonly moonGateActive?: boolean;
   readonly paused?: boolean;

@@ -43,6 +43,8 @@ export type PlayerRuntimeState = {
   readonly jumpVariant: JumpVisualVariant | null;
   readonly invulnerable: boolean;
   readonly damageTaken: number;
+  readonly lastDamageSource: DamageSource | null;
+  readonly lastDamageId: string | null;
 };
 
 const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; readonly offsetY: number }> = {
@@ -85,6 +87,9 @@ export class Player {
   private slashMode: SlashMode = 'arc';
   private invulnerableUntilMs = 0;
   private lastDamageMs = -Infinity;
+  private lastDamageSource: DamageSource | null = null;
+  private lastDamageId: string | null = null;
+  private knockbackControlUntilMs = 0;
   private lastResolvedPose: PlayerVisualPose = 'idle';
   private respawnX: number;
   private respawnY: number;
@@ -121,8 +126,11 @@ export class Player {
       this.lastJumpPressedMs = nowMs;
     }
 
-    if (input.moveX !== 0) {
-      this.facing = input.moveX;
+    const controlLocked = nowMs < this.knockbackControlUntilMs;
+    const effectiveMoveX = controlLocked ? 0 : input.moveX;
+
+    if (effectiveMoveX !== 0) {
+      this.facing = effectiveMoveX;
     }
 
     const canGroundJump = this.onGround || nowMs - this.lastGroundedMs <= Stage1Tuning.coyoteMs;
@@ -141,7 +149,7 @@ export class Player {
         const jumpVariant = resolveInitialJumpVisualVariant(this.vx);
         this.jumpVisualVariant = jumpVariant;
         if (jumpVariant === 'speedFlip') {
-          const launchDirection = input.moveX !== 0 ? input.moveX : this.facing;
+          const launchDirection = effectiveMoveX !== 0 ? effectiveMoveX : this.facing;
           this.facing = launchDirection;
           this.vx = launchDirection * Math.max(Math.abs(this.vx), Stage1Tuning.runSpeed) * Stage1Tuning.speedFlipHorizontalBoost;
           this.vy = Stage1Tuning.speedFlipJumpVelocity;
@@ -168,7 +176,7 @@ export class Player {
     const dt = deltaMs / 1000;
     this.vx = resolveHorizontalVelocity({
       currentVx: this.vx,
-      inputMoveX: input.moveX,
+      inputMoveX: effectiveMoveX,
       onGround: this.onGround,
       dtSeconds: dt
     });
@@ -186,7 +194,7 @@ export class Player {
     this.moveAndCollide(0, this.vy * dt, platforms);
 
     if (this.y > Stage1Data.worldHeight - 48) {
-      this.takeDamage(1, nowMs, 'fall');
+      this.takeDamage(1, nowMs, 'fall', undefined, 'world-fall');
       this.respawnAtCheckpoint();
     }
 
@@ -226,6 +234,7 @@ export class Player {
     this.jumpVisualVariant = null;
     this.slashElapsedMs = -1;
     this.slashMode = 'arc';
+    this.knockbackControlUntilMs = 0;
   }
 
   retryCheckpoint(): void {
@@ -242,27 +251,42 @@ export class Player {
     this.vy = 0;
     this.hp = this.maxHp;
     this.damageTaken = 0;
+    this.lastDamageSource = null;
+    this.lastDamageId = null;
     this.wallSliding = false;
     this.jumpStartedMs = -Infinity;
     this.jumpVisualVariant = null;
     this.slashElapsedMs = -1;
     this.slashMode = 'arc';
+    this.knockbackControlUntilMs = 0;
   }
 
   heal(amount: number): void {
     this.hp = Math.min(this.maxHp, this.hp + amount);
   }
 
-  takeDamage(amount: number, nowMs: number, source: DamageSource): boolean {
+  takeDamage(amount: number, nowMs: number, source: DamageSource, sourceX?: number, sourceId?: string): boolean {
     if (nowMs < this.invulnerableUntilMs || nowMs - this.lastDamageMs < Stage1Tuning.damageCooldownMs) {
       return false;
     }
     this.hp = Math.max(0, this.hp - amount);
     this.damageTaken += amount;
     this.lastDamageMs = nowMs;
+    this.lastDamageSource = source;
+    this.lastDamageId = sourceId ?? null;
     this.invulnerableUntilMs = nowMs + Stage1Tuning.invulnerabilityMs;
-    this.vx = source === 'fall' ? 0 : source === 'hazard' ? this.facing * 180 : -this.facing * 190;
-    this.vy = source === 'hazard' ? -330 : Math.min(this.vy, -240);
+    this.knockbackControlUntilMs = nowMs + Stage1Tuning.damageKnockbackControlLockMs;
+    if (source === 'fall') {
+      this.vx = 0;
+      this.vy = 0;
+      return true;
+    }
+    const awayDirection: -1 | 1 =
+      sourceX === undefined || sourceX === this.x ? (this.facing > 0 ? -1 : 1) : this.x < sourceX ? -1 : 1;
+    const knockbackX = source === 'hazard' ? Stage1Tuning.hazardKnockbackX : Stage1Tuning.damageKnockbackX;
+    const knockbackY = source === 'hazard' ? Stage1Tuning.hazardKnockbackY : Stage1Tuning.damageKnockbackY;
+    this.vx = awayDirection * knockbackX;
+    this.vy = Math.min(this.vy, knockbackY);
     return true;
   }
 
@@ -286,7 +310,9 @@ export class Player {
       pose: this.lastResolvedPose,
       jumpVariant: this.jumpVisualVariant,
       invulnerable: this.scene.time.now < this.invulnerableUntilMs,
-      damageTaken: this.damageTaken
+      damageTaken: this.damageTaken,
+      lastDamageSource: this.lastDamageSource,
+      lastDamageId: this.lastDamageId
     };
   }
 
@@ -300,6 +326,12 @@ export class Player {
 
   getPosition(): { x: number; y: number; facing: -1 | 1 } {
     return { x: this.x, y: this.y, facing: this.facing };
+  }
+
+  constrainRight(maxX: number): void {
+    if (this.x <= maxX) return;
+    this.x = maxX;
+    this.vx = Math.min(0, this.vx);
   }
 
   private moveAndCollide(dx: number, dy: number, platforms: readonly Stage1Platform[]): void {

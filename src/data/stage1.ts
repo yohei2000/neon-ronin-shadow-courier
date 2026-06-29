@@ -157,6 +157,11 @@ export const Stage1Tuning = {
   hitPauseMs: 55,
   damageCooldownMs: 1800,
   invulnerabilityMs: 1800,
+  damageKnockbackX: 310,
+  hazardKnockbackX: 370,
+  damageKnockbackY: -285,
+  hazardKnockbackY: -360,
+  damageKnockbackControlLockMs: 280,
   cameraLead: 84
 } as const;
 

@@ -12,11 +12,49 @@ const sheetSpecs = [
     output: 'src/assets/runtime/ink-crawler-runtime-spritesheet.png',
     frameWidth: 192,
     frameHeight: 144,
-    columns: 4,
+    columns: 6,
     minPixels: 2500,
     alphaThreshold: 12,
     bottomPadding: 16,
-    maxFrames: 8
+    maxFrames: 8,
+    derivedSequences: [
+      {
+        id: 'patrol',
+        componentIndex: 2,
+        frames: [
+          { offsetX: -5, offsetY: 1, scaleX: 0.98, scaleY: 1.02, rotate: -2 },
+          { offsetX: -3, offsetY: 0, scaleX: 1.02, scaleY: 0.98, rotate: -1 },
+          { offsetX: -1, offsetY: -1, scaleX: 1.04, scaleY: 0.96, rotate: 0 },
+          { offsetX: 2, offsetY: 0, scaleX: 1.01, scaleY: 1.0, rotate: 1 },
+          { offsetX: 5, offsetY: 1, scaleX: 0.98, scaleY: 1.03, rotate: 2 },
+          { offsetX: 2, offsetY: 0, scaleX: 1.0, scaleY: 1.0, rotate: 1 },
+          { offsetX: -2, offsetY: -1, scaleX: 1.03, scaleY: 0.97, rotate: 0 },
+          { offsetX: -4, offsetY: 0, scaleX: 1.0, scaleY: 1.01, rotate: -1 }
+        ]
+      },
+      {
+        id: 'hit',
+        componentIndex: 2,
+        frames: [
+          { offsetX: 6, offsetY: -1, scaleX: 0.96, scaleY: 1.04, rotate: 5 },
+          { offsetX: -8, offsetY: 1, scaleX: 1.05, scaleY: 0.96, rotate: -6 },
+          { offsetX: 4, offsetY: 2, scaleX: 1.0, scaleY: 1.0, rotate: 4 },
+          { offsetX: 0, offsetY: 0, scaleX: 0.98, scaleY: 1.02, rotate: 0 }
+        ]
+      },
+      {
+        id: 'defeat',
+        componentIndex: 2,
+        frames: [
+          { offsetX: 2, offsetY: 2, scaleX: 1.0, scaleY: 0.98, rotate: 8 },
+          { offsetX: 5, offsetY: 6, scaleX: 1.02, scaleY: 0.92, rotate: 16 },
+          { offsetX: 8, offsetY: 11, scaleX: 1.0, scaleY: 0.82, rotate: 24 },
+          { offsetX: 10, offsetY: 16, scaleX: 0.98, scaleY: 0.72, rotate: 32 },
+          { offsetX: 12, offsetY: 21, scaleX: 0.96, scaleY: 0.62, rotate: 38 },
+          { offsetX: 14, offsetY: 26, scaleX: 0.94, scaleY: 0.54, rotate: 42, alpha: 0.82 }
+        ]
+      }
+    ]
   },
   {
     id: 'kite-wraith-runtime-spritesheet',
@@ -24,11 +62,47 @@ const sheetSpecs = [
     output: 'src/assets/runtime/kite-wraith-runtime-spritesheet.png',
     frameWidth: 192,
     frameHeight: 192,
-    columns: 4,
+    columns: 6,
     minPixels: 2500,
     alphaThreshold: 12,
     bottomPadding: 12,
-    maxFrames: 4
+    maxFrames: 4,
+    derivedSequences: [
+      {
+        id: 'drift',
+        frames: [
+          { componentIndex: 0, offsetX: -4, offsetY: 2, scaleX: 0.99, scaleY: 1.01, rotate: -3 },
+          { componentIndex: 1, offsetX: -2, offsetY: -1, scaleX: 1.0, scaleY: 1.0, rotate: -1 },
+          { componentIndex: 2, offsetX: 1, offsetY: -4, scaleX: 1.01, scaleY: 0.99, rotate: 1 },
+          { componentIndex: 3, offsetX: 4, offsetY: -1, scaleX: 1.0, scaleY: 1.01, rotate: 3 },
+          { componentIndex: 2, offsetX: 2, offsetY: 2, scaleX: 0.99, scaleY: 1.0, rotate: 2 },
+          { componentIndex: 1, offsetX: -1, offsetY: 4, scaleX: 1.01, scaleY: 0.99, rotate: 0 },
+          { componentIndex: 0, offsetX: -4, offsetY: 1, scaleX: 1.0, scaleY: 1.01, rotate: -2 },
+          { componentIndex: 1, offsetX: -2, offsetY: -2, scaleX: 1.0, scaleY: 1.0, rotate: -1 }
+        ]
+      },
+      {
+        id: 'hit',
+        frames: [
+          { componentIndex: 0, offsetX: 7, offsetY: 0, scaleX: 0.97, scaleY: 1.03, rotate: 6 },
+          { componentIndex: 2, offsetX: -8, offsetY: 2, scaleX: 1.03, scaleY: 0.97, rotate: -8 },
+          { componentIndex: 3, offsetX: 4, offsetY: -1, scaleX: 1.0, scaleY: 1.0, rotate: 4 },
+          { componentIndex: 1, offsetX: 0, offsetY: 0, scaleX: 1.0, scaleY: 1.0, rotate: 0 }
+        ]
+      },
+      {
+        id: 'defeat',
+        componentIndex: 3,
+        frames: [
+          { offsetX: 2, offsetY: 5, scaleX: 1.0, scaleY: 0.98, rotate: 12 },
+          { offsetX: 7, offsetY: 12, scaleX: 0.98, scaleY: 0.94, rotate: 28 },
+          { offsetX: 12, offsetY: 20, scaleX: 0.96, scaleY: 0.88, rotate: 46 },
+          { offsetX: 18, offsetY: 31, scaleX: 0.94, scaleY: 0.8, rotate: 64 },
+          { offsetX: 20, offsetY: 43, scaleX: 0.9, scaleY: 0.72, rotate: 78 },
+          { offsetX: 22, offsetY: 55, scaleX: 0.86, scaleY: 0.64, rotate: 88, alpha: 0.8 }
+        ]
+      }
+    ]
   }
 ];
 
@@ -638,9 +712,30 @@ try {
         }
       }
 
-      const frames = components
+      const sourceFrames = components
         .sort((a, b) => (Math.floor(a.y / 40) - Math.floor(b.y / 40)) || a.y - b.y || a.x - b.x)
         .slice(0, spec.maxFrames);
+      const frames = spec.derivedSequences
+        ? spec.derivedSequences.flatMap((sequence) =>
+            sequence.frames.map((variant, stateFrame) => {
+              const componentIndex = variant.componentIndex ?? sequence.componentIndex ?? 0;
+              const component = sourceFrames[componentIndex] ?? sourceFrames[0];
+              if (!component) throw new Error(`No source component for ${spec.id}`);
+              return {
+                ...component,
+                sequence: sequence.id,
+                stateFrame,
+                sourceComponent: componentIndex,
+                offsetX: variant.offsetX ?? 0,
+                offsetY: variant.offsetY ?? 0,
+                scaleX: variant.scaleX ?? 1,
+                scaleY: variant.scaleY ?? 1,
+                rotate: variant.rotate ?? 0,
+                alpha: variant.alpha ?? 1
+              };
+            })
+          )
+        : sourceFrames;
       const rows = Math.ceil(frames.length / spec.columns);
       const targetCanvas = document.createElement('canvas');
       targetCanvas.width = spec.frameWidth * spec.columns;
@@ -659,21 +754,26 @@ try {
           (spec.frameHeight - spec.bottomPadding - 8) / frame.height,
           1.25
         );
-        const drawWidth = frame.width * fitScale;
-        const drawHeight = frame.height * fitScale;
-        const dx = column * spec.frameWidth + (spec.frameWidth - drawWidth) / 2;
-        const dy = row * spec.frameHeight + spec.frameHeight - spec.bottomPadding - drawHeight;
+        const drawWidth = frame.width * fitScale * Math.abs(frame.scaleX ?? 1);
+        const drawHeight = frame.height * fitScale * Math.abs(frame.scaleY ?? 1);
+        const centerX = column * spec.frameWidth + spec.frameWidth / 2 + (frame.offsetX ?? 0);
+        const centerY = row * spec.frameHeight + spec.frameHeight - spec.bottomPadding - drawHeight / 2 + (frame.offsetY ?? 0);
+        targetContext.save();
+        targetContext.globalAlpha = frame.alpha ?? 1;
+        targetContext.translate(centerX, centerY);
+        targetContext.rotate(((frame.rotate ?? 0) * Math.PI) / 180);
         targetContext.drawImage(
           sourceCanvas,
           frame.x,
           frame.y,
           frame.width,
           frame.height,
-          dx,
-          dy,
+          -drawWidth / 2,
+          -drawHeight / 2,
           drawWidth,
           drawHeight
         );
+        targetContext.restore();
       });
       const matteCleanup = cleanCharacterMatte(targetCanvas, spec.frameWidth, spec.frameHeight);
 
@@ -683,6 +783,8 @@ try {
         height: targetCanvas.height,
         frameWidth: spec.frameWidth,
         frameHeight: spec.frameHeight,
+        sequences: spec.derivedSequences?.map((sequence) => ({ id: sequence.id, frames: sequence.frames.length })) ?? [],
+        sourceFrames,
         frames,
         matteCleanup,
         dataUrl: targetCanvas.toDataURL('image/png')
@@ -698,8 +800,25 @@ try {
       height: result.height,
       frameWidth: result.frameWidth,
       frameHeight: result.frameHeight,
+      sequences: result.sequences,
+      sourceFrames: result.sourceFrames.map(({ x, y, width, height, pixels }) => ({ x, y, width, height, pixels })),
       matteCleanup: result.matteCleanup,
-      frames: result.frames.map(({ x, y, width, height, pixels }) => ({ x, y, width, height, pixels }))
+      frames: result.frames.map(({ sequence, stateFrame, sourceComponent, x, y, width, height, pixels, offsetX, offsetY, scaleX, scaleY, rotate, alpha }) => ({
+        sequence,
+        stateFrame,
+        sourceComponent,
+        x,
+        y,
+        width,
+        height,
+        pixels,
+        offsetX,
+        offsetY,
+        scaleX,
+        scaleY,
+        rotate,
+        alpha
+      }))
     });
   }
 

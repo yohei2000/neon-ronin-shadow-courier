@@ -4,7 +4,7 @@ import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import { Stage1Tuning, type RectData, type Stage1WardenDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
 import { buildWardenProjectileRect, resolveWardenProjectileMotion } from '../systems/wardenRangedAttack';
-import type { StageEnemy } from './types';
+import type { EnemyRuntimeState, StageEnemy } from './types';
 
 type WardenState = 'idle' | 'telegraph' | 'active' | 'recovery' | 'defeated';
 
@@ -138,6 +138,20 @@ export class LanternWarden implements StageEnemy {
       state: this.state,
       attack: this.definition.attackStates[this.attackIndex],
       projectileCount: this.projectiles.length
+    };
+  }
+
+  getRuntimeState(): EnemyRuntimeState {
+    return {
+      id: this.id,
+      kind: this.kind,
+      x: Math.round(this.sprite.x),
+      y: Math.round(this.sprite.y),
+      hp: this.hp,
+      dead: this.dead,
+      visible: this.sprite.visible,
+      alpha: Number(this.sprite.alpha.toFixed(2)),
+      animation: this.sprite.anims.currentAnim?.key ?? null
     };
   }
 

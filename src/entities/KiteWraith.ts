@@ -3,7 +3,7 @@ import { Palette } from '../config/palette';
 import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import type { Stage1EnemyDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
-import type { StageEnemy } from './types';
+import type { EnemyRuntimeState, StageEnemy } from './types';
 
 export class KiteWraith implements StageEnemy {
   readonly id: string;
@@ -16,7 +16,7 @@ export class KiteWraith implements StageEnemy {
   private hp = 2;
   private localTime = 0;
 
-  constructor(scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
+  constructor(private readonly scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
     this.spawnY = definition.y;
     this.image = scene.add
@@ -52,17 +52,44 @@ export class KiteWraith implements StageEnemy {
   takeHit(amount: number): boolean {
     if (this.dead) return false;
     this.hp -= amount;
+    if (this.hp <= 0) {
+      this.dead = true;
+      this.image.clearTint();
+      this.image.setAlpha(1);
+      this.image.play('kite-wraith-defeat', true);
+      this.scene.tweens.add({
+        targets: this.image,
+        alpha: 0,
+        duration: 1100,
+        delay: 380,
+        ease: 'Sine.easeOut',
+        onComplete: () => this.image.setVisible(false)
+      });
+      return true;
+    }
     this.image.setTint(Palette.enemyAmber);
     this.image.play('kite-wraith-hit', true);
     this.image.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-      if (!this.dead) this.image.play('kite-wraith-drift', true);
+      if (!this.dead) {
+        this.image.clearTint();
+        this.image.play('kite-wraith-drift', true);
+      }
     });
-    if (this.hp <= 0) {
-      this.dead = true;
-      this.image.setVisible(false);
-      return true;
-    }
     return false;
+  }
+
+  getRuntimeState(): EnemyRuntimeState {
+    return {
+      id: this.id,
+      kind: this.kind,
+      x: Math.round(this.image.x),
+      y: Math.round(this.image.y),
+      hp: this.hp,
+      dead: this.dead,
+      visible: this.image.visible,
+      alpha: Number(this.image.alpha.toFixed(2)),
+      animation: this.image.anims.currentAnim?.key ?? null
+    };
   }
 
   destroy(): void {

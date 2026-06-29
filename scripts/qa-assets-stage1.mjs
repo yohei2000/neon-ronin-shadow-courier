@@ -39,8 +39,10 @@ const stage1TextBundle = stage1RuntimeFiles.map((file) => `${file}\n${read(file)
 const requiredAnimations = [
   'ink-crawler-patrol',
   'ink-crawler-hit',
+  'ink-crawler-defeat',
   'kite-wraith-drift',
   'kite-wraith-hit',
+  'kite-wraith-defeat',
   'warden-idle',
   'warden-telegraph',
   'warden-attack',

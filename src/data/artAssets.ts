@@ -142,13 +142,15 @@ export const RuntimePlayerVisualConfig = {
 } as const;
 
 export const InkCrawlerAnimationFrames = {
-  patrol: { frames: [2], frameRate: 1, repeat: -1 },
-  hit: { frames: [2], frameRate: 1, repeat: 0 }
+  patrol: { frames: frameRange(0, 8), frameRate: 12, repeat: -1 },
+  hit: { frames: frameRange(8, 4), frameRate: 16, repeat: 0 },
+  defeat: { frames: frameRange(12, 6), frameRate: 10, repeat: 0 }
 } as const;
 
 export const KiteWraithAnimationFrames = {
-  drift: { frames: [0], frameRate: 1, repeat: -1 },
-  hit: { frames: [0], frameRate: 1, repeat: 0 }
+  drift: { frames: frameRange(0, 8), frameRate: 10, repeat: -1 },
+  hit: { frames: frameRange(8, 4), frameRate: 16, repeat: 0 },
+  defeat: { frames: frameRange(12, 6), frameRate: 10, repeat: 0 }
 } as const;
 
 export const SlashAnimationFrames = {

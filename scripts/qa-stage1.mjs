@@ -20,9 +20,30 @@ const requiredNames = [
 
 const overlap = (a, b) => a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 const check = (id, passed, detail) => ({ id, passed, detail });
+const scrollCollectBody = (scroll) => ({ x: scroll.x - 41, y: scroll.y - 29, width: 82, height: 58 });
+const playerStandingBody = (x, platformTop) => ({ x: x - 21, y: platformTop - 72, width: 42, height: 72 });
+const scrollHasCollectionLane = (scroll) =>
+  (stage.platforms ?? []).some((platform) => {
+    if (scroll.x < platform.x - 34 || scroll.x > platform.x + platform.width + 34) return false;
+    return overlap(scrollCollectBody(scroll), playerStandingBody(scroll.x, platform.y));
+  });
+const firePassageCheck = () => {
+  const spark = hazards.find((hazard) => hazard.id === 'timed-spark');
+  if (!spark) return { passed: false, detail: 'timed-spark missing' };
+  const sparkCenterX = spark.x + spark.width / 2;
+  const platform = (stage.platforms ?? []).find((item) => sparkCenterX >= item.x && sparkCenterX <= item.x + item.width);
+  if (!platform) return { passed: false, detail: 'no platform under timed-spark' };
+  const groundBody = playerStandingBody(sparkCenterX, platform.y);
+  const jumpBody = { ...groundBody, y: groundBody.y - 80 };
+  const groundThreat = overlap(groundBody, spark);
+  const jumpClear = !overlap(jumpBody, spark);
+  return { passed: groundThreat && jumpClear, detail: `groundThreat=${groundThreat}, jumpClear=${jumpClear}` };
+};
 const sections = stage.sections ?? [];
 const hazards = stage.hazards ?? [];
 const enemies = stage.enemies ?? [];
+const unreachableScrolls = (stage.collectibles?.scrolls ?? []).filter((scroll) => !scrollHasCollectionLane(scroll));
+const firePassage = firePassageCheck();
 const damageRects = [
   ...hazards,
   ...enemies.map((enemy) => ({ x: enemy.x - 36, y: enemy.y - 48, width: 72, height: 96 }))
@@ -47,6 +68,8 @@ const checks = [
   check('safe-rest-before-miniboss', damageRects.filter((rect) => overlap(rect, stage.safeRestBeforeMiniboss)).length === 0, 'pre-boss rest damage source overlap'),
   check('moon-gate-stage-clear', stage.moonGate?.requiresWardenDefeated === true, stage.moonGate?.id ?? 'missing'),
   check('no-orphan-section-refs', enemies.every((enemy) => sectionIds.has(enemy.sectionId)), 'enemy section references'),
+  check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
+  check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(
     'target-duration-recorded',
     stage.targetFirstClearSeconds?.min === 180 &&

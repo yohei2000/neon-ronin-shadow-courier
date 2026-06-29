@@ -1,8 +1,9 @@
 import * as Phaser from 'phaser';
+import { Palette } from '../config/palette';
 import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import type { Stage1EnemyDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
-import type { StageEnemy } from './types';
+import type { EnemyRuntimeState, StageEnemy } from './types';
 
 const InkCrawlerVisualGroundOffsetY = 50;
 const InkCrawlerBodyCenterOffsetY = -9;
@@ -18,7 +19,7 @@ export class InkCrawler implements StageEnemy {
   private hp = 2;
   private speed = 0;
 
-  constructor(scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
+  constructor(private readonly scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
     this.sprite = scene.add
       .sprite(definition.x, definition.y + InkCrawlerVisualGroundOffsetY, RuntimeSpriteAssetKey.InkCrawler, 2)
@@ -54,14 +55,45 @@ export class InkCrawler implements StageEnemy {
   takeHit(amount: number): boolean {
     if (this.dead) return false;
     this.hp -= amount;
-    this.sprite.play('ink-crawler-hit', true);
-    this.sprite.setAlpha(0.72);
     if (this.hp <= 0) {
       this.dead = true;
-      this.sprite.setVisible(false);
+      this.sprite.clearTint();
+      this.sprite.setAlpha(1);
+      this.sprite.play('ink-crawler-defeat', true);
+      this.scene.tweens.add({
+        targets: this.sprite,
+        alpha: 0,
+        duration: 1050,
+        delay: 360,
+        ease: 'Sine.easeOut',
+        onComplete: () => this.sprite.setVisible(false)
+      });
       return true;
     }
+    this.sprite.setTint(Palette.enemyAmber);
+    this.sprite.setAlpha(0.82);
+    this.sprite.play('ink-crawler-hit', true);
+    this.sprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+      if (this.dead) return;
+      this.sprite.clearTint();
+      this.sprite.setAlpha(1);
+      this.sprite.play('ink-crawler-patrol', true);
+    });
     return false;
+  }
+
+  getRuntimeState(): EnemyRuntimeState {
+    return {
+      id: this.id,
+      kind: this.kind,
+      x: Math.round(this.sprite.x),
+      y: Math.round(this.sprite.y),
+      hp: this.hp,
+      dead: this.dead,
+      visible: this.sprite.visible,
+      alpha: Number(this.sprite.alpha.toFixed(2)),
+      animation: this.sprite.anims.currentAnim?.key ?? null
+    };
   }
 
   destroy(): void {
