@@ -7,8 +7,9 @@ import type { StageEnemy } from './types';
 
 type WardenState = 'idle' | 'telegraph' | 'active' | 'recovery' | 'defeated';
 
-const WardenVisualGroundOffsetY = 28;
-const WardenBodyCenterOffsetY = 23;
+const WardenVisualGroundOffsetY = 61;
+const WardenBodyCenterOffsetY = -10;
+const WardenTelegraphOffsetY = 65;
 
 export class LanternWarden implements StageEnemy {
   readonly id: string;
@@ -58,7 +59,7 @@ export class LanternWarden implements StageEnemy {
     const targetX = this.definition.x + Math.sin(this.scene.time.now / 900) * 38;
     this.sprite.x += (targetX - this.sprite.x) * 0.03;
     this.telegraph
-      .setPosition(this.sprite.x + this.facing * 76, this.sprite.y + 84)
+      .setPosition(this.sprite.x + this.facing * 76, this.sprite.y + WardenTelegraphOffsetY)
       .setFrame(this.state === 'active' ? 4 : 1)
       .setVisible(this.state === 'telegraph' || this.state === 'active')
       .setAlpha(this.state === 'active' ? 0.65 : 0.38)

@@ -10,7 +10,7 @@ import {
   shouldUseSmallJumpVariant,
   type JumpVisualVariant
 } from '../systems/playerVisualState';
-import { CombatSystem, type SlashState } from '../systems/CombatSystem';
+import { CombatSystem, type SlashMode, type SlashState } from '../systems/CombatSystem';
 import type { DamageSource } from './types';
 
 export type PlayerVisualPose =
@@ -38,6 +38,7 @@ export type PlayerRuntimeState = {
   readonly onGround: boolean;
   readonly wallSliding: boolean;
   readonly slashing: boolean;
+  readonly slashMode: SlashMode;
   readonly pose: PlayerVisualPose;
   readonly jumpVariant: JumpVisualVariant | null;
   readonly invulnerable: boolean;
@@ -80,6 +81,7 @@ export class Player {
   private jumpVisualVariant: JumpVisualVariant | null = null;
   private slashElapsedMs = -1;
   private slashStartedOnGround = true;
+  private slashMode: SlashMode = 'arc';
   private invulnerableUntilMs = 0;
   private lastDamageMs = -Infinity;
   private lastResolvedPose: PlayerVisualPose = 'idle';
@@ -130,21 +132,31 @@ export class Player {
         this.jumpVisualVariant = null;
       } else {
         this.jumpStartedMs = nowMs;
-        this.jumpVisualVariant = resolveInitialJumpVisualVariant(this.vx);
-        this.vy = Stage1Tuning.jumpVelocity;
+        const jumpVariant = resolveInitialJumpVisualVariant(this.vx);
+        this.jumpVisualVariant = jumpVariant;
+        if (jumpVariant === 'speedFlip') {
+          const launchDirection = input.moveX !== 0 ? input.moveX : this.facing;
+          this.facing = launchDirection;
+          this.vx = launchDirection * Math.max(Math.abs(this.vx), Stage1Tuning.runSpeed) * Stage1Tuning.speedFlipHorizontalBoost;
+          this.vy = Stage1Tuning.speedFlipJumpVelocity;
+        } else {
+          this.vy = Stage1Tuning.jumpVelocity;
+        }
       }
       this.onGround = false;
       this.lastJumpPressedMs = -Infinity;
     }
 
-    if (input.jumpReleased && this.vy < -210) {
+    const jumpCutVelocity =
+      this.jumpVisualVariant === 'speedFlip' ? Stage1Tuning.speedFlipShortJumpCutVelocity : Stage1Tuning.shortJumpCutVelocity;
+    if (input.jumpReleased && this.vy < jumpCutVelocity) {
       if (
         this.jumpVisualVariant === 'big' &&
         shouldUseSmallJumpVariant({ elapsedMs: nowMs - this.jumpStartedMs, verticalVelocity: this.vy })
       ) {
         this.jumpVisualVariant = 'small';
       }
-      this.vy = -210;
+      this.vy = jumpCutVelocity;
     }
 
     const dt = deltaMs / 1000;
@@ -175,14 +187,16 @@ export class Player {
     if (input.attackPressed && this.slashElapsedMs < 0) {
       this.slashElapsedMs = 0;
       this.slashStartedOnGround = this.onGround;
+      this.slashMode = this.isSpeedFlipActive(nowMs) ? 'spin' : 'arc';
     }
 
     let slash = CombatSystem.buildSlashState(this.x, this.y, this.facing, -1);
     if (this.slashElapsedMs >= 0) {
       this.slashElapsedMs += deltaMs;
-      slash = CombatSystem.buildSlashState(this.x, this.y, this.facing, this.slashElapsedMs);
+      slash = CombatSystem.buildSlashState(this.x, this.y, this.facing, this.slashElapsedMs, this.slashMode);
       if (slash.phase === 'idle') {
         this.slashElapsedMs = -1;
+        this.slashMode = 'arc';
       }
     }
 
@@ -205,6 +219,7 @@ export class Player {
     this.jumpStartedMs = -Infinity;
     this.jumpVisualVariant = null;
     this.slashElapsedMs = -1;
+    this.slashMode = 'arc';
   }
 
   retryCheckpoint(): void {
@@ -225,6 +240,7 @@ export class Player {
     this.jumpStartedMs = -Infinity;
     this.jumpVisualVariant = null;
     this.slashElapsedMs = -1;
+    this.slashMode = 'arc';
   }
 
   heal(amount: number): void {
@@ -260,6 +276,7 @@ export class Player {
       onGround: this.onGround,
       wallSliding: this.wallSliding,
       slashing: this.slashElapsedMs >= 0,
+      slashMode: this.slashMode,
       pose: this.lastResolvedPose,
       jumpVariant: this.jumpVisualVariant,
       invulnerable: this.scene.time.now < this.invulnerableUntilMs,
@@ -325,7 +342,7 @@ export class Player {
     const transform = PlayerPoseTransforms[pose];
     const baseScale = RuntimePlayerVisualConfig.scale;
     const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.5 : 0;
-    const flipProgress = clamp((nowMs - this.jumpStartedMs) / 560, 0, 1);
+    const flipProgress = Math.max(0, (nowMs - this.jumpStartedMs) / Stage1Tuning.speedFlipRotationMs);
     const dynamicAngle = pose === 'speedFlipJump' ? transform.angle + 360 * flipProgress : transform.angle;
     const visualScale = pose === 'speedFlipJump' ? baseScale * 0.92 : baseScale;
 
@@ -348,6 +365,20 @@ export class Player {
       return;
     }
 
+    if (slash.mode === 'spin') {
+      const spinElapsedMs = Math.max(0, nowMs - this.jumpStartedMs);
+      this.slashSprite
+        .setVisible(true)
+        .setPosition(this.x, this.y + PlayerVisualGroundOffsetY - 32)
+        .setFlipX(false)
+        .setScale(0.82)
+        .setAngle(spinElapsedMs * 1.05 * this.facing)
+        .setAlpha(slash.phase === 'active' ? 0.96 : 0.52)
+        .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
+      this.slashSprite.play('slash-air', true);
+      return;
+    }
+
     const slashAnimation = this.slashStartedOnGround ? 'slash-ground' : 'slash-air';
     const slashOffsetY = this.slashStartedOnGround ? -16 : -30;
     this.slashSprite
@@ -355,6 +386,7 @@ export class Player {
       .setPosition(this.x + this.facing * 52, this.y + PlayerVisualGroundOffsetY + slashOffsetY)
       .setFlipX(this.facing < 0)
       .setScale(this.slashStartedOnGround ? 0.62 : 0.58)
+      .setAngle(0)
       .setAlpha(slash.phase === 'active' ? 0.95 : 0.48)
       .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
     this.slashSprite.play(slashAnimation, true);
@@ -362,11 +394,14 @@ export class Player {
 
   private resolveVisualPose(nowMs: number): PlayerVisualPose {
     if (nowMs < this.invulnerableUntilMs && nowMs - this.lastDamageMs < 260) return 'hurt';
-    if (this.slashElapsedMs >= 0) return this.onGround ? 'groundSlash' : 'airSlash';
+    if (this.slashElapsedMs >= 0) {
+      if (this.slashMode === 'spin' && !this.onGround) return 'speedFlipJump';
+      return this.onGround ? 'groundSlash' : 'airSlash';
+    }
     if (nowMs - this.lastWallKickMs < 180) return 'wallKick';
     if (this.wallSliding) return 'wallSlide';
     if (!this.onGround) {
-      if (this.jumpVisualVariant === 'speedFlip' && nowMs - this.jumpStartedMs < 680 && this.vy < Stage1Tuning.maxFallSpeed * 0.65) {
+      if (this.isSpeedFlipActive(nowMs)) {
         return 'speedFlipJump';
       }
       if (this.vy < -55) return this.jumpVisualVariant === 'small' ? 'smallJump' : 'bigJumpRise';
@@ -375,5 +410,13 @@ export class Player {
     }
     if (Math.abs(this.vx) > 18) return 'run';
     return 'idle';
+  }
+
+  private isSpeedFlipActive(nowMs: number): boolean {
+    return (
+      this.jumpVisualVariant === 'speedFlip' &&
+      nowMs - this.jumpStartedMs < Stage1Tuning.speedFlipVisualMs &&
+      this.vy < Stage1Tuning.maxFallSpeed * 0.75
+    );
   }
 }

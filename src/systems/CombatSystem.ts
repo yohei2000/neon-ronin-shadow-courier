@@ -3,10 +3,12 @@ import { Stage1Tuning } from '../data/stage1';
 import { rectsOverlap } from './geometry';
 
 export type SlashPhase = 'idle' | 'startup' | 'active' | 'recovery';
+export type SlashMode = 'arc' | 'spin';
 
 export type SlashState = {
   readonly phase: SlashPhase;
   readonly elapsedMs: number;
+  readonly mode: SlashMode;
   readonly activeRect: RectData | null;
 };
 
@@ -23,19 +25,33 @@ export const canTakeOverlapDamage = (nowMs: number, lastDamageMs: number, cooldo
 };
 
 export class CombatSystem {
-  static buildSlashState(playerX: number, playerY: number, facing: -1 | 1, elapsedMs: number): SlashState {
+  static buildSlashState(
+    playerX: number,
+    playerY: number,
+    facing: -1 | 1,
+    elapsedMs: number,
+    mode: SlashMode = 'arc'
+  ): SlashState {
     const phase = resolveSlashPhase(elapsedMs);
     return {
       phase,
       elapsedMs,
+      mode,
       activeRect:
         phase === 'active'
-          ? {
-              x: playerX + facing * 18 + (facing > 0 ? 0 : -132),
-              y: playerY - 58,
-              width: 132,
-              height: 92
-            }
+          ? mode === 'spin'
+            ? {
+                x: playerX - 82,
+                y: playerY - 104,
+                width: 164,
+                height: 164
+              }
+            : {
+                x: playerX + facing * 18 + (facing > 0 ? 0 : -132),
+                y: playerY - 58,
+                width: 132,
+                height: 92
+              }
           : null
     };
   }

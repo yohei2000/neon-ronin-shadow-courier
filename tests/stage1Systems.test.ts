@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { Stage1Data } from '../src/data/stage1';
+import { Stage1Data, Stage1Tuning } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
-import { canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
+import { CombatSystem, canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
 import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems/SaveSystem';
 import { resolveHorizontalVelocity } from '../src/systems/horizontalMotion';
 import { resolveInitialJumpVisualVariant, shouldUseSmallJumpVariant } from '../src/systems/playerVisualState';
@@ -83,6 +83,14 @@ describe('Stage1 pure combat and rank helpers', () => {
     expect(canTakeOverlapDamage(1000, 400, 1050)).toBe(false);
   });
 
+  it('uses a surrounding active hitbox for speed flip spinning slash attacks', () => {
+    const spinSlash = CombatSystem.buildSlashState(100, 200, 1, 90, 'spin');
+    expect(spinSlash.mode).toBe('spin');
+    expect(spinSlash.activeRect).toEqual({ x: 18, y: 96, width: 164, height: 164 });
+    expect(CombatSystem.overlapsActiveSlash(spinSlash, { x: 34, y: 188, width: 26, height: 26 })).toBe(true);
+    expect(CombatSystem.overlapsActiveSlash(spinSlash, { x: 188, y: 188, width: 26, height: 26 })).toBe(false);
+  });
+
   it('calculates clear ranks from time, damage, and scrolls', () => {
     expect(calculateStageRank(100000, 0, 3)).toBe('S');
     expect(calculateStageRank(160000, 2, 2)).toBe('A');
@@ -134,6 +142,12 @@ describe('Stage1 horizontal motion', () => {
 });
 
 describe('Stage1 player visual state', () => {
+  it('tunes speed flip jumps to about 1.5x height and distance potential', () => {
+    expect(Math.abs(Stage1Tuning.speedFlipJumpVelocity)).toBeCloseTo(Math.abs(Stage1Tuning.jumpVelocity) * Math.sqrt(1.5), 0);
+    expect(Stage1Tuning.speedFlipHorizontalBoost).toBeCloseTo(Math.sqrt(1.5), 3);
+    expect(Math.abs(Stage1Tuning.speedFlipShortJumpCutVelocity)).toBeGreaterThan(Math.abs(Stage1Tuning.shortJumpCutVelocity));
+  });
+
   it('selects a speed flip jump only when horizontal speed is near max run speed', () => {
     expect(resolveInitialJumpVisualVariant(60, 122)).toBe('big');
     expect(resolveInitialJumpVisualVariant(104, 122)).toBe('speedFlip');
