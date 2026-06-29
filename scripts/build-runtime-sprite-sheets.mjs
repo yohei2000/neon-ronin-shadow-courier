@@ -52,7 +52,7 @@ const explicitGridSheetSpecs = [
       { id: 'run', frames: [masterFrame(1, 0), masterFrame(1, 1), masterFrame(1, 2), masterFrame(1, 3), masterFrame(1, 4), masterFrame(1, 5), masterFrame(1, 2), masterFrame(1, 4)] },
       { id: 'smallJump', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3)] },
       { id: 'bigJumpRise', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4)] },
-      { id: 'speedFlipJump', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4), masterFrame(2, 3), masterFrame(2, 2), masterFrame(1, 5)] },
+      { id: 'speedFlipJump', frames: [masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(7, 3), masterFrame(7, 2), masterFrame(7, 1), masterFrame(7, 2)] },
       { id: 'apex', frames: [masterFrame(2, 3), masterFrame(2, 4)] },
       { id: 'fall', frames: [masterFrame(2, 4), masterFrame(2, 3), masterFrame(4, 5)] },
       { id: 'wallSlide', frames: [masterFrame(3, 0), masterFrame(3, 1), masterFrame(3, 2), masterFrame(3, 3)] },

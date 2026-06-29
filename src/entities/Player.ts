@@ -49,7 +49,7 @@ const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; r
   run: { angle: -2, offsetY: 1 },
   smallJump: { angle: -4, offsetY: -2 },
   bigJumpRise: { angle: -7, offsetY: -5 },
-  speedFlipJump: { angle: -10, offsetY: -7 },
+  speedFlipJump: { angle: -2, offsetY: -12 },
   apex: { angle: -1, offsetY: -5 },
   fall: { angle: 5, offsetY: 2 },
   wallSlide: { angle: 6, offsetY: 1 },
@@ -326,11 +326,13 @@ export class Player {
     const baseScale = RuntimePlayerVisualConfig.scale;
     const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.5 : 0;
     const flipProgress = clamp((nowMs - this.jumpStartedMs) / 560, 0, 1);
-    const dynamicAngle = pose === 'speedFlipJump' ? transform.angle - 360 * flipProgress : transform.angle;
+    const dynamicAngle = pose === 'speedFlipJump' ? transform.angle + 360 * flipProgress : transform.angle;
+    const visualScale = pose === 'speedFlipJump' ? baseScale * 0.92 : baseScale;
 
     this.sprite.setPosition(this.x, this.y + PlayerVisualGroundOffsetY + transform.offsetY + motionBob);
+    this.sprite.setOrigin(0.5, pose === 'speedFlipJump' ? 0.52 : 0.76);
     this.sprite.setFlipX(this.facing < 0);
-    this.sprite.setScale(baseScale);
+    this.sprite.setScale(visualScale);
     this.sprite.setAngle(dynamicAngle * this.facing);
     this.sprite.play(`player-${pose}`, true);
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T11:56:24.330Z",
+  "generatedAt": "2026-06-29T02:13:21.408Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -65,7 +65,7 @@
         }
       ],
       "matteCleanup": {
-        "removed": 139650,
+        "removed": 149985,
         "darkened": 0
       },
       "frames": [
@@ -440,129 +440,129 @@
         {
           "sequence": "speedFlipJump",
           "stateFrame": 0,
-          "componentRow": 2,
-          "componentColumn": 0,
-          "x": 69,
-          "y": 456,
-          "width": 130,
-          "height": 151,
+          "componentRow": 7,
+          "componentColumn": 1,
+          "x": 265,
+          "y": 1373,
+          "width": 125,
+          "height": 119,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 130,
-            "height": 151
+            "width": 125,
+            "height": 119
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 1,
-          "componentRow": 2,
-          "componentColumn": 1,
-          "x": 223,
-          "y": 460,
-          "width": 130,
-          "height": 138,
+          "componentRow": 7,
+          "componentColumn": 2,
+          "x": 419,
+          "y": 1377,
+          "width": 144,
+          "height": 116,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 130,
-            "height": 138
+            "width": 144,
+            "height": 116
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 2,
-          "componentRow": 2,
-          "componentColumn": 2,
-          "x": 393,
-          "y": 446,
-          "width": 132,
-          "height": 151,
+          "componentRow": 7,
+          "componentColumn": 3,
+          "x": 607,
+          "y": 1382,
+          "width": 121,
+          "height": 110,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 132,
-            "height": 151
+            "width": 121,
+            "height": 110
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 3,
-          "componentRow": 2,
-          "componentColumn": 3,
-          "x": 551,
-          "y": 457,
-          "width": 134,
-          "height": 142,
+          "componentRow": 7,
+          "componentColumn": 4,
+          "x": 783,
+          "y": 1405,
+          "width": 164,
+          "height": 88,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 134,
-            "height": 142
+            "width": 164,
+            "height": 88
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 4,
-          "componentRow": 2,
-          "componentColumn": 4,
-          "x": 716,
-          "y": 458,
-          "width": 123,
-          "height": 148,
+          "componentRow": 7,
+          "componentColumn": 3,
+          "x": 607,
+          "y": 1382,
+          "width": 121,
+          "height": 110,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 123,
-            "height": 148
+            "width": 121,
+            "height": 110
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 5,
-          "componentRow": 2,
-          "componentColumn": 3,
-          "x": 551,
-          "y": 457,
-          "width": 134,
-          "height": 142,
+          "componentRow": 7,
+          "componentColumn": 2,
+          "x": 419,
+          "y": 1377,
+          "width": 144,
+          "height": 116,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 134,
-            "height": 142
+            "width": 144,
+            "height": 116
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 6,
-          "componentRow": 2,
-          "componentColumn": 2,
-          "x": 393,
-          "y": 446,
-          "width": 132,
-          "height": 151,
+          "componentRow": 7,
+          "componentColumn": 1,
+          "x": 265,
+          "y": 1373,
+          "width": 125,
+          "height": 119,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 132,
-            "height": 151
+            "width": 125,
+            "height": 119
           }
         },
         {
           "sequence": "speedFlipJump",
           "stateFrame": 7,
-          "componentRow": 1,
-          "componentColumn": 5,
-          "x": 823,
-          "y": 272,
-          "width": 140,
-          "height": 146,
+          "componentRow": 7,
+          "componentColumn": 2,
+          "x": 419,
+          "y": 1377,
+          "width": 144,
+          "height": 116,
           "trim": {
             "x": 0,
             "y": 0,
-            "width": 140,
-            "height": 146
+            "width": 144,
+            "height": 116
           }
         },
         {
