@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T20:27:03.590Z",
+  "generatedAt": "2026-06-29T20:56:04.587Z",
   "passed": true,
   "checks": [
     {
@@ -35,7 +35,7 @@
     {
       "id": "three-health-energy-pickups",
       "passed": true,
-      "detail": "8 pickups"
+      "detail": "9 pickups"
     },
     {
       "id": "three-hazard-moments",
