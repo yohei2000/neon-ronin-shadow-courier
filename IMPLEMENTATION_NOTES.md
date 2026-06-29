@@ -31,7 +31,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `Stage1Scene` orchestrates stage flow, checkpoints, pickups, hazards, miniboss clear, pause, retry, and QA telemetry.
 - `Player` owns movement state, coyote time, jump buffer, wall slide/kick, slash phases, hurt state, knockback, invulnerability, and checkpoint respawn.
 - `Player` also owns runtime visual pose selection. It chooses small jump on early jump release, big jump rise for normal rising jumps, speed flip jump when horizontal speed is near max, and separate ground/air slash visuals based on whether the slash started grounded.
-- `InkCrawler`, `KiteWraith`, and `LanternWarden` own enemy behavior.
+- `InkCrawler`, `KiteWraith`, and `LanternWarden` own enemy behavior. Lantern Warden includes Stage1 melee attacks plus a scoped spark-drop ranged projectile.
 - `InputSystem` unifies keyboard and touch input.
 - `TouchControls` renders derived single-frame mobile control art and routes touches through `InputSystem`.
 - `Hud` owns HP, scroll count, timer, objective, checkpoint feedback, and Lantern Warden health text.

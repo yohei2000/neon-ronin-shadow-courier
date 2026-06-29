@@ -41,16 +41,16 @@ export class CombatSystem {
         phase === 'active'
           ? mode === 'spin'
             ? {
-                x: playerX - 82,
-                y: playerY - 104,
-                width: 164,
-                height: 164
+                x: playerX - Stage1Tuning.slashSpinSize / 2,
+                y: playerY - Stage1Tuning.slashSpinSize / 2 - 12,
+                width: Stage1Tuning.slashSpinSize,
+                height: Stage1Tuning.slashSpinSize
               }
             : {
-                x: playerX + facing * 18 + (facing > 0 ? 0 : -132),
+                x: playerX + facing * 18 + (facing > 0 ? 0 : -Stage1Tuning.slashArcWidth),
                 y: playerY - 58,
-                width: 132,
-                height: 92
+                width: Stage1Tuning.slashArcWidth,
+                height: Stage1Tuning.slashArcHeight
               }
           : null
     };

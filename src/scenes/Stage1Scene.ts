@@ -106,7 +106,7 @@ export class Stage1Scene extends Phaser.Scene {
     for (const enemy of this.enemies) {
       enemy.update(gameplayDelta, playerPosition.x, playerPosition.y);
     }
-    this.warden.update(gameplayDelta, playerPosition.x);
+    this.warden.update(gameplayDelta, playerPosition.x, playerPosition.y);
 
     this.resolveCombat(slash, time);
     this.resolveEnemyContact(time);
@@ -253,9 +253,10 @@ export class Stage1Scene extends Phaser.Scene {
         this.player.takeDamage(enemy.damage, nowMs, 'enemy-contact');
       }
     }
-    const attack = this.warden.getAttackRect();
-    if (attack && rectsOverlap(body, attack)) {
-      this.player.takeDamage(1, nowMs, 'warden-attack');
+    for (const attack of this.warden.getAttackRects()) {
+      if (rectsOverlap(body, attack)) {
+        this.player.takeDamage(1, nowMs, 'warden-attack');
+      }
     }
   }
 

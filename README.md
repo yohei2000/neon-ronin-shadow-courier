@@ -106,6 +106,6 @@ The reference package is user-provided specification material and is not runtime
 
 ## Known Limitations
 
-- Scope is intentionally Stage 1 only. Stage 2+, world map, final boss, dash, projectile, charged slash, and ultimate systems are not implemented.
+- Scope is intentionally Stage 1 only. Stage 2+, world map, final boss, player dash/projectile, charged slash, and ultimate systems are not implemented.
 - Lantern Warden is a Stage 1 miniboss, not the campaign final boss.
 - Core art remains frozen outside the approved Animation Expansion Gate. Future broader art changes require a new explicit art-change gate.

@@ -4,7 +4,7 @@
 
 This repository is now governed by the Stage 1 playable vertical slice objective.
 
-The current runtime objective is Stage 1 only: `Neon Alley: First Delivery`, using the frozen Gate B v2 art assets. Do not implement or claim Stage 2+, world map, final boss, dash/projectile/charged slash/ultimate, or broad campaign systems while this scope is active.
+The current runtime objective is Stage 1 only: `Neon Alley: First Delivery`, using the frozen Gate B v2 art assets. Do not implement or claim Stage 2+, world map, final boss, player dash/projectile/charged slash/ultimate, or broad campaign systems while this scope is active.
 
 ## Required Reference Package
 
@@ -21,7 +21,7 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 - Gate A: approved by explicit human phrase `Approve Gate A` on 2026-06-26.
 - Gate B v1: rejected as visually below product level.
 - Gate B v2: approved by explicit human input `ゲートBを承認します` on 2026-06-27.
-- Animation Expansion Gate: scoped approval on 2026-06-28 for Stage1 player/slash runtime animation expansion only. Do not treat this as approval for Stage2+, world map, final boss, dash/projectile/charged slash/ultimate, or broad campaign systems.
+- Animation Expansion Gate: scoped approval on 2026-06-28 for Stage1 player/slash runtime animation expansion only. Do not treat this as approval for Stage2+, world map, final boss, player dash/projectile/charged slash/ultimate, or broad campaign systems.
 - Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
 - Art Lock freeze: Gate B v2 core art is frozen. Runtime production assets are normalized under `src/assets/approved-art/` and indexed by `src/data/approvedArtManifest.ts`.
 
@@ -98,7 +98,9 @@ Runtime animation note: Player runtime animation now uses idle 6, run 8, small j
 
 Runtime cutout note: `npm.cmd run art:runtime-sheets` applies a deterministic white/gray matte cleanup pass to player, Ink Crawler, Kite Wraith, and Lantern Warden runtime sprite sheets. Keep this in the runtime derivation step rather than editing frozen approved core art directly.
 
-Runtime movement note: Stage1 player movement now uses stronger acceleration/deceleration tuning in `Stage1Tuning` and `src/systems/horizontalMotion.ts` rather than direct velocity snapping. Opposite-direction input must brake the current horizontal velocity to zero before accelerating the other way. Speed flip jumps use dedicated 1.5x height/distance tuning plus separate short/long press cut velocities; attacking during an active speed flip keeps the flip pose and uses a surrounding spinning slash hitbox/effect. Player, Ink Crawler, and Lantern Warden sprites have explicit visual ground offsets so frozen runtime cutouts visually contact platform tops while collision bodies stay aligned to gameplay geometry.
+Runtime movement note: Stage1 player movement now uses stronger acceleration/deceleration tuning in `Stage1Tuning` and `src/systems/horizontalMotion.ts` rather than direct velocity snapping. Opposite-direction input must brake the current horizontal velocity to zero before accelerating the other way. Player top speed is 1.5x the earlier Stage1 tuning while acceleration remains unchanged, so time-to-top-speed is 1.5x longer. Speed flip jumps keep jump height while top-speed distance scales with the new top speed; attacking during an active speed flip keeps the flip pose and uses a broad red circular spinning slash hitbox/effect. Normal slash range and forward VFX reach are 1.5x. Player, Ink Crawler, and Lantern Warden sprites have explicit visual ground offsets so frozen runtime cutouts visually contact platform tops while collision bodies stay aligned to gameplay geometry.
+
+Runtime boss note: Lantern Warden is the Stage1 miniboss, not the campaign final boss. The scoped Stage1 boss kit includes melee attacks plus a spark-drop ranged projectile; this does not authorize player projectile systems or broader campaign combat systems.
 
 Runtime mobile-control note: Stage1 touch controls must support simultaneous movement and jump/attack input. Keep Phaser configured with multiple active pointers and keep touch-button state keyed by pointer id so releasing one finger does not clear another held control.
 

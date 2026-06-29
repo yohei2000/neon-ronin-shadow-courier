@@ -65,6 +65,7 @@ const PlayerVisualGroundOffsetY = 16;
 export class Player {
   readonly sprite: Phaser.GameObjects.Sprite;
   private readonly slashSprite: Phaser.GameObjects.Sprite;
+  private readonly spinSlashSprites: Phaser.GameObjects.Sprite[];
   private x: number;
   private y: number;
   private vx = 0;
@@ -102,6 +103,9 @@ export class Player {
       .setScale(RuntimePlayerVisualConfig.scale)
       .setDepth(30);
     this.slashSprite = scene.add.sprite(this.x, this.y, RuntimeSpriteAssetKey.Slash, 0).setScale(0.62).setDepth(31).setVisible(false);
+    this.spinSlashSprites = Array.from({ length: 5 }, () =>
+      scene.add.sprite(this.x, this.y, RuntimeSpriteAssetKey.Slash, 8).setScale(0.7).setDepth(32).setVisible(false)
+    );
     this.sprite.play('player-idle');
   }
 
@@ -361,31 +365,40 @@ export class Player {
     this.sprite.setAlpha(nowMs < this.invulnerableUntilMs && Math.floor(nowMs / 90) % 2 === 0 ? 0.64 : 1);
 
     if (!slash || slash.phase === 'idle') {
-      this.slashSprite.setVisible(false);
+      this.hideSlashEffects();
       return;
     }
 
     if (slash.mode === 'spin') {
       const spinElapsedMs = Math.max(0, nowMs - this.jumpStartedMs);
-      this.slashSprite
-        .setVisible(true)
-        .setPosition(this.x, this.y + PlayerVisualGroundOffsetY - 32)
-        .setFlipX(false)
-        .setScale(0.82)
-        .setAngle(spinElapsedMs * 1.05 * this.facing)
-        .setAlpha(slash.phase === 'active' ? 0.96 : 0.52)
-        .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
-      this.slashSprite.play('slash-air', true);
+      const sprites = [this.slashSprite, ...this.spinSlashSprites];
+      const baseAngleDeg = spinElapsedMs * 1.15 * this.facing;
+      const radiusX = 72;
+      const radiusY = 58;
+      sprites.forEach((sprite, index) => {
+        const angleDeg = baseAngleDeg + index * (360 / sprites.length);
+        const angleRad = (angleDeg * Math.PI) / 180;
+        sprite
+          .setVisible(true)
+          .setPosition(this.x + Math.cos(angleRad) * radiusX, this.y + PlayerVisualGroundOffsetY - 34 + Math.sin(angleRad) * radiusY)
+          .setFlipX(false)
+          .setScale(0.82, 0.66)
+          .setAngle(angleDeg + 92)
+          .setAlpha(slash.phase === 'active' ? 0.94 : 0.52)
+          .setTint(Palette.dangerCoral);
+        sprite.play('slash-air', true);
+      });
       return;
     }
 
+    this.hideSpinSlashEffects();
     const slashAnimation = this.slashStartedOnGround ? 'slash-ground' : 'slash-air';
     const slashOffsetY = this.slashStartedOnGround ? -16 : -30;
     this.slashSprite
       .setVisible(true)
-      .setPosition(this.x + this.facing * 52, this.y + PlayerVisualGroundOffsetY + slashOffsetY)
+      .setPosition(this.x + this.facing * 78, this.y + PlayerVisualGroundOffsetY + slashOffsetY)
       .setFlipX(this.facing < 0)
-      .setScale(this.slashStartedOnGround ? 0.62 : 0.58)
+      .setScale(this.slashStartedOnGround ? 0.93 : 0.87, this.slashStartedOnGround ? 0.68 : 0.64)
       .setAngle(0)
       .setAlpha(slash.phase === 'active' ? 0.95 : 0.48)
       .setTint(slash.phase === 'active' ? Palette.neonMagenta : Palette.neonCyan);
@@ -418,5 +431,14 @@ export class Player {
       nowMs - this.jumpStartedMs < Stage1Tuning.speedFlipVisualMs &&
       this.vy < Stage1Tuning.maxFallSpeed * 0.75
     );
+  }
+
+  private hideSlashEffects(): void {
+    this.slashSprite.setVisible(false);
+    this.hideSpinSlashEffects();
+  }
+
+  private hideSpinSlashEffects(): void {
+    this.spinSlashSprites.forEach((sprite) => sprite.setVisible(false));
   }
 }

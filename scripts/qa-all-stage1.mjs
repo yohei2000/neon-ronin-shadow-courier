@@ -105,7 +105,7 @@ const lines = [
   '',
   '## Scope Notes',
   '',
-  '- Stage 1 only: no Stage 2+, world map, final boss, dash, projectile, charged slash, or ultimate systems.',
+  '- Stage 1 only: no Stage 2+, world map, final boss, player dash/projectile, charged slash, or ultimate systems.',
   '- Runtime art path: src/assets/approved-art, traced through src/data/approvedArtManifest.ts.',
   '- Core art regeneration intentionally excluded after Gate B v2 freeze.'
 ];

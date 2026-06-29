@@ -1,6 +1,6 @@
 # Stage1 Acceptance Report
 
-Generated: 2026-06-29T02:26:33.093Z
+Generated: 2026-06-29T08:10:35.344Z
 
 ## Command Results
 
@@ -46,6 +46,6 @@ Generated: 2026-06-29T02:26:33.093Z
 
 ## Scope Notes
 
-- Stage 1 only: no Stage 2+, world map, final boss, dash, projectile, charged slash, or ultimate systems.
+- Stage 1 only: no Stage 2+, world map, final boss, player dash/projectile, charged slash, or ultimate systems.
 - Runtime art path: src/assets/approved-art, traced through src/data/approvedArtManifest.ts.
 - Core art regeneration intentionally excluded after Gate B v2 freeze.

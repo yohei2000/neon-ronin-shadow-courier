@@ -6,6 +6,7 @@ import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems
 import { resolveHorizontalVelocity } from '../src/systems/horizontalMotion';
 import { resolveInitialJumpVisualVariant, shouldUseSmallJumpVariant } from '../src/systems/playerVisualState';
 import { calculateStageRank } from '../src/systems/rank';
+import { buildWardenProjectileRect, resolveWardenProjectileMotion } from '../src/systems/wardenRangedAttack';
 
 class MemoryStorage implements Storage {
   private readonly values = new Map<string, string>();
@@ -86,9 +87,25 @@ describe('Stage1 pure combat and rank helpers', () => {
   it('uses a surrounding active hitbox for speed flip spinning slash attacks', () => {
     const spinSlash = CombatSystem.buildSlashState(100, 200, 1, 90, 'spin');
     expect(spinSlash.mode).toBe('spin');
-    expect(spinSlash.activeRect).toEqual({ x: 18, y: 96, width: 164, height: 164 });
-    expect(CombatSystem.overlapsActiveSlash(spinSlash, { x: 34, y: 188, width: 26, height: 26 })).toBe(true);
-    expect(CombatSystem.overlapsActiveSlash(spinSlash, { x: 188, y: 188, width: 26, height: 26 })).toBe(false);
+    expect(spinSlash.activeRect).toEqual({ x: -20, y: 68, width: 240, height: 240 });
+    expect(CombatSystem.overlapsActiveSlash(spinSlash, { x: -4, y: 188, width: 26, height: 26 })).toBe(true);
+    expect(CombatSystem.overlapsActiveSlash(spinSlash, { x: 226, y: 188, width: 26, height: 26 })).toBe(false);
+  });
+
+  it('extends forward slash reach by 1.5x', () => {
+    const rightSlash = CombatSystem.buildSlashState(100, 200, 1, 90);
+    const leftSlash = CombatSystem.buildSlashState(100, 200, -1, 90);
+    expect(rightSlash.activeRect).toEqual({ x: 118, y: 142, width: 198, height: 92 });
+    expect(leftSlash.activeRect).toEqual({ x: -116, y: 142, width: 198, height: 92 });
+  });
+
+  it('builds Lantern Warden ranged projectile motion and hitboxes', () => {
+    const rect = buildWardenProjectileRect(300, 240);
+    expect(rect).toEqual({ x: 277, y: 226, width: 46, height: 28 });
+    const motion = resolveWardenProjectileMotion(100, 100, 200, 100);
+    expect(motion.vx).toBe(Stage1Tuning.wardenProjectileSpeed);
+    expect(motion.vy).toBe(0);
+    expect(motion.angleDeg).toBe(0);
   });
 
   it('calculates clear ranks from time, damage, and scrolls', () => {
@@ -105,7 +122,7 @@ describe('Stage1 horizontal motion', () => {
     expect(firstFrame).toBeGreaterThan(0);
     expect(firstFrame).toBeLessThan(6);
 
-    let vx = 0;
+    let vx: number = 0;
     for (let frame = 0; frame < 12; frame += 1) {
       vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: 1, onGround: true, dtSeconds: 0.032 });
     }
@@ -115,20 +132,26 @@ describe('Stage1 horizontal motion', () => {
     for (let frame = 0; frame < 18; frame += 1) {
       vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: 1, onGround: true, dtSeconds: 0.032 });
     }
-    expect(vx).toBe(122);
+    expect(vx).toBeGreaterThan(118);
+    expect(vx).toBeLessThan(130);
+
+    for (let frame = 0; frame < 15; frame += 1) {
+      vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: 1, onGround: true, dtSeconds: 0.032 });
+    }
+    expect(vx).toBe(Stage1Tuning.runSpeed);
   });
 
   it('brakes to zero before accelerating in the opposite direction', () => {
-    let vx = 122;
+    let vx: number = Stage1Tuning.runSpeed;
     vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
-    expect(vx).toBeGreaterThan(115);
+    expect(vx).toBeGreaterThan(Stage1Tuning.runSpeed - 6);
 
-    for (let frame = 0; frame < 14; frame += 1) {
+    for (let frame = 0; frame < 20; frame += 1) {
       vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
     }
-    expect(vx).toBeGreaterThan(50);
+    expect(vx).toBeGreaterThan(80);
 
-    for (let frame = 0; frame < 13; frame += 1) {
+    for (let frame = 0; frame < 20; frame += 1) {
       vx = resolveHorizontalVelocity({ currentVx: vx, inputMoveX: -1, onGround: true, dtSeconds: 0.032 });
     }
     expect(vx).toBeGreaterThanOrEqual(0);
@@ -146,12 +169,13 @@ describe('Stage1 player visual state', () => {
     expect(Math.abs(Stage1Tuning.speedFlipJumpVelocity)).toBeCloseTo(Math.abs(Stage1Tuning.jumpVelocity) * Math.sqrt(1.5), 0);
     expect(Stage1Tuning.speedFlipHorizontalBoost).toBeCloseTo(Math.sqrt(1.5), 3);
     expect(Math.abs(Stage1Tuning.speedFlipShortJumpCutVelocity)).toBeGreaterThan(Math.abs(Stage1Tuning.shortJumpCutVelocity));
+    expect(Stage1Tuning.runSpeed).toBe(183);
   });
 
   it('selects a speed flip jump only when horizontal speed is near max run speed', () => {
-    expect(resolveInitialJumpVisualVariant(60, 122)).toBe('big');
-    expect(resolveInitialJumpVisualVariant(104, 122)).toBe('speedFlip');
-    expect(resolveInitialJumpVisualVariant(-104, 122)).toBe('speedFlip');
+    expect(resolveInitialJumpVisualVariant(150, Stage1Tuning.runSpeed)).toBe('big');
+    expect(resolveInitialJumpVisualVariant(154, Stage1Tuning.runSpeed)).toBe('speedFlip');
+    expect(resolveInitialJumpVisualVariant(-154, Stage1Tuning.runSpeed)).toBe('speedFlip');
   });
 
   it('uses small jump visuals for early releases while still rising', () => {
