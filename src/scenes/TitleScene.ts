@@ -52,7 +52,6 @@ export class TitleScene extends Phaser.Scene {
     this.menuRows = [];
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.drawParallaxTitle();
-    this.drawLogo();
     this.drawMenu();
     this.bindInput();
     this.publishQaState();
@@ -78,24 +77,6 @@ export class TitleScene extends Phaser.Scene {
     this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.TitleComposition).setAlpha(1);
   }
 
-  private drawLogo(): void {
-    this.add.text(58, 282, 'NEON RONIN', {
-      fontFamily: 'Arial Black, Arial, sans-serif',
-      fontSize: '54px',
-      color: PaletteHex.neonCyan
-    }).setShadow(0, 0, PaletteHex.neonCyan, 10);
-    this.add.text(62, 338, 'Shadow Courier - Stage 1', {
-      fontFamily: 'Arial Black, Arial, sans-serif',
-      fontSize: '25px',
-      color: PaletteHex.neonMagenta
-    }).setShadow(0, 0, PaletteHex.neonMagenta, 8);
-    this.add.text(64, 374, 'Neon Alley: First Delivery', {
-      fontFamily: 'Consolas, monospace',
-      fontSize: '15px',
-      color: PaletteHex.paleMoonMist
-    });
-  }
-
   private drawMenu(): void {
     this.add.image(724, 382, ArtAssetKey.TitleMenuPanel).setDisplaySize(472, 238).setAlpha(0.24);
     this.add
@@ -119,7 +100,7 @@ export class TitleScene extends Phaser.Scene {
     this.renderMenu();
 
     const save = SaveSystem.load();
-    this.add.text(58, 504, `Gate B v2 frozen. Stage1 best: ${save.stage1.bestTimeMs ? `${Math.floor(save.stage1.bestTimeMs / 1000)}s` : '--'}`, {
+    this.add.text(592, 506, `BEST ${save.stage1.bestTimeMs ? `${Math.floor(save.stage1.bestTimeMs / 1000)}s` : '--'}`, {
       fontFamily: 'Consolas, monospace',
       fontSize: '13px',
       color: PaletteHex.paleMoonMist

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:31:03.706Z",
+  "generatedAt": "2026-06-29T19:56:07.724Z",
   "passed": true,
   "checks": [
     {
@@ -70,7 +70,7 @@
     {
       "id": "required-animations-created",
       "passed": true,
-      "detail": "player-idle, player-run, player-smallJump, player-bigJumpRise, player-speedFlipJump, player-apex, player-fall, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, ink-crawler-defeat, kite-wraith-drift, kite-wraith-hit, kite-wraith-defeat, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-ground, slash-air"
+      "detail": "player-idle, player-run, player-smallJump, player-bigJumpRise, player-speedFlipJump, player-apex, player-fall, player-wallSlide, player-wallKick, player-groundSlash, player-airSlash, ink-crawler-patrol, ink-crawler-hit, ink-crawler-defeat, kite-wraith-drift, kite-wraith-hit, kite-wraith-defeat, warden-idle, warden-telegraph, warden-attack, warden-recovery, warden-defeat, slash-ground, slash-air, slash-spin"
     }
   ],
   "runtimeAssetAudit": [
@@ -111,8 +111,8 @@
       "id": "slash-runtime-spritesheet",
       "file": "src/assets/runtime/slash-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 14,
-      "maxEdgeRatio": 0.013969171483622351,
+      "activeFrames": 22,
+      "maxEdgeRatio": 0.10982658959537572,
       "maxBeigeRatio": 0.005685856432125089,
       "maxHaloRatio": 0,
       "maxAverageLuma": 151.67034482758604,

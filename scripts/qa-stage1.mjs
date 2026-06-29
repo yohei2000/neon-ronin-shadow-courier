@@ -71,12 +71,12 @@ const checks = [
   check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(
-    'target-duration-recorded',
-    stage.targetFirstClearSeconds?.min === 180 &&
-      stage.targetFirstClearSeconds?.max === 300 &&
-      stage.targetOptimizedSeconds?.min === 60 &&
-      stage.targetOptimizedSeconds?.max === 120,
-    'human 180-300s, optimized 60-120s'
+      'target-duration-recorded',
+    stage.targetFirstClearSeconds?.min === 540 &&
+      stage.targetFirstClearSeconds?.max === 900 &&
+      stage.targetOptimizedSeconds?.min === 180 &&
+      stage.targetOptimizedSeconds?.max === 360,
+    'human 540-900s, optimized 180-360s'
   )
 ];
 

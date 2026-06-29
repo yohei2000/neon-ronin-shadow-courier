@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-29T14:34:01.388Z",
+  "generatedAt": "2026-06-29T20:01:07.491Z",
   "passed": true,
   "tests": [
     {
       "name": "title-flow",
       "status": "passed",
-      "durationMs": 7414,
+      "durationMs": 7089,
       "details": {
         "title": true,
         "controls": true,
@@ -16,18 +16,18 @@
     {
       "name": "stage1-keyboard-clear",
       "status": "passed",
-      "durationMs": 102684,
+      "durationMs": 228251,
       "details": {
-        "timeMs": 101645.9,
+        "timeMs": 227603.3,
         "rank": "C",
         "scrollsFound": 2,
-        "damageTaken": 8
+        "damageTaken": 11
       }
     },
     {
       "name": "mobile-controls",
       "status": "passed",
-      "durationMs": 11141,
+      "durationMs": 12720,
       "details": {
         "viewport": "390x844",
         "touchControls": true,
@@ -37,7 +37,7 @@
     {
       "name": "checkpoint-retry",
       "status": "passed",
-      "durationMs": 54319,
+      "durationMs": 50011,
       "details": {
         "checkpointRetry": true
       }

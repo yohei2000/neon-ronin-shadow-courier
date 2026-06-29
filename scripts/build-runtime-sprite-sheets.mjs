@@ -154,6 +154,16 @@ const gridSheetSpecs = [
     sequences: [
       { id: 'ground', frameIndices: [0, 1, 2, 3, 4, 5, 6, 7] },
       { id: 'air', frameIndices: [0, 1, 2, 3, 4, 5], rotate: -10, offsetY: -12, scale: 0.9 }
+    ],
+    proceduralFrames: [
+      { sequence: 'spin', stateFrame: 0, draw: 'flame-ring', rotate: 0 },
+      { sequence: 'spin', stateFrame: 1, draw: 'flame-ring', rotate: 34 },
+      { sequence: 'spin', stateFrame: 2, draw: 'flame-ring', rotate: 78 },
+      { sequence: 'spin', stateFrame: 3, draw: 'flame-ring', rotate: 121 },
+      { sequence: 'spin', stateFrame: 4, draw: 'flame-ring', rotate: 166 },
+      { sequence: 'spin', stateFrame: 5, draw: 'flame-ring', rotate: 210 },
+      { sequence: 'spin', stateFrame: 6, draw: 'flame-ring', rotate: 255 },
+      { sequence: 'spin', stateFrame: 7, draw: 'flame-ring', rotate: 303 }
     ]
   },
   {
@@ -854,7 +864,8 @@ try {
           scale: sequence.scale ?? 1
         }))
       );
-      const frameCount = spec.cropFrames?.length ?? sequenceFrames?.length ?? spec.frameIndices.length;
+      const rasterFrameCount = spec.cropFrames?.length ?? sequenceFrames?.length ?? spec.frameIndices?.length ?? 0;
+      const frameCount = rasterFrameCount + (spec.proceduralFrames?.length ?? 0);
       const rows = Math.ceil(frameCount / spec.columns);
       const targetCanvas = document.createElement('canvas');
       targetCanvas.width = spec.frameWidth * spec.columns;
@@ -866,7 +877,7 @@ try {
       targetContext.imageSmoothingQuality = 'high';
 
       const sourceColumns = spec.sourceFrameWidth ? Math.floor(sourceCanvas.width / spec.sourceFrameWidth) : 0;
-      const sourceFrames =
+      const rasterSourceFrames =
         spec.cropFrames ??
         sequenceFrames?.map((frame) => ({
           ...frame,
@@ -881,7 +892,20 @@ try {
           y: Math.floor(sourceFrame / sourceColumns) * spec.sourceFrameHeight,
           width: spec.sourceFrameWidth,
           height: spec.sourceFrameHeight
-        }));
+        })) ??
+        [];
+      const sourceFrames = [
+        ...rasterSourceFrames,
+        ...(spec.proceduralFrames ?? []).map((frame) => ({
+          ...frame,
+          procedural: true,
+          sourceFrame: null,
+          x: 0,
+          y: 0,
+          width: spec.frameWidth,
+          height: spec.frameHeight
+        }))
+      ];
       const shouldKeepPixel = (red, green, blue, alpha) => {
         if (spec.mask === 'player-slash') {
           const luma = (red + green + blue) / 3;
@@ -892,6 +916,70 @@ try {
         }
         if (spec.mask !== 'enemy-warm') return alpha > 0;
         return alpha > 20 && red > 90 && red > blue * 1.25 && (green > 25 || red > 150);
+      };
+      const drawFlameRing = (context, x, y, width, height, rotationDeg, stateFrame) => {
+        const cx = x + width / 2;
+        const cy = y + height / 2;
+        const tau = Math.PI * 2;
+        context.save();
+        context.translate(cx, cy);
+        context.rotate((rotationDeg * Math.PI) / 180);
+        context.globalCompositeOperation = 'lighter';
+        context.shadowColor = 'rgba(255, 46, 46, 0.72)';
+        context.shadowBlur = 16;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+
+        const glow = context.createRadialGradient(0, 0, 34, 0, 0, 84);
+        glow.addColorStop(0, 'rgba(255, 46, 46, 0)');
+        glow.addColorStop(0.58, 'rgba(255, 46, 46, 0.32)');
+        glow.addColorStop(0.78, 'rgba(255, 141, 34, 0.28)');
+        glow.addColorStop(1, 'rgba(255, 228, 90, 0)');
+        context.fillStyle = glow;
+        context.beginPath();
+        context.ellipse(0, 0, 82, 66, 0, 0, tau);
+        context.fill();
+
+        for (let i = 0; i < 22; i += 1) {
+          const angle = (i / 22) * tau + stateFrame * 0.22;
+          const next = angle + tau / 30;
+          const wave = Math.sin(i * 1.7 + stateFrame * 0.9);
+          const innerX = Math.cos(angle) * 48;
+          const innerY = Math.sin(angle) * 38;
+          const tipX = Math.cos(angle + 0.06) * (70 + wave * 5);
+          const tipY = Math.sin(angle + 0.06) * (55 + wave * 4);
+          const outerX = Math.cos(next) * (61 + wave * 3);
+          const outerY = Math.sin(next) * (48 + wave * 2);
+          const tongue = context.createLinearGradient(innerX, innerY, tipX, tipY);
+          tongue.addColorStop(0, 'rgba(255, 30, 90, 0.16)');
+          tongue.addColorStop(0.5, 'rgba(255, 68, 22, 0.78)');
+          tongue.addColorStop(1, 'rgba(255, 225, 96, 0.86)');
+          context.fillStyle = tongue;
+          context.beginPath();
+          context.moveTo(innerX, innerY);
+          context.quadraticCurveTo(Math.cos(angle) * 58, Math.sin(angle) * 46, tipX, tipY);
+          context.quadraticCurveTo(Math.cos(next) * 68, Math.sin(next) * 54, outerX, outerY);
+          context.quadraticCurveTo(Math.cos(next) * 50, Math.sin(next) * 40, innerX, innerY);
+          context.fill();
+        }
+
+        context.shadowBlur = 10;
+        context.strokeStyle = 'rgba(255, 42, 42, 0.92)';
+        context.lineWidth = 8;
+        context.beginPath();
+        context.ellipse(0, 0, 64, 50, 0, 0.1, tau * 0.93);
+        context.stroke();
+        context.strokeStyle = 'rgba(255, 218, 82, 0.82)';
+        context.lineWidth = 3;
+        context.beginPath();
+        context.ellipse(0, 0, 55, 42, 0, 0.36, tau * 0.82);
+        context.stroke();
+        context.strokeStyle = 'rgba(255, 46, 122, 0.58)';
+        context.lineWidth = 4;
+        context.beginPath();
+        context.ellipse(0, 0, 76, 60, 0, -0.28, tau * 0.74);
+        context.stroke();
+        context.restore();
       };
       const frames = sourceFrames.map((sourceFrame, index) => {
         const sourceX = sourceFrame.x;
@@ -917,6 +1005,27 @@ try {
           targetContext.drawImage(canvas, 0, 0, sourceWidth, sourceHeight, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
           targetContext.restore();
         };
+        if (sourceFrame.procedural && sourceFrame.draw === 'flame-ring') {
+          drawFlameRing(
+            targetContext,
+            column * spec.frameWidth,
+            row * spec.frameHeight,
+            spec.frameWidth,
+            spec.frameHeight,
+            sourceFrame.rotate ?? 0,
+            sourceFrame.stateFrame ?? 0
+          );
+          return {
+            sequence: sourceFrame.sequence,
+            stateFrame: sourceFrame.stateFrame,
+            sourceFrame: sourceFrame.sourceFrame,
+            procedural: sourceFrame.draw,
+            x: sourceX,
+            y: sourceY,
+            width: sourceWidth,
+            height: sourceHeight
+          };
+        }
         if (spec.mask) {
           const maskCanvas = document.createElement('canvas');
           maskCanvas.width = sourceWidth;
@@ -952,6 +1061,7 @@ try {
           sequence: sourceFrame.sequence,
           stateFrame: sourceFrame.stateFrame,
           sourceFrame: sourceFrame.sourceFrame,
+          procedural: sourceFrame.procedural ? sourceFrame.draw : undefined,
           x: sourceX,
           y: sourceY,
           width: sourceWidth,

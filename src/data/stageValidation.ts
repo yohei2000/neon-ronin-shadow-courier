@@ -87,10 +87,10 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(
       'duration-targets',
-      data.targetFirstClearSeconds.min === 180 &&
-        data.targetFirstClearSeconds.max === 300 &&
-        data.targetOptimizedSeconds.min === 60 &&
-        data.targetOptimizedSeconds.max === 120,
+      data.targetFirstClearSeconds.min === 540 &&
+        data.targetFirstClearSeconds.max === 900 &&
+        data.targetOptimizedSeconds.min === 180 &&
+        data.targetOptimizedSeconds.max === 360,
       `human ${data.targetFirstClearSeconds.min}-${data.targetFirstClearSeconds.max}s, e2e ${data.targetOptimizedSeconds.min}-${data.targetOptimizedSeconds.max}s`
     )
   ];

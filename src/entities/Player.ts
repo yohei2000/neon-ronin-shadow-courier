@@ -67,7 +67,7 @@ const PlayerVisualGroundOffsetY = 16;
 export class Player {
   readonly sprite: Phaser.GameObjects.Sprite;
   private readonly slashSprite: Phaser.GameObjects.Sprite;
-  private readonly spinSlashRing: Phaser.GameObjects.Arc;
+  private readonly spinSlashSprite: Phaser.GameObjects.Sprite;
   private x: number;
   private y: number;
   private vx = 0;
@@ -108,10 +108,11 @@ export class Player {
       .setScale(RuntimePlayerVisualConfig.scale)
       .setDepth(30);
     this.slashSprite = scene.add.sprite(this.x, this.y, RuntimeSpriteAssetKey.Slash, 0).setScale(0.62).setDepth(31).setVisible(false);
-    this.spinSlashRing = scene.add
-      .circle(this.x, this.y, 112, Palette.dangerCoral, 0.08)
-      .setStrokeStyle(13, Palette.dangerCoral, 0.94)
+    this.spinSlashSprite = scene.add
+      .sprite(this.x, this.y, RuntimeSpriteAssetKey.Slash, 14)
+      .setScale(1.52)
       .setDepth(32)
+      .setBlendMode(Phaser.BlendModes.ADD)
       .setVisible(false);
     this.sprite.play('player-idle');
   }
@@ -406,12 +407,13 @@ export class Player {
     if (slash.mode === 'spin') {
       const spinElapsedMs = Math.max(0, nowMs - this.jumpStartedMs);
       this.slashSprite.setVisible(false);
-      this.spinSlashRing
+      this.spinSlashSprite
         .setVisible(true)
         .setPosition(this.x, this.y + PlayerVisualGroundOffsetY - 32)
-        .setScale(1.06, 0.86)
+        .setScale(1.54, 1.48)
         .setAngle(spinElapsedMs * 1.05 * this.facing)
         .setAlpha(slash.phase === 'active' ? 0.96 : 0.54);
+      this.spinSlashSprite.play('slash-spin', true);
       return;
     }
 
@@ -463,6 +465,6 @@ export class Player {
   }
 
   private hideSpinSlashEffects(): void {
-    this.spinSlashRing.setVisible(false);
+    this.spinSlashSprite.setVisible(false);
   }
 }

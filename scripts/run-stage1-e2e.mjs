@@ -6,6 +6,7 @@ import { createInlineViteConfig } from './vite-inline-config.mjs';
 
 const artifactDir = path.resolve('artifacts', 'stage1');
 fs.mkdirSync(artifactDir, { recursive: true });
+const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
 
 const baseUrl = 'http://127.0.0.1:5175';
 const server = await createServer({
@@ -22,7 +23,13 @@ const browser = await chromium.launch();
 console.log('stage1-e2e browser launched');
 const tests = [];
 const shouldRun = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
-const routeTimeoutMs = 420000;
+const routeTimeoutMs = 840000;
+const wardenEngageX = stage.warden.arena.x + 160;
+const wardenStopX = stage.warden.x - 120;
+const wardenAdvanceX = stage.warden.x - 130;
+const wardenRightRecoveryX = stage.warden.x + 130;
+const wardenFarRightX = stage.warden.x + 260;
+const wardenFaceLeftX = stage.warden.x - 40;
 
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
@@ -168,7 +175,7 @@ const runKeyboardRouteToClear = async (page) => {
       lastDamageSeen = player.damageTaken;
     }
     const now = Date.now();
-    if (player.x >= 5580 && !current.wardenDefeated) await setRight(false);
+    if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
     if (current.wardenDefeated) {
       await setRight(true);
@@ -189,7 +196,7 @@ const runKeyboardRouteToClear = async (page) => {
       }
       continue;
     }
-    if (!current.wardenDefeated && player.x > 5480) {
+    if (!current.wardenDefeated && player.x > wardenEngageX) {
       await setRight(false);
       if (current.warden?.state === 'active' && player.onGround && now - lastJump > 240) {
         lastJump = now;
@@ -199,20 +206,20 @@ const runKeyboardRouteToClear = async (page) => {
         lastSlash = now;
         await slash(page);
       }
-      if (player.x < 5570) {
+      if (player.x < wardenAdvanceX) {
         await setRight(true);
         await page.waitForTimeout(current.warden?.state === 'active' ? 35 : 70);
         await setRight(false);
-      } else if (player.x > 5830) {
+      } else if (player.x > wardenRightRecoveryX) {
         await page.keyboard.up('ArrowRight');
         await page.keyboard.up('d');
         await page.keyboard.down('ArrowLeft');
         await page.keyboard.down('a');
-        await page.waitForTimeout(player.x > 5960 ? 950 : 560);
+        await page.waitForTimeout(player.x > wardenFarRightX ? 950 : 560);
         await page.keyboard.up('ArrowLeft');
         await page.keyboard.up('a');
       } else {
-        const faceLeft = player.x > 5660;
+        const faceLeft = player.x > wardenFaceLeftX;
         await page.keyboard.down(faceLeft ? 'ArrowLeft' : 'ArrowRight');
         await page.keyboard.down(faceLeft ? 'a' : 'd');
         await page.waitForTimeout(35);
@@ -236,7 +243,7 @@ const runKeyboardRouteToClear = async (page) => {
     } else if (player.x < lastProgressX - 120) {
       lastProgressX = player.x;
       lastProgressAt = now;
-    } else if (now - lastProgressAt > 2200 && (player.x < 5480 || current.wardenDefeated)) {
+    } else if (now - lastProgressAt > 2200 && (player.x < wardenEngageX || current.wardenDefeated)) {
       if (process.env.E2E_TRACE) {
         console.log(`TRACE recovery x=${player.x} y=${player.y} onGround=${player.onGround} section=${current.section}`);
       }
@@ -254,7 +261,7 @@ const runKeyboardRouteToClear = async (page) => {
         }
         continue;
       }
-      if (player.x >= 5050 && player.x < 5480 && !current.wardenDefeated) {
+      if (player.x >= 5050 && player.x < wardenEngageX && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
@@ -268,7 +275,7 @@ const runKeyboardRouteToClear = async (page) => {
       const recoveryJumpMs =
         player.x > 4200 && player.x < 5050
           ? 300
-          : player.x >= 5050 && player.x < 5480
+          : player.x >= 5050 && player.x < wardenEngageX
             ? 160
             : current.wardenDefeated
               ? 120
@@ -296,6 +303,13 @@ const runKeyboardRouteToClear = async (page) => {
       continue;
     }
 
+    const hazardAhead = (current.hazards ?? []).find(
+      (hazard) => hazard.type !== 'fall-pit' && player.x > hazard.x - 190 && player.x < hazard.x + hazard.width + 90
+    );
+    if (hazardAhead && player.y > 365 && now - lastJump > 220) {
+      lastJump = now;
+      await jump(page, hazardAhead.type === 'timed-spark' ? 340 : 230);
+    }
     const inThornRun = player.x > 4240 && player.x < 4940;
     if (inThornRun && player.y > 365 && now - lastJump > 180) {
       lastJump = now;
@@ -312,12 +326,16 @@ const runKeyboardRouteToClear = async (page) => {
       const thornJumpMs = player.x > 4760 ? 285 : player.x > 4440 ? 255 : 220;
       await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? thornJumpMs : player.x > 4000 ? 180 : 110);
     }
+    const enemyInReach = (current.enemies ?? []).some(
+      (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
+    );
     const attackNow =
+      enemyInReach ||
       (player.x > 760 && player.x < 1060) ||
       (player.x > 1880 && player.x < 2180) ||
       (player.x > 2540 && player.x < 3180) ||
       (player.x > 4300 && player.x < 4840) ||
-      (player.x > 5520 && !current.wardenDefeated);
+      (player.x > wardenEngageX && !current.wardenDefeated);
     if (attackNow && now - lastSlash > 300) {
       lastSlash = now;
       await slash(page);

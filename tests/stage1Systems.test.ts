@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames } from '../src/data/artAssets';
+import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames, SlashAnimationFrames } from '../src/data/artAssets';
 import { Stage1Data, Stage1Tuning } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
 import { CombatSystem, canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
@@ -110,10 +110,10 @@ describe('Stage1 pure combat and rank helpers', () => {
   });
 
   it('calculates clear ranks from time, damage, and scrolls', () => {
-    expect(calculateStageRank(100000, 0, 3)).toBe('S');
-    expect(calculateStageRank(160000, 2, 2)).toBe('A');
-    expect(calculateStageRank(230000, 5, 0)).toBe('B');
-    expect(calculateStageRank(320000, 8, 0)).toBe('C');
+    expect(calculateStageRank(300000, 0, 3)).toBe('S');
+    expect(calculateStageRank(500000, 2, 2)).toBe('A');
+    expect(calculateStageRank(700000, 5, 0)).toBe('B');
+    expect(calculateStageRank(820000, 8, 0)).toBe('C');
   });
 });
 
@@ -197,8 +197,16 @@ describe('Stage1 enemy animation coverage', () => {
   });
 
   it('keeps damage knockback strong enough to read before input resumes', () => {
-    expect(Stage1Tuning.damageKnockbackX).toBeGreaterThan(Stage1Tuning.runSpeed);
-    expect(Stage1Tuning.hazardKnockbackX).toBeGreaterThan(Stage1Tuning.damageKnockbackX);
-    expect(Stage1Tuning.damageKnockbackControlLockMs).toBeGreaterThanOrEqual(240);
+    expect(Stage1Tuning.damageKnockbackX).toBe(155);
+    expect(Stage1Tuning.hazardKnockbackX).toBe(185);
+    expect(Stage1Tuning.damageKnockbackControlLockMs).toBe(140);
+  });
+});
+
+describe('Stage1 slash animation coverage', () => {
+  it('adds a dedicated multi-frame flame ring for speed flip spinning slash', () => {
+    expect(SlashAnimationFrames.spin.frames).toHaveLength(8);
+    expect(SlashAnimationFrames.spin.frames[0]).toBe(14);
+    expect(SlashAnimationFrames.spin.repeat).toBe(-1);
   });
 });

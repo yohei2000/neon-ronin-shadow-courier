@@ -49,7 +49,8 @@ const requiredAnimations = [
   'warden-recovery',
   'warden-defeat',
   'slash-ground',
-  'slash-air'
+  'slash-air',
+  'slash-spin'
 ];
 const requiredPlayerAnimationNames = [
   'idle',

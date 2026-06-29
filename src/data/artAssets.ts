@@ -155,7 +155,8 @@ export const KiteWraithAnimationFrames = {
 
 export const SlashAnimationFrames = {
   ground: { frames: frameRange(0, 8), frameRate: 30, repeat: 0 },
-  air: { frames: frameRange(8, 6), frameRate: 28, repeat: 0 }
+  air: { frames: frameRange(8, 6), frameRate: 28, repeat: 0 },
+  spin: { frames: frameRange(14, 8), frameRate: 32, repeat: -1 }
 } as const;
 
 export const LanternWardenAnimationFrames = {

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T12:29:33.713Z",
+  "generatedAt": "2026-06-29T19:24:09.690Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -1870,7 +1870,7 @@
       "source": "art/source/vfx/slash-flipbook.png",
       "output": "src/assets/runtime/slash-runtime-spritesheet.png",
       "width": 1344,
-      "height": 320,
+      "height": 640,
       "frameWidth": 192,
       "frameHeight": 160,
       "matteCleanup": {
@@ -2002,6 +2002,86 @@
           "x": 640,
           "y": 0,
           "width": 128,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 0,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 1,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 2,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 3,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 4,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 5,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 6,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
+          "height": 160
+        },
+        {
+          "sequence": "spin",
+          "stateFrame": 7,
+          "sourceFrame": null,
+          "procedural": "flame-ring",
+          "x": 0,
+          "y": 0,
+          "width": 192,
           "height": 160
         }
       ]

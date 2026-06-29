@@ -106,6 +106,8 @@ Runtime item/UI note: Stage1 seal collectibles are rendered as koban coins and s
 
 Runtime enemy/hazard note: Ink Crawler and Kite Wraith runtime sheets now derive patrol/drift 8, hit 4, and defeat 6 frame sequences from frozen approved enemy art. Defeated small enemies play their defeat sequence and fade out instead of disappearing immediately. Player damage uses source-aware knockback with a short control lock, and the timed-spark fire hitbox is lower than the visual so a clean jump route can pass without fire damage.
 
+Runtime revision note: Stage1 is extended to roughly 3x the earlier route length while keeping the same Stage1-only flow. The long neon run adds extra enemy, hazard, collectible, and checkpoint beats before the Lantern Warden arena. Damage knockback distance/control lock is reduced to half of the prior tuning. Speed-flip spinning slash no longer uses a Phaser primitive ring; it uses derived flame-ring frames appended to `src/assets/runtime/slash-runtime-spritesheet.png`.
+
 Runtime mobile-control note: Stage1 touch controls must support simultaneous movement and jump/attack input. Keep Phaser configured with multiple active pointers and keep touch-button state keyed by pointer id so releasing one finger does not clear another held control.
 
 `npm.cmd run qa:assets-stage1` includes runtime pixel auditing for edge cuts and paper-background residue. Keep this audit strict; fix the derived runtime asset or crop coordinates instead of weakening the validator.

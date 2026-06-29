@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:31:00.640Z",
+  "generatedAt": "2026-06-29T19:56:04.962Z",
   "passed": true,
   "checks": [
     {
@@ -20,7 +20,7 @@
     {
       "id": "two-checkpoints",
       "passed": true,
-      "detail": "4 checkpoints"
+      "detail": "5 checkpoints"
     },
     {
       "id": "exactly-three-scrolls",
@@ -30,22 +30,22 @@
     {
       "id": "twenty-seals",
       "passed": true,
-      "detail": "24 seals"
+      "detail": "46 seals"
     },
     {
       "id": "three-health-energy-pickups",
       "passed": true,
-      "detail": "4 pickups"
+      "detail": "8 pickups"
     },
     {
       "id": "three-hazard-moments",
       "passed": true,
-      "detail": "5 hazards"
+      "detail": "11 hazards"
     },
     {
       "id": "four-enemy-encounters",
       "passed": true,
-      "detail": "5 enemies"
+      "detail": "12 enemies"
     },
     {
       "id": "single-lantern-warden",
@@ -85,7 +85,7 @@
     {
       "id": "target-duration-recorded",
       "passed": true,
-      "detail": "human 180-300s, optimized 60-120s"
+      "detail": "human 540-900s, optimized 180-360s"
     }
   ]
 }

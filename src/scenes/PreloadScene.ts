@@ -128,6 +128,7 @@ export class PreloadScene extends Phaser.Scene {
     this.createFrameListAnimation('warden-defeat', RuntimeSpriteAssetKey.LanternWarden, LanternWardenAnimationFrames.defeat.frames, LanternWardenAnimationFrames.defeat.frameRate, LanternWardenAnimationFrames.defeat.repeat);
     this.createFrameListAnimation('slash-ground', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.ground.frames, SlashAnimationFrames.ground.frameRate, SlashAnimationFrames.ground.repeat);
     this.createFrameListAnimation('slash-air', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.air.frames, SlashAnimationFrames.air.frameRate, SlashAnimationFrames.air.repeat);
+    this.createFrameListAnimation('slash-spin', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.spin.frames, SlashAnimationFrames.spin.frameRate, SlashAnimationFrames.spin.repeat);
   }
 
   private createFrameListAnimation(key: string, assetKey: RuntimeSpriteAssetKey, frames: readonly number[], frameRate: number, repeat: number): void {

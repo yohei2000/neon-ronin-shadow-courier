@@ -6,6 +6,7 @@ import { createInlineViteConfig } from './vite-inline-config.mjs';
 
 const artifactDir = path.resolve('artifacts', 'stage1');
 fs.mkdirSync(artifactDir, { recursive: true });
+const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
 
 const server = await createServer({
   ...createInlineViteConfig(),
@@ -16,10 +17,16 @@ const server = await createServer({
 });
 await server.listen();
 
-const baseUrl = 'http://127.0.0.1:5174';
+const baseUrl = server.resolvedUrls?.local?.[0]?.replace(/\/$/, '') ?? 'http://127.0.0.1:5174';
 const browser = await chromium.launch();
 const consoleMessages = [];
-const routeTimeoutMs = 420000;
+const routeTimeoutMs = 840000;
+const wardenEngageX = stage.warden.arena.x + 160;
+const wardenStopX = stage.warden.x - 120;
+const wardenAdvanceX = stage.warden.x - 130;
+const wardenRightRecoveryX = stage.warden.x + 130;
+const wardenFarRightX = stage.warden.x + 260;
+const wardenFaceLeftX = stage.warden.x - 40;
 
 const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
 const menuState = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1_MENU__ ?? {});
@@ -62,7 +69,7 @@ const captureRoute = async (page) => {
     ['wall-kick-shaft.png', 1300],
     ['checkpoint.png', 3480],
     ['neon-thorn-run.png', 4210],
-    ['lantern-warden.png', 5530]
+    ['lantern-warden.png', wardenEngageX]
   ];
   const captured = new Set();
   let rightDown = false;
@@ -115,7 +122,7 @@ const captureRoute = async (page) => {
         captured.add(file);
       }
     }
-    if (player.x >= 5580 && !current.wardenDefeated) await setRight(false);
+    if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
 
     const now = Date.now();
@@ -137,7 +144,7 @@ const captureRoute = async (page) => {
       }
       continue;
     }
-    if (!current.wardenDefeated && player.x > 5480) {
+    if (!current.wardenDefeated && player.x > wardenEngageX) {
       await setRight(false);
       if (current.warden?.state === 'active' && player.onGround && now - lastJump > 240) {
         lastJump = now;
@@ -147,20 +154,20 @@ const captureRoute = async (page) => {
         lastSlash = now;
         await slash(page);
       }
-      if (player.x < 5570) {
+      if (player.x < wardenAdvanceX) {
         await setRight(true);
         await page.waitForTimeout(current.warden?.state === 'active' ? 35 : 70);
         await setRight(false);
-      } else if (player.x > 5830) {
+      } else if (player.x > wardenRightRecoveryX) {
         await page.keyboard.up('ArrowRight');
         await page.keyboard.up('d');
         await page.keyboard.down('ArrowLeft');
         await page.keyboard.down('a');
-        await page.waitForTimeout(player.x > 5960 ? 950 : 560);
+        await page.waitForTimeout(player.x > wardenFarRightX ? 950 : 560);
         await page.keyboard.up('ArrowLeft');
         await page.keyboard.up('a');
       } else {
-        const faceLeft = player.x > 5660;
+        const faceLeft = player.x > wardenFaceLeftX;
         await page.keyboard.down(faceLeft ? 'ArrowLeft' : 'ArrowRight');
         await page.keyboard.down(faceLeft ? 'a' : 'd');
         await page.waitForTimeout(35);
@@ -185,7 +192,7 @@ const captureRoute = async (page) => {
     } else if (player.x < lastProgressX - 120) {
       lastProgressX = player.x;
       lastProgressAt = now;
-    } else if (now - lastProgressAt > 2200 && (player.x < 5480 || current.wardenDefeated)) {
+    } else if (now - lastProgressAt > 2200 && (player.x < wardenEngageX || current.wardenDefeated)) {
       await releaseMovementKeys(page);
       await page.locator('canvas').click({ position: { x: 480, y: 270 } });
       if (player.x > 4200 && player.x < 5050 && !current.wardenDefeated) {
@@ -200,7 +207,7 @@ const captureRoute = async (page) => {
         }
         continue;
       }
-      if (player.x >= 5050 && player.x < 5480 && !current.wardenDefeated) {
+      if (player.x >= 5050 && player.x < wardenEngageX && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
@@ -214,7 +221,7 @@ const captureRoute = async (page) => {
       const recoveryJumpMs =
         player.x > 4200 && player.x < 5050
           ? 300
-          : player.x >= 5050 && player.x < 5480
+          : player.x >= 5050 && player.x < wardenEngageX
             ? 160
             : current.wardenDefeated
               ? 120
@@ -242,6 +249,13 @@ const captureRoute = async (page) => {
       continue;
     }
 
+    const hazardAhead = (current.hazards ?? []).find(
+      (hazard) => hazard.type !== 'fall-pit' && player.x > hazard.x - 190 && player.x < hazard.x + hazard.width + 90
+    );
+    if (hazardAhead && player.y > 365 && now - lastJump > 220) {
+      lastJump = now;
+      await jump(page, hazardAhead.type === 'timed-spark' ? 340 : 230);
+    }
     const inThornRun = player.x > 4240 && player.x < 4940;
     if (inThornRun && player.y > 365 && now - lastJump > 180) {
       lastJump = now;
@@ -259,12 +273,16 @@ const captureRoute = async (page) => {
       const thornJumpMs = player.x > 4760 ? 285 : player.x > 4440 ? 255 : 240;
       await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? thornJumpMs : player.x > 4000 ? 180 : 110);
     }
+    const enemyInReach = (current.enemies ?? []).some(
+      (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
+    );
     if (
-      ((player.x > 760 && player.x < 1060) ||
+      (enemyInReach ||
+        (player.x > 760 && player.x < 1060) ||
         (player.x > 1880 && player.x < 2180) ||
         (player.x > 2540 && player.x < 3180) ||
         (player.x > 4300 && player.x < 4840) ||
-        (player.x > 5520 && !current.wardenDefeated)) &&
+        (player.x > wardenEngageX && !current.wardenDefeated)) &&
       now - lastSlash > 300
     ) {
       lastSlash = now;
