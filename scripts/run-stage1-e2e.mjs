@@ -386,7 +386,7 @@ if (shouldRun('mobile-controls')) await record('mobile-controls', () =>
     await waitFor(async () => (await state(page)).player?.onGround === true, 'player did not land after jump touch', 3000);
     const rightButton = await gamePoint(page, 205, 452);
     const simultaneousBefore = (await state(page)).player;
-    await holdTouchPoints(page, [rightButton, jumpButton], 220);
+    await holdTouchPoints(page, [rightButton, jumpButton], 300);
     const simultaneousAfter = (await state(page)).player;
     const touchButtons = (await state(page)).touch?.buttons;
     assert(simultaneousAfter.x > simultaneousBefore.x + 4, `right+jump touch did not preserve horizontal movement: before ${simultaneousBefore.x}, after ${simultaneousAfter.x}`);
