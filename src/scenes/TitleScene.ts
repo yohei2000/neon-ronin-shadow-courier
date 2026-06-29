@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
-import { PaletteHex } from '../config/palette';
+import { Palette, PaletteHex } from '../config/palette';
 import { ArtAssetKey, RuntimeAssetKeys } from '../data/artAssets';
 import {
   ArtLockPhase,
@@ -40,6 +40,7 @@ export class TitleScene extends Phaser.Scene {
   ];
   private selected = 0;
   private menuTexts: Phaser.GameObjects.Text[] = [];
+  private menuRows: Phaser.GameObjects.Rectangle[] = [];
 
   constructor() {
     super(SceneKey.Title);
@@ -48,6 +49,7 @@ export class TitleScene extends Phaser.Scene {
   create(): void {
     this.selected = 0;
     this.menuTexts = [];
+    this.menuRows = [];
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.drawParallaxTitle();
     this.drawLogo();
@@ -95,15 +97,23 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private drawMenu(): void {
-    this.add.image(724, 382, ArtAssetKey.TitleMenuPanel).setScale(0.74).setAlpha(0.94);
+    this.add.image(724, 382, ArtAssetKey.TitleMenuPanel).setDisplaySize(472, 238).setAlpha(0.24);
+    this.add
+      .rectangle(724, 388, 384, 236, Palette.inkBlack, 0.84)
+      .setStrokeStyle(2, Palette.neonCyan, 0.46);
+    this.add.rectangle(724, 388, 404, 256, Palette.inkBlack, 0).setStrokeStyle(1, Palette.neonMagenta, 0.22);
     this.menuTexts = this.menuItems.map((item, index) => {
-      const y = 292 + index * 42;
-      const text = this.add.text(610, y, item.label, {
+      const y = 304 + index * 42;
+      const row = this.add
+        .rectangle(724, y, 342, 34, Palette.inkBlack, 0.76)
+        .setStrokeStyle(1, Palette.darkBlueGray, 0.92);
+      const text = this.add.text(592, y, item.label, {
         fontFamily: 'Arial Black, Arial, sans-serif',
-        fontSize: '18px',
+        fontSize: '17px',
         color: PaletteHex.warmPaper
-      });
-      this.add.zone(724, y + 12, 260, 38).setInteractive({ useHandCursor: true }).on('pointerup', () => this.activate(index));
+      }).setOrigin(0, 0.5);
+      this.add.zone(724, y, 342, 38).setInteractive({ useHandCursor: true }).on('pointerup', () => this.activate(index));
+      this.menuRows.push(row);
       return text;
     });
     this.renderMenu();
@@ -152,6 +162,8 @@ export class TitleScene extends Phaser.Scene {
     this.menuTexts.forEach((text, index) => {
       text.setColor(index === this.selected ? PaletteHex.neonCyan : PaletteHex.warmPaper);
       text.setText(`${index === this.selected ? '>' : ' '} ${this.menuItems[index].label}`);
+      this.menuRows[index]?.setStrokeStyle(2, index === this.selected ? Palette.neonCyan : Palette.darkBlueGray, index === this.selected ? 0.96 : 0.76);
+      this.menuRows[index]?.setFillStyle(Palette.inkBlack, index === this.selected ? 0.86 : 0.72);
     });
   }
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T08:21:08.896Z",
+  "generatedAt": "2026-06-29T11:45:06.247Z",
   "passed": true,
   "checks": [
     {
@@ -236,19 +236,19 @@
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 98.34650205761308,
+      "maxAverageLuma": 136.9722272317393,
       "minOpaqueRatio": 0.07415771484375
     },
     {
       "id": "stage1-touch-controls",
       "file": "src/assets/runtime/stage1-touch-controls.png",
       "passed": true,
-      "activeFrames": 2,
+      "activeFrames": 3,
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 57.22275896329007,
-      "minOpaqueRatio": 0.44619140625
+      "maxAverageLuma": 94.9780827846335,
+      "minOpaqueRatio": 0.35100911458333334
     }
   ],
   "productionAssets": [

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T02:13:21.408Z",
+  "generatedAt": "2026-06-29T11:26:18.866Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -1627,19 +1627,11 @@
       "frames": [
         {
           "name": "seal",
-          "source": "ui",
-          "x": 86,
-          "y": 180,
-          "width": 120,
-          "height": 120
+          "draw": "koban"
         },
         {
           "name": "scroll",
-          "source": "ui",
-          "x": 706,
-          "y": 385,
-          "width": 235,
-          "height": 130
+          "draw": "makimono"
         },
         {
           "name": "health",
@@ -1671,7 +1663,7 @@
       "id": "stage1-touch-controls",
       "source": "src/assets/approved-art/mobile-controls-kit.png",
       "output": "src/assets/runtime/stage1-touch-controls.png",
-      "width": 384,
+      "width": 576,
       "height": 160,
       "frameWidth": 192,
       "frameHeight": 160,
@@ -1682,6 +1674,10 @@
           "y": 112,
           "width": 302,
           "height": 208
+        },
+        {
+          "name": "jump",
+          "draw": "jump-button"
         },
         {
           "name": "slash",

@@ -114,7 +114,8 @@ export const RuntimeItemFrame = {
 
 export const RuntimeTouchFrame = {
   Dpad: 0,
-  Slash: 1
+  Jump: 1,
+  Slash: 2
 } as const;
 
 const frameRange = (start: number, count: number): number[] => Array.from({ length: count }, (_, index) => start + index);

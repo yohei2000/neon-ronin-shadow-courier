@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { PaletteHex } from '../config/palette';
-import { RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeTouchFrame } from '../data/artAssets';
+import { RuntimeEnvironmentAssetKey, RuntimeTouchFrame } from '../data/artAssets';
 import type { Stage1Settings } from '../systems/SaveSystem';
 import type { InputSystem, TouchButton } from '../systems/InputSystem';
 
@@ -53,8 +53,8 @@ export class TouchControls {
       .setScrollFactor(0)
       .setAlpha(opacity);
     const jump = this.scene.add
-      .sprite(748, 454, RuntimeEnvironmentAssetKey.ItemIcons, RuntimeItemFrame.Energy)
-      .setDisplaySize(86, 86)
+      .sprite(748, 454, RuntimeEnvironmentAssetKey.TouchControls, RuntimeTouchFrame.Jump)
+      .setDisplaySize(104, 94)
       .setDepth(90)
       .setScrollFactor(0)
       .setAlpha(opacity);
@@ -66,8 +66,8 @@ export class TouchControls {
       .setAlpha(opacity);
     this.roots.push(pad, jump, attack);
 
-    this.addButton('left', 80, 452, 112, 118, '<');
-    this.addButton('right', 205, 452, 112, 118, '>');
+    this.addButton('left', 80, 452, 112, 118, '');
+    this.addButton('right', 205, 452, 112, 118, '');
     this.addButton('jump', 748, 454, 124, 124, 'JUMP');
     this.addButton('attack', 866, 426, 124, 124, 'SLASH');
     this.addButton('pause', 900, 78, 78, 62, 'II');
@@ -85,7 +85,7 @@ export class TouchControls {
       .setOrigin(0.5)
       .setDepth(91)
       .setScrollFactor(0)
-      .setAlpha(this.settings.touchOpacity);
+      .setAlpha(label === '' ? 0 : this.settings.touchOpacity);
     const zone = this.scene.add.zone(x, y, width, height).setInteractive({ useHandCursor: false }).setDepth(92).setScrollFactor(0);
     zone.on('pointerdown', (pointer: Phaser.Input.Pointer) => this.press(button, pointer));
     zone.on('pointerup', (pointer: Phaser.Input.Pointer) => this.release(button, pointer));

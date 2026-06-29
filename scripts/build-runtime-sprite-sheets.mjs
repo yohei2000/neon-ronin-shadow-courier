@@ -209,8 +209,8 @@ const itemSheetSpec = {
   frameHeight: 128,
   columns: 5,
   frames: [
-    { name: 'seal', source: 'ui', x: 86, y: 180, width: 120, height: 120 },
-    { name: 'scroll', source: 'ui', x: 706, y: 385, width: 235, height: 130 },
+    { name: 'seal', draw: 'koban' },
+    { name: 'scroll', draw: 'makimono' },
     { name: 'health', source: 'ui', x: 536, y: 360, width: 158, height: 160 },
     { name: 'energy', source: 'brush', x: 188, y: 372, width: 110, height: 88 },
     { name: 'checkpoint', source: 'ui', x: 350, y: 0, width: 310, height: 165 }
@@ -223,9 +223,10 @@ const touchSheetSpec = {
   output: 'src/assets/runtime/stage1-touch-controls.png',
   frameWidth: 192,
   frameHeight: 160,
-  columns: 2,
+  columns: 3,
   frames: [
     { name: 'dpad', x: 34, y: 112, width: 302, height: 208 },
+    { name: 'jump', draw: 'jump-button' },
     { name: 'slash', x: 354, y: 44, width: 190, height: 170 }
   ]
 };
@@ -1025,7 +1026,98 @@ try {
       targetContext.imageSmoothingEnabled = true;
       targetContext.imageSmoothingQuality = 'high';
 
+      const drawKoban = (context, x, y, width, height) => {
+        const cx = x + width / 2;
+        const cy = y + height / 2;
+        context.save();
+        context.translate(cx, cy);
+        context.rotate(-0.16);
+        context.shadowColor = 'rgba(255, 177, 46, 0.65)';
+        context.shadowBlur = 12;
+        const fill = context.createRadialGradient(-14, -18, 4, 0, 0, 54);
+        fill.addColorStop(0, '#FFE45A');
+        fill.addColorStop(0.52, '#E7A83B');
+        fill.addColorStop(1, '#8C4E18');
+        context.fillStyle = fill;
+        context.beginPath();
+        context.ellipse(0, 0, 43, 28, 0, 0, Math.PI * 2);
+        context.fill();
+        context.shadowBlur = 0;
+        context.lineWidth = 5;
+        context.strokeStyle = '#2D1A0B';
+        context.stroke();
+        context.lineWidth = 2;
+        context.strokeStyle = '#FFD24A';
+        context.stroke();
+        context.fillStyle = '#3A1D0D';
+        context.fillRect(-7, -12, 14, 24);
+        context.strokeStyle = '#FFD24A';
+        context.lineWidth = 2;
+        context.strokeRect(-7, -12, 14, 24);
+        context.strokeStyle = 'rgba(0, 229, 255, 0.45)';
+        context.lineWidth = 3;
+        context.beginPath();
+        context.ellipse(0, 0, 50, 33, 0, 0.14, Math.PI * 1.65);
+        context.stroke();
+        context.restore();
+      };
+
+      const drawMakimono = (context, x, y, width, height) => {
+        context.save();
+        context.translate(x + width / 2, y + height / 2);
+        context.rotate(-0.08);
+        context.shadowColor = 'rgba(0, 229, 255, 0.42)';
+        context.shadowBlur = 9;
+        const paper = context.createLinearGradient(-46, 0, 46, 0);
+        paper.addColorStop(0, '#5A2E15');
+        paper.addColorStop(0.18, '#F0A64A');
+        paper.addColorStop(0.82, '#BD6A22');
+        paper.addColorStop(1, '#3A1D0D');
+        context.fillStyle = paper;
+        context.fillRect(-42, -19, 84, 38);
+        context.fillStyle = '#1A1110';
+        context.beginPath();
+        context.ellipse(-42, 0, 13, 22, 0, 0, Math.PI * 2);
+        context.ellipse(42, 0, 13, 22, 0, 0, Math.PI * 2);
+        context.fill();
+        context.strokeStyle = '#F0A64A';
+        context.lineWidth = 3;
+        context.strokeRect(-42, -19, 84, 38);
+        context.strokeStyle = '#1C1614';
+        context.lineWidth = 2;
+        for (const yLine of [-8, 0, 8]) {
+          context.beginPath();
+          context.moveTo(-26, yLine);
+          context.quadraticCurveTo(-5, yLine + 3, 22, yLine - 2);
+          context.stroke();
+        }
+        context.strokeStyle = '#FF2E7A';
+        context.lineWidth = 5;
+        context.beginPath();
+        context.moveTo(-14, -23);
+        context.lineTo(-9, 23);
+        context.moveTo(15, -22);
+        context.lineTo(10, 22);
+        context.stroke();
+        context.shadowBlur = 0;
+        context.strokeStyle = 'rgba(0, 229, 255, 0.55)';
+        context.lineWidth = 2;
+        context.strokeRect(-48, -25, 96, 50);
+        context.restore();
+      };
+
       const frames = spec.frames.map((frame, index) => {
+        const column = index % spec.columns;
+        const row = Math.floor(index / spec.columns);
+        if (frame.draw === 'koban') {
+          drawKoban(targetContext, column * spec.frameWidth, row * spec.frameHeight, spec.frameWidth, spec.frameHeight);
+          return frame;
+        }
+        if (frame.draw === 'makimono') {
+          drawMakimono(targetContext, column * spec.frameWidth, row * spec.frameHeight, spec.frameWidth, spec.frameHeight);
+          return frame;
+        }
+
         const image = images[frame.source];
         if (!image) throw new Error(`Missing item source ${frame.source}`);
         const maskCanvas = document.createElement('canvas');
@@ -1048,8 +1140,6 @@ try {
         }
         maskContext.putImageData(imageData, 0, 0);
 
-        const column = index % spec.columns;
-        const row = Math.floor(index / spec.columns);
         const fitScale = Math.min((spec.frameWidth - 18) / frame.width, (spec.frameHeight - 18) / frame.height, 1.5);
         const drawWidth = frame.width * fitScale;
         const drawHeight = frame.height * fitScale;
@@ -1113,7 +1203,50 @@ try {
       targetContext.imageSmoothingEnabled = true;
       targetContext.imageSmoothingQuality = 'high';
 
+      const drawJumpButton = (context, x, y, width, height) => {
+        const cx = x + width / 2;
+        const cy = y + height / 2;
+        context.save();
+        context.translate(cx, cy);
+        context.shadowColor = 'rgba(0, 229, 255, 0.62)';
+        context.shadowBlur = 12;
+        context.fillStyle = '#12161B';
+        context.beginPath();
+        context.arc(0, 0, 48, 0, Math.PI * 2);
+        context.fill();
+        context.lineWidth = 7;
+        context.strokeStyle = '#2E393F';
+        context.stroke();
+        context.lineWidth = 4;
+        context.strokeStyle = '#00E5FF';
+        context.stroke();
+        context.shadowBlur = 0;
+        context.fillStyle = 'rgba(0, 229, 255, 0.16)';
+        context.beginPath();
+        context.arc(0, 0, 32, 0, Math.PI * 2);
+        context.fill();
+        context.fillStyle = '#00E5FF';
+        context.beginPath();
+        context.moveTo(0, -25);
+        context.lineTo(20, -2);
+        context.lineTo(9, -2);
+        context.lineTo(9, 22);
+        context.lineTo(-9, 22);
+        context.lineTo(-9, -2);
+        context.lineTo(-20, -2);
+        context.closePath();
+        context.fill();
+        context.restore();
+      };
+
       const frames = spec.frames.map((frame, index) => {
+        const column = index % spec.columns;
+        const row = Math.floor(index / spec.columns);
+        if (frame.draw === 'jump-button') {
+          drawJumpButton(targetContext, column * spec.frameWidth, row * spec.frameHeight, spec.frameWidth, spec.frameHeight);
+          return frame;
+        }
+
         const maskCanvas = document.createElement('canvas');
         maskCanvas.width = frame.width;
         maskCanvas.height = frame.height;
@@ -1134,8 +1267,6 @@ try {
         }
         maskContext.putImageData(imageData, 0, 0);
 
-        const column = index % spec.columns;
-        const row = Math.floor(index / spec.columns);
         const fitScale = Math.min((spec.frameWidth - 14) / frame.width, (spec.frameHeight - 14) / frame.height, 1.35);
         const drawWidth = frame.width * fitScale;
         const drawHeight = frame.height * fitScale;

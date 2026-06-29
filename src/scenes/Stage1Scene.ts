@@ -197,8 +197,8 @@ export class Stage1Scene extends Phaser.Scene {
   }
 
   private createCollectibles(): void {
-    this.sealVisuals = Stage1Data.collectibles.seals.map((seal) => this.createCollectible(seal, 24, 24, RuntimeItemFrame.Seal, Palette.lanternGold));
-    this.scrollVisuals = Stage1Data.collectibles.scrolls.map((scroll) => this.createCollectible(scroll, 44, 30, RuntimeItemFrame.Scroll, Palette.neonCyan));
+    this.sealVisuals = Stage1Data.collectibles.seals.map((seal) => this.createCollectible(seal, 28, 22, RuntimeItemFrame.Seal, null));
+    this.scrollVisuals = Stage1Data.collectibles.scrolls.map((scroll) => this.createCollectible(scroll, 50, 32, RuntimeItemFrame.Scroll, null));
     this.pickupVisuals = Stage1Data.collectibles.pickups.map((pickup) => ({
       ...this.createCollectible(
         pickup,
@@ -211,12 +211,12 @@ export class Stage1Scene extends Phaser.Scene {
     }));
   }
 
-  private createCollectible(item: Stage1Seal | Stage1Scroll | Stage1Pickup, width: number, height: number, frame: number, tint: number): CollectibleVisual {
+  private createCollectible(item: Stage1Seal | Stage1Scroll | Stage1Pickup, width: number, height: number, frame: number, tint: number | null): CollectibleVisual {
     const image = this.add
       .sprite(item.x, item.y, RuntimeEnvironmentAssetKey.ItemIcons, frame)
       .setDisplaySize(width, height)
-      .setTint(tint)
       .setDepth(20);
+    if (tint !== null) image.setTint(tint);
     return {
       id: item.id,
       body: centerRect(item.x, item.y, width, height),
