@@ -304,11 +304,11 @@ const runKeyboardRouteToClear = async (page) => {
     }
 
     const hazardAhead = (current.hazards ?? []).find(
-      (hazard) => hazard.type !== 'fall-pit' && player.x > hazard.x - 190 && player.x < hazard.x + hazard.width + 90
+      (hazard) => hazard.type !== 'fall-pit' && player.x > hazard.x - 300 && player.x < hazard.x + hazard.width + 110
     );
-    if (hazardAhead && player.y > 365 && now - lastJump > 220) {
+    if (hazardAhead && (player.onGround || player.y > 365) && now - lastJump > 260) {
       lastJump = now;
-      await jump(page, hazardAhead.type === 'timed-spark' ? 340 : 230);
+      await jump(page, hazardAhead.type === 'timed-spark' ? 360 : 320);
     }
     const inThornRun = player.x > 4240 && player.x < 4940;
     if (inThornRun && player.y > 365 && now - lastJump > 180) {

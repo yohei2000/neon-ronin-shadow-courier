@@ -308,7 +308,7 @@ export class Stage1Scene extends Phaser.Scene {
       if (this.collectedPickups.has(pickup.id) || !rectsOverlap(body, pickup.body)) continue;
       this.collectedPickups.add(pickup.id);
       pickup.image.setVisible(false);
-      if (pickup.type === 'health') this.player.heal(1);
+      if (pickup.type === 'health') this.player.heal(5);
     }
   }
 
