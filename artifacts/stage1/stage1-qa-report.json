@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T01:32:59.059Z",
+  "generatedAt": "2026-06-30T10:14:16.412Z",
   "passed": true,
   "checks": [
     {
@@ -40,7 +40,7 @@
     {
       "id": "three-hazard-moments",
       "passed": true,
-      "detail": "19 hazards"
+      "detail": "20 hazards"
     },
     {
       "id": "four-enemy-encounters",
@@ -85,7 +85,17 @@
     {
       "id": "neon-run-platform-variety",
       "passed": true,
-      "detail": "27 platforms, maxWidth=900, elevated=7, fallPits=10"
+      "detail": "35 platforms, maxWidth=900, elevated=9, fallPits=11"
+    },
+    {
+      "id": "neon-run-vertical-route",
+      "passed": true,
+      "detail": "range=228, high=9, mid=15, low=11, updrafts=4"
+    },
+    {
+      "id": "stage1-updraft-gimmicks",
+      "passed": true,
+      "detail": "4 gimmicks"
     },
     {
       "id": "timed-spark-jump-clearance",

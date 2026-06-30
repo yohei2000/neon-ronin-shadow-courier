@@ -19,6 +19,14 @@ export type Stage1QaState = {
     readonly width: number;
     readonly height: number;
   }[];
+  readonly gimmicks?: readonly {
+    readonly id: string;
+    readonly type: string;
+    readonly x: number;
+    readonly y: number;
+    readonly width: number;
+    readonly height: number;
+  }[];
   readonly enemies?: readonly EnemyRuntimeState[];
   readonly warden?: { readonly current: number; readonly max: number; readonly state: string; readonly attack: string; readonly projectileCount?: number };
   readonly wardenDefeated?: boolean;

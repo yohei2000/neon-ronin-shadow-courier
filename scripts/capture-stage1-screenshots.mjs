@@ -27,6 +27,13 @@ const wardenAdvanceX = stage.warden.x - 130;
 const wardenRightRecoveryX = stage.warden.x + 130;
 const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
+const verticalAssistZones = [
+  { startX: 5200, endX: 6570, minY: 285, holdMs: 260 },
+  { startX: 9400, endX: 9760, minY: 330, holdMs: 190 },
+  { startX: 10820, endX: 12220, minY: 285, holdMs: 230 },
+  { startX: 15020, endX: 15920, minY: 315, holdMs: 190 },
+  { startX: 16880, endX: 18180, minY: 300, holdMs: 250 }
+];
 
 const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
 const menuState = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1_MENU__ ?? {});
@@ -55,6 +62,8 @@ const slash = async (page, holdMs = 70) => {
   await page.waitForTimeout(holdMs);
   await page.keyboard.up('J');
 };
+const verticalAssistFor = (player) =>
+  verticalAssistZones.find((zone) => player.x > zone.startX && player.x < zone.endX && player.y > zone.minY);
 const startStage1 = async (page) => {
   await page.goto(baseUrl);
   await waitFor(async () => (await menuState(page)).scene === 'TitleScene');
@@ -63,12 +72,12 @@ const startStage1 = async (page) => {
 };
 
 const captureRoute = async (page) => {
-  const requiredShots = [
+    const requiredShots = [
     ['stage-start.png', 120],
     ['combat.png', 850],
     ['wall-kick-shaft.png', 1300],
     ['checkpoint.png', 3480],
-    ['neon-thorn-run.png', 4210],
+    ['neon-thorn-run.png', 5740],
     ['lantern-warden.png', wardenEngageX]
   ];
   const captured = new Set();
@@ -211,7 +220,13 @@ const captureRoute = async (page) => {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
-        await page.waitForTimeout(900);
+        const assist = verticalAssistFor(player);
+        if (assist && (player.onGround || player.y > assist.minY) && now - lastJump > 260) {
+          lastJump = now;
+          await jump(page, assist.holdMs);
+        } else {
+          await page.waitForTimeout(650);
+        }
         continue;
       }
       await setRight(true);
@@ -249,26 +264,47 @@ const captureRoute = async (page) => {
       continue;
     }
 
-    const routeHazards = (current.hazards ?? []).filter(
-      (hazard) => (hazard.type !== 'timed-spark' || hazard.y > 360) && (hazard.type !== 'fall-pit' || hazard.width > 40)
-    );
+    const verticalAssist = verticalAssistFor(player);
+    if (verticalAssist && (player.onGround || player.y > verticalAssist.minY) && now - lastJump > 300) {
+      lastJump = now;
+      await jump(page, verticalAssist.holdMs);
+      continue;
+    }
+
+    const routeHazards = (current.hazards ?? []).filter((hazard) => {
+      if (hazard.type === 'timed-spark') return hazard.y > 360 || Math.abs(hazard.y + hazard.height / 2 - player.y) < 105;
+      if (hazard.type === 'fall-pit') return hazard.width > 40;
+      return true;
+    });
     const timedSparkAhead = routeHazards.find(
-      (hazard) => hazard.type === 'timed-spark' && player.x > hazard.x - 110 && player.x < hazard.x + hazard.width + 18
+      (hazard) => hazard.type === 'timed-spark' && player.x > hazard.x - 220 && player.x < hazard.x + hazard.width + 18
     );
     if (timedSparkAhead?.active && player.onGround) {
-      await setRight(false);
-      await page.waitForTimeout(90);
+      if (player.x > timedSparkAhead.x - 60) {
+        await setRight(false);
+        await page.keyboard.down('ArrowLeft');
+        await page.keyboard.down('a');
+        await page.waitForTimeout(130);
+        await page.keyboard.up('ArrowLeft');
+        await page.keyboard.up('a');
+      } else if (player.x > timedSparkAhead.x - 8 && now - lastJump > 260) {
+        lastJump = now;
+        await jump(page, 300);
+      } else {
+        await setRight(false);
+        await page.waitForTimeout(90);
+      }
       continue;
     }
 
     const hazardAhead = routeHazards.find((hazard) => {
-      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 65 : 120;
+      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 65 : hazard.type === 'neon-thorn' ? 190 : 120;
       const tail = hazard.type === 'fall-pit' ? hazard.width + 44 : hazard.width + 110;
       return player.x > hazard.x - lead && player.x < hazard.x + tail;
     });
     if (hazardAhead && (player.onGround || player.y > 365) && now - lastJump > 260) {
       lastJump = now;
-      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 360 : 240);
+      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 360 : 280);
     }
     if (
       ((player.x > 1030 && player.x < 1720 && player.y > 255) ||

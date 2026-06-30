@@ -46,6 +46,12 @@ export type Stage1Hazard = RectData & {
   readonly damage: number;
 };
 
+export type Stage1Gimmick = RectData & {
+  readonly id: string;
+  readonly type: 'updraft-vent';
+  readonly strength: number;
+};
+
 export type Stage1Seal = {
   readonly id: string;
   readonly x: number;
@@ -93,6 +99,7 @@ export type Stage1Data = {
   readonly platforms: readonly Stage1Platform[];
   readonly checkpoints: readonly Stage1Checkpoint[];
   readonly hazards: readonly Stage1Hazard[];
+  readonly gimmicks: readonly Stage1Gimmick[];
   readonly collectibles: {
     readonly seals: readonly Stage1Seal[];
     readonly scrolls: readonly Stage1Scroll[];

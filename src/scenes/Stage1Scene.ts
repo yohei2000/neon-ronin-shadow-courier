@@ -3,7 +3,17 @@ import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
 import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey } from '../data/artAssets';
-import { Stage1Data, Stage1Tuning, getSectionForX, type RectData, type Stage1Hazard, type Stage1Pickup, type Stage1Scroll, type Stage1Seal } from '../data/stage1';
+import {
+  Stage1Data,
+  Stage1Tuning,
+  getSectionForX,
+  type RectData,
+  type Stage1Gimmick,
+  type Stage1Hazard,
+  type Stage1Pickup,
+  type Stage1Scroll,
+  type Stage1Seal
+} from '../data/stage1';
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
 import { LanternWarden } from '../entities/LanternWarden';
@@ -42,6 +52,7 @@ export class Stage1Scene extends Phaser.Scene {
   private scrollVisuals: CollectibleVisual[] = [];
   private pickupVisuals: (CollectibleVisual & { readonly type: Stage1Pickup['type'] })[] = [];
   private hazardVisuals: (Stage1Hazard & { readonly image: Phaser.GameObjects.Sprite })[] = [];
+  private gimmickVisuals: (Stage1Gimmick & { readonly image: Phaser.GameObjects.Sprite })[] = [];
   private collectedSeals = new Set<string>();
   private collectedScrolls = new Set<string>();
   private collectedPickups = new Set<string>();
@@ -114,6 +125,7 @@ export class Stage1Scene extends Phaser.Scene {
     this.resolveCombat(slash, time);
     this.resolveEnemyContact(time);
     this.resolveHazards(time);
+    this.resolveGimmicks(time);
     this.resolveCheckpoints(time);
     this.resolveCollectibles();
     this.resolveMoonGate();
@@ -193,6 +205,17 @@ export class Stage1Scene extends Phaser.Scene {
         .setAlpha(hazard.type === 'fall-pit' ? 0.26 : 0.68)
         .setDepth(18);
       this.hazardVisuals.push({ ...hazard, image });
+    }
+
+    for (const gimmick of Stage1Data.gimmicks) {
+      const image = this.add
+        .sprite(gimmick.x + gimmick.width / 2, gimmick.y + gimmick.height / 2, RuntimeSpriteAssetKey.Telegraph, 1)
+        .setDisplaySize(gimmick.width + 42, gimmick.height + 26)
+        .setTint(Palette.neonCyan)
+        .setAlpha(0.36)
+        .setBlendMode(Phaser.BlendModes.ADD)
+        .setDepth(17);
+      this.gimmickVisuals.push({ ...gimmick, image });
     }
 
     this.add.image(Stage1Data.moonGate.x + 10, Stage1Data.moonGate.y + 56, ArtAssetKey.LightingMoonlight).setDisplaySize(220, 240).setAlpha(0.35).setDepth(14);
@@ -286,6 +309,17 @@ export class Stage1Scene extends Phaser.Scene {
 
   private isHazardActive(hazard: Stage1Hazard, nowMs: number): boolean {
     return hazard.type !== 'timed-spark' || Math.sin(nowMs / 280) > -0.25;
+  }
+
+  private resolveGimmicks(nowMs: number): void {
+    const body = this.player.getBody();
+    for (const gimmick of this.gimmickVisuals) {
+      const pulse = 0.36 + Math.sin(nowMs / 180 + gimmick.x * 0.01) * 0.14;
+      gimmick.image.setAlpha(pulse).setAngle(Math.sin(nowMs / 260 + gimmick.x * 0.006) * 3);
+      if (gimmick.type === 'updraft-vent' && rectsOverlap(body, gimmick)) {
+        this.player.applyUpdraft(gimmick.strength);
+      }
+    }
   }
 
   private resolveCheckpoints(nowMs: number): void {
@@ -413,6 +447,14 @@ export class Stage1Scene extends Phaser.Scene {
         y: hazard.y,
         width: hazard.width,
         height: hazard.height
+      })),
+      gimmicks: this.gimmickVisuals.map((gimmick) => ({
+        id: gimmick.id,
+        type: gimmick.type,
+        x: gimmick.x,
+        y: gimmick.y,
+        width: gimmick.width,
+        height: gimmick.height
       })),
       enemies: this.enemies.map((enemy) => enemy.getRuntimeState()),
       warden: this.warden?.getHp(),

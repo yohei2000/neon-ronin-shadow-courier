@@ -76,6 +76,22 @@ const neonRunPlatformVariety = () => {
     detail: `${runPlatforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevated}, fallPits=${fallPits}`
   };
 };
+const neonRunVerticalRoute = () => {
+  const runStartX = 3920;
+  const runEndX = (stage.warden?.arena?.x ?? 18920) - 480;
+  const runPlatforms = (stage.platforms ?? []).filter((platform) => platform.x < runEndX && platform.x + platform.width > runStartX);
+  const highestTop = runPlatforms.reduce((top, platform) => Math.min(top, platform.y), Infinity);
+  const lowestTop = runPlatforms.reduce((top, platform) => Math.max(top, platform.y), -Infinity);
+  const high = runPlatforms.filter((platform) => platform.y <= 330).length;
+  const mid = runPlatforms.filter((platform) => platform.y > 330 && platform.y < 490).length;
+  const low = runPlatforms.filter((platform) => platform.y >= 490).length;
+  const updrafts = (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent' && gimmick.x >= runStartX && gimmick.x < runEndX);
+  const range = lowestTop - highestTop;
+  return {
+    passed: range >= 190 && high >= 6 && mid >= 6 && low >= 4 && updrafts.length >= 3,
+    detail: `range=${range}, high=${high}, mid=${mid}, low=${low}, updrafts=${updrafts.length}`
+  };
+};
 const sections = stage.sections ?? [];
 const hazards = stage.hazards ?? [];
 const enemies = stage.enemies ?? [];
@@ -83,6 +99,7 @@ const unreachableScrolls = (stage.collectibles?.scrolls ?? []).filter((scroll) =
 const embeddedCollectibles = collectiblePlatformOverlaps();
 const firePassage = firePassageCheck();
 const runVariety = neonRunPlatformVariety();
+const verticalRoute = neonRunVerticalRoute();
 const damageRects = [
   ...hazards,
   ...enemies.map((enemy) => ({ x: enemy.x - 36, y: enemy.y - 48, width: 72, height: 96 }))
@@ -110,6 +127,8 @@ const checks = [
   check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
   check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
   check('neon-run-platform-variety', runVariety.passed, runVariety.detail),
+  check('neon-run-vertical-route', verticalRoute.passed, verticalRoute.detail),
+  check('stage1-updraft-gimmicks', (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent').length >= 3, `${stage.gimmicks?.length ?? 0} gimmicks`),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(
       'target-duration-recorded',

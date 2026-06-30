@@ -113,3 +113,5 @@ Runtime mobile-control note: Stage1 touch controls must support simultaneous mov
 `npm.cmd run qa:assets-stage1` includes runtime pixel auditing for edge cuts and paper-background residue. Keep this audit strict; fix the derived runtime asset or crop coordinates instead of weakening the validator.
 
 Runtime layout note: Stage1's long neon run now uses segmented ground platforms, visible fall-pit jump beats, elevated roof bridges, and corrected collectible heights. `qa:stage1` and `validateStage1` check that collectible visuals do not overlap platform geometry and that the neon run keeps platform/gap/elevation variety instead of reverting to a single long floor.
+
+Runtime verticality note: Stage1's long neon run now includes mandatory-feeling vertical beats with lower canal runs, roof/sign climbs, recovery underpasses, and derived telegraph-based updraft vents. Keep `neon-run-vertical-route` and `stage1-updraft-gimmicks` validation strict so future edits do not flatten the route back into a single horizontal corridor.

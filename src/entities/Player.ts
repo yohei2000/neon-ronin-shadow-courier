@@ -224,6 +224,17 @@ export class Player {
     this.respawnY = y;
   }
 
+  applyUpdraft(strength: number): void {
+    const liftVelocity = -Math.abs(strength);
+    if (this.vy > liftVelocity) {
+      this.vy = liftVelocity;
+    }
+    this.onGround = false;
+    this.wallSliding = false;
+    this.jumpStartedMs = this.scene.time.now;
+    this.jumpVisualVariant = 'big';
+  }
+
   respawnAtCheckpoint(): void {
     this.x = this.respawnX;
     this.y = this.respawnY;

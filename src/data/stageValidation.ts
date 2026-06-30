@@ -78,6 +78,22 @@ const neonRunPlatformVariety = (data: Stage1DataType): { readonly passed: boolea
     detail: `${platforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevatedCount}, fallPits=${fallPitCount}`
   };
 };
+const neonRunVerticalRoute = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const runStartX = 3920;
+  const runEndX = data.warden.arena.x - 480;
+  const platforms = data.platforms.filter((platform) => platform.x < runEndX && platform.x + platform.width > runStartX);
+  const highestTop = platforms.reduce((top, platform) => Math.min(top, platform.y), Infinity);
+  const lowestTop = platforms.reduce((top, platform) => Math.max(top, platform.y), -Infinity);
+  const highPlatforms = platforms.filter((platform) => platform.y <= 330).length;
+  const lowerPlatforms = platforms.filter((platform) => platform.y >= 490).length;
+  const middlePlatforms = platforms.filter((platform) => platform.y > 330 && platform.y < 490).length;
+  const updrafts = data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent' && gimmick.x >= runStartX && gimmick.x < runEndX);
+  const verticalRange = lowestTop - highestTop;
+  return {
+    passed: verticalRange >= 190 && highPlatforms >= 6 && middlePlatforms >= 6 && lowerPlatforms >= 4 && updrafts.length >= 3,
+    detail: `range=${verticalRange}, high=${highPlatforms}, mid=${middlePlatforms}, low=${lowerPlatforms}, updrafts=${updrafts.length}`
+  };
+};
 
 export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidationReport => {
   const names = data.sections.map((section) => section.name);
@@ -101,6 +117,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const embeddedCollectibles = collectiblePlatformOverlaps(data);
   const firePassage = firePassageCheck(data);
   const runVariety = neonRunPlatformVariety(data);
+  const verticalRoute = neonRunVerticalRoute(data);
 
   const checks = [
     check(
@@ -128,6 +145,8 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
     check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
     check('neon-run-platform-variety', runVariety.passed, runVariety.detail),
+    check('neon-run-vertical-route', verticalRoute.passed, verticalRoute.detail),
+    check('stage1-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length >= 3, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(
       'duration-targets',
