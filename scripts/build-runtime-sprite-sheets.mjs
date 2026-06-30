@@ -949,9 +949,9 @@ try {
           const trail = pointOnEllipse(angle - 0.16, 50, 40);
           const fill = context.createLinearGradient(root.x, root.y, tip.x, tip.y);
           fill.addColorStop(0, `rgba(150, 0, 20, ${0.14 * alpha})`);
-          fill.addColorStop(0.28, `rgba(255, 32, 28, ${0.88 * alpha})`);
-          fill.addColorStop(0.66, `rgba(255, 118, 22, ${0.96 * alpha})`);
-          fill.addColorStop(1, `rgba(255, 238, 120, ${0.82 * alpha})`);
+          fill.addColorStop(0.28, `rgba(255, 32, 28, ${0.74 * alpha})`);
+          fill.addColorStop(0.66, `rgba(255, 118, 22, ${0.82 * alpha})`);
+          fill.addColorStop(1, `rgba(255, 238, 120, ${0.68 * alpha})`);
 
           context.fillStyle = fill;
           context.beginPath();
@@ -979,8 +979,8 @@ try {
           if (!hotCore) return;
           const core = context.createLinearGradient(root.x, root.y, tip.x, tip.y);
           core.addColorStop(0, `rgba(255, 78, 28, ${0.24 * alpha})`);
-          core.addColorStop(0.62, `rgba(255, 210, 72, ${0.86 * alpha})`);
-          core.addColorStop(1, `rgba(255, 255, 205, ${0.72 * alpha})`);
+          core.addColorStop(0.62, `rgba(255, 210, 72, ${0.68 * alpha})`);
+          core.addColorStop(1, `rgba(255, 255, 205, ${0.54 * alpha})`);
           context.fillStyle = core;
           context.beginPath();
           context.moveTo(pointOnEllipse(angle - 0.04, 48, 38).x, pointOnEllipse(angle - 0.04, 48, 38).y);
@@ -1002,45 +1002,42 @@ try {
 
         context.save();
         context.translate(cx, cy);
-        context.beginPath();
-        context.rect(-width / 2 + 4, -height / 2 + 4, width - 8, height - 8);
-        context.clip();
         context.rotate((rotationDeg * Math.PI) / 180);
-        context.scale(0.92, 0.92);
+        context.scale(0.86, 0.86);
         context.globalCompositeOperation = 'lighter';
         context.lineCap = 'round';
         context.lineJoin = 'round';
 
         const glow = context.createRadialGradient(0, 0, 24, 0, 0, 91);
         glow.addColorStop(0, 'rgba(255, 46, 46, 0)');
-        glow.addColorStop(0.42, 'rgba(255, 36, 36, 0.12)');
-        glow.addColorStop(0.7, 'rgba(255, 86, 16, 0.34)');
-        glow.addColorStop(0.92, 'rgba(255, 184, 44, 0.18)');
+        glow.addColorStop(0.42, 'rgba(255, 36, 36, 0.08)');
+        glow.addColorStop(0.7, 'rgba(255, 86, 16, 0.22)');
+        glow.addColorStop(0.92, 'rgba(255, 184, 44, 0.12)');
         glow.addColorStop(1, 'rgba(255, 238, 96, 0)');
         context.fillStyle = glow;
         context.beginPath();
         context.ellipse(0, 0, 88, 70, 0, 0, tau);
         context.fill();
 
-        context.shadowColor = 'rgba(255, 38, 24, 0.72)';
-        context.shadowBlur = 18;
-        for (let i = 0; i < 15; i += 1) {
+        context.shadowColor = 'rgba(255, 38, 24, 0.58)';
+        context.shadowBlur = 13;
+        for (let i = 0; i < 10; i += 1) {
           const stagger = Math.sin(i * 2.31 + stateFrame * 0.92);
-          const angle = (i / 15) * tau + stateFrame * 0.17 + stagger * 0.025;
+          const angle = (i / 10) * tau + stateFrame * 0.17 + stagger * 0.025;
           const length = 8 + Math.max(0, stagger) * 8 + ((i + stateFrame) % 4) * 2.2;
-          const thickness = 10 + ((i * 3 + stateFrame) % 5) * 1.4;
-          drawTaperedFlame(angle, length, thickness, 0.18 + stagger * 0.04, 0.82, i % 2 === stateFrame % 2);
+          const thickness = 8 + ((i * 3 + stateFrame) % 5) * 1.2;
+          drawTaperedFlame(angle, length, thickness, 0.18 + stagger * 0.04, 0.64, i % 3 === stateFrame % 3);
         }
 
-        context.shadowColor = 'rgba(255, 118, 20, 0.86)';
-        context.shadowBlur = 12;
-        for (let i = 0; i < 9; i += 1) {
-          const wave = Math.sin(i * 1.97 + stateFrame * 1.22);
-          const angle = (i / 9) * tau + stateFrame * 0.29 + 0.09;
-          drawTaperedFlame(angle, 16 + wave * 5, 7.5, 0.24, 0.66, true);
-        }
-
+        context.shadowColor = 'rgba(255, 118, 20, 0.64)';
         context.shadowBlur = 8;
+        for (let i = 0; i < 5; i += 1) {
+          const wave = Math.sin(i * 1.97 + stateFrame * 1.22);
+          const angle = (i / 5) * tau + stateFrame * 0.29 + 0.09;
+          drawTaperedFlame(angle, 13 + wave * 4, 6, 0.24, 0.5, true);
+        }
+
+        context.shadowBlur = 6;
         const drawBrokenArc = (radiusX, radiusY, start, span, widthLine, color) => {
           context.strokeStyle = color;
           context.lineWidth = widthLine;
@@ -1054,17 +1051,16 @@ try {
           }
           context.stroke();
         };
-        drawBrokenArc(63, 49, -0.34, tau * 0.28, 7, 'rgba(255, 46, 28, 0.82)');
-        drawBrokenArc(69, 54, 1.04, tau * 0.23, 6, 'rgba(255, 90, 20, 0.74)');
-        drawBrokenArc(55, 43, 2.58, tau * 0.2, 4, 'rgba(255, 230, 92, 0.78)');
-        drawBrokenArc(77, 61, 3.8, tau * 0.18, 5, 'rgba(255, 42, 104, 0.48)');
+        drawBrokenArc(63, 49, -0.34, tau * 0.24, 5, 'rgba(255, 46, 28, 0.68)');
+        drawBrokenArc(55, 43, 2.58, tau * 0.18, 3, 'rgba(255, 230, 92, 0.58)');
+        drawBrokenArc(77, 61, 3.8, tau * 0.14, 4, 'rgba(255, 42, 104, 0.34)');
 
-        context.shadowBlur = 4;
-        for (let i = 0; i < 18; i += 1) {
-          const angle = (i / 18) * tau + stateFrame * 0.31;
+        context.shadowBlur = 3;
+        for (let i = 0; i < 9; i += 1) {
+          const angle = (i / 9) * tau + stateFrame * 0.31;
           const jitter = Math.sin(i * 5.1 + stateFrame) * 4;
           const spark = pointOnEllipse(angle, clamp(78 + jitter, 68, 88), clamp(61 + jitter * 0.5, 50, 71));
-          context.fillStyle = i % 3 === 0 ? 'rgba(255, 237, 128, 0.78)' : 'rgba(255, 70, 26, 0.58)';
+          context.fillStyle = i % 3 === 0 ? 'rgba(255, 237, 128, 0.56)' : 'rgba(255, 70, 26, 0.42)';
           context.beginPath();
           context.ellipse(spark.x, spark.y, i % 3 === 0 ? 2.6 : 1.8, i % 3 === 0 ? 1.7 : 1.2, angle, 0, tau);
           context.fill();
