@@ -20,7 +20,7 @@ await server.listen();
 const baseUrl = server.resolvedUrls?.local?.[0]?.replace(/\/$/, '') ?? 'http://127.0.0.1:5174';
 const browser = await chromium.launch();
 const consoleMessages = [];
-const routeTimeoutMs = 1200000;
+const routeTimeoutMs = 1800000;
 const wardenEngageX = stage.warden.arena.x + 160;
 const wardenStopX = stage.warden.x - 120;
 const wardenAdvanceX = stage.warden.x - 130;
