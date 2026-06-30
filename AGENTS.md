@@ -111,3 +111,5 @@ Runtime revision note: Stage1 is extended to roughly 3x the earlier route length
 Runtime mobile-control note: Stage1 touch controls must support simultaneous movement and jump/attack input. Keep Phaser configured with multiple active pointers and keep touch-button state keyed by pointer id so releasing one finger does not clear another held control.
 
 `npm.cmd run qa:assets-stage1` includes runtime pixel auditing for edge cuts and paper-background residue. Keep this audit strict; fix the derived runtime asset or crop coordinates instead of weakening the validator.
+
+Runtime layout note: Stage1's long neon run now uses segmented ground platforms, visible fall-pit jump beats, elevated roof bridges, and corrected collectible heights. `qa:stage1` and `validateStage1` check that collectible visuals do not overlap platform geometry and that the neon run keeps platform/gap/elevation variety instead of reverting to a single long floor.

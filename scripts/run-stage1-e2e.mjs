@@ -303,28 +303,33 @@ const runKeyboardRouteToClear = async (page) => {
       continue;
     }
 
-    const hazardAhead = (current.hazards ?? []).find(
-      (hazard) => hazard.type !== 'fall-pit' && player.x > hazard.x - 300 && player.x < hazard.x + hazard.width + 110
+    const routeHazards = (current.hazards ?? []).filter(
+      (hazard) => (hazard.type !== 'timed-spark' || hazard.y > 360) && (hazard.type !== 'fall-pit' || hazard.width > 40)
     );
+    const timedSparkAhead = routeHazards.find(
+      (hazard) => hazard.type === 'timed-spark' && player.x > hazard.x - 110 && player.x < hazard.x + hazard.width + 18
+    );
+    if (timedSparkAhead?.active && player.onGround) {
+      await setRight(false);
+      await page.waitForTimeout(90);
+      continue;
+    }
+
+    const hazardAhead = routeHazards.find((hazard) => {
+      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 65 : 120;
+      const tail = hazard.type === 'fall-pit' ? hazard.width + 44 : hazard.width + 110;
+      return player.x > hazard.x - lead && player.x < hazard.x + tail;
+    });
     if (hazardAhead && (player.onGround || player.y > 365) && now - lastJump > 260) {
       lastJump = now;
-      await jump(page, hazardAhead.type === 'timed-spark' ? 360 : 320);
-    }
-    const inThornRun = player.x > 4240 && player.x < 4940;
-    if (inThornRun && player.y > 365 && now - lastJump > 180) {
-      lastJump = now;
-      await jump(page, player.x > 4600 ? 360 : 300);
+      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 360 : 240);
     }
     const jumpNow =
       (player.x > 1030 && player.x < 1720 && player.y > 255) ||
-      (player.x > 2040 && player.x < 2305) ||
-      (player.x > 4080 && player.x < 4385) ||
-      (player.x > 4440 && player.x < 4760) ||
-      (player.x > 4760 && player.x < 4895);
-    if (jumpNow && now - lastJump > (inThornRun ? 300 : 360)) {
+      (player.x > 2040 && player.x < 2305);
+    if (jumpNow && now - lastJump > 360) {
       lastJump = now;
-      const thornJumpMs = player.x > 4760 ? 285 : player.x > 4440 ? 255 : 220;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : inThornRun ? thornJumpMs : player.x > 4000 ? 180 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : 110);
     }
     const enemyInReach = (current.enemies ?? []).some(
       (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
@@ -505,7 +510,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     for (let i = 0; i < 420; i += 1) {
       const current = await state(page);
       const player = current.player;
-      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 4350) break;
+      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 7200) break;
       await page.waitForTimeout(50);
     }
     await page.keyboard.up('ArrowRight');

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T20:56:04.587Z",
+  "generatedAt": "2026-06-30T01:32:59.059Z",
   "passed": true,
   "checks": [
     {
@@ -40,7 +40,7 @@
     {
       "id": "three-hazard-moments",
       "passed": true,
-      "detail": "11 hazards"
+      "detail": "19 hazards"
     },
     {
       "id": "four-enemy-encounters",
@@ -76,6 +76,16 @@
       "id": "scroll-collection-lanes",
       "passed": true,
       "detail": "all scrolls overlap reachable player lanes"
+    },
+    {
+      "id": "collectibles-clear-platforms",
+      "passed": true,
+      "detail": "no collectible visual overlaps platform geometry"
+    },
+    {
+      "id": "neon-run-platform-variety",
+      "passed": true,
+      "detail": "27 platforms, maxWidth=900, elevated=7, fallPits=10"
     },
     {
       "id": "timed-spark-jump-clearance",

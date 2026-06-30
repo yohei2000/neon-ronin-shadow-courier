@@ -14,6 +14,11 @@ const overlaps = (a: RectData, b: RectData): boolean => {
 };
 
 const check = (id: string, passed: boolean, detail: string) => ({ id, passed, detail });
+const collectibleVisualBounds = {
+  seals: { width: 28, height: 22 },
+  scrolls: { width: 50, height: 32 },
+  pickups: { width: 34, height: 34 }
+} as const;
 const scrollCollectBody = (x: number, y: number): RectData => ({ x: x - 41, y: y - 29, width: 82, height: 58 });
 const playerStandingBody = (x: number, platformTop: number): RectData => ({ x: x - 21, y: platformTop - 72, width: 42, height: 72 });
 const scrollHasCollectionLane = (data: Stage1DataType, scroll: { readonly x: number; readonly y: number }): boolean => {
@@ -27,7 +32,10 @@ const firePassageCheck = (data: Stage1DataType): { readonly passed: boolean; rea
   const spark = data.hazards.find((hazard) => hazard.id === 'timed-spark');
   if (!spark) return { passed: false, detail: 'timed-spark missing' };
   const sparkCenterX = spark.x + spark.width / 2;
-  const platform = data.platforms.find((item) => sparkCenterX >= item.x && sparkCenterX <= item.x + item.width);
+  const sparkBottom = spark.y + spark.height;
+  const platform = data.platforms
+    .filter((item) => sparkCenterX >= item.x && sparkCenterX <= item.x + item.width && item.y >= sparkBottom - 8)
+    .sort((a, b) => Math.abs(a.y - sparkBottom) - Math.abs(b.y - sparkBottom))[0];
   if (!platform) return { passed: false, detail: 'no platform under timed-spark' };
   const groundBody = playerStandingBody(sparkCenterX, platform.y);
   const jumpBody = { ...groundBody, y: groundBody.y - 80 };
@@ -36,6 +44,38 @@ const firePassageCheck = (data: Stage1DataType): { readonly passed: boolean; rea
   return {
     passed: groundThreat && jumpClear,
     detail: `groundThreat=${groundThreat}, jumpClear=${jumpClear}`
+  };
+};
+const collectibleVisualRect = (
+  item: { readonly x: number; readonly y: number },
+  bounds: { readonly width: number; readonly height: number }
+): RectData => ({
+  x: item.x - bounds.width / 2,
+  y: item.y - bounds.height / 2,
+  width: bounds.width,
+  height: bounds.height
+});
+const collectiblePlatformOverlaps = (data: Stage1DataType): string[] => {
+  const entries = [
+    ...data.collectibles.seals.map((item) => ({ group: 'seal', item, bounds: collectibleVisualBounds.seals })),
+    ...data.collectibles.scrolls.map((item) => ({ group: 'scroll', item, bounds: collectibleVisualBounds.scrolls })),
+    ...data.collectibles.pickups.map((item) => ({ group: 'pickup', item, bounds: collectibleVisualBounds.pickups }))
+  ];
+  return entries.flatMap(({ group, item, bounds }) => {
+    const rect = collectibleVisualRect(item, bounds);
+    return data.platforms.filter((platform) => overlaps(rect, platform)).map((platform) => `${group}:${item.id}->${platform.id}`);
+  });
+};
+const neonRunPlatformVariety = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const runStartX = 3920;
+  const runEndX = data.warden.arena.x - 480;
+  const platforms = data.platforms.filter((platform) => platform.x < runEndX && platform.x + platform.width > runStartX);
+  const maxWidth = platforms.reduce((longest, platform) => Math.max(longest, platform.width), 0);
+  const elevatedCount = platforms.filter((platform) => platform.y <= 330).length;
+  const fallPitCount = data.hazards.filter((hazard) => hazard.type === 'fall-pit' && hazard.x >= runStartX && hazard.x < runEndX).length;
+  return {
+    passed: platforms.length >= 16 && maxWidth <= 1200 && elevatedCount >= 4 && fallPitCount >= 6,
+    detail: `${platforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevatedCount}, fallPits=${fallPitCount}`
   };
 };
 
@@ -58,7 +98,9 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const orphanedCheckpoints = data.checkpoints.filter((checkpoint) => !sectionIdSet.has(checkpoint.sectionId));
   const orphanedScrolls = data.collectibles.scrolls.filter((scroll) => !sectionIdSet.has(scroll.routeId));
   const unreachableScrolls = data.collectibles.scrolls.filter((scroll) => !scrollHasCollectionLane(data, scroll));
+  const embeddedCollectibles = collectiblePlatformOverlaps(data);
   const firePassage = firePassageCheck(data);
+  const runVariety = neonRunPlatformVariety(data);
 
   const checks = [
     check(
@@ -84,6 +126,8 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
       `${orphanedEnemies.length} orphaned enemies, ${orphanedCheckpoints.length} orphaned checkpoints, ${orphanedScrolls.length} orphaned scrolls`
     ),
     check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
+    check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
+    check('neon-run-platform-variety', runVariety.passed, runVariety.detail),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(
       'duration-targets',

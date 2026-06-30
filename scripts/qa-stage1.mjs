@@ -20,6 +20,11 @@ const requiredNames = [
 
 const overlap = (a, b) => a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 const check = (id, passed, detail) => ({ id, passed, detail });
+const collectibleVisualBounds = {
+  seals: { width: 28, height: 22 },
+  scrolls: { width: 50, height: 32 },
+  pickups: { width: 34, height: 34 }
+};
 const scrollCollectBody = (scroll) => ({ x: scroll.x - 41, y: scroll.y - 29, width: 82, height: 58 });
 const playerStandingBody = (x, platformTop) => ({ x: x - 21, y: platformTop - 72, width: 42, height: 72 });
 const scrollHasCollectionLane = (scroll) =>
@@ -31,7 +36,10 @@ const firePassageCheck = () => {
   const spark = hazards.find((hazard) => hazard.id === 'timed-spark');
   if (!spark) return { passed: false, detail: 'timed-spark missing' };
   const sparkCenterX = spark.x + spark.width / 2;
-  const platform = (stage.platforms ?? []).find((item) => sparkCenterX >= item.x && sparkCenterX <= item.x + item.width);
+  const sparkBottom = spark.y + spark.height;
+  const platform = (stage.platforms ?? [])
+    .filter((item) => sparkCenterX >= item.x && sparkCenterX <= item.x + item.width && item.y >= sparkBottom - 8)
+    .sort((a, b) => Math.abs(a.y - sparkBottom) - Math.abs(b.y - sparkBottom))[0];
   if (!platform) return { passed: false, detail: 'no platform under timed-spark' };
   const groundBody = playerStandingBody(sparkCenterX, platform.y);
   const jumpBody = { ...groundBody, y: groundBody.y - 80 };
@@ -39,11 +47,42 @@ const firePassageCheck = () => {
   const jumpClear = !overlap(jumpBody, spark);
   return { passed: groundThreat && jumpClear, detail: `groundThreat=${groundThreat}, jumpClear=${jumpClear}` };
 };
+const collectibleVisualRect = (item, bounds) => ({
+  x: item.x - bounds.width / 2,
+  y: item.y - bounds.height / 2,
+  width: bounds.width,
+  height: bounds.height
+});
+const collectiblePlatformOverlaps = () => {
+  const entries = [
+    ...(stage.collectibles?.seals ?? []).map((item) => ({ group: 'seal', item, bounds: collectibleVisualBounds.seals })),
+    ...(stage.collectibles?.scrolls ?? []).map((item) => ({ group: 'scroll', item, bounds: collectibleVisualBounds.scrolls })),
+    ...(stage.collectibles?.pickups ?? []).map((item) => ({ group: 'pickup', item, bounds: collectibleVisualBounds.pickups }))
+  ];
+  return entries.flatMap(({ group, item, bounds }) => {
+    const rect = collectibleVisualRect(item, bounds);
+    return (stage.platforms ?? []).filter((platform) => overlap(rect, platform)).map((platform) => `${group}:${item.id}->${platform.id}`);
+  });
+};
+const neonRunPlatformVariety = () => {
+  const runStartX = 3920;
+  const runEndX = (stage.warden?.arena?.x ?? 18920) - 480;
+  const runPlatforms = (stage.platforms ?? []).filter((platform) => platform.x < runEndX && platform.x + platform.width > runStartX);
+  const maxWidth = runPlatforms.reduce((longest, platform) => Math.max(longest, platform.width), 0);
+  const elevated = runPlatforms.filter((platform) => platform.y <= 330).length;
+  const fallPits = hazards.filter((hazard) => hazard.type === 'fall-pit' && hazard.x >= runStartX && hazard.x < runEndX).length;
+  return {
+    passed: runPlatforms.length >= 16 && maxWidth <= 1200 && elevated >= 4 && fallPits >= 6,
+    detail: `${runPlatforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevated}, fallPits=${fallPits}`
+  };
+};
 const sections = stage.sections ?? [];
 const hazards = stage.hazards ?? [];
 const enemies = stage.enemies ?? [];
 const unreachableScrolls = (stage.collectibles?.scrolls ?? []).filter((scroll) => !scrollHasCollectionLane(scroll));
+const embeddedCollectibles = collectiblePlatformOverlaps();
 const firePassage = firePassageCheck();
+const runVariety = neonRunPlatformVariety();
 const damageRects = [
   ...hazards,
   ...enemies.map((enemy) => ({ x: enemy.x - 36, y: enemy.y - 48, width: 72, height: 96 }))
@@ -69,6 +108,8 @@ const checks = [
   check('moon-gate-stage-clear', stage.moonGate?.requiresWardenDefeated === true, stage.moonGate?.id ?? 'missing'),
   check('no-orphan-section-refs', enemies.every((enemy) => sectionIds.has(enemy.sectionId)), 'enemy section references'),
   check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
+  check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
+  check('neon-run-platform-variety', runVariety.passed, runVariety.detail),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(
       'target-duration-recorded',
