@@ -292,13 +292,13 @@ const captureRoute = async (page) => {
     }
 
     const hazardAhead = routeHazards.find((hazard) => {
-      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 240 : hazard.type === 'neon-thorn' ? 190 : 120;
+      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 240 : hazard.type === 'neon-thorn' ? 330 : 120;
       const tail = hazard.type === 'fall-pit' ? hazard.width + 44 : hazard.width + 110;
       return player.x > hazard.x - lead && player.x < hazard.x + tail;
     });
     if (hazardAhead && (player.onGround || player.y > 365) && now - lastJump > 260) {
       lastJump = now;
-      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : 280);
+      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? 360 : 280);
     }
     if (
       ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
