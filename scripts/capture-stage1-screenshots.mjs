@@ -276,35 +276,26 @@ const captureRoute = async (page) => {
       if (hazard.type === 'fall-pit') return hazard.width > 40;
       return true;
     });
-    const timedSparkAhead = routeHazards.find(
-      (hazard) => hazard.type === 'timed-spark' && player.x > hazard.x - 220 && player.x < hazard.x + hazard.width + 18
-    );
-    if (timedSparkAhead?.active && player.onGround) {
-      if (player.x > timedSparkAhead.x - 60) {
-        await setRight(false);
-        await page.keyboard.down('ArrowLeft');
-        await page.keyboard.down('a');
-        await page.waitForTimeout(130);
-        await page.keyboard.up('ArrowLeft');
-        await page.keyboard.up('a');
-      } else if (player.x > timedSparkAhead.x - 8 && now - lastJump > 260) {
-        lastJump = now;
-        await jump(page, 300);
-      } else {
-        await setRight(false);
-        await page.waitForTimeout(90);
-      }
+    const timedSparkAhead = routeHazards.find((hazard) => {
+      if (hazard.type !== 'timed-spark') return false;
+      const lead = hazard.y < 260 ? 380 : 260;
+      return player.x > hazard.x - lead && player.x < hazard.x + hazard.width + 80;
+    });
+    if (timedSparkAhead?.active && now - lastJump > 230 && (player.onGround || Math.abs(player.y - timedSparkAhead.y) < 92)) {
+      lastJump = now;
+      await setRight(true);
+      await jump(page, timedSparkAhead.y < 260 ? 430 : 390);
       continue;
     }
 
     const hazardAhead = routeHazards.find((hazard) => {
-      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 65 : hazard.type === 'neon-thorn' ? 190 : 120;
+      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 240 : hazard.type === 'neon-thorn' ? 190 : 120;
       const tail = hazard.type === 'fall-pit' ? hazard.width + 44 : hazard.width + 110;
       return player.x > hazard.x - lead && player.x < hazard.x + tail;
     });
     if (hazardAhead && (player.onGround || player.y > 365) && now - lastJump > 260) {
       lastJump = now;
-      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 360 : 280);
+      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : 280);
     }
     if (
       ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
