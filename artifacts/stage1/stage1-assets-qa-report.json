@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T10:14:21.270Z",
+  "generatedAt": "2026-06-30T11:19:43.507Z",
   "passed": true,
   "checks": [
     {
@@ -112,7 +112,7 @@
       "file": "src/assets/runtime/slash-runtime-spritesheet.png",
       "passed": true,
       "activeFrames": 22,
-      "maxEdgeRatio": 0.10982658959537572,
+      "maxEdgeRatio": 0.013969171483622351,
       "maxBeigeRatio": 0.005685856432125089,
       "maxHaloRatio": 0,
       "maxAverageLuma": 151.67034482758604,
