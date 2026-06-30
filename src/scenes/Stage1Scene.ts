@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
+import { Stage1SfxKey } from '../data/audioAssets';
 import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey } from '../data/artAssets';
 import {
   Stage1Data,
@@ -17,12 +18,13 @@ import {
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
 import { LanternWarden } from '../entities/LanternWarden';
-import { Player } from '../entities/Player';
+import { Player, type PlayerActionEvent } from '../entities/Player';
 import type { StageEnemy } from '../entities/types';
 import { CameraController } from '../systems/CameraController';
 import { CombatSystem, type SlashState } from '../systems/CombatSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { SaveSystem } from '../systems/SaveSystem';
+import { Stage1Audio } from '../systems/Stage1Audio';
 import { centerRect, rectsOverlap } from '../systems/geometry';
 import { calculateStageRank } from '../systems/rank';
 import { Hud } from '../ui/Hud';
@@ -45,6 +47,7 @@ export class Stage1Scene extends Phaser.Scene {
   private inputSystem!: InputSystem;
   private touchControls!: TouchControls;
   private cameraController!: CameraController;
+  private audio!: Stage1Audio;
   private hud!: Hud;
   private enemies: StageEnemy[] = [];
   private warden!: LanternWarden;
@@ -73,7 +76,7 @@ export class Stage1Scene extends Phaser.Scene {
 
   create(): void {
     const save = SaveSystem.load();
-    this.sound.volume = save.settings.masterVolume;
+    this.audio = new Stage1Audio(this, save.settings);
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.cameras.main.setBounds(0, 0, Stage1Data.worldWidth, Stage1Data.worldHeight);
     this.startTimeMs = this.time.now;
@@ -112,7 +115,9 @@ export class Stage1Scene extends Phaser.Scene {
 
     const gameplayDelta = Math.min(delta, Stage1Tuning.maxFrameDeltaMs) * Stage1Tuning.gameSpeed;
     this.updateParallax();
-    const slash = this.player.update(input, Stage1Data.platforms, time, gameplayDelta);
+    const playerFrame = this.player.update(input, Stage1Data.platforms, time, gameplayDelta);
+    this.playPlayerActionSfx(playerFrame.events);
+    const slash = playerFrame.slash;
     if (!this.warden.dead && this.player.getPosition().x > Stage1Data.warden.arena.x + Stage1Data.warden.arena.width - 92) {
       this.player.constrainRight(Stage1Data.warden.arena.x + Stage1Data.warden.arena.width - 92);
     }
@@ -274,6 +279,10 @@ export class Stage1Scene extends Phaser.Scene {
         const hitLanded = enemy.takeHit(1);
         if (hitLanded) {
           this.lastEnemyHitMs.set(enemy.id, nowMs);
+          this.audio.play(Stage1SfxKey.EnemyDefeat, {
+            volume: enemy.kind === 'lantern-warden' ? 1 : 0.82,
+            detune: enemy.kind === 'kite-wraith' ? 160 : enemy.kind === 'lantern-warden' ? -260 : 0
+          });
           this.cameras.main.shake(SaveSystem.load().settings.reducedShake ? 20 : 45, 0.002);
         }
       }
@@ -285,12 +294,16 @@ export class Stage1Scene extends Phaser.Scene {
     for (const enemy of this.enemies) {
       if (!enemy.dead && rectsOverlap(body, enemy.getBody())) {
         const enemyBody = enemy.getBody();
-        this.player.takeDamage(enemy.damage, nowMs, 'enemy-contact', enemyBody.x + enemyBody.width / 2, enemy.id);
+        if (this.player.takeDamage(enemy.damage, nowMs, 'enemy-contact', enemyBody.x + enemyBody.width / 2, enemy.id)) {
+          this.audio.play(Stage1SfxKey.PlayerHurt);
+        }
       }
     }
     for (const attack of this.warden.getAttackRects()) {
       if (rectsOverlap(body, attack)) {
-        this.player.takeDamage(1, nowMs, 'warden-attack', attack.x + attack.width / 2, 'lantern-warden');
+        if (this.player.takeDamage(1, nowMs, 'warden-attack', attack.x + attack.width / 2, 'lantern-warden')) {
+          this.audio.play(Stage1SfxKey.PlayerHurt);
+        }
       }
     }
   }
@@ -301,7 +314,9 @@ export class Stage1Scene extends Phaser.Scene {
       const active = this.isHazardActive(hazard, nowMs);
       hazard.image.setAlpha(active ? (hazard.type === 'fall-pit' ? 0.30 : 0.78) : 0.24);
       if (active && rectsOverlap(body, hazard)) {
-        this.player.takeDamage(hazard.damage, nowMs, hazard.type === 'fall-pit' ? 'fall' : 'hazard', hazard.x + hazard.width / 2, hazard.id);
+        if (this.player.takeDamage(hazard.damage, nowMs, hazard.type === 'fall-pit' ? 'fall' : 'hazard', hazard.x + hazard.width / 2, hazard.id)) {
+          this.audio.play(Stage1SfxKey.PlayerHurt);
+        }
         if (hazard.type === 'fall-pit') this.player.respawnAtCheckpoint();
       }
     }
@@ -330,27 +345,31 @@ export class Stage1Scene extends Phaser.Scene {
         this.player.setCheckpoint(checkpoint.respawnX, checkpoint.respawnY);
         this.checkpointMessage = `Checkpoint: ${checkpoint.name}`;
         this.checkpointMessageUntilMs = nowMs + 2500;
+        this.audio.play(Stage1SfxKey.Checkpoint);
       }
     }
   }
 
   private resolveCollectibles(): void {
     const body = this.player.getBody();
-    this.collect(this.sealVisuals, this.collectedSeals, body);
-    this.collect(this.scrollVisuals, this.collectedScrolls, body);
+    this.collect(this.sealVisuals, this.collectedSeals, body, Stage1SfxKey.PickupSeal);
+    this.collect(this.scrollVisuals, this.collectedScrolls, body, Stage1SfxKey.PickupScroll);
     for (const pickup of this.pickupVisuals) {
       if (this.collectedPickups.has(pickup.id) || !rectsOverlap(body, pickup.body)) continue;
       this.collectedPickups.add(pickup.id);
       pickup.image.setVisible(false);
+      this.audio.play(pickup.type === 'health' ? Stage1SfxKey.PickupHealth : Stage1SfxKey.PickupEnergy);
       if (pickup.type === 'health') this.player.heal(5);
     }
   }
 
-  private collect(visuals: readonly CollectibleVisual[], target: Set<string>, body: RectData): void {
+  private collect(visuals: readonly CollectibleVisual[], target: Set<string>, body: RectData, sfxKey: Stage1SfxKey): void {
     for (const visual of visuals) {
       if (target.has(visual.id) || !rectsOverlap(body, visual.body)) continue;
+      const detune = sfxKey === Stage1SfxKey.PickupSeal ? Math.min(420, target.size * 18) : 0;
       target.add(visual.id);
       visual.image.setVisible(false);
+      this.audio.play(sfxKey, { detune });
     }
   }
 
@@ -361,6 +380,7 @@ export class Stage1Scene extends Phaser.Scene {
       const timeMs = this.elapsedMs();
       const rank = calculateStageRank(timeMs, this.player.getDamageTaken(), this.collectedScrolls.size);
       const save = SaveSystem.recordStage1Clear(timeMs, rank, Array.from(this.collectedScrolls));
+      this.audio.play(Stage1SfxKey.StageClear);
       this.scene.start(SceneKey.StageClear, {
         timeMs,
         rank,
@@ -379,6 +399,17 @@ export class Stage1Scene extends Phaser.Scene {
     if (x < 3400) return 'Cross the rooftops';
     if (x < Stage1Data.safeRestBeforeMiniboss.x) return 'Survive the long neon run';
     return 'Rest before the Warden';
+  }
+
+  private playPlayerActionSfx(events: readonly PlayerActionEvent[]): void {
+    for (const event of events) {
+      if (event === 'jump') this.audio.play(Stage1SfxKey.Jump);
+      if (event === 'speedFlipJump') this.audio.play(Stage1SfxKey.Jump, { detune: 180, volume: 0.68 });
+      if (event === 'wallKick') this.audio.play(Stage1SfxKey.WallKick);
+      if (event === 'attack') this.audio.play(Stage1SfxKey.Attack);
+      if (event === 'spinAttack') this.audio.play(Stage1SfxKey.SpinAttack);
+      if (event === 'hurt') this.audio.play(Stage1SfxKey.PlayerHurt);
+    }
   }
 
   private createPauseOverlay(): void {

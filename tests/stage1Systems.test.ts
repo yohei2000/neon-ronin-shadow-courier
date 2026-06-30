@@ -1,4 +1,9 @@
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { Stage1AudioAssets, Stage1SfxKey } from '../src/data/audioAssets';
 import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames, SlashAnimationFrames } from '../src/data/artAssets';
 import { Stage1Data, Stage1Tuning } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
@@ -200,6 +205,28 @@ describe('Stage1 enemy animation coverage', () => {
     expect(Stage1Tuning.damageKnockbackX).toBe(155);
     expect(Stage1Tuning.hazardKnockbackX).toBe(185);
     expect(Stage1Tuning.damageKnockbackControlLockMs).toBe(140);
+  });
+});
+
+describe('Stage1 audio assets', () => {
+  it('loads one generated SFX asset for every Stage1 sound key', () => {
+    expect(Object.keys(Stage1AudioAssets).sort()).toEqual(Object.values(Stage1SfxKey).sort());
+    const audioDir = resolve(dirname(fileURLToPath(import.meta.url)), '../src/assets/audio');
+    const hashes = new Set<string>();
+
+    for (const url of Object.values(Stage1AudioAssets)) {
+      expect(url.endsWith('.wav')).toBe(true);
+      const fileName = url.replace(/\\/g, '/').split('/').pop();
+      expect(fileName).toBeTruthy();
+      const data = readFileSync(resolve(audioDir, fileName ?? ''));
+      let nonzeroSamples = 0;
+      for (let index = 44; index < data.length; index += 2) {
+        if (data.readInt16LE(index) !== 0) nonzeroSamples += 1;
+      }
+      expect(nonzeroSamples).toBeGreaterThan(1000);
+      hashes.add(createHash('sha256').update(data).digest('hex'));
+    }
+    expect(hashes.size).toBe(Object.keys(Stage1AudioAssets).length);
   });
 });
 

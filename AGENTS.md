@@ -102,6 +102,8 @@ Runtime movement note: Stage1 player movement now uses stronger acceleration/dec
 
 Runtime boss note: Lantern Warden is the Stage1 miniboss, not the campaign final boss. The scoped Stage1 boss kit includes melee attacks plus a spark-drop ranged projectile; this does not authorize player projectile systems or broader campaign combat systems.
 
+Runtime audio note: Stage1 SFX are generated WAV assets under `src/assets/audio/`, indexed by `src/data/audioAssets.ts`, loaded in `PreloadScene`, and routed through `src/systems/Stage1Audio.ts`. Keep audio additions scoped to Stage1 actions unless a new scope is approved; current timing covers jump, wall kick, slash/spin slash, player hurt, enemy defeat, pickups, checkpoints, Lantern Warden attack/projectile, and Stage1 clear.
+
 Runtime item/UI note: Stage1 seal collectibles are rendered as koban coins and scroll collectibles as makimono scrolls in the derived `stage1-item-icons` runtime sheet. The mobile jump button is authored in the derived `stage1-touch-controls` sheet so the visual button and hit zone share a center. Keep these fixes in `npm.cmd run art:runtime-sheets`; do not edit frozen approved core art for this.
 
 Runtime enemy/hazard note: Ink Crawler and Kite Wraith runtime sheets now derive patrol/drift 8, hit 4, and defeat 6 frame sequences from frozen approved enemy art. Defeated small enemies play their defeat sequence and fade out instead of disappearing immediately. Player damage uses source-aware knockback with a short control lock, and the timed-spark fire hitbox is lower than the visual so a clean jump route can pass without fire damage.

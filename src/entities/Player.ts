@@ -47,6 +47,13 @@ export type PlayerRuntimeState = {
   readonly lastDamageId: string | null;
 };
 
+export type PlayerActionEvent = 'jump' | 'speedFlipJump' | 'wallKick' | 'attack' | 'spinAttack' | 'hurt';
+
+export type PlayerFrameResult = {
+  readonly slash: SlashState;
+  readonly events: readonly PlayerActionEvent[];
+};
+
 const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; readonly offsetY: number }> = {
   idle: { angle: 0, offsetY: 0 },
   run: { angle: -2, offsetY: 1 },
@@ -117,10 +124,12 @@ export class Player {
     this.sprite.play('player-idle');
   }
 
-  update(input: Stage1InputSnapshot, platforms: readonly Stage1Platform[], nowMs: number, deltaMs: number, paused = false): SlashState {
+  update(input: Stage1InputSnapshot, platforms: readonly Stage1Platform[], nowMs: number, deltaMs: number, paused = false): PlayerFrameResult {
+    const events: PlayerActionEvent[] = [];
+
     if (paused) {
       this.syncVisuals(null);
-      return CombatSystem.buildSlashState(this.x, this.y, this.facing, -1);
+      return { slash: CombatSystem.buildSlashState(this.x, this.y, this.facing, -1), events };
     }
 
     if (input.jumpPressed) {
@@ -145,6 +154,7 @@ export class Player {
         this.lastWallKickMs = nowMs;
         this.jumpStartedMs = nowMs;
         this.jumpVisualVariant = null;
+        events.push('wallKick');
       } else {
         this.jumpStartedMs = nowMs;
         const jumpVariant = resolveInitialJumpVisualVariant(this.vx);
@@ -157,6 +167,7 @@ export class Player {
         } else {
           this.vy = Stage1Tuning.jumpVelocity;
         }
+        events.push(jumpVariant === 'speedFlip' ? 'speedFlipJump' : 'jump');
       }
       this.onGround = false;
       this.lastJumpPressedMs = -Infinity;
@@ -195,7 +206,9 @@ export class Player {
     this.moveAndCollide(0, this.vy * dt, platforms);
 
     if (this.y > Stage1Data.worldHeight - 48) {
-      this.takeDamage(1, nowMs, 'fall', undefined, 'world-fall');
+      if (this.takeDamage(1, nowMs, 'fall', undefined, 'world-fall')) {
+        events.push('hurt');
+      }
       this.respawnAtCheckpoint();
     }
 
@@ -203,6 +216,7 @@ export class Player {
       this.slashElapsedMs = 0;
       this.slashStartedOnGround = this.onGround;
       this.slashMode = this.isSpeedFlipActive(nowMs) ? 'spin' : 'arc';
+      events.push(this.slashMode === 'spin' ? 'spinAttack' : 'attack');
     }
 
     let slash = CombatSystem.buildSlashState(this.x, this.y, this.facing, -1);
@@ -216,7 +230,7 @@ export class Player {
     }
 
     this.syncVisuals(slash);
-    return slash;
+    return { slash, events };
   }
 
   setCheckpoint(x: number, y: number): void {

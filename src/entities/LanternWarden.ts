@@ -1,8 +1,10 @@
 import * as Phaser from 'phaser';
 import { Palette, PaletteHex } from '../config/palette';
+import { Stage1SfxKey } from '../data/audioAssets';
 import { RuntimeSpriteAssetKey } from '../data/artAssets';
 import { Stage1Tuning, type RectData, type Stage1WardenDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
+import { Stage1SfxEvent } from '../systems/Stage1Audio';
 import { buildWardenProjectileRect, resolveWardenProjectileMotion } from '../systems/wardenRangedAttack';
 import type { EnemyRuntimeState, StageEnemy } from './types';
 
@@ -173,7 +175,10 @@ export class LanternWarden implements StageEnemy {
     this.firedThisState = false;
     if (state === 'idle') this.sprite.play('warden-idle', true);
     if (state === 'telegraph') this.sprite.play('warden-telegraph', true);
-    if (state === 'active') this.sprite.play('warden-attack', true);
+    if (state === 'active') {
+      this.sprite.play('warden-attack', true);
+      this.scene.events.emit(Stage1SfxEvent, Stage1SfxKey.WardenAttack);
+    }
     if (state === 'recovery') this.sprite.play('warden-recovery', true);
   }
 
@@ -198,6 +203,7 @@ export class LanternWarden implements StageEnemy {
       angleDeg: motion.angleDeg,
       lifeMs: 0
     });
+    this.scene.events.emit(Stage1SfxEvent, Stage1SfxKey.WardenProjectile, { detune: this.nextProjectileId % 2 === 0 ? 80 : -60 });
     this.nextProjectileId += 1;
   }
 

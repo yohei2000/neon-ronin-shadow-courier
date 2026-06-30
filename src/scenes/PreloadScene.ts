@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
+import { Stage1AudioAssets } from '../data/audioAssets';
 import {
   ArtAssetKey,
   ArtImageAssets,
@@ -80,6 +81,10 @@ export class PreloadScene extends Phaser.Scene {
     for (const [key, url] of Object.entries(RuntimeEnvironmentImageAssets)) {
       if (key === RuntimeEnvironmentAssetKey.ItemIcons || key === RuntimeEnvironmentAssetKey.TouchControls) continue;
       this.load.image(key, url);
+    }
+
+    for (const [key, url] of Object.entries(Stage1AudioAssets)) {
+      this.load.audio(key, url);
     }
 
     const spritesheetKeys = new Set<string>([

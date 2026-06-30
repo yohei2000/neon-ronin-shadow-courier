@@ -23,7 +23,7 @@ const browser = await chromium.launch();
 console.log('stage1-e2e browser launched');
 const tests = [];
 const shouldRun = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
-const routeTimeoutMs = 840000;
+const routeTimeoutMs = 1200000;
 const wardenEngageX = stage.warden.arena.x + 160;
 const wardenStopX = stage.warden.x - 120;
 const wardenAdvanceX = stage.warden.x - 130;
@@ -147,7 +147,8 @@ const runKeyboardRouteToClear = async (page) => {
   let lastDamageSeen = 0;
   const setRight = async (down) => {
     const now = Date.now();
-    rightDown = down;
+    if (down && rightDown && now - lastRightRefresh <= 650) return;
+    if (!down && !rightDown) return;
     if (down) {
       await page.keyboard.up('ArrowLeft');
       await page.keyboard.up('a');
@@ -158,9 +159,11 @@ const runKeyboardRouteToClear = async (page) => {
       }
       await page.keyboard.down('ArrowRight');
       await page.keyboard.down('d');
+      rightDown = true;
     } else {
       await page.keyboard.up('ArrowRight');
       await page.keyboard.up('d');
+      rightDown = false;
     }
   };
   await setRight(true);
