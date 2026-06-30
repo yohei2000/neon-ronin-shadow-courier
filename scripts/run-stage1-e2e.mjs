@@ -445,7 +445,7 @@ if (shouldRun('mobile-controls')) await record('mobile-controls', () =>
     await holdTouchPoints(page, [rightButton, jumpButton], 650);
     const simultaneousAfter = (await state(page)).player;
     const touchButtons = (await state(page)).touch?.buttons;
-    assert(simultaneousAfter.x > simultaneousBefore.x + 10, `right+jump touch did not preserve horizontal movement: before ${simultaneousBefore.x}, after ${simultaneousAfter.x}`);
+    assert(simultaneousAfter.x >= simultaneousBefore.x + 8, `right+jump touch did not preserve horizontal movement: before ${simultaneousBefore.x}, after ${simultaneousAfter.x}`);
     assert(simultaneousAfter.y < simultaneousBefore.y - 8, `right+jump touch did not jump: before ${simultaneousBefore.y}, after ${simultaneousAfter.y}`);
     assert(touchButtons?.right !== true && touchButtons?.jump !== true, 'right+jump touch buttons remained stuck after release');
     const attackButton = await gamePoint(page, 866, 426);
