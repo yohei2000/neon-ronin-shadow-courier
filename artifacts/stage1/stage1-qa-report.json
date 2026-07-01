@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-01T15:22:55.565Z",
+  "generatedAt": "2026-07-01T16:23:01.990Z",
   "passed": true,
   "checks": [
     {
       "id": "five-linear-sections",
       "passed": true,
-      "detail": "Rain Lantern Start, Wall-Kick Sign Shaft, Rooftop Hazard Line, Neon Thorn Climb, Lantern Warden Gate"
+      "detail": "Rain Lantern Start, Neon Sign Run, Rooftop Hazard Line, Neon Thorn Climb, Lantern Warden Gate"
     },
     {
       "id": "single-continuous-route",
@@ -95,12 +95,12 @@
     {
       "id": "compact-platform-variety",
       "passed": true,
-      "detail": "14 platforms, maxWidth=1160, elevated=4, fallPits=1"
+      "detail": "14 platforms, maxWidth=1160, elevated=5, fallPits=1"
     },
     {
       "id": "compact-vertical-route",
       "passed": true,
-      "detail": "range=178, high=4, mid=10, updrafts=1"
+      "detail": "range=200, high=5, mid=9, updrafts=1"
     },
     {
       "id": "single-updraft-gimmick",

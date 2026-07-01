@@ -23,7 +23,7 @@ const browser = await chromium.launch();
 console.log('stage1-e2e browser launched');
 const tests = [];
 const shouldRun = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
-const routeTimeoutMs = 1800000;
+const routeTimeoutMs = Number(process.env.E2E_ROUTE_TIMEOUT_MS ?? 420000);
 const wardenEngageX = stage.warden.arena.x + 160;
 const wardenStopX = stage.warden.x - 120;
 const wardenAdvanceX = stage.warden.x - 130;
@@ -407,7 +407,7 @@ if (shouldRun('stage1-keyboard-clear')) await record('stage1-keyboard-clear', ()
     return {
       timeMs: result.timeMs,
       rank: result.rank,
-      scrollsFound: result.scrollsFound,
+      sealsFound: result.sealsFound,
       damageTaken: result.damageTaken
     };
   })

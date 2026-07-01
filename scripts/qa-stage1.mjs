@@ -7,7 +7,7 @@ fs.mkdirSync(artifactDir, { recursive: true });
 const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
 const requiredNames = [
   'Rain Lantern Start',
-  'Wall-Kick Sign Shaft',
+  'Neon Sign Run',
   'Rooftop Hazard Line',
   'Neon Thorn Climb',
   'Lantern Warden Gate'

@@ -2,7 +2,7 @@ import stage1Content from './stage1Content.json';
 
 export type Stage1SectionName =
   | 'Rain Lantern Start'
-  | 'Wall-Kick Sign Shaft'
+  | 'Neon Sign Run'
   | 'Rooftop Hazard Line'
   | 'Neon Thorn Climb'
   | 'Lantern Warden Gate';
@@ -110,7 +110,7 @@ export type Stage1Data = {
 
 export const RequiredStage1SectionNames = [
   'Rain Lantern Start',
-  'Wall-Kick Sign Shaft',
+  'Neon Sign Run',
   'Rooftop Hazard Line',
   'Neon Thorn Climb',
   'Lantern Warden Gate'

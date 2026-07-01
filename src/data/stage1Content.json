@@ -10,37 +10,37 @@
   "safeRestBeforeMiniboss": { "x": 5000, "y": 250, "width": 360, "height": 250 },
   "sections": [
     { "id": "rain-lantern-start", "name": "Rain Lantern Start", "startX": 0, "endX": 1160, "orientation": "horizontal", "optionalRoute": false },
-    { "id": "wall-kick-sign-shaft", "name": "Wall-Kick Sign Shaft", "startX": 1160, "endX": 1900, "orientation": "vertical", "optionalRoute": false },
+    { "id": "wall-kick-sign-shaft", "name": "Neon Sign Run", "startX": 1160, "endX": 1900, "orientation": "vertical", "optionalRoute": false },
     { "id": "rooftop-hazard-line", "name": "Rooftop Hazard Line", "startX": 1900, "endX": 3180, "orientation": "horizontal", "optionalRoute": false },
     { "id": "neon-thorn-climb", "name": "Neon Thorn Climb", "startX": 3180, "endX": 5000, "orientation": "vertical", "optionalRoute": false },
     { "id": "lantern-warden-gate", "name": "Lantern Warden Gate", "startX": 5000, "endX": 6700, "orientation": "horizontal", "optionalRoute": false }
   ],
   "platforms": [
     { "id": "start-walk", "x": 0, "y": 470, "width": 1160, "height": 42 },
-    { "id": "shaft-base", "x": 1160, "y": 470, "width": 280, "height": 42 },
-    { "id": "sign-step-low", "x": 1220, "y": 382, "width": 190, "height": 30 },
-    { "id": "sign-step-mid", "x": 1410, "y": 326, "width": 190, "height": 28 },
-    { "id": "sign-step-high", "x": 1600, "y": 292, "width": 300, "height": 28 },
-    { "id": "rooftop-run", "x": 1900, "y": 360, "width": 560, "height": 32 },
-    { "id": "rooftop-gap-landing", "x": 2560, "y": 430, "width": 620, "height": 42 },
-    { "id": "thorn-entry", "x": 3180, "y": 430, "width": 700, "height": 42 },
+    { "id": "shaft-base", "x": 1160, "y": 470, "width": 740, "height": 42 },
+    { "id": "sign-step-low", "x": 1220, "y": 322, "width": 210, "height": 30 },
+    { "id": "sign-step-mid", "x": 1440, "y": 292, "width": 210, "height": 28 },
+    { "id": "sign-step-high", "x": 1660, "y": 270, "width": 240, "height": 28 },
+    { "id": "rooftop-run", "x": 1900, "y": 470, "width": 620, "height": 42 },
+    { "id": "rooftop-gap-landing", "x": 2520, "y": 470, "width": 660, "height": 42 },
+    { "id": "thorn-entry", "x": 3180, "y": 470, "width": 700, "height": 42 },
     { "id": "updraft-exit-ledge", "x": 3740, "y": 330, "width": 320, "height": 28 },
-    { "id": "thorn-high-roof", "x": 4000, "y": 292, "width": 660, "height": 28 },
-    { "id": "roof-descent", "x": 4660, "y": 360, "width": 340, "height": 30 },
-    { "id": "warden-rest-floor", "x": 5000, "y": 430, "width": 360, "height": 42 },
-    { "id": "warden-arena-floor", "x": 5360, "y": 430, "width": 760, "height": 42 },
-    { "id": "moon-gate-finish-floor", "x": 6120, "y": 430, "width": 580, "height": 42 }
+    { "id": "thorn-high-roof", "x": 4000, "y": 330, "width": 660, "height": 28 },
+    { "id": "roof-descent", "x": 4660, "y": 470, "width": 340, "height": 42 },
+    { "id": "warden-rest-floor", "x": 5000, "y": 470, "width": 360, "height": 42 },
+    { "id": "warden-arena-floor", "x": 5360, "y": 470, "width": 760, "height": 42 },
+    { "id": "moon-gate-finish-floor", "x": 6120, "y": 470, "width": 580, "height": 42 }
   ],
   "checkpoints": [
     { "id": "checkpoint-start", "name": "Rain Lantern Shrine", "x": 210, "y": 390, "width": 72, "height": 86, "respawnX": 96, "respawnY": 402, "sectionId": "rain-lantern-start" },
-    { "id": "checkpoint-shaft-exit", "name": "Sign Shaft Shrine", "x": 1740, "y": 212, "width": 76, "height": 86, "respawnX": 1740, "respawnY": 256, "sectionId": "wall-kick-sign-shaft" },
-    { "id": "checkpoint-plaza", "name": "Rooftop Shrine", "x": 3000, "y": 350, "width": 78, "height": 86, "respawnX": 3030, "respawnY": 362, "sectionId": "rooftop-hazard-line" },
-    { "id": "checkpoint-warden-rest", "name": "Moon Lantern Rest", "x": 5080, "y": 350, "width": 78, "height": 86, "respawnX": 5100, "respawnY": 362, "sectionId": "lantern-warden-gate" }
+    { "id": "checkpoint-shaft-exit", "name": "Sign Shaft Shrine", "x": 1740, "y": 390, "width": 76, "height": 86, "respawnX": 1740, "respawnY": 402, "sectionId": "wall-kick-sign-shaft" },
+    { "id": "checkpoint-plaza", "name": "Rooftop Shrine", "x": 3000, "y": 390, "width": 78, "height": 86, "respawnX": 3030, "respawnY": 402, "sectionId": "rooftop-hazard-line" },
+    { "id": "checkpoint-warden-rest", "name": "Moon Lantern Rest", "x": 5080, "y": 390, "width": 78, "height": 86, "respawnX": 5100, "respawnY": 402, "sectionId": "lantern-warden-gate" }
   ],
   "hazards": [
-    { "id": "timed-spark", "type": "timed-spark", "x": 2120, "y": 348, "width": 82, "height": 14, "damage": 1 },
-    { "id": "rooftop-gap", "type": "fall-pit", "x": 2460, "y": 385, "width": 100, "height": 360, "damage": 1 },
-    { "id": "thorn-entry-a", "type": "neon-thorn", "x": 3400, "y": 418, "width": 72, "height": 18, "damage": 1 },
+    { "id": "timed-spark", "type": "timed-spark", "x": 2120, "y": 458, "width": 82, "height": 14, "damage": 1 },
+    { "id": "rooftop-gap", "type": "fall-pit", "x": 2480, "y": 520, "width": 42, "height": 180, "damage": 1 },
+    { "id": "thorn-entry-a", "type": "neon-thorn", "x": 3400, "y": 458, "width": 72, "height": 18, "damage": 1 },
     { "id": "thorn-high-b", "type": "neon-thorn", "x": 4280, "y": 280, "width": 72, "height": 18, "damage": 1 }
   ],
   "gimmicks": [
@@ -51,39 +51,39 @@
       { "id": "seal-01", "x": 360, "y": 396 },
       { "id": "seal-02", "x": 560, "y": 396 },
       { "id": "seal-03", "x": 830, "y": 396 },
-      { "id": "seal-04", "x": 1280, "y": 334 },
+      { "id": "seal-04", "x": 1280, "y": 292 },
       { "id": "seal-05", "x": 1490, "y": 278 },
       { "id": "seal-06", "x": 1730, "y": 244 },
-      { "id": "seal-07", "x": 2030, "y": 312 },
-      { "id": "seal-08", "x": 2300, "y": 312 },
-      { "id": "seal-09", "x": 2760, "y": 374 },
-      { "id": "seal-10", "x": 3120, "y": 374 },
-      { "id": "seal-11", "x": 3500, "y": 374 },
+      { "id": "seal-07", "x": 2030, "y": 396 },
+      { "id": "seal-08", "x": 2300, "y": 396 },
+      { "id": "seal-09", "x": 2760, "y": 396 },
+      { "id": "seal-10", "x": 3120, "y": 396 },
+      { "id": "seal-11", "x": 3500, "y": 396 },
       { "id": "seal-12", "x": 3820, "y": 282 },
       { "id": "seal-13", "x": 4140, "y": 244 },
       { "id": "seal-14", "x": 4560, "y": 244 },
-      { "id": "seal-15", "x": 5150, "y": 374 },
-      { "id": "seal-16", "x": 6280, "y": 374 }
+      { "id": "seal-15", "x": 5150, "y": 396 },
+      { "id": "seal-16", "x": 6280, "y": 396 }
     ],
     "scrolls": [],
     "pickups": [
-      { "id": "health-01", "type": "health", "x": 1540, "y": 278 },
-      { "id": "energy-01", "type": "energy", "x": 3040, "y": 374 },
-      { "id": "health-02", "type": "health", "x": 5120, "y": 374 }
+      { "id": "health-01", "type": "health", "x": 1540, "y": 250 },
+      { "id": "energy-01", "type": "energy", "x": 3040, "y": 396 },
+      { "id": "health-02", "type": "health", "x": 5120, "y": 396 }
     ]
   },
   "enemies": [
     { "id": "ink-01", "type": "ink-crawler", "x": 900, "y": 408, "patrolMinX": 760, "patrolMaxX": 1040, "sectionId": "rain-lantern-start" },
-    { "id": "kite-01", "type": "kite-wraith", "x": 2860, "y": 332, "patrolMinX": 2680, "patrolMaxX": 3060, "sectionId": "rooftop-hazard-line" },
-    { "id": "ink-02", "type": "ink-crawler", "x": 3380, "y": 368, "patrolMinX": 3220, "patrolMaxX": 3540, "sectionId": "neon-thorn-climb" }
+    { "id": "kite-01", "type": "kite-wraith", "x": 2860, "y": 372, "patrolMinX": 2680, "patrolMaxX": 3060, "sectionId": "rooftop-hazard-line" },
+    { "id": "ink-02", "type": "ink-crawler", "x": 3380, "y": 408, "patrolMinX": 3220, "patrolMaxX": 3540, "sectionId": "neon-thorn-climb" }
   ],
   "warden": {
     "id": "lantern-warden-01",
     "x": 5740,
-    "y": 310,
-    "arena": { "x": 5360, "y": 246, "width": 720, "height": 226 },
+    "y": 350,
+    "arena": { "x": 5360, "y": 286, "width": 720, "height": 226 },
     "hp": 4,
     "attackStates": ["lantern-sweep", "spark-drop", "rush-cut"]
   },
-  "moonGate": { "id": "moon-gate", "x": 6280, "y": 328, "width": 118, "height": 170, "requiresWardenDefeated": true }
+  "moonGate": { "id": "moon-gate", "x": 6280, "y": 368, "width": 118, "height": 170, "requiresWardenDefeated": true }
 }
