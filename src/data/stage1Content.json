@@ -82,7 +82,7 @@
     "x": 5740,
     "y": 310,
     "arena": { "x": 5360, "y": 246, "width": 720, "height": 226 },
-    "hp": 8,
+    "hp": 4,
     "attackStates": ["lantern-sweep", "spark-drop", "rush-cut"]
   },
   "moonGate": { "id": "moon-gate", "x": 6280, "y": 328, "width": 118, "height": 170, "requiresWardenDefeated": true }
