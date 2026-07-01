@@ -72,96 +72,108 @@ const writeWav = (name, durationSeconds, synth, gain = 0.88) => {
 
 mkdirSync(OUT_DIR, { recursive: true });
 
-writeWav('stage1-jump', 0.24, (t, d, noise) => {
-  const rise = sweep(210, 680, t, d);
-  const neon = sine(1280, t) * decay(t, 9);
-  return rise * 0.74 + neon * 0.16 + noise() * 0.018 * decay(t, 16);
+writeWav('stage1-jump', 0.32, (t, d, noise) => {
+  const legDrive = sweep(92, 168, t, d) * decay(t, 5.8);
+  const clothSnap = noise() * decay(t, 18) * 0.08;
+  const neonLift = sine(520, t) * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.18;
+  return legDrive * 0.84 + neonLift + clothSnap;
 });
 
-writeWav('stage1-wall-kick', 0.22, (t, d, noise) => {
-  const thud = sweep(190, 82, t, 0.14) * decay(t, 16);
-  const rebound = sweep(320, 540, t, d) * Math.sin(Math.PI * clamp(t / d, 0, 1));
-  return thud * 0.5 + rebound * 0.42 + noise() * 0.18 * decay(t, 24);
+writeWav('stage1-wall-kick', 0.34, (t, d, noise) => {
+  const impact = sweep(128, 46, t, 0.18) * decay(t, 8.5);
+  const scrape = noise() * decay(t, 15) * 0.28;
+  const rebound = sweep(190, 310, t, d) * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.24;
+  return impact * 0.86 + scrape + rebound;
 });
 
-writeWav('stage1-attack', 0.19, (t, d, noise) => {
-  const blade = sweep(760, 2380, t, d) * Math.sin(Math.PI * clamp(t / d, 0, 1));
-  const air = noise() * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.34;
-  return blade * 0.62 + air;
+writeWav('stage1-attack', 0.27, (t, d, noise) => {
+  const cutBody = sweep(340, 920, t, d) * Math.sin(Math.PI * clamp(t / d, 0, 1));
+  const metalEdge = sine(1180, t) * decay(t, 10) * 0.18;
+  const air = noise() * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.26;
+  const impact = sweep(150, 72, t, 0.1) * decay(t, 18) * 0.25;
+  return cutBody * 0.68 + metalEdge + air + impact;
 });
 
-writeWav('stage1-spin-attack', 0.34, (t, d, noise) => {
-  const wobble = 0.5 + 0.5 * sine(8.5, t);
-  const blade = sweep(460, 1560, t, d) * (0.45 + wobble * 0.38);
-  const air = noise() * (0.26 + wobble * 0.24);
-  return blade * 0.58 + air * Math.sin(Math.PI * clamp(t / d, 0, 1));
+writeWav('stage1-spin-attack', 0.5, (t, d, noise) => {
+  const wobble = 0.5 + 0.5 * sine(6.5, t);
+  const flameBody = sweep(130, 280, t, d) * (0.5 + wobble * 0.32) * decay(t, 1.6);
+  const bladeRing = sweep(360, 940, t, d) * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.44;
+  const fireAir = noise() * (0.24 + wobble * 0.24) * Math.sin(Math.PI * clamp(t / d, 0, 1));
+  return flameBody * 0.78 + bladeRing + fireAir;
 });
 
-writeWav('stage1-enemy-defeat', 0.42, (t, d, noise) => {
-  const drop = sweep(560, 118, t, d) * decay(t, 3.6);
-  const crackleGate = t < 0.18 ? 1 : decay(t - 0.18, 20);
-  const crackle = noise() * crackleGate * 0.34;
-  const ember = sine(1240, t) * decay(Math.max(0, t - 0.08), 9) * (t > 0.08 ? 1 : 0);
-  return drop * 0.66 + crackle + ember * 0.16;
+writeWav('stage1-enemy-defeat', 0.62, (t, d, noise) => {
+  const collapse = sweep(260, 42, t, d) * decay(t, 2.6);
+  const crackleGate = t < 0.24 ? 1 : decay(t - 0.24, 11);
+  const crackle = noise() * crackleGate * 0.30;
+  const ember = sine(520, t) * decay(Math.max(0, t - 0.1), 5) * (t > 0.1 ? 0.22 : 0);
+  return collapse * 0.82 + crackle + ember;
 });
 
-writeWav('stage1-player-hurt', 0.28, (t, d, noise) => {
-  const hit = sweep(180, 72, t, d) * decay(t, 7);
-  const grit = noise() * decay(t, 18);
-  return hit * 0.82 + grit * 0.18;
+writeWav('stage1-player-hurt', 0.38, (t, d, noise) => {
+  const hit = sweep(142, 42, t, d) * decay(t, 5.4);
+  const grit = noise() * decay(t, 12) * 0.24;
+  const body = sine(74, t) * decay(t, 6.8) * 0.28;
+  return hit * 0.82 + grit + body;
 });
 
-writeWav('stage1-pickup-seal', 0.22, (t, d) => {
-  const note = t < 0.075 ? 880 : t < 0.145 ? 1320 : 1760;
-  return sine(note, t) * 0.58 * decay(t, 3.5) + sine(note * 2, t) * 0.14 * decay(t, 5);
+writeWav('stage1-pickup-seal', 0.28, (t, d, noise) => {
+  const first = sine(420, t) * decay(t, 5.2);
+  const secondT = Math.max(0, t - 0.08);
+  const second = t > 0.08 ? sine(630, secondT) * decay(secondT, 5.6) : 0;
+  const copperClick = noise() * decay(t, 28) * 0.06;
+  return first * 0.46 + second * 0.34 + copperClick;
 });
 
-writeWav('stage1-pickup-scroll', 0.3, (t, d, noise) => {
-  const rustle = noise() * decay(t, 18) * 0.16;
-  const chime = sine(740, t) * decay(Math.max(0, t - 0.055), 4) * (t > 0.035 ? 0.48 : 0);
-  return rustle + chime + sine(1110, t) * 0.14 * decay(t, 5);
+writeWav('stage1-pickup-scroll', 0.38, (t, d, noise) => {
+  const rustle = noise() * decay(t, 12) * 0.20;
+  const sealTone = sine(330, t) * decay(Math.max(0, t - 0.055), 4.2) * (t > 0.035 ? 0.34 : 0);
+  return rustle + sealTone + sine(495, t) * 0.12 * decay(t, 5.2);
 });
 
-writeWav('stage1-pickup-health', 0.34, (t) => {
-  const mix = sine(523.25, t) * 0.32 + sine(659.25, t) * 0.25 + sine(783.99, t) * 0.22;
-  return mix * decay(t, 3.8);
+writeWav('stage1-pickup-health', 0.42, (t) => {
+  const mix = sine(261.63, t) * 0.34 + sine(392, t) * 0.25 + sine(523.25, t) * 0.16;
+  return mix * decay(t, 3.1);
 });
 
-writeWav('stage1-pickup-energy', 0.28, (t) => {
-  const shimmer = sine(988, t) * 0.36 + sine(1482, t, 0.4) * 0.22 + sine(1976, t, 0.8) * 0.12;
-  return shimmer * (0.55 + 0.45 * sine(12, t)) * decay(t, 4.2);
+writeWav('stage1-pickup-energy', 0.38, (t, d, noise) => {
+  const pulse = sine(196, t) * 0.34 + sine(392, t, 0.4) * 0.22 + sine(784, t, 0.8) * 0.10;
+  const staticBed = noise() * decay(t, 12) * 0.08;
+  return pulse * (0.6 + 0.4 * sine(8, t)) * decay(t, 3.4) + staticBed;
 });
 
-writeWav('stage1-checkpoint', 0.68, (t) => {
-  const first = sine(392, t) * decay(t, 3.3) + sine(784, t) * 0.28 * decay(t, 5);
-  const secondT = Math.max(0, t - 0.21);
-  const second = t > 0.21 ? sine(587.33, secondT) * decay(secondT, 3.1) + sine(1174.66, secondT) * 0.22 * decay(secondT, 4.8) : 0;
-  return first * 0.42 + second * 0.5;
+writeWav('stage1-checkpoint', 0.92, (t) => {
+  const gong = sine(196, t) * decay(t, 2.1) + sine(392, t) * 0.24 * decay(t, 3.8);
+  const secondT = Math.max(0, t - 0.28);
+  const answer = t > 0.28 ? sine(293.66, secondT) * decay(secondT, 2.4) + sine(587.33, secondT) * 0.2 * decay(secondT, 4.2) : 0;
+  return gong * 0.48 + answer * 0.48;
 });
 
-writeWav('stage1-warden-attack', 0.32, (t, d, noise) => {
-  const warning = sweep(300, 95, t, d) * decay(t, 4.2);
-  const heat = noise() * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.24;
-  return warning * 0.64 + heat;
+writeWav('stage1-warden-attack', 0.5, (t, d, noise) => {
+  const warning = sweep(170, 42, t, d) * decay(t, 2.9);
+  const heat = noise() * Math.sin(Math.PI * clamp(t / d, 0, 1)) * 0.28;
+  const bell = sine(260, t) * decay(t, 4.4) * 0.26;
+  return warning * 0.78 + heat + bell;
 });
 
-writeWav('stage1-warden-projectile', 0.3, (t, d, noise) => {
-  const spark = sweep(260, 940, t, d) * decay(t, 2.5);
-  const ember = noise() * decay(t, 9) * 0.24;
-  return spark * 0.55 + ember;
+writeWav('stage1-warden-projectile', 0.44, (t, d, noise) => {
+  const launch = sweep(150, 520, t, d) * decay(t, 2.4);
+  const ember = noise() * decay(t, 7.4) * 0.22;
+  const body = sine(92, t) * decay(t, 5.5) * 0.25;
+  return launch * 0.54 + ember + body;
 });
 
-writeWav('stage1-stage-clear', 0.92, (t) => {
+writeWav('stage1-stage-clear', 1.12, (t) => {
   const notes = [
-    [0, 523.25],
-    [0.16, 659.25],
-    [0.32, 783.99],
-    [0.5, 1046.5]
+    [0, 196],
+    [0.22, 261.63],
+    [0.44, 392],
+    [0.68, 523.25]
   ];
   return notes.reduce((sum, [start, frequency]) => {
     if (t < start) return sum;
     const localT = t - start;
-    return sum + sine(frequency, localT) * 0.33 * decay(localT, 3.2) + sine(frequency * 2, localT) * 0.08 * decay(localT, 5);
+    return sum + sine(frequency, localT) * 0.34 * decay(localT, 2.5) + sine(frequency * 2, localT) * 0.08 * decay(localT, 4.2);
   }, 0);
 });
 
