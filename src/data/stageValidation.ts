@@ -66,32 +66,40 @@ const collectiblePlatformOverlaps = (data: Stage1DataType): string[] => {
     return data.platforms.filter((platform) => overlaps(rect, platform)).map((platform) => `${group}:${item.id}->${platform.id}`);
   });
 };
-const neonRunPlatformVariety = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
-  const runStartX = 3920;
-  const runEndX = data.warden.arena.x - 480;
-  const platforms = data.platforms.filter((platform) => platform.x < runEndX && platform.x + platform.width > runStartX);
+const linearStageRoute = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const optionalRoutes = data.sections.filter((section) => section.optionalRoute);
+  const gaps = data.sections.filter((section, index) => {
+    const expectedStart = index === 0 ? 0 : data.sections[index - 1].endX;
+    return section.startX !== expectedStart || section.endX <= section.startX;
+  });
+  const lastSection = data.sections[data.sections.length - 1];
+  const covered = data.sections[0]?.startX === 0 && lastSection?.endX === data.worldWidth;
+  return {
+    passed: optionalRoutes.length === 0 && gaps.length === 0 && covered,
+    detail: `${optionalRoutes.length} optional routes, ${gaps.length} discontinuities, covered=${covered}`
+  };
+};
+const compactStagePlatformVariety = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const platforms = data.platforms;
   const maxWidth = platforms.reduce((longest, platform) => Math.max(longest, platform.width), 0);
   const elevatedCount = platforms.filter((platform) => platform.y <= 330).length;
-  const fallPitCount = data.hazards.filter((hazard) => hazard.type === 'fall-pit' && hazard.x >= runStartX && hazard.x < runEndX).length;
+  const fallPitCount = data.hazards.filter((hazard) => hazard.type === 'fall-pit').length;
   return {
-    passed: platforms.length >= 16 && maxWidth <= 1200 && elevatedCount >= 4 && fallPitCount >= 6,
+    passed: platforms.length >= 10 && platforms.length <= 16 && maxWidth <= 1200 && elevatedCount >= 4 && fallPitCount >= 1 && fallPitCount <= 3,
     detail: `${platforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevatedCount}, fallPits=${fallPitCount}`
   };
 };
-const neonRunVerticalRoute = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
-  const runStartX = 3920;
-  const runEndX = data.warden.arena.x - 480;
-  const platforms = data.platforms.filter((platform) => platform.x < runEndX && platform.x + platform.width > runStartX);
+const compactStageVerticality = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const platforms = data.platforms;
   const highestTop = platforms.reduce((top, platform) => Math.min(top, platform.y), Infinity);
   const lowestTop = platforms.reduce((top, platform) => Math.max(top, platform.y), -Infinity);
   const highPlatforms = platforms.filter((platform) => platform.y <= 330).length;
-  const lowerPlatforms = platforms.filter((platform) => platform.y >= 490).length;
   const middlePlatforms = platforms.filter((platform) => platform.y > 330 && platform.y < 490).length;
-  const updrafts = data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent' && gimmick.x >= runStartX && gimmick.x < runEndX);
+  const updrafts = data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent');
   const verticalRange = lowestTop - highestTop;
   return {
-    passed: verticalRange >= 190 && highPlatforms >= 6 && middlePlatforms >= 6 && lowerPlatforms >= 4 && updrafts.length >= 3,
-    detail: `range=${verticalRange}, high=${highPlatforms}, mid=${middlePlatforms}, low=${lowerPlatforms}, updrafts=${updrafts.length}`
+    passed: verticalRange >= 170 && highPlatforms >= 3 && middlePlatforms >= 3 && updrafts.length === 1,
+    detail: `range=${verticalRange}, high=${highPlatforms}, mid=${middlePlatforms}, updrafts=${updrafts.length}`
   };
 };
 
@@ -116,23 +124,26 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const unreachableScrolls = data.collectibles.scrolls.filter((scroll) => !scrollHasCollectionLane(data, scroll));
   const embeddedCollectibles = collectiblePlatformOverlaps(data);
   const firePassage = firePassageCheck(data);
-  const runVariety = neonRunPlatformVariety(data);
-  const verticalRoute = neonRunVerticalRoute(data);
+  const linearRoute = linearStageRoute(data);
+  const platformVariety = compactStagePlatformVariety(data);
+  const verticalRoute = compactStageVerticality(data);
 
   const checks = [
     check(
-      'ten-named-sections',
-      data.sections.length === 10 && RequiredStage1SectionNames.every((name, index) => names[index] === name),
+      'five-linear-sections',
+      data.sections.length === 5 && RequiredStage1SectionNames.every((name, index) => names[index] === name),
       `${data.sections.length} sections: ${names.join(', ')}`
     ),
+    check('single-continuous-route', linearRoute.passed, linearRoute.detail),
+    check('compact-stage-scope', data.worldWidth >= 5600 && data.worldWidth <= 7500, `worldWidth=${data.worldWidth}`),
     check('two-vertical-sections', verticalSections.length >= 2, `${verticalSections.length} vertical sections`),
-    check('two-optional-routes', optionalRoutes.length >= 2, `${optionalRoutes.length} optional routes`),
+    check('no-optional-routes', optionalRoutes.length === 0, `${optionalRoutes.length} optional routes`),
     check('two-checkpoints', data.checkpoints.length >= 2, `${data.checkpoints.length} checkpoints`),
-    check('exactly-three-scrolls', data.collectibles.scrolls.length === 3, `${data.collectibles.scrolls.length} scrolls`),
-    check('twenty-seals', data.collectibles.seals.length >= 20, `${data.collectibles.seals.length} seals`),
+    check('no-hidden-scrolls', data.collectibles.scrolls.length === 0, `${data.collectibles.scrolls.length} scrolls`),
+    check('twelve-seals', data.collectibles.seals.length >= 12, `${data.collectibles.seals.length} seals`),
     check('three-pickups', healthOrEnergy.length >= 3, `${healthOrEnergy.length} health/energy pickups`),
     check('three-hazard-moments', data.hazards.length >= 3, `${data.hazards.length} hazards`),
-    check('four-enemy-encounters', enemyEncounterCount >= 4, `${enemyEncounterCount} enemy encounters`),
+    check('three-enemy-encounters', enemyEncounterCount >= 3, `${enemyEncounterCount} enemy encounters`),
     check('single-warden', data.warden.id.length > 0 && data.warden.attackStates.length === 3, data.warden.id),
     check('safe-first-screen', firstScreenDamageSources.length === 0, `${firstScreenDamageSources.length} first-screen damage sources`),
     check('safe-rest-before-miniboss', restDamageSources.length === 0, `${restDamageSources.length} rest-area damage sources`),
@@ -142,18 +153,18 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
       orphanedEnemies.length === 0 && orphanedCheckpoints.length === 0 && orphanedScrolls.length === 0,
       `${orphanedEnemies.length} orphaned enemies, ${orphanedCheckpoints.length} orphaned checkpoints, ${orphanedScrolls.length} orphaned scrolls`
     ),
-    check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'all scrolls overlap reachable player lanes'),
+    check('scroll-collection-lanes', unreachableScrolls.length === 0, unreachableScrolls.map((scroll) => scroll.id).join(', ') || 'no scroll routes to validate'),
     check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
-    check('neon-run-platform-variety', runVariety.passed, runVariety.detail),
-    check('neon-run-vertical-route', verticalRoute.passed, verticalRoute.detail),
-    check('stage1-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length >= 3, `${data.gimmicks.length} gimmicks`),
+    check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
+    check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
+    check('single-updraft-gimmick', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 1, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(
       'duration-targets',
-      data.targetFirstClearSeconds.min === 540 &&
-        data.targetFirstClearSeconds.max === 900 &&
-        data.targetOptimizedSeconds.min === 180 &&
-        data.targetOptimizedSeconds.max === 360,
+      data.targetFirstClearSeconds.min === 180 &&
+        data.targetFirstClearSeconds.max === 360 &&
+        data.targetOptimizedSeconds.min === 75 &&
+        data.targetOptimizedSeconds.max === 150,
       `human ${data.targetFirstClearSeconds.min}-${data.targetFirstClearSeconds.max}s, e2e ${data.targetOptimizedSeconds.min}-${data.targetOptimizedSeconds.max}s`
     )
   ];

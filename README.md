@@ -31,7 +31,7 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Approved runtime manifest: `src/data/approvedArtManifest.ts`
 - Safe Stage1 derived runtime cutouts: `src/assets/runtime/`
 
-Stage 1 includes 10 named sections, checkpoints, exactly 3 hidden scrolls, 24 seal pickups, health/energy pickups, hazards, Ink Crawler and Kite Wraith encounters, a Lantern Warden miniboss, Moon Gate clear, settings, save data, pause, retry checkpoint, and mobile virtual controls.
+Stage 1 is a compact one-way route with 5 named sections: a safe rain-lantern slash tutorial, a short sign-shaft climb, a rooftop hazard lesson, one cyan updraft through a compact Neon Thorn climb, and a small Lantern Warden miniboss arena that leads directly into the Moon Gate. It includes checkpoints, 16 seal pickups, health/energy pickups, hazards, Ink Crawler and Kite Wraith encounters, settings, save data, pause, retry checkpoint, and mobile virtual controls.
 
 Player runtime animation now separates idle, run, small jump, big jump rise, speed flip jump, apex, fall, wall slide, wall kick, ground slash, air slash, hurt, and checkpoint respawn. Slash VFX has separate ground and air runtime sequences.
 

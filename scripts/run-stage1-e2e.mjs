@@ -31,11 +31,7 @@ const wardenRightRecoveryX = stage.warden.x + 130;
 const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
-  { startX: 5200, endX: 6570, minY: 285, holdMs: 260 },
-  { startX: 9400, endX: 9760, minY: 330, holdMs: 190 },
-  { startX: 10820, endX: 12220, minY: 285, holdMs: 230 },
-  { startX: 15020, endX: 15920, minY: 315, holdMs: 190 },
-  { startX: 16880, endX: 18180, minY: 300, holdMs: 250 }
+  { startX: 3440, endX: 3820, minY: 280, holdMs: 260 }
 ];
 
 const assert = (condition, message) => {
@@ -261,7 +257,7 @@ const runKeyboardRouteToClear = async (page) => {
       }
       await releaseMovementKeys(page);
       await page.locator('canvas').click({ position: { x: 480, y: 270 } });
-      if (player.x > 4200 && player.x < 5050 && !current.wardenDefeated) {
+      if (player.x > 3220 && player.x < 3820 && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
@@ -273,7 +269,7 @@ const runKeyboardRouteToClear = async (page) => {
         }
         continue;
       }
-      if (player.x >= 5050 && player.x < wardenEngageX && !current.wardenDefeated) {
+      if (player.x >= 3440 && player.x < wardenEngageX && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
@@ -291,9 +287,9 @@ const runKeyboardRouteToClear = async (page) => {
       lastProgressAt = now;
       lastJump = now;
       const recoveryJumpMs =
-        player.x > 4200 && player.x < 5050
+        player.x > 3220 && player.x < 3820
           ? 300
-          : player.x >= 5050 && player.x < wardenEngageX
+          : player.x >= 3440 && player.x < wardenEngageX
             ? 160
             : current.wardenDefeated
               ? 120
@@ -338,7 +334,7 @@ const runKeyboardRouteToClear = async (page) => {
       const lead = hazard.y < 260 ? 380 : 260;
       return player.x > hazard.x - lead && player.x < hazard.x + hazard.width + 80;
     });
-    if (timedSparkAhead?.active && now - lastJump > 230 && (player.onGround || Math.abs(player.y - timedSparkAhead.y) < 92)) {
+    if (timedSparkAhead && now - lastJump > 230 && (player.onGround || Math.abs(player.y - timedSparkAhead.y) < 92)) {
       lastJump = now;
       await setRight(true);
       await jump(page, timedSparkAhead.y < 260 ? 430 : 390);
@@ -355,11 +351,11 @@ const runKeyboardRouteToClear = async (page) => {
       await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? 360 : 280);
     }
     const jumpNow =
-      (player.x > 1030 && player.x < 1720 && player.y > 255) ||
-      (player.x > 2040 && player.x < 2305);
+      (player.x > 1030 && player.x < 1900 && player.y > 255) ||
+      (player.x > 2320 && player.x < 2585);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1900 ? 165 : 140);
     }
     const enemyInReach = (current.enemies ?? []).some(
       (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
@@ -367,9 +363,8 @@ const runKeyboardRouteToClear = async (page) => {
     const attackNow =
       enemyInReach ||
       (player.x > 760 && player.x < 1060) ||
-      (player.x > 1880 && player.x < 2180) ||
-      (player.x > 2540 && player.x < 3180) ||
-      (player.x > 4300 && player.x < 4840) ||
+      (player.x > 2680 && player.x < 3120) ||
+      (player.x > 3220 && player.x < 3560) ||
       (player.x > wardenEngageX && !current.wardenDefeated);
     if (attackNow && now - lastSlash > 300) {
       lastSlash = now;
@@ -473,7 +468,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     while (Date.now() - started < routeTimeoutMs) {
       const current = await state(page);
       const player = current.player;
-      if (player && player.x > 3600 && current.checkpointCount >= 3) break;
+      if (player && player.x > 3000 && current.checkpointCount >= 3) break;
       if (current.gameOver) {
         throw new Error(`checkpoint route game over at ${JSON.stringify(current)}`);
       }
@@ -490,7 +485,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       } else if (player && player.x < lastProgressX - 120) {
         lastProgressX = player.x;
         lastProgressAt = Date.now();
-      } else if (player && Date.now() - lastProgressAt > 2200 && player.x < 3600) {
+      } else if (player && Date.now() - lastProgressAt > 2200 && player.x < 3000) {
         await releaseMovementKeys(page);
         await page.keyboard.down('ArrowRight');
         await page.keyboard.down('d');
@@ -515,19 +510,23 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
         lastJump = Date.now();
         await jump(page, 260);
       }
-      if (player && player.x > 1030 && player.x < 1720 && player.y > 255 && Date.now() - lastJump > 360) {
+      if (player && player.x > 1030 && player.x < 1900 && player.y > 255 && Date.now() - lastJump > 360) {
         lastJump = Date.now();
         await jump(page, player.x < 1240 ? 220 : 165);
       }
-      if (player && player.x > 2040 && player.x < 2305 && Date.now() - lastJump > 360) {
+      if (player && player.x > 1850 && player.x < 2250 && Date.now() - lastJump > 300) {
         lastJump = Date.now();
-        await jump(page, 110);
+        await jump(page, 390);
+      }
+      if (player && player.x > 2320 && player.x < 2585 && Date.now() - lastJump > 360) {
+        lastJump = Date.now();
+        await jump(page, 140);
       }
       if (
         player &&
         ((player.x > 760 && player.x < 1060) ||
-          (player.x > 1880 && player.x < 2180) ||
-          (player.x > 2540 && player.x < 3180)) &&
+          (player.x > 2680 && player.x < 3120) ||
+          (player.x > 3220 && player.x < 3560)) &&
         Date.now() - lastSlash > 300
       ) {
         lastSlash = Date.now();
@@ -541,7 +540,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     for (let i = 0; i < 420; i += 1) {
       const current = await state(page);
       const player = current.player;
-      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 7200) break;
+      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 3700) break;
       await page.waitForTimeout(50);
     }
     await page.keyboard.up('ArrowRight');
@@ -552,7 +551,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.keyboard.press('r');
     await waitFor(async () => {
       const current = await state(page);
-      return current.player?.x > 3440 && current.player?.x < 3610;
+      return current.player?.x > 2980 && current.player?.x < 3100;
     }, 'retry checkpoint did not respawn near checkpoint');
     return { checkpointRetry: true };
   })

@@ -1,11 +1,21 @@
 {
-  "generatedAt": "2026-06-30T16:00:06.156Z",
+  "generatedAt": "2026-07-01T14:18:22.896Z",
   "passed": true,
   "checks": [
     {
-      "id": "ten-named-sections",
+      "id": "five-linear-sections",
       "passed": true,
-      "detail": "Rain Lantern Start, First Slash Alley, Wall-Kick Sign Shaft, Rooftop Gap Line, Hidden Scroll Route A, Hidden Scroll Route B, Checkpoint Shrine Plaza, Neon Thorn Run, Lantern Warden Encounter, Moon Gate Finish"
+      "detail": "Rain Lantern Start, Wall-Kick Sign Shaft, Rooftop Hazard Line, Neon Thorn Climb, Lantern Warden Gate"
+    },
+    {
+      "id": "single-continuous-route",
+      "passed": true,
+      "detail": "0 optional routes, 0 discontinuities, covered=true"
+    },
+    {
+      "id": "compact-stage-scope",
+      "passed": true,
+      "detail": "worldWidth=6700"
     },
     {
       "id": "two-vertical-sections",
@@ -13,39 +23,39 @@
       "detail": "vertical section count"
     },
     {
-      "id": "two-optional-routes",
+      "id": "no-optional-routes",
       "passed": true,
       "detail": "optional route count"
     },
     {
       "id": "two-checkpoints",
       "passed": true,
-      "detail": "5 checkpoints"
+      "detail": "4 checkpoints"
     },
     {
-      "id": "exactly-three-scrolls",
+      "id": "no-hidden-scrolls",
       "passed": true,
-      "detail": "3 scrolls"
+      "detail": "0 scrolls"
     },
     {
-      "id": "twenty-seals",
+      "id": "twelve-seals",
       "passed": true,
-      "detail": "46 seals"
+      "detail": "16 seals"
     },
     {
       "id": "three-health-energy-pickups",
       "passed": true,
-      "detail": "9 pickups"
+      "detail": "3 pickups"
     },
     {
       "id": "three-hazard-moments",
       "passed": true,
-      "detail": "20 hazards"
+      "detail": "4 hazards"
     },
     {
-      "id": "four-enemy-encounters",
+      "id": "three-enemy-encounters",
       "passed": true,
-      "detail": "12 enemies"
+      "detail": "3 enemies"
     },
     {
       "id": "single-lantern-warden",
@@ -75,7 +85,7 @@
     {
       "id": "scroll-collection-lanes",
       "passed": true,
-      "detail": "all scrolls overlap reachable player lanes"
+      "detail": "no scroll routes to validate"
     },
     {
       "id": "collectibles-clear-platforms",
@@ -83,19 +93,19 @@
       "detail": "no collectible visual overlaps platform geometry"
     },
     {
-      "id": "neon-run-platform-variety",
+      "id": "compact-platform-variety",
       "passed": true,
-      "detail": "35 platforms, maxWidth=900, elevated=9, fallPits=11"
+      "detail": "14 platforms, maxWidth=1160, elevated=4, fallPits=1"
     },
     {
-      "id": "neon-run-vertical-route",
+      "id": "compact-vertical-route",
       "passed": true,
-      "detail": "range=228, high=9, mid=15, low=11, updrafts=4"
+      "detail": "range=178, high=4, mid=10, updrafts=1"
     },
     {
-      "id": "stage1-updraft-gimmicks",
+      "id": "single-updraft-gimmick",
       "passed": true,
-      "detail": "4 gimmicks"
+      "detail": "1 gimmicks"
     },
     {
       "id": "timed-spark-jump-clearance",
@@ -105,7 +115,7 @@
     {
       "id": "target-duration-recorded",
       "passed": true,
-      "detail": "human 540-900s, optimized 180-360s"
+      "detail": "human 180-360s, optimized 75-150s"
     }
   ]
 }

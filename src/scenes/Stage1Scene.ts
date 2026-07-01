@@ -146,6 +146,7 @@ export class Stage1Scene extends Phaser.Scene {
       elapsedMs: this.elapsedMs(),
       scrollsFound: this.collectedScrolls.size,
       sealsFound: this.collectedSeals.size,
+      sealsTotal: Stage1Data.collectibles.seals.length,
       currentSection: section.name,
       objective: this.resolveObjective(),
       checkpointMessage: time < this.checkpointMessageUntilMs ? this.checkpointMessage : '',
@@ -378,13 +379,15 @@ export class Stage1Scene extends Phaser.Scene {
     if (rectsOverlap(this.player.getBody(), Stage1Data.moonGate)) {
       this.completed = true;
       const timeMs = this.elapsedMs();
-      const rank = calculateStageRank(timeMs, this.player.getDamageTaken(), this.collectedScrolls.size);
+      const rank = calculateStageRank(timeMs, this.player.getDamageTaken(), this.collectedSeals.size);
       const save = SaveSystem.recordStage1Clear(timeMs, rank, Array.from(this.collectedScrolls));
       this.audio.play(Stage1SfxKey.StageClear);
       this.scene.start(SceneKey.StageClear, {
         timeMs,
         rank,
         scrollsFound: this.collectedScrolls.size,
+        sealsFound: this.collectedSeals.size,
+        sealsTotal: Stage1Data.collectibles.seals.length,
         damageTaken: this.player.getDamageTaken(),
         bestTimeMs: save.stage1.bestTimeMs
       });
@@ -395,9 +398,10 @@ export class Stage1Scene extends Phaser.Scene {
     const x = this.player.getPosition().x;
     if (!this.warden.dead && x > Stage1Data.warden.arena.x - 100) return 'Defeat Lantern Warden';
     if (this.warden.dead) return 'Enter the Moon Gate';
-    if (x < 1200) return 'Reach the sign shaft';
-    if (x < 3400) return 'Cross the rooftops';
-    if (x < Stage1Data.safeRestBeforeMiniboss.x) return 'Survive the long neon run';
+    if (x < 1160) return 'Practice the first cut';
+    if (x < 1900) return 'Climb the sign shaft';
+    if (x < 3180) return 'Cross the rooftop hazard';
+    if (x < Stage1Data.safeRestBeforeMiniboss.x) return 'Ride the updraft climb';
     return 'Rest before the Warden';
   }
 

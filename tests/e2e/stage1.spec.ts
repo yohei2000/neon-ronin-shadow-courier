@@ -92,7 +92,7 @@ const runKeyboardRouteToClear = async (page: Page) => {
       continue;
     }
 
-    if (player.x >= 5580 && !current.wardenDefeated) {
+    if (player.x >= 5620 && !current.wardenDefeated) {
       await setRight(false);
     } else {
       await setRight(true);
@@ -100,22 +100,19 @@ const runKeyboardRouteToClear = async (page: Page) => {
 
     const now = Date.now();
     const jumpZones = [
-      player.x > 1120 && player.x < 1700 && player.y > 280,
-      player.x > 2040 && player.x < 2305,
-      player.x > 4080 && player.x < 4385,
-      player.x > 4440 && player.x < 4760,
-      player.x > 4760 && player.x < 4895
+      player.x > 1120 && player.x < 1900 && player.y > 280,
+      player.x > 2320 && player.x < 2585,
+      player.x > 3440 && player.x < 3820
     ];
     if (jumpZones.some(Boolean) && now - lastJump > 360) {
       lastJump = now;
-      await jump(page, player.x > 1120 && player.x < 1700 ? 145 : player.x > 4000 ? 180 : 110);
+      await jump(page, player.x > 1120 && player.x < 1900 ? 145 : player.x > 3440 ? 260 : 140);
     }
 
     const attackZones = [
       player.x > 760 && player.x < 1060,
-      player.x > 1880 && player.x < 2180,
-      player.x > 2820 && player.x < 3060,
-      player.x > 4300 && player.x < 4840,
+      player.x > 2680 && player.x < 3120,
+      player.x > 3220 && player.x < 3560,
       player.x > 5520 && !current.wardenDefeated
     ];
     if (attackZones.some(Boolean) && now - lastSlash > 300) {
@@ -219,14 +216,18 @@ test.describe('Stage1 playable vertical slice', () => {
     for (let i = 0; i < 1000; i += 1) {
       const current = await state(page);
       const player = current.player;
-      if (player && player.x > 3600 && current.checkpointCount && current.checkpointCount >= 3) break;
-      if (player && player.x > 1120 && player.x < 1700 && player.y > 280 && Date.now() - lastJump > 360) {
+      if (player && player.x > 3000 && current.checkpointCount && current.checkpointCount >= 3) break;
+      if (player && player.x > 1120 && player.x < 1900 && player.y > 280 && Date.now() - lastJump > 360) {
         lastJump = Date.now();
         await jump(page, 145);
       }
-      if (player && player.x > 2040 && player.x < 2305 && Date.now() - lastJump > 360) {
+      if (player && player.x > 1850 && player.x < 2250 && Date.now() - lastJump > 300) {
         lastJump = Date.now();
-        await jump(page, 80);
+        await jump(page, 390);
+      }
+      if (player && player.x > 2320 && player.x < 2585 && Date.now() - lastJump > 360) {
+        lastJump = Date.now();
+        await jump(page, 140);
       }
       await page.waitForTimeout(50);
     }
@@ -237,14 +238,14 @@ test.describe('Stage1 playable vertical slice', () => {
     for (let i = 0; i < 420; i += 1) {
       const current = await state(page);
       const player = current.player;
-      if ((player?.damageTaken ?? 0) > damageBefore || (player?.x ?? 0) > 4350) break;
+      if ((player?.damageTaken ?? 0) > damageBefore || (player?.x ?? 0) > 3700) break;
       await page.waitForTimeout(50);
     }
     await page.keyboard.up('ArrowRight');
     expect((await state(page)).player?.damageTaken).toBeGreaterThan(damageBefore);
     await page.keyboard.press('p');
     await page.keyboard.press('r');
-    await expect.poll(async () => (await state(page)).player?.x).toBeGreaterThan(3440);
-    expect((await state(page)).player?.x).toBeLessThan(3610);
+    await expect.poll(async () => (await state(page)).player?.x).toBeGreaterThan(2980);
+    expect((await state(page)).player?.x).toBeLessThan(3100);
   });
 });

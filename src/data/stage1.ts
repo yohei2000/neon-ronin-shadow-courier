@@ -2,15 +2,10 @@ import stage1Content from './stage1Content.json';
 
 export type Stage1SectionName =
   | 'Rain Lantern Start'
-  | 'First Slash Alley'
   | 'Wall-Kick Sign Shaft'
-  | 'Rooftop Gap Line'
-  | 'Hidden Scroll Route A'
-  | 'Hidden Scroll Route B'
-  | 'Checkpoint Shrine Plaza'
-  | 'Neon Thorn Run'
-  | 'Lantern Warden Encounter'
-  | 'Moon Gate Finish';
+  | 'Rooftop Hazard Line'
+  | 'Neon Thorn Climb'
+  | 'Lantern Warden Gate';
 
 export type RectData = {
   readonly x: number;
@@ -115,15 +110,10 @@ export type Stage1Data = {
 
 export const RequiredStage1SectionNames = [
   'Rain Lantern Start',
-  'First Slash Alley',
   'Wall-Kick Sign Shaft',
-  'Rooftop Gap Line',
-  'Hidden Scroll Route A',
-  'Hidden Scroll Route B',
-  'Checkpoint Shrine Plaza',
-  'Neon Thorn Run',
-  'Lantern Warden Encounter',
-  'Moon Gate Finish'
+  'Rooftop Hazard Line',
+  'Neon Thorn Climb',
+  'Lantern Warden Gate'
 ] as const satisfies readonly Stage1SectionName[];
 
 export const Stage1Tuning = {

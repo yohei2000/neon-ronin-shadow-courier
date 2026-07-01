@@ -10,6 +10,8 @@ export type StageClearData = {
   readonly timeMs: number;
   readonly rank: StageRank;
   readonly scrollsFound: number;
+  readonly sealsFound: number;
+  readonly sealsTotal: number;
   readonly damageTaken: number;
   readonly bestTimeMs: number | null;
 };
@@ -35,7 +37,7 @@ export class StageClearScene extends Phaser.Scene {
     const rows = [
       ['Clear time', this.formatTime(data.timeMs)],
       ['Rank', data.rank],
-      ['Scrolls found', `${data.scrollsFound}/3`],
+      ['Seals found', `${data.sealsFound}/${data.sealsTotal}`],
       ['Damage taken', `${data.damageTaken}`],
       ['Best time', this.formatBest(save.stage1.bestTimeMs ?? data.bestTimeMs)]
     ];
@@ -61,6 +63,7 @@ export class StageClearScene extends Phaser.Scene {
       rank: data.rank,
       timeMs: data.timeMs,
       scrollsFound: data.scrollsFound,
+      sealsFound: data.sealsFound,
       damageTaken: data.damageTaken
     };
   }

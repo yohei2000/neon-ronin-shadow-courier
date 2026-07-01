@@ -34,7 +34,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `InkCrawler`, `KiteWraith`, and `LanternWarden` own enemy behavior. Lantern Warden includes Stage1 melee attacks plus a scoped spark-drop ranged projectile.
 - `InputSystem` unifies keyboard and touch input.
 - `TouchControls` renders derived single-frame mobile control art and routes touches through `InputSystem`.
-- `Hud` owns HP, scroll count, timer, objective, checkpoint feedback, and Lantern Warden health text.
+- `Hud` owns HP, seal count, timer, objective, checkpoint feedback, and Lantern Warden health text.
 - `CameraController`, `CombatSystem`, `SaveSystem`, and `rank` keep shared logic out of the scene.
 
 ## Image Generation Route
@@ -57,7 +57,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 
 ## Validation
 
-- `qa:stage1` validates the 10 named sections, vertical sections, optional routes, checkpoints, exactly 3 scrolls, pickups, hazards, enemies, Lantern Warden, safe first screen, safe pre-boss rest, Moon Gate, and target-duration metadata.
+- `qa:stage1` validates the compact 5-section one-way route, no optional branches, no hidden scroll routes, checkpoints, seal pickups, hazards, enemies, the single updraft gimmick, Lantern Warden, safe first screen, safe pre-boss rest, Moon Gate, and target-duration metadata.
 - `qa:assets-stage1` validates approved art usage, frozen copies, runtime lineage, no old v1 runtime art, no reference-sheet runtime use, no remote runtime assets, required texture/animation keys, and runtime pixel audits for edge cuts plus paper-background residue.
 - `e2e` runs Playwright-driven named tests: `title-flow`, `stage1-keyboard-clear`, `mobile-controls`, and `checkpoint-retry`.
 - `qa:screenshots-stage1` writes the required `artifacts/stage1/*.png`, `console-report.json`, and keeps the console clean.

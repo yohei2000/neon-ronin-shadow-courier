@@ -28,11 +28,7 @@ const wardenRightRecoveryX = stage.warden.x + 130;
 const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
-  { startX: 5200, endX: 6570, minY: 285, holdMs: 260 },
-  { startX: 9400, endX: 9760, minY: 330, holdMs: 190 },
-  { startX: 10820, endX: 12220, minY: 285, holdMs: 230 },
-  { startX: 15020, endX: 15920, minY: 315, holdMs: 190 },
-  { startX: 16880, endX: 18180, minY: 300, holdMs: 250 }
+  { startX: 3440, endX: 3820, minY: 280, holdMs: 260 }
 ];
 
 const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
@@ -76,8 +72,8 @@ const captureRoute = async (page) => {
     ['stage-start.png', 120],
     ['combat.png', 850],
     ['wall-kick-shaft.png', 1300],
-    ['checkpoint.png', 3480],
-    ['neon-thorn-run.png', 5740],
+    ['checkpoint.png', 3000],
+    ['neon-thorn-run.png', 3820],
     ['lantern-warden.png', wardenEngageX]
   ];
   const captured = new Set();
@@ -207,7 +203,7 @@ const captureRoute = async (page) => {
     } else if (now - lastProgressAt > 2200 && (player.x < wardenEngageX || current.wardenDefeated)) {
       await releaseMovementKeys(page);
       await page.locator('canvas').click({ position: { x: 480, y: 270 } });
-      if (player.x > 4200 && player.x < 5050 && !current.wardenDefeated) {
+      if (player.x > 3220 && player.x < 3820 && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
@@ -219,7 +215,7 @@ const captureRoute = async (page) => {
         }
         continue;
       }
-      if (player.x >= 5050 && player.x < wardenEngageX && !current.wardenDefeated) {
+      if (player.x >= 3440 && player.x < wardenEngageX && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
@@ -237,9 +233,9 @@ const captureRoute = async (page) => {
       lastProgressAt = now;
       lastJump = now;
       const recoveryJumpMs =
-        player.x > 4200 && player.x < 5050
+        player.x > 3220 && player.x < 3820
           ? 300
-          : player.x >= 5050 && player.x < wardenEngageX
+          : player.x >= 3440 && player.x < wardenEngageX
             ? 160
             : current.wardenDefeated
               ? 120
@@ -284,7 +280,7 @@ const captureRoute = async (page) => {
       const lead = hazard.y < 260 ? 380 : 260;
       return player.x > hazard.x - lead && player.x < hazard.x + hazard.width + 80;
     });
-    if (timedSparkAhead?.active && now - lastJump > 230 && (player.onGround || Math.abs(player.y - timedSparkAhead.y) < 92)) {
+    if (timedSparkAhead && now - lastJump > 230 && (player.onGround || Math.abs(player.y - timedSparkAhead.y) < 92)) {
       lastJump = now;
       await setRight(true);
       await jump(page, timedSparkAhead.y < 260 ? 430 : 390);
@@ -301,22 +297,21 @@ const captureRoute = async (page) => {
       await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? 360 : 280);
     }
     if (
-      ((player.x > 1030 && player.x < 1720 && player.y > 255) ||
-        (player.x > 2040 && player.x < 2305)) &&
+      ((player.x > 1030 && player.x < 1900 && player.y > 255) ||
+        (player.x > 2320 && player.x < 2585)) &&
       now - lastJump > 360
     ) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1720 ? 165 : 110);
+      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1900 ? 165 : 140);
     }
     const enemyInReach = (current.enemies ?? []).some(
       (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
     );
     if (
-      (enemyInReach ||
+        (enemyInReach ||
         (player.x > 760 && player.x < 1060) ||
-        (player.x > 1880 && player.x < 2180) ||
-        (player.x > 2540 && player.x < 3180) ||
-        (player.x > 4300 && player.x < 4840) ||
+        (player.x > 2680 && player.x < 3120) ||
+        (player.x > 3220 && player.x < 3560) ||
         (player.x > wardenEngageX && !current.wardenDefeated)) &&
       now - lastSlash > 300
     ) {

@@ -114,11 +114,11 @@ describe('Stage1 pure combat and rank helpers', () => {
     expect(motion.angleDeg).toBe(0);
   });
 
-  it('calculates clear ranks from time, damage, and scrolls', () => {
-    expect(calculateStageRank(300000, 0, 3)).toBe('S');
-    expect(calculateStageRank(500000, 2, 2)).toBe('A');
-    expect(calculateStageRank(700000, 5, 0)).toBe('B');
-    expect(calculateStageRank(820000, 8, 0)).toBe('C');
+  it('calculates clear ranks from time, damage, and seals', () => {
+    expect(calculateStageRank(140000, 0, 12)).toBe('S');
+    expect(calculateStageRank(220000, 2, 8)).toBe('A');
+    expect(calculateStageRank(340000, 5, 0)).toBe('B');
+    expect(calculateStageRank(420000, 8, 0)).toBe('C');
   });
 });
 

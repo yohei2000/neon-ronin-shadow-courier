@@ -9,6 +9,7 @@ export type HudUpdateState = {
   readonly elapsedMs: number;
   readonly scrollsFound: number;
   readonly sealsFound: number;
+  readonly sealsTotal: number;
   readonly currentSection: string;
   readonly objective: string;
   readonly checkpointMessage: string;
@@ -36,7 +37,7 @@ export class Hud {
 
   update(state: HudUpdateState): void {
     this.hpText.setText(`HP ${state.player.hp}/${state.player.maxHp}`);
-    this.scrollText.setText(`SCROLL ${state.scrollsFound}/3`);
+    this.scrollText.setText(`SEAL ${state.sealsFound}/${state.sealsTotal}`);
     this.timerText.setText(`TIME ${this.formatTime(state.elapsedMs)}`);
     this.objectiveText.setText(`${state.currentSection} - ${state.objective}`);
     this.checkpointText.setText(state.checkpointMessage);
