@@ -8,6 +8,7 @@
   "rows": 3,
   "labels": [
     {
+      "text": "START STAGE 1",
       "sourceCrop": {
         "x": 20,
         "y": 65,
@@ -15,16 +16,21 @@
         "height": 295
       },
       "trimmedSize": {
-        "width": 1363,
-        "height": 254
+        "width": 1349,
+        "height": 241
       },
-      "frameSize": {
+      "frameSizeBeforeCompression": {
         "width": 316,
         "height": 59
       },
-      "text": "START STAGE 1"
+      "frameSize": {
+        "width": 221,
+        "height": 59
+      },
+      "horizontalScale": 0.7
     },
     {
+      "text": "CONTROLS",
       "sourceCrop": {
         "x": 120,
         "y": 365,
@@ -32,16 +38,21 @@
         "height": 305
       },
       "trimmedSize": {
-        "width": 1029,
-        "height": 227
+        "width": 1008,
+        "height": 211
       },
-      "frameSize": {
+      "frameSizeBeforeCompression": {
         "width": 270,
         "height": 60
       },
-      "text": "CONTROLS"
+      "frameSize": {
+        "width": 189,
+        "height": 60
+      },
+      "horizontalScale": 0.7
     },
     {
+      "text": "SETTINGS",
       "sourceCrop": {
         "x": 150,
         "y": 675,
@@ -49,14 +60,18 @@
         "height": 305
       },
       "trimmedSize": {
-        "width": 966,
-        "height": 236
+        "width": 958,
+        "height": 220
       },
-      "frameSize": {
+      "frameSizeBeforeCompression": {
         "width": 270,
         "height": 66
       },
-      "text": "SETTINGS"
+      "frameSize": {
+        "width": 189,
+        "height": 66
+      },
+      "horizontalScale": 0.7
     }
   ],
   "frames": [
@@ -64,10 +79,16 @@
       "label": "START STAGE 1",
       "state": 0,
       "frame": 0,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 138,
         "y": 66,
         "width": 316,
+        "height": 59
+      },
+      "labelPosition": {
+        "x": 186,
+        "y": 66,
+        "width": 221,
         "height": 59
       }
     },
@@ -75,10 +96,16 @@
       "label": "START STAGE 1",
       "state": 1,
       "frame": 1,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 138,
         "y": 66,
         "width": 316,
+        "height": 59
+      },
+      "labelPosition": {
+        "x": 186,
+        "y": 66,
+        "width": 221,
         "height": 59
       }
     },
@@ -86,10 +113,16 @@
       "label": "START STAGE 1",
       "state": 2,
       "frame": 2,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 138,
         "y": 66,
         "width": 316,
+        "height": 59
+      },
+      "labelPosition": {
+        "x": 186,
+        "y": 66,
+        "width": 221,
         "height": 59
       }
     },
@@ -97,10 +130,16 @@
       "label": "START STAGE 1",
       "state": 3,
       "frame": 3,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 138,
         "y": 66,
         "width": 316,
+        "height": 59
+      },
+      "labelPosition": {
+        "x": 186,
+        "y": 66,
+        "width": 221,
         "height": 59
       }
     },
@@ -108,10 +147,16 @@
       "label": "CONTROLS",
       "state": 0,
       "frame": 4,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 65,
         "width": 270,
+        "height": 60
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 65,
+        "width": 189,
         "height": 60
       }
     },
@@ -119,10 +164,16 @@
       "label": "CONTROLS",
       "state": 1,
       "frame": 5,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 65,
         "width": 270,
+        "height": 60
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 65,
+        "width": 189,
         "height": 60
       }
     },
@@ -130,10 +181,16 @@
       "label": "CONTROLS",
       "state": 2,
       "frame": 6,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 65,
         "width": 270,
+        "height": 60
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 65,
+        "width": 189,
         "height": 60
       }
     },
@@ -141,10 +198,16 @@
       "label": "CONTROLS",
       "state": 3,
       "frame": 7,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 65,
         "width": 270,
+        "height": 60
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 65,
+        "width": 189,
         "height": 60
       }
     },
@@ -152,10 +215,16 @@
       "label": "SETTINGS",
       "state": 0,
       "frame": 8,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 62,
         "width": 270,
+        "height": 66
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 62,
+        "width": 189,
         "height": 66
       }
     },
@@ -163,10 +232,16 @@
       "label": "SETTINGS",
       "state": 1,
       "frame": 9,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 62,
         "width": 270,
+        "height": 66
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 62,
+        "width": 189,
         "height": 66
       }
     },
@@ -174,10 +249,16 @@
       "label": "SETTINGS",
       "state": 2,
       "frame": 10,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 62,
         "width": 270,
+        "height": 66
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 62,
+        "width": 189,
         "height": 66
       }
     },
@@ -185,13 +266,24 @@
       "label": "SETTINGS",
       "state": 3,
       "frame": 11,
-      "labelPosition": {
+      "labelPositionBeforeCompression": {
         "x": 161,
         "y": 62,
         "width": 270,
         "height": 66
+      },
+      "labelPosition": {
+        "x": 201,
+        "y": 62,
+        "width": 189,
+        "height": 66
       }
     }
   ],
-  "idleReadabilityRetune": "2026-07-02 idle label brightness/alpha raised without restoring loop flicker"
+  "idleReadabilityRetune": "2026-07-02 idle label brightness/alpha raised without restoring loop flicker",
+  "horizontalTextCompression": {
+    "appliedAt": "2026-07-02",
+    "scaleX": 0.7,
+    "note": "Generated menu lettering composited at 70 percent of the previous width, centered on the prior label positions."
+  }
 }
