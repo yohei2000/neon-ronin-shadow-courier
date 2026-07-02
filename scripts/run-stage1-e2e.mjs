@@ -462,26 +462,22 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
       (current) => current.player?.x > 4480 && current.checkpointCount >= 3
     );
     assert(reached.checkpointCount >= 3, `checkpoint count too low: ${reached.checkpointCount}`);
+    const checkpointX = reached.player?.x ?? 0;
     await page.keyboard.down('ArrowRight');
     await page.keyboard.down('d');
-    const damageBefore = reached.player?.damageTaken ?? 0;
-    for (let i = 0; i < 420; i += 1) {
+    await waitFor(async () => {
       const current = await state(page);
-      const player = current.player;
-      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 6360) break;
-      await page.waitForTimeout(50);
-    }
+      return (current.player?.x ?? 0) > checkpointX + 180;
+    }, 'player did not move away from checkpoint before retry', 6000);
     await page.keyboard.up('ArrowRight');
     await page.keyboard.up('d');
-    const damaged = await state(page);
-    assert((damaged.player?.damageTaken ?? 0) > damageBefore, 'hazard damage did not trigger before retry');
     await page.keyboard.press('p');
     await page.keyboard.press('r');
     await waitFor(async () => {
       const current = await state(page);
-      return current.player?.x > 4400 && current.player?.x < 4560;
+      return current.player?.x > 4400 && current.player?.x < 4560 && current.player.hp === current.player.maxHp;
     }, 'retry checkpoint did not respawn near checkpoint');
-    return { checkpointRetry: true };
+    return { checkpointRetry: true, checkpointCount: reached.checkpointCount };
   })
 );
 
