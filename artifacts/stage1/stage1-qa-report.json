@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T16:23:01.990Z",
+  "generatedAt": "2026-07-02T03:39:34.560Z",
   "passed": true,
   "checks": [
     {
@@ -13,9 +13,9 @@
       "detail": "0 optional routes, 0 discontinuities, covered=true"
     },
     {
-      "id": "compact-stage-scope",
+      "id": "stage-scope-1-5x",
       "passed": true,
-      "detail": "worldWidth=6700"
+      "detail": "worldWidth=10050"
     },
     {
       "id": "two-vertical-sections",
@@ -30,7 +30,7 @@
     {
       "id": "two-checkpoints",
       "passed": true,
-      "detail": "4 checkpoints"
+      "detail": "5 checkpoints"
     },
     {
       "id": "no-hidden-scrolls",
@@ -38,24 +38,24 @@
       "detail": "0 scrolls"
     },
     {
-      "id": "twelve-seals",
+      "id": "twenty-four-seals",
       "passed": true,
-      "detail": "16 seals"
+      "detail": "24 seals"
     },
     {
-      "id": "three-health-energy-pickups",
+      "id": "four-health-energy-pickups",
       "passed": true,
-      "detail": "3 pickups"
+      "detail": "4 pickups"
     },
     {
-      "id": "three-hazard-moments",
+      "id": "six-hazard-moments",
       "passed": true,
-      "detail": "4 hazards"
+      "detail": "7 hazards"
     },
     {
-      "id": "three-enemy-encounters",
+      "id": "five-enemy-encounters",
       "passed": true,
-      "detail": "3 enemies"
+      "detail": "5 enemies"
     },
     {
       "id": "single-lantern-warden",
@@ -95,17 +95,17 @@
     {
       "id": "compact-platform-variety",
       "passed": true,
-      "detail": "14 platforms, maxWidth=1160, elevated=5, fallPits=1"
+      "detail": "18 platforms, maxWidth=1200, elevated=8, fallPits=2"
     },
     {
       "id": "compact-vertical-route",
       "passed": true,
-      "detail": "range=200, high=5, mid=9, updrafts=1"
+      "detail": "range=350, high=4, mid=14, updrafts=2"
     },
     {
-      "id": "single-updraft-gimmick",
+      "id": "two-updraft-gimmicks",
       "passed": true,
-      "detail": "1 gimmicks"
+      "detail": "2 gimmicks"
     },
     {
       "id": "timed-spark-jump-clearance",
@@ -115,7 +115,7 @@
     {
       "id": "target-duration-recorded",
       "passed": true,
-      "detail": "human 180-360s, optimized 75-150s"
+      "detail": "human 240-480s, optimized 105-210s"
     }
   ]
 }

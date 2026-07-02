@@ -105,7 +105,8 @@ export class PreloadScene extends Phaser.Scene {
   create(): void {
     this.createAnimations();
     const params = new URLSearchParams(window.location.search);
-    this.scene.start(params.get('scene') === 'artlab' ? SceneKey.ArtLab : SceneKey.Title);
+    const scene = params.get('scene');
+    this.scene.start(scene === 'artlab' ? SceneKey.ArtLab : scene === 'stage1' ? SceneKey.Stage1 : SceneKey.Title);
   }
 
   private createAnimations(): void {

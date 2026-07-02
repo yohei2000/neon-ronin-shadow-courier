@@ -31,7 +31,8 @@ const wardenRightRecoveryX = stage.warden.x + 130;
 const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
-  { startX: 3440, endX: 3820, minY: 280, holdMs: 260 }
+  { startX: 1680, endX: 2460, minY: 165, holdMs: 430 },
+  { startX: 6100, endX: 6740, minY: 165, holdMs: 460 }
 ];
 
 const assert = (condition, message) => {
@@ -131,7 +132,7 @@ const holdTouchPoints = async (page, points, holdMs) => {
     await client.detach().catch(() => undefined);
   }
 };
-const runKeyboardRouteToClear = async (page) => {
+const runKeyboardRouteToClear = async (page, stopWhen) => {
   const started = Date.now();
   let rightDown = false;
   let lastJump = 0;
@@ -177,6 +178,10 @@ const runKeyboardRouteToClear = async (page) => {
     if (!player) {
       await page.waitForTimeout(50);
       continue;
+    }
+    if (stopWhen?.(current) === true) {
+      await setRight(false);
+      return current;
     }
     if (process.env.E2E_TRACE && player.damageTaken !== lastDamageSeen) {
       console.log(`TRACE damage ${player.damageTaken} source=${player.lastDamageSource ?? 'unknown'} id=${player.lastDamageId ?? 'unknown'} x=${player.x} y=${player.y} hp=${player.hp} section=${current.section}`);
@@ -257,28 +262,16 @@ const runKeyboardRouteToClear = async (page) => {
       }
       await releaseMovementKeys(page);
       await page.locator('canvas').click({ position: { x: 480, y: 270 } });
-      if (player.x > 3220 && player.x < 3820 && !current.wardenDefeated) {
+      const recoveryAssist = verticalAssistFor(player);
+      if (recoveryAssist && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
         lastJump = now;
-        if (player.onGround || player.y > 390) {
-          await jump(page, 360);
+        if (player.onGround || player.y > recoveryAssist.minY) {
+          await jump(page, recoveryAssist.holdMs);
         } else {
-          await page.waitForTimeout(360);
-        }
-        continue;
-      }
-      if (player.x >= 3440 && player.x < wardenEngageX && !current.wardenDefeated) {
-        await setRight(true);
-        lastProgressX = player.x;
-        lastProgressAt = now;
-        const assist = verticalAssistFor(player);
-        if (assist && (player.onGround || player.y > assist.minY) && now - lastJump > 260) {
-          lastJump = now;
-          await jump(page, assist.holdMs);
-        } else {
-          await page.waitForTimeout(650);
+          await page.waitForTimeout(recoveryAssist.holdMs);
         }
         continue;
       }
@@ -287,17 +280,19 @@ const runKeyboardRouteToClear = async (page) => {
       lastProgressAt = now;
       lastJump = now;
       const recoveryJumpMs =
-        player.x > 3220 && player.x < 3820
-          ? 300
-          : player.x >= 3440 && player.x < wardenEngageX
-            ? 160
-            : current.wardenDefeated
-              ? 120
-              : player.x > 1000 && player.x < 2310
-                ? 140
-                : player.x <= 1000
-                  ? 240
-                  : 0;
+        current.wardenDefeated
+          ? 120
+          : player.x > 1320 && player.x < 1520
+            ? 240
+            : player.x > 1600 && player.x < 2500
+              ? 430
+              : player.x > 3920 && player.x < 4200
+                ? 260
+                : player.x > 7300 && player.x < 7620
+                  ? 260
+                  : player.x <= 1200
+                    ? 220
+                    : 0;
       if (recoveryJumpMs > 0) await jump(page, recoveryJumpMs);
       else await page.waitForTimeout(120);
       continue;
@@ -351,11 +346,15 @@ const runKeyboardRouteToClear = async (page) => {
       await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? 360 : 280);
     }
     const jumpNow =
-      (player.x > 1030 && player.x < 1900 && player.y > 255) ||
-      (player.x > 2320 && player.x < 2585);
+      (player.x > 1320 && player.x < 1520 && player.y > 410) ||
+      (player.x > 1660 && player.x < 2460 && player.y > 165) ||
+      (player.x > 3920 && player.x < 4200 && player.y > 245) ||
+      (player.x > 6080 && player.x < 6740 && player.y > 165) ||
+      (player.x > 7280 && player.x < 7620 && player.y > 205);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1900 ? 165 : 140);
+      const assist = verticalAssistFor(player);
+      await jump(page, assist ? assist.holdMs : player.x > 1600 && player.x < 2460 ? 430 : 180);
     }
     const enemyInReach = (current.enemies ?? []).some(
       (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
@@ -363,8 +362,10 @@ const runKeyboardRouteToClear = async (page) => {
     const attackNow =
       enemyInReach ||
       (player.x > 760 && player.x < 1060) ||
-      (player.x > 2680 && player.x < 3120) ||
-      (player.x > 3220 && player.x < 3560) ||
+      (player.x > 3300 && player.x < 3820) ||
+      (player.x > 4400 && player.x < 5000) ||
+      (player.x > 6660 && player.x < 7240) ||
+      (player.x > 7280 && player.x < 7860) ||
       (player.x > wardenEngageX && !current.wardenDefeated);
     if (attackNow && now - lastSlash > 300) {
       lastSlash = now;
@@ -456,91 +457,18 @@ if (shouldRun('mobile-controls')) await record('mobile-controls', () =>
 if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
   withPage(null, async (page) => {
     await startStage1(page);
+    const reached = await runKeyboardRouteToClear(
+      page,
+      (current) => current.player?.x > 4480 && current.checkpointCount >= 3
+    );
+    assert(reached.checkpointCount >= 3, `checkpoint count too low: ${reached.checkpointCount}`);
     await page.keyboard.down('ArrowRight');
     await page.keyboard.down('d');
-    let lastJump = 0;
-    let lastSlash = 0;
-    let lastShaftRecovery = 0;
-    let lastRightRefresh = Date.now();
-    let lastProgressX = 0;
-    let lastProgressAt = Date.now();
-    const started = Date.now();
-    while (Date.now() - started < routeTimeoutMs) {
-      const current = await state(page);
-      const player = current.player;
-      if (player && player.x > 3000 && current.checkpointCount >= 3) break;
-      if (current.gameOver) {
-        throw new Error(`checkpoint route game over at ${JSON.stringify(current)}`);
-      }
-      if (Date.now() - lastRightRefresh > 650) {
-        await page.keyboard.up('ArrowRight');
-        await page.keyboard.up('d');
-        await page.keyboard.down('ArrowRight');
-        await page.keyboard.down('d');
-        lastRightRefresh = Date.now();
-      }
-      if (player && player.x > lastProgressX + 6) {
-        lastProgressX = player.x;
-        lastProgressAt = Date.now();
-      } else if (player && player.x < lastProgressX - 120) {
-        lastProgressX = player.x;
-        lastProgressAt = Date.now();
-      } else if (player && Date.now() - lastProgressAt > 2200 && player.x < 3000) {
-        await releaseMovementKeys(page);
-        await page.keyboard.down('ArrowRight');
-        await page.keyboard.down('d');
-        lastRightRefresh = Date.now();
-        lastProgressX = player.x;
-        lastProgressAt = Date.now();
-        lastJump = Date.now();
-        if (player.x < 2310) await jump(page, player.x > 1000 ? 140 : 240);
-        else await page.waitForTimeout(120);
-      }
-      if (player && player.x > 1080 && player.x < 1190 && player.y > 380 && Date.now() - lastShaftRecovery > 1400) {
-        lastShaftRecovery = Date.now();
-        await page.keyboard.up('ArrowRight');
-        await page.keyboard.up('d');
-        await page.keyboard.down('ArrowLeft');
-        await page.keyboard.down('a');
-        await page.waitForTimeout(220);
-        await page.keyboard.up('ArrowLeft');
-        await page.keyboard.up('a');
-        await page.keyboard.down('ArrowRight');
-        await page.keyboard.down('d');
-        lastJump = Date.now();
-        await jump(page, 260);
-      }
-      if (player && player.x > 1030 && player.x < 1900 && player.y > 255 && Date.now() - lastJump > 360) {
-        lastJump = Date.now();
-        await jump(page, player.x < 1240 ? 220 : 165);
-      }
-      if (player && player.x > 1850 && player.x < 2250 && Date.now() - lastJump > 300) {
-        lastJump = Date.now();
-        await jump(page, 390);
-      }
-      if (player && player.x > 2320 && player.x < 2585 && Date.now() - lastJump > 360) {
-        lastJump = Date.now();
-        await jump(page, 140);
-      }
-      if (
-        player &&
-        ((player.x > 760 && player.x < 1060) ||
-          (player.x > 2680 && player.x < 3120) ||
-          (player.x > 3220 && player.x < 3560)) &&
-        Date.now() - lastSlash > 300
-      ) {
-        lastSlash = Date.now();
-        await slash(page);
-      }
-      await page.waitForTimeout(50);
-    }
-    const reached = await state(page);
-    assert(reached.checkpointCount >= 3, `checkpoint count too low: ${reached.checkpointCount}`);
     const damageBefore = reached.player?.damageTaken ?? 0;
     for (let i = 0; i < 420; i += 1) {
       const current = await state(page);
       const player = current.player;
-      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 3700) break;
+      if ((player?.damageTaken ?? 0) > damageBefore || player?.x > 6360) break;
       await page.waitForTimeout(50);
     }
     await page.keyboard.up('ArrowRight');
@@ -551,7 +479,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.keyboard.press('r');
     await waitFor(async () => {
       const current = await state(page);
-      return current.player?.x > 2980 && current.player?.x < 3100;
+      return current.player?.x > 4400 && current.player?.x < 4560;
     }, 'retry checkpoint did not respawn near checkpoint');
     return { checkpointRetry: true };
   })

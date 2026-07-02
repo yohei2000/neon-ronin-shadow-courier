@@ -74,10 +74,10 @@ const linearStageRoute = () => {
 const compactStagePlatformVariety = () => {
   const routePlatforms = stage.platforms ?? [];
   const maxWidth = routePlatforms.reduce((longest, platform) => Math.max(longest, platform.width), 0);
-  const elevated = routePlatforms.filter((platform) => platform.y <= 330).length;
+  const elevated = routePlatforms.filter((platform) => platform.y <= 390).length;
   const fallPits = hazards.filter((hazard) => hazard.type === 'fall-pit').length;
   return {
-    passed: routePlatforms.length >= 10 && routePlatforms.length <= 16 && maxWidth <= 1200 && elevated >= 4 && fallPits >= 1 && fallPits <= 3,
+    passed: routePlatforms.length >= 16 && routePlatforms.length <= 24 && maxWidth <= 1200 && elevated >= 5 && fallPits >= 1 && fallPits <= 3,
     detail: `${routePlatforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevated}, fallPits=${fallPits}`
   };
 };
@@ -85,12 +85,12 @@ const compactStageVerticality = () => {
   const routePlatforms = stage.platforms ?? [];
   const highestTop = routePlatforms.reduce((top, platform) => Math.min(top, platform.y), Infinity);
   const lowestTop = routePlatforms.reduce((top, platform) => Math.max(top, platform.y), -Infinity);
-  const high = routePlatforms.filter((platform) => platform.y <= 330).length;
-  const mid = routePlatforms.filter((platform) => platform.y > 330 && platform.y < 490).length;
+  const high = routePlatforms.filter((platform) => platform.y <= 260).length;
+  const mid = routePlatforms.filter((platform) => platform.y > 260 && platform.y < 535).length;
   const updrafts = (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent');
   const range = lowestTop - highestTop;
   return {
-    passed: range >= 170 && high >= 3 && mid >= 3 && updrafts.length === 1,
+    passed: range >= 330 && high >= 4 && mid >= 8 && updrafts.length === 2,
     detail: `range=${range}, high=${high}, mid=${mid}, updrafts=${updrafts.length}`
   };
 };
@@ -115,15 +115,15 @@ const checks = [
     sections.map((section) => section.name).join(', ')
   ),
   check('single-continuous-route', linearRoute.passed, linearRoute.detail),
-  check('compact-stage-scope', stage.worldWidth >= 5600 && stage.worldWidth <= 7500, `worldWidth=${stage.worldWidth}`),
+  check('stage-scope-1-5x', stage.worldWidth >= 9500 && stage.worldWidth <= 10550, `worldWidth=${stage.worldWidth}`),
   check('two-vertical-sections', sections.filter((section) => section.orientation === 'vertical').length >= 2, 'vertical section count'),
   check('no-optional-routes', sections.filter((section) => section.optionalRoute === true).length === 0, 'optional route count'),
   check('two-checkpoints', (stage.checkpoints ?? []).length >= 2, `${(stage.checkpoints ?? []).length} checkpoints`),
   check('no-hidden-scrolls', (stage.collectibles?.scrolls ?? []).length === 0, `${stage.collectibles?.scrolls?.length ?? 0} scrolls`),
-  check('twelve-seals', (stage.collectibles?.seals ?? []).length >= 12, `${stage.collectibles?.seals?.length ?? 0} seals`),
-  check('three-health-energy-pickups', (stage.collectibles?.pickups ?? []).length >= 3, `${stage.collectibles?.pickups?.length ?? 0} pickups`),
-  check('three-hazard-moments', hazards.length >= 3, `${hazards.length} hazards`),
-  check('three-enemy-encounters', enemies.length >= 3, `${enemies.length} enemies`),
+  check('twenty-four-seals', (stage.collectibles?.seals ?? []).length >= 24, `${stage.collectibles?.seals?.length ?? 0} seals`),
+  check('four-health-energy-pickups', (stage.collectibles?.pickups ?? []).length >= 4, `${stage.collectibles?.pickups?.length ?? 0} pickups`),
+  check('six-hazard-moments', hazards.length >= 6, `${hazards.length} hazards`),
+  check('five-enemy-encounters', enemies.length >= 5, `${enemies.length} enemies`),
   check('single-lantern-warden', Boolean(stage.warden?.id) && stage.warden?.attackStates?.length === 3, stage.warden?.id ?? 'missing'),
   check('safe-first-screen', damageRects.filter((rect) => overlap(rect, stage.safeFirstScreen)).length === 0, 'first screen damage source overlap'),
   check('safe-rest-before-miniboss', damageRects.filter((rect) => overlap(rect, stage.safeRestBeforeMiniboss)).length === 0, 'pre-boss rest damage source overlap'),
@@ -133,15 +133,15 @@ const checks = [
   check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
   check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
   check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
-  check('single-updraft-gimmick', (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent').length === 1, `${stage.gimmicks?.length ?? 0} gimmicks`),
+  check('two-updraft-gimmicks', (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${stage.gimmicks?.length ?? 0} gimmicks`),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(
       'target-duration-recorded',
-    stage.targetFirstClearSeconds?.min === 180 &&
-      stage.targetFirstClearSeconds?.max === 360 &&
-      stage.targetOptimizedSeconds?.min === 75 &&
-      stage.targetOptimizedSeconds?.max === 150,
-    'human 180-360s, optimized 75-150s'
+    stage.targetFirstClearSeconds?.min === 240 &&
+      stage.targetFirstClearSeconds?.max === 480 &&
+      stage.targetOptimizedSeconds?.min === 105 &&
+      stage.targetOptimizedSeconds?.max === 210,
+    'human 240-480s, optimized 105-210s'
   )
 ];
 

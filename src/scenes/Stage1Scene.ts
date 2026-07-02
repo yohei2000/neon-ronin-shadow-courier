@@ -398,10 +398,10 @@ export class Stage1Scene extends Phaser.Scene {
     const x = this.player.getPosition().x;
     if (!this.warden.dead && x > Stage1Data.warden.arena.x - 100) return 'Defeat Lantern Warden';
     if (this.warden.dead) return 'Enter the Moon Gate';
-    if (x < 1160) return 'Practice the first cut';
-    if (x < 1900) return 'Follow the neon sign run';
-    if (x < 3180) return 'Clear the hazard line';
-    if (x < Stage1Data.safeRestBeforeMiniboss.x) return 'Pass the updraft marker';
+    if (x < 1600) return 'Practice the first cut';
+    if (x < 3200) return 'Ride the neon sign lift';
+    if (x < 5600) return 'Clear the rooftop hazard line';
+    if (x < Stage1Data.safeRestBeforeMiniboss.x) return 'Climb the Neon Thorn updraft';
     return 'Rest before the Warden';
   }
 

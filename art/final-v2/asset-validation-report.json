@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T00:45:05.813Z",
+  "generatedAt": "2026-07-02T03:39:05.231Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -8,7 +8,7 @@
     },
     {
       "file": "art/animation-manifest.json",
-      "bytes": 2611
+      "bytes": 3869
     },
     {
       "file": "art/vfx-manifest.json",
@@ -615,6 +615,6 @@
     "layer-near-props-front",
     "layer-foreground-occlusion"
   ],
-  "runtimeImageRefs": 19,
+  "runtimeImageRefs": 13,
   "errors": []
 }

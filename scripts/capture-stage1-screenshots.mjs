@@ -28,7 +28,8 @@ const wardenRightRecoveryX = stage.warden.x + 130;
 const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
-  { startX: 3440, endX: 3820, minY: 280, holdMs: 260 }
+  { startX: 1680, endX: 2460, minY: 165, holdMs: 430 },
+  { startX: 6100, endX: 6740, minY: 165, holdMs: 460 }
 ];
 
 const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
@@ -68,12 +69,12 @@ const startStage1 = async (page) => {
 };
 
 const captureRoute = async (page) => {
-    const requiredShots = [
+  const requiredShots = [
     ['stage-start.png', 120],
     ['combat.png', 850],
-    ['wall-kick-shaft.png', 1300],
-    ['checkpoint.png', 3000],
-    ['neon-thorn-run.png', 3820],
+    ['wall-kick-shaft.png', 1900],
+    ['checkpoint.png', 4480],
+    ['neon-thorn-run.png', 6600],
     ['lantern-warden.png', wardenEngageX]
   ];
   const captured = new Set();
@@ -203,28 +204,16 @@ const captureRoute = async (page) => {
     } else if (now - lastProgressAt > 2200 && (player.x < wardenEngageX || current.wardenDefeated)) {
       await releaseMovementKeys(page);
       await page.locator('canvas').click({ position: { x: 480, y: 270 } });
-      if (player.x > 3220 && player.x < 3820 && !current.wardenDefeated) {
+      const recoveryAssist = verticalAssistFor(player);
+      if (recoveryAssist && !current.wardenDefeated) {
         await setRight(true);
         lastProgressX = player.x;
         lastProgressAt = now;
         lastJump = now;
-        if (player.onGround || player.y > 390) {
-          await jump(page, 360);
+        if (player.onGround || player.y > recoveryAssist.minY) {
+          await jump(page, recoveryAssist.holdMs);
         } else {
-          await page.waitForTimeout(360);
-        }
-        continue;
-      }
-      if (player.x >= 3440 && player.x < wardenEngageX && !current.wardenDefeated) {
-        await setRight(true);
-        lastProgressX = player.x;
-        lastProgressAt = now;
-        const assist = verticalAssistFor(player);
-        if (assist && (player.onGround || player.y > assist.minY) && now - lastJump > 260) {
-          lastJump = now;
-          await jump(page, assist.holdMs);
-        } else {
-          await page.waitForTimeout(650);
+          await page.waitForTimeout(recoveryAssist.holdMs);
         }
         continue;
       }
@@ -233,17 +222,19 @@ const captureRoute = async (page) => {
       lastProgressAt = now;
       lastJump = now;
       const recoveryJumpMs =
-        player.x > 3220 && player.x < 3820
-          ? 300
-          : player.x >= 3440 && player.x < wardenEngageX
-            ? 160
-            : current.wardenDefeated
-              ? 120
-              : player.x > 1000 && player.x < 2310
-                ? 140
-                : player.x <= 1000
-                  ? 240
-                  : 0;
+        current.wardenDefeated
+          ? 120
+          : player.x > 1320 && player.x < 1520
+            ? 240
+            : player.x > 1600 && player.x < 2500
+              ? 430
+              : player.x > 3920 && player.x < 4200
+                ? 260
+                : player.x > 7300 && player.x < 7620
+                  ? 260
+                  : player.x <= 1200
+                    ? 220
+                    : 0;
       if (recoveryJumpMs > 0) await jump(page, recoveryJumpMs);
       else await page.waitForTimeout(120);
       continue;
@@ -296,13 +287,16 @@ const captureRoute = async (page) => {
       lastJump = now;
       await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? 360 : 280);
     }
-    if (
-      ((player.x > 1030 && player.x < 1900 && player.y > 255) ||
-        (player.x > 2320 && player.x < 2585)) &&
-      now - lastJump > 360
-    ) {
+    const jumpNow =
+      (player.x > 1320 && player.x < 1520 && player.y > 410) ||
+      (player.x > 1660 && player.x < 2460 && player.y > 165) ||
+      (player.x > 3920 && player.x < 4200 && player.y > 245) ||
+      (player.x > 6080 && player.x < 6740 && player.y > 165) ||
+      (player.x > 7280 && player.x < 7620 && player.y > 205);
+    if (jumpNow && now - lastJump > 360) {
       lastJump = now;
-      await jump(page, player.x > 1030 && player.x < 1240 ? 220 : player.x > 1030 && player.x < 1900 ? 165 : 140);
+      const assist = verticalAssistFor(player);
+      await jump(page, assist ? assist.holdMs : player.x > 1600 && player.x < 2460 ? 430 : 180);
     }
     const enemyInReach = (current.enemies ?? []).some(
       (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210
@@ -310,8 +304,10 @@ const captureRoute = async (page) => {
     if (
         (enemyInReach ||
         (player.x > 760 && player.x < 1060) ||
-        (player.x > 2680 && player.x < 3120) ||
-        (player.x > 3220 && player.x < 3560) ||
+        (player.x > 3300 && player.x < 3820) ||
+        (player.x > 4400 && player.x < 5000) ||
+        (player.x > 6660 && player.x < 7240) ||
+        (player.x > 7280 && player.x < 7860) ||
         (player.x > wardenEngageX && !current.wardenDefeated)) &&
       now - lastSlash > 300
     ) {

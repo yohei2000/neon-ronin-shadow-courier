@@ -82,10 +82,10 @@ const linearStageRoute = (data: Stage1DataType): { readonly passed: boolean; rea
 const compactStagePlatformVariety = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
   const platforms = data.platforms;
   const maxWidth = platforms.reduce((longest, platform) => Math.max(longest, platform.width), 0);
-  const elevatedCount = platforms.filter((platform) => platform.y <= 330).length;
+  const elevatedCount = platforms.filter((platform) => platform.y <= 390).length;
   const fallPitCount = data.hazards.filter((hazard) => hazard.type === 'fall-pit').length;
   return {
-    passed: platforms.length >= 10 && platforms.length <= 16 && maxWidth <= 1200 && elevatedCount >= 4 && fallPitCount >= 1 && fallPitCount <= 3,
+    passed: platforms.length >= 16 && platforms.length <= 24 && maxWidth <= 1200 && elevatedCount >= 5 && fallPitCount >= 1 && fallPitCount <= 3,
     detail: `${platforms.length} platforms, maxWidth=${maxWidth}, elevated=${elevatedCount}, fallPits=${fallPitCount}`
   };
 };
@@ -93,12 +93,12 @@ const compactStageVerticality = (data: Stage1DataType): { readonly passed: boole
   const platforms = data.platforms;
   const highestTop = platforms.reduce((top, platform) => Math.min(top, platform.y), Infinity);
   const lowestTop = platforms.reduce((top, platform) => Math.max(top, platform.y), -Infinity);
-  const highPlatforms = platforms.filter((platform) => platform.y <= 330).length;
-  const middlePlatforms = platforms.filter((platform) => platform.y > 330 && platform.y < 490).length;
+  const highPlatforms = platforms.filter((platform) => platform.y <= 260).length;
+  const middlePlatforms = platforms.filter((platform) => platform.y > 260 && platform.y < 535).length;
   const updrafts = data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent');
   const verticalRange = lowestTop - highestTop;
   return {
-    passed: verticalRange >= 170 && highPlatforms >= 3 && middlePlatforms >= 3 && updrafts.length === 1,
+    passed: verticalRange >= 330 && highPlatforms >= 4 && middlePlatforms >= 8 && updrafts.length === 2,
     detail: `range=${verticalRange}, high=${highPlatforms}, mid=${middlePlatforms}, updrafts=${updrafts.length}`
   };
 };
@@ -135,15 +135,15 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
       `${data.sections.length} sections: ${names.join(', ')}`
     ),
     check('single-continuous-route', linearRoute.passed, linearRoute.detail),
-    check('compact-stage-scope', data.worldWidth >= 5600 && data.worldWidth <= 7500, `worldWidth=${data.worldWidth}`),
+    check('stage-scope-1-5x', data.worldWidth >= 9500 && data.worldWidth <= 10550, `worldWidth=${data.worldWidth}`),
     check('two-vertical-sections', verticalSections.length >= 2, `${verticalSections.length} vertical sections`),
     check('no-optional-routes', optionalRoutes.length === 0, `${optionalRoutes.length} optional routes`),
     check('two-checkpoints', data.checkpoints.length >= 2, `${data.checkpoints.length} checkpoints`),
     check('no-hidden-scrolls', data.collectibles.scrolls.length === 0, `${data.collectibles.scrolls.length} scrolls`),
-    check('twelve-seals', data.collectibles.seals.length >= 12, `${data.collectibles.seals.length} seals`),
-    check('three-pickups', healthOrEnergy.length >= 3, `${healthOrEnergy.length} health/energy pickups`),
-    check('three-hazard-moments', data.hazards.length >= 3, `${data.hazards.length} hazards`),
-    check('three-enemy-encounters', enemyEncounterCount >= 3, `${enemyEncounterCount} enemy encounters`),
+    check('twenty-four-seals', data.collectibles.seals.length >= 24, `${data.collectibles.seals.length} seals`),
+    check('four-pickups', healthOrEnergy.length >= 4, `${healthOrEnergy.length} health/energy pickups`),
+    check('six-hazard-moments', data.hazards.length >= 6, `${data.hazards.length} hazards`),
+    check('five-enemy-encounters', enemyEncounterCount >= 5, `${enemyEncounterCount} enemy encounters`),
     check('single-warden', data.warden.id.length > 0 && data.warden.attackStates.length === 3, data.warden.id),
     check('safe-first-screen', firstScreenDamageSources.length === 0, `${firstScreenDamageSources.length} first-screen damage sources`),
     check('safe-rest-before-miniboss', restDamageSources.length === 0, `${restDamageSources.length} rest-area damage sources`),
@@ -157,14 +157,14 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
     check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
     check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
-    check('single-updraft-gimmick', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 1, `${data.gimmicks.length} gimmicks`),
+    check('two-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(
       'duration-targets',
-      data.targetFirstClearSeconds.min === 180 &&
-        data.targetFirstClearSeconds.max === 360 &&
-        data.targetOptimizedSeconds.min === 75 &&
-        data.targetOptimizedSeconds.max === 150,
+        data.targetFirstClearSeconds.min === 240 &&
+        data.targetFirstClearSeconds.max === 480 &&
+        data.targetOptimizedSeconds.min === 105 &&
+        data.targetOptimizedSeconds.max === 210,
       `human ${data.targetFirstClearSeconds.min}-${data.targetFirstClearSeconds.max}s, e2e ${data.targetOptimizedSeconds.min}-${data.targetOptimizedSeconds.max}s`
     )
   ];
