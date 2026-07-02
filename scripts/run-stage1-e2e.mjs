@@ -472,6 +472,7 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.keyboard.up('ArrowRight');
     await page.keyboard.up('d');
     await page.keyboard.press('p');
+    await waitFor(async () => (await state(page)).paused === true, 'pause did not open before retry');
     await page.keyboard.press('r');
     await waitFor(async () => {
       const current = await state(page);

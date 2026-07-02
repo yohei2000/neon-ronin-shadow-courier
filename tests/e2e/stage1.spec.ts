@@ -6,6 +6,7 @@ type StageState = {
   player?: { x: number; y: number; onGround?: boolean; slashing: boolean; damageTaken?: number };
   checkpointCount?: number;
   wardenDefeated?: boolean;
+  paused?: boolean;
   touch?: { visible: boolean; buttons?: Record<'left' | 'right' | 'jump' | 'attack' | 'pause', boolean> };
   e2eIntegrity?: { debugTeleport: boolean; hiddenClearStageCall: boolean };
 };
@@ -244,6 +245,7 @@ test.describe('Stage1 playable vertical slice', () => {
     await page.keyboard.up('ArrowRight');
     expect((await state(page)).player?.damageTaken).toBeGreaterThan(damageBefore);
     await page.keyboard.press('p');
+    await expect.poll(async () => (await state(page)).paused).toBe(true);
     await page.keyboard.press('r');
     await expect.poll(async () => (await state(page)).player?.x).toBeGreaterThan(2980);
     expect((await state(page)).player?.x).toBeLessThan(3100);
