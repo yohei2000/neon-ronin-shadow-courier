@@ -31,7 +31,7 @@ const wardenRightRecoveryX = stage.warden.x + 130;
 const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
-  { startX: 1680, endX: 2460, minY: 165, holdMs: 430 },
+  { startX: 1500, endX: 2460, minY: 165, holdMs: 430 },
   { startX: 6100, endX: 6740, minY: 165, holdMs: 460 }
 ];
 
@@ -284,7 +284,7 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
           ? 120
           : player.x > 1320 && player.x < 1520
             ? 240
-            : player.x > 1600 && player.x < 2500
+            : player.x > 1500 && player.x < 2500
               ? 430
               : player.x > 3920 && player.x < 4200
                 ? 260
@@ -347,14 +347,14 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
     }
     const jumpNow =
       (player.x > 1320 && player.x < 1520 && player.y > 410) ||
-      (player.x > 1660 && player.x < 2460 && player.y > 165) ||
+      (player.x > 1500 && player.x < 2460 && player.y > 165) ||
       (player.x > 3920 && player.x < 4200 && player.y > 245) ||
       (player.x > 6080 && player.x < 6740 && player.y > 165) ||
       (player.x > 7280 && player.x < 7620 && player.y > 205);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
       const assist = verticalAssistFor(player);
-      await jump(page, assist ? assist.holdMs : player.x > 1600 && player.x < 2460 ? 430 : 180);
+      await jump(page, assist ? assist.holdMs : player.x > 1500 && player.x < 2460 ? 430 : 180);
     }
     const enemyInReach = (current.enemies ?? []).some(
       (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 260 && Math.abs(enemy.y - player.y) < 210

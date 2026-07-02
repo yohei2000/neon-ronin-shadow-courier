@@ -52,7 +52,7 @@
     { "id": "warden-approach-pit", "type": "fall-pit", "x": 8060, "y": 548, "width": 80, "height": 180, "damage": 1 }
   ],
   "gimmicks": [
-    { "id": "sign-updraft", "type": "updraft-vent", "x": 1740, "y": 110, "width": 470, "height": 430, "strength": 720 },
+    { "id": "sign-updraft", "type": "updraft-vent", "x": 1540, "y": 110, "width": 670, "height": 430, "strength": 720 },
     { "id": "stage1-updraft", "type": "updraft-vent", "x": 6240, "y": 120, "width": 300, "height": 430, "strength": 760 }
   ],
   "collectibles": {
