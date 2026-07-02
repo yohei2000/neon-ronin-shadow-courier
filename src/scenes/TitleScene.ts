@@ -78,6 +78,10 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private drawMenu(): void {
+    this.add.image(724, 388, ArtAssetKey.TitleMenuPanel)
+      .setDisplaySize(510, 254)
+      .setTintFill(0x030406)
+      .setAlpha(0.22);
     this.add.image(244, 514, RuntimeTitleAssetKey.TitleMenuBacking).setDisplaySize(392, 46).setAlpha(0.38);
     this.add.text(96, 514, 'NEON ALLEY: FIRST DELIVERY', {
       fontFamily: 'Arial Black, Arial, sans-serif',
