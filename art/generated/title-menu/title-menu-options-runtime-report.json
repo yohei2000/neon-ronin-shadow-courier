@@ -1,0 +1,52 @@
+{
+  "source": "art/generated/title-menu/title-menu-options-generated-20260702.png",
+  "output": "src/assets/runtime/title-menu-options-spritesheet.png",
+  "sourceSize": {
+    "width": 1536,
+    "height": 1024
+  },
+  "frameWidth": 512,
+  "frameHeight": 192,
+  "frames": [
+    {
+      "state": "idle",
+      "sourceCrop": {
+        "x": 0,
+        "y": 72,
+        "width": 768,
+        "height": 370
+      },
+      "frame": 0
+    },
+    {
+      "state": "focus",
+      "sourceCrop": {
+        "x": 768,
+        "y": 72,
+        "width": 768,
+        "height": 370
+      },
+      "frame": 1
+    },
+    {
+      "state": "selected",
+      "sourceCrop": {
+        "x": 0,
+        "y": 584,
+        "width": 768,
+        "height": 370
+      },
+      "frame": 2
+    },
+    {
+      "state": "confirm",
+      "sourceCrop": {
+        "x": 768,
+        "y": 584,
+        "width": 768,
+        "height": 370
+      },
+      "frame": 3
+    }
+  ]
+}

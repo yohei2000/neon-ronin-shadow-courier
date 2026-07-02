@@ -1,0 +1,12 @@
+{
+  "source": "art/generated/title-menu/title-menu-options-generated-20260702.png",
+  "output": "src/assets/runtime/title-menu-backing.png",
+  "sourceCrop": {
+    "x": 768,
+    "y": 52,
+    "width": 768,
+    "height": 410
+  },
+  "width": 560,
+  "height": 276
+}

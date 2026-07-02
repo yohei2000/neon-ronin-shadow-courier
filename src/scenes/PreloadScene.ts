@@ -13,6 +13,8 @@ import {
   RuntimeEnvironmentImageAssets,
   RuntimeSpriteAssetKey,
   RuntimeSpriteImageAssets,
+  RuntimeTitleAssetKey,
+  RuntimeTitleImageAssets,
   SlashAnimationFrames
 } from '../data/artAssets';
 
@@ -77,6 +79,11 @@ export class PreloadScene extends Phaser.Scene {
       frameWidth: 192,
       frameHeight: 160
     });
+    this.load.spritesheet(RuntimeTitleAssetKey.TitleMenuOptions, RuntimeTitleImageAssets[RuntimeTitleAssetKey.TitleMenuOptions], {
+      frameWidth: 512,
+      frameHeight: 192
+    });
+    this.load.image(RuntimeTitleAssetKey.TitleMenuBacking, RuntimeTitleImageAssets[RuntimeTitleAssetKey.TitleMenuBacking]);
 
     for (const [key, url] of Object.entries(RuntimeEnvironmentImageAssets)) {
       if (key === RuntimeEnvironmentAssetKey.ItemIcons || key === RuntimeEnvironmentAssetKey.TouchControls) continue;
@@ -135,9 +142,11 @@ export class PreloadScene extends Phaser.Scene {
     this.createFrameListAnimation('slash-ground', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.ground.frames, SlashAnimationFrames.ground.frameRate, SlashAnimationFrames.ground.repeat);
     this.createFrameListAnimation('slash-air', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.air.frames, SlashAnimationFrames.air.frameRate, SlashAnimationFrames.air.repeat);
     this.createFrameListAnimation('slash-spin', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.spin.frames, SlashAnimationFrames.spin.frameRate, SlashAnimationFrames.spin.repeat);
+    this.createFrameListAnimation('title-menu-focus', RuntimeTitleAssetKey.TitleMenuOptions, [1, 2, 1, 2], 8, -1);
+    this.createFrameListAnimation('title-menu-confirm', RuntimeTitleAssetKey.TitleMenuOptions, [2, 3, 3, 1], 18, 0);
   }
 
-  private createFrameListAnimation(key: string, assetKey: RuntimeSpriteAssetKey, frames: readonly number[], frameRate: number, repeat: number): void {
+  private createFrameListAnimation(key: string, assetKey: string, frames: readonly number[], frameRate: number, repeat: number): void {
     if (this.anims.exists(key)) return;
     this.anims.create({
       key,

@@ -55,6 +55,13 @@ export const RuntimeEnvironmentAssetKey = {
 
 export type RuntimeEnvironmentAssetKey = (typeof RuntimeEnvironmentAssetKey)[keyof typeof RuntimeEnvironmentAssetKey];
 
+export const RuntimeTitleAssetKey = {
+  TitleMenuBacking: 'title-menu-backing',
+  TitleMenuOptions: 'title-menu-options-spritesheet'
+} as const;
+
+export type RuntimeTitleAssetKey = (typeof RuntimeTitleAssetKey)[keyof typeof RuntimeTitleAssetKey];
+
 export const ArtImageAssets: Record<ArtAssetKey, string> = {
   [ArtAssetKey.Player]: ApprovedArtUrlByKey[ArtAssetKey.Player],
   [ArtAssetKey.PlayerMaster]: ApprovedArtUrlByKey[ArtAssetKey.PlayerMaster],
@@ -102,6 +109,11 @@ export const RuntimeEnvironmentImageAssets: Record<RuntimeEnvironmentAssetKey, s
   [RuntimeEnvironmentAssetKey.MoonGate]: new URL('../assets/runtime/stage1-moon-gate.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.ItemIcons]: new URL('../assets/runtime/stage1-item-icons.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.TouchControls]: new URL('../assets/runtime/stage1-touch-controls.png', import.meta.url).href
+};
+
+export const RuntimeTitleImageAssets: Record<RuntimeTitleAssetKey, string> = {
+  [RuntimeTitleAssetKey.TitleMenuBacking]: new URL('../assets/runtime/title-menu-backing.png', import.meta.url).href,
+  [RuntimeTitleAssetKey.TitleMenuOptions]: new URL('../assets/runtime/title-menu-options-spritesheet.png', import.meta.url).href
 };
 
 export const RuntimeItemFrame = {

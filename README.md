@@ -23,7 +23,7 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 
 ## Runtime
 
-- Default route: title screen with `START STAGE 1`, controls, settings, credits/about, and Art Lab access.
+- Default route: title screen with `START STAGE 1`, controls, and settings.
 - Stage flow: `TitleScene -> Stage1Scene -> StageClearScene`.
 - Art Lab route: `?scene=artlab&state=neutral`
 - Mobile controls review: `?scene=artlab&state=mobile-controls`
