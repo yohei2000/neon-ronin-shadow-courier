@@ -19,3 +19,6 @@ Constraints: no readable or pseudo-readable text, no logos, no copyright charact
 - Extraction report: `art/generated/title-menu/title-menu-options-runtime-report.json`
 - Runtime backing plate: `src/assets/runtime/title-menu-backing.png`
 - Backing report: `art/generated/title-menu/title-menu-backing-report.json`
+- Generated label source: `art/generated/title-menu/title-menu-labels-generated-20260702.png`
+- Labeled runtime sheet report: `art/generated/title-menu/title-menu-options-with-labels-report.json`
+- Base sheet before labels: `art/generated/title-menu/title-menu-options-base-before-labels-20260702.png`

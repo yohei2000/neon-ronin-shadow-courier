@@ -142,8 +142,11 @@ export class PreloadScene extends Phaser.Scene {
     this.createFrameListAnimation('slash-ground', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.ground.frames, SlashAnimationFrames.ground.frameRate, SlashAnimationFrames.ground.repeat);
     this.createFrameListAnimation('slash-air', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.air.frames, SlashAnimationFrames.air.frameRate, SlashAnimationFrames.air.repeat);
     this.createFrameListAnimation('slash-spin', RuntimeSpriteAssetKey.Slash, SlashAnimationFrames.spin.frames, SlashAnimationFrames.spin.frameRate, SlashAnimationFrames.spin.repeat);
-    this.createFrameListAnimation('title-menu-focus', RuntimeTitleAssetKey.TitleMenuOptions, [1, 2, 1, 2], 8, -1);
-    this.createFrameListAnimation('title-menu-confirm', RuntimeTitleAssetKey.TitleMenuOptions, [2, 3, 3, 1], 18, 0);
+    for (let menuIndex = 0; menuIndex < 3; menuIndex += 1) {
+      const baseFrame = menuIndex * 4;
+      this.createFrameListAnimation(`title-menu-select-${menuIndex}`, RuntimeTitleAssetKey.TitleMenuOptions, [baseFrame + 1, baseFrame + 2, baseFrame + 1], 5, 0);
+      this.createFrameListAnimation(`title-menu-confirm-${menuIndex}`, RuntimeTitleAssetKey.TitleMenuOptions, [baseFrame + 1, baseFrame + 3, baseFrame + 3, baseFrame + 1], 14, 0);
+    }
   }
 
   private createFrameListAnimation(key: string, assetKey: string, frames: readonly number[], frameRate: number, repeat: number): void {

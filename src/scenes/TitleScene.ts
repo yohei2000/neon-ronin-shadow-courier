@@ -37,7 +37,6 @@ export class TitleScene extends Phaser.Scene {
     { label: 'SETTINGS', scene: SceneKey.Settings }
   ];
   private selected = 0;
-  private menuTexts: Phaser.GameObjects.Text[] = [];
   private menuButtons: Phaser.GameObjects.Sprite[] = [];
   private selectionAura?: Phaser.GameObjects.Sprite;
   private activating = false;
@@ -48,7 +47,6 @@ export class TitleScene extends Phaser.Scene {
 
   create(): void {
     this.selected = 0;
-    this.menuTexts = [];
     this.menuButtons = [];
     this.selectionAura = undefined;
     this.activating = false;
@@ -82,7 +80,7 @@ export class TitleScene extends Phaser.Scene {
   private drawMenu(): void {
     this.add.image(724, 388, ArtAssetKey.TitleMenuPanel).setDisplaySize(510, 254).setAlpha(0.1);
     this.add.image(724, 388, RuntimeTitleAssetKey.TitleMenuBacking).setDisplaySize(516, 254).setAlpha(0.95);
-    this.add.sprite(244, 514, RuntimeTitleAssetKey.TitleMenuOptions, 0).setDisplaySize(392, 46).setAlpha(0.82);
+    this.add.image(244, 514, RuntimeTitleAssetKey.TitleMenuBacking).setDisplaySize(392, 46).setAlpha(0.38);
     this.add.text(96, 514, 'NEON ALLEY: FIRST DELIVERY', {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '15px',
@@ -92,36 +90,22 @@ export class TitleScene extends Phaser.Scene {
     this.selectionAura = this.add
       .sprite(724, 318, RuntimeTitleAssetKey.TitleMenuOptions, 2)
       .setDisplaySize(430, 78)
-      .setAlpha(0.18)
+      .setAlpha(0.14)
       .setBlendMode(Phaser.BlendModes.ADD);
-    this.tweens.add({
-      targets: this.selectionAura,
-      alpha: { from: 0.18, to: 0.36 },
-      duration: 520,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
 
-    this.menuTexts = this.menuItems.map((item, index) => {
+    this.menuItems.forEach((item, index) => {
       const y = 318 + index * 72;
       const button = this.add
-        .sprite(724, y, RuntimeTitleAssetKey.TitleMenuOptions, 0)
+        .sprite(724, y, RuntimeTitleAssetKey.TitleMenuOptions, index * 4)
         .setDisplaySize(404, 72)
         .setAlpha(0.9);
-      const text = this.add.text(648, y, item.label, {
-        fontFamily: 'Arial Black, Arial, sans-serif',
-        fontSize: '19px',
-        color: PaletteHex.warmPaper
-      }).setOrigin(0, 0.5).setShadow(0, 2, '#050508', 5, true, true);
       this.add.zone(724, y, 408, 74)
         .setInteractive({ useHandCursor: true })
         .on('pointerover', () => this.select(index))
-        .on('pointerdown', () => button.setFrame(3))
+        .on('pointerdown', () => button.setFrame(index * 4 + 3))
         .on('pointerout', () => this.renderMenu())
         .on('pointerup', () => this.activate(index));
       this.menuButtons.push(button);
-      return text;
     });
     this.renderMenu();
 
@@ -137,7 +121,7 @@ export class TitleScene extends Phaser.Scene {
     if (this.activating || index === this.selected) return;
     this.selected = index;
     this.renderMenu();
-    this.spawnSelectionEffect(index);
+    this.playSelectionAnimation(index);
   }
 
   private bindInput(): void {
@@ -166,7 +150,7 @@ export class TitleScene extends Phaser.Scene {
     if (this.activating) return;
     this.selected = (this.selected + this.menuItems.length + delta) % this.menuItems.length;
     this.renderMenu();
-    this.spawnSelectionEffect(this.selected);
+    this.playSelectionAnimation(this.selected);
   }
 
   private activate(index: number): void {
@@ -175,44 +159,46 @@ export class TitleScene extends Phaser.Scene {
     this.selected = index;
     this.renderMenu();
     this.spawnConfirmEffect(index);
-    this.menuButtons[index]?.play('title-menu-confirm', true);
+    this.menuButtons[index]?.play(`title-menu-confirm-${index}`, true);
     const item = this.menuItems[index];
     this.time.delayedCall(250, () => this.scene.start(item.scene, item.data));
   }
 
   private renderMenu(): void {
-    this.menuTexts.forEach((text, index) => {
+    this.menuButtons.forEach((button, index) => {
       const selected = index === this.selected;
-      text.setColor(selected ? PaletteHex.neonCyan : PaletteHex.warmPaper);
-      text.setText(this.menuItems[index].label);
-      text.setAlpha(selected ? 1 : 0.84);
-      const button = this.menuButtons[index];
-      if (!button) return;
-      if (selected && !this.activating) {
-        button.play('title-menu-focus', true);
-        button.setAlpha(1);
-      } else {
+      const baseFrame = index * 4;
+      if (!selected || this.activating || !button.anims.isPlaying) {
         button.stop();
-        button.setFrame(selected ? 2 : 0);
-        button.setAlpha(selected ? 1 : 0.76);
+        button.setFrame(selected ? baseFrame + 1 : baseFrame);
+        button.setAlpha(selected ? 1 : 0.86);
       }
     });
-    this.selectionAura?.setY(318 + this.selected * 72).setVisible(!this.activating);
+    this.selectionAura?.setFrame(this.selected * 4 + 2).setY(318 + this.selected * 72).setVisible(!this.activating);
   }
 
-  private spawnSelectionEffect(index: number): void {
+  private playSelectionAnimation(index: number): void {
+    const button = this.menuButtons[index];
+    if (!button) return;
+    button.play(`title-menu-select-${index}`, true);
+    button.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+      if (this.selected === index && !this.activating) {
+        button.setFrame(index * 4 + 1);
+      }
+    });
+
     const y = 318 + index * 72;
     const flare = this.add
-      .sprite(724, y, RuntimeTitleAssetKey.TitleMenuOptions, 2)
+      .sprite(724, y, RuntimeTitleAssetKey.TitleMenuOptions, index * 4 + 2)
       .setDisplaySize(420, 76)
-      .setAlpha(0.42)
+      .setAlpha(0.22)
       .setBlendMode(Phaser.BlendModes.ADD);
     this.tweens.add({
       targets: flare,
       alpha: 0,
-      scaleX: flare.scaleX * 1.04,
-      scaleY: flare.scaleY * 1.06,
-      duration: 210,
+      scaleX: flare.scaleX * 1.015,
+      scaleY: flare.scaleY * 1.02,
+      duration: 360,
       ease: 'Sine.easeOut',
       onComplete: () => flare.destroy()
     });
@@ -221,9 +207,9 @@ export class TitleScene extends Phaser.Scene {
   private spawnConfirmEffect(index: number): void {
     const y = 318 + index * 72;
     const flash = this.add
-      .sprite(724, y, RuntimeTitleAssetKey.TitleMenuOptions, 3)
+      .sprite(724, y, RuntimeTitleAssetKey.TitleMenuOptions, index * 4 + 3)
       .setDisplaySize(446, 84)
-      .setAlpha(0.72)
+      .setAlpha(0.46)
       .setBlendMode(Phaser.BlendModes.ADD);
     this.tweens.add({
       targets: flash,
@@ -237,9 +223,9 @@ export class TitleScene extends Phaser.Scene {
 
     const slash = this.add
       .sprite(812, y, RuntimeSpriteAssetKey.Slash)
-      .setScale(1.18)
+      .setScale(0.98)
       .setAngle(-6)
-      .setAlpha(0.9)
+      .setAlpha(0.62)
       .setBlendMode(Phaser.BlendModes.ADD);
     slash.play('slash-ground');
     slash.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => slash.destroy());
