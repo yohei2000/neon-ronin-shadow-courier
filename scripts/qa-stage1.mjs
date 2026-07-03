@@ -94,6 +94,24 @@ const compactStageVerticality = () => {
     detail: `range=${range}, high=${high}, mid=${mid}, updrafts=${updrafts.length}`
   };
 };
+const continuousTerrainSupport = () => {
+  const supports = stage.terrainSupports ?? [];
+  const unsupported = (stage.platforms ?? []).filter((platform) => {
+    const platformBottom = platform.y + platform.height;
+    const horizontalInset = Math.min(48, platform.width * 0.12);
+    const requiredBottom = platform.y >= 500 ? stage.worldHeight - 2 : 500;
+    return !supports.some((support) => {
+      const coversPlatformWidth = support.x <= platform.x + horizontalInset && support.x + support.width >= platform.x + platform.width - horizontalInset;
+      const touchesPlatformBottom = Math.abs(support.y - platformBottom) <= 4;
+      const reachesGroundMass = support.y + support.height >= requiredBottom;
+      return coversPlatformWidth && touchesPlatformBottom && reachesGroundMass;
+    });
+  });
+  return {
+    passed: supports.length >= 10 && unsupported.length === 0,
+    detail: `${supports.length} supports, unsupported=${unsupported.map((platform) => platform.id).join(', ') || 'none'}`
+  };
+};
 const sections = stage.sections ?? [];
 const hazards = stage.hazards ?? [];
 const enemies = stage.enemies ?? [];
@@ -103,6 +121,7 @@ const firePassage = firePassageCheck();
 const linearRoute = linearStageRoute();
 const platformVariety = compactStagePlatformVariety();
 const verticalRoute = compactStageVerticality();
+const terrainSupport = continuousTerrainSupport();
 const damageRects = [
   ...hazards,
   ...enemies.map((enemy) => ({ x: enemy.x - 36, y: enemy.y - 48, width: 72, height: 96 }))
@@ -133,6 +152,7 @@ const checks = [
   check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
   check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
   check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
+  check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
   check('two-updraft-gimmicks', (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${stage.gimmicks?.length ?? 0} gimmicks`),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(

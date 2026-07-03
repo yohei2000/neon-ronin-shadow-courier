@@ -7,6 +7,8 @@ import { SaveSystem } from '../systems/SaveSystem';
 import type { StageRank } from '../systems/rank';
 
 export type StageClearData = {
+  readonly stageLabel?: string;
+  readonly retryScene?: SceneKey;
   readonly timeMs: number;
   readonly rank: StageRank;
   readonly scrollsFound: number;
@@ -23,12 +25,14 @@ export class StageClearScene extends Phaser.Scene {
 
   create(data: StageClearData): void {
     const save = SaveSystem.load();
+    const retryScene = data.retryScene ?? SceneKey.Stage1;
+    const persistedBest = retryScene === SceneKey.Stage2 ? save.stage2.bestTimeMs : save.stage1.bestTimeMs;
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundFar).setAlpha(0.98);
     this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundDistant).setAlpha(0.72);
     this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundMid).setAlpha(0.78);
     this.add.tileSprite(BASE_WIDTH / 2, 278, 760, 322, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.88);
-    this.add.text(112, 86, 'STAGE CLEAR', {
+    this.add.text(112, 86, data.stageLabel ?? 'STAGE CLEAR', {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '48px',
       color: PaletteHex.neonCyan
@@ -39,7 +43,7 @@ export class StageClearScene extends Phaser.Scene {
       ['Rank', data.rank],
       ['Seals found', `${data.sealsFound}/${data.sealsTotal}`],
       ['Damage taken', `${data.damageTaken}`],
-      ['Best time', this.formatBest(save.stage1.bestTimeMs ?? data.bestTimeMs)]
+      ['Best time', this.formatBest(persistedBest ?? data.bestTimeMs)]
     ];
 
     rows.forEach(([label, value], index) => {
@@ -55,7 +59,7 @@ export class StageClearScene extends Phaser.Scene {
       fontSize: '20px',
       color: PaletteHex.neonMagenta
     });
-    this.input.keyboard?.on('keydown-ENTER', () => this.scene.start(SceneKey.Stage1));
+    this.input.keyboard?.on('keydown-ENTER', () => this.scene.start(retryScene));
     this.input.keyboard?.on('keydown-T', () => this.scene.start(SceneKey.Title));
     window.__NEON_RONIN_STAGE1__ = {
       scene: 'StageClearScene',

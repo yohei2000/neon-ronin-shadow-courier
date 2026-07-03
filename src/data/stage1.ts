@@ -27,6 +27,10 @@ export type Stage1Platform = RectData & {
   readonly id: string;
 };
 
+export type Stage1TerrainSupport = RectData & {
+  readonly id: string;
+};
+
 export type Stage1Checkpoint = RectData & {
   readonly id: string;
   readonly name: string;
@@ -92,6 +96,7 @@ export type Stage1Data = {
   readonly safeRestBeforeMiniboss: RectData;
   readonly sections: readonly Stage1Section[];
   readonly platforms: readonly Stage1Platform[];
+  readonly terrainSupports: readonly Stage1TerrainSupport[];
   readonly checkpoints: readonly Stage1Checkpoint[];
   readonly hazards: readonly Stage1Hazard[];
   readonly gimmicks: readonly Stage1Gimmick[];

@@ -45,11 +45,45 @@ export type Stage1QaState = {
 
 export type Stage1MenuQaState = {
   readonly scene: 'TitleScene' | 'ControlsScene' | 'SettingsScene' | 'CreditsScene';
+  readonly selectedIndex?: number;
+  readonly items?: readonly string[];
+  readonly activating?: boolean;
+};
+
+export type Stage2QaState = Omit<Stage1QaState, 'scene' | 'warden' | 'wardenDefeated' | 'moonGateActive'> & {
+  readonly scene: 'Stage2Scene' | 'StageClearScene';
+  readonly anchors?: readonly {
+    readonly id: string;
+    readonly x: number;
+    readonly y: number;
+    readonly radius: number;
+  }[];
+  readonly walls?: readonly {
+    readonly id: string;
+    readonly role: 'left-wall' | 'right-wall' | 'back-wall';
+    readonly x: number;
+    readonly y: number;
+    readonly width: number;
+    readonly height: number;
+  }[];
+  readonly slopes?: readonly {
+    readonly id: string;
+    readonly x1: number;
+    readonly y1: number;
+    readonly x2: number;
+    readonly y2: number;
+    readonly direction: 'down-right' | 'down-left';
+  }[];
+  readonly activeThreadTarget?: string | null;
+  readonly relayKeeper?: { readonly current: number; readonly max: number; readonly state: string; readonly attack: string; readonly projectileCount?: number };
+  readonly relayKeeperDefeated?: boolean;
+  readonly signalGateActive?: boolean;
 };
 
 declare global {
   interface Window {
     __NEON_RONIN_STAGE1__?: Stage1QaState;
+    __NEON_RONIN_STAGE2__?: Stage2QaState;
     __NEON_RONIN_STAGE1_MENU__?: Stage1MenuQaState;
   }
 }

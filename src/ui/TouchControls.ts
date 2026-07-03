@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { PaletteHex } from '../config/palette';
+import { Palette, PaletteHex } from '../config/palette';
 import { RuntimeEnvironmentAssetKey, RuntimeTouchFrame } from '../data/artAssets';
 import type { Stage1Settings } from '../systems/SaveSystem';
 import type { InputSystem, TouchButton } from '../systems/InputSystem';
@@ -64,12 +64,20 @@ export class TouchControls {
       .setDepth(90)
       .setScrollFactor(0)
       .setAlpha(opacity);
-    this.roots.push(pad, jump, attack);
+    const technique = this.scene.add
+      .sprite(804, 330, RuntimeEnvironmentAssetKey.TouchControls, RuntimeTouchFrame.Slash)
+      .setDisplaySize(96, 86)
+      .setTint(Palette.neonCyan)
+      .setDepth(90)
+      .setScrollFactor(0)
+      .setAlpha(opacity * 0.92);
+    this.roots.push(pad, jump, attack, technique);
 
     this.addButton('left', 80, 452, 112, 118, '');
     this.addButton('right', 205, 452, 112, 118, '');
     this.addButton('jump', 748, 454, 124, 124, 'JUMP');
     this.addButton('attack', 866, 426, 124, 124, 'SLASH');
+    this.addButton('technique', 804, 330, 124, 116, 'THREAD');
     this.addButton('pause', 900, 78, 78, 62, 'II');
     this.setEnabled(this.visible);
   }

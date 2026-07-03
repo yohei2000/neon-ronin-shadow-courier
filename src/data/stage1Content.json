@@ -35,6 +35,19 @@
     { "id": "warden-arena-floor", "x": 8900, "y": 500, "width": 920, "height": 42 },
     { "id": "moon-gate-finish-floor", "x": 9820, "y": 500, "width": 230, "height": 42 }
   ],
+  "terrainSupports": [
+    { "id": "start-alley-ground-mass", "x": 0, "y": 562, "width": 2130, "height": 338 },
+    { "id": "sign-step-low-facade", "x": 1680, "y": 460, "width": 260, "height": 60 },
+    { "id": "sign-step-mid-facade", "x": 1940, "y": 338, "width": 260, "height": 182 },
+    { "id": "sign-step-high-facade", "x": 2160, "y": 263, "width": 260, "height": 257 },
+    { "id": "sign-top-building-mass", "x": 2400, "y": 205, "width": 740, "height": 315 },
+    { "id": "central-rooftop-building-mass", "x": 3140, "y": 362, "width": 2340, "height": 158 },
+    { "id": "canal-thorn-ground-mass", "x": 5480, "y": 562, "width": 1080, "height": 338 },
+    { "id": "updraft-exit-building-mass", "x": 6560, "y": 198, "width": 760, "height": 322 },
+    { "id": "thorn-high-building-mass", "x": 7320, "y": 275, "width": 660, "height": 245 },
+    { "id": "roof-descent-building-mass", "x": 7980, "y": 447, "width": 480, "height": 95 },
+    { "id": "warden-gate-ground-mass", "x": 8460, "y": 542, "width": 1590, "height": 358 }
+  ],
   "checkpoints": [
     { "id": "checkpoint-start", "name": "Rain Lantern Shrine", "x": 210, "y": 440, "width": 72, "height": 86, "respawnX": 96, "respawnY": 482, "sectionId": "rain-lantern-start" },
     { "id": "checkpoint-sign-top", "name": "High Sign Shrine", "x": 2700, "y": 86, "width": 76, "height": 86, "respawnX": 2700, "respawnY": 137, "sectionId": "wall-kick-sign-shaft" },

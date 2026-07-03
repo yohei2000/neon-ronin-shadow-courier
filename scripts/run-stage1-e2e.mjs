@@ -63,6 +63,24 @@ const withPage = async (viewport, fn) => {
     await page.close();
   }
 };
+const selectTitleMenuItem = async (page, label) => {
+  await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open');
+  const currentMenu = await menuState(page);
+  const items = currentMenu.items ?? [];
+  const targetIndex = items.indexOf(label);
+  assert(targetIndex >= 0, `menu item not found: ${label}; items=${items.join(', ')}`);
+  const selectedIndex = currentMenu.selectedIndex ?? 0;
+  const forwardSteps = (targetIndex - selectedIndex + items.length) % items.length;
+  const backwardSteps = (selectedIndex - targetIndex + items.length) % items.length;
+  const key = forwardSteps <= backwardSteps ? 'ArrowDown' : 'ArrowUp';
+  const stepCount = Math.min(forwardSteps, backwardSteps);
+  for (let index = 0; index < stepCount; index += 1) {
+    await page.keyboard.press(key);
+    await page.waitForTimeout(80);
+  }
+  await waitFor(async () => (await menuState(page)).selectedIndex === targetIndex, `${label} was not selected`);
+  await page.keyboard.press('Enter');
+};
 const record = async (name, fn) => {
   const started = Date.now();
   console.log(`START ${name}`);
@@ -79,8 +97,7 @@ const record = async (name, fn) => {
 };
 const startStage1 = async (page) => {
   await page.goto(baseUrl);
-  await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open');
-  await page.keyboard.press('Enter');
+  await selectTitleMenuItem(page, 'START STAGE 1');
   await waitFor(async () => (await state(page)).scene === 'Stage1Scene', 'Stage1 did not start');
 };
 const jump = async (page, holdMs = 95) => {
@@ -380,19 +397,15 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
 if (shouldRun('title-flow')) await record('title-flow', () =>
   withPage(null, async (page) => {
     await page.goto(baseUrl);
-    await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open');
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('Enter');
+    await selectTitleMenuItem(page, 'CONTROLS');
     await waitFor(async () => (await menuState(page)).scene === 'ControlsScene', 'controls did not open');
     await page.keyboard.press('Escape');
     await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not reopen after controls');
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('Enter');
+    await selectTitleMenuItem(page, 'SETTINGS');
     await waitFor(async () => (await menuState(page)).scene === 'SettingsScene', 'settings did not open');
     await page.keyboard.press('Escape');
     await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not reopen after settings');
-    await page.keyboard.press('Enter');
+    await selectTitleMenuItem(page, 'START STAGE 1');
     await waitFor(async () => (await state(page)).scene === 'Stage1Scene', 'Stage1 did not start from title');
     return { title: true, controls: true, settings: true, stage1: true };
   })

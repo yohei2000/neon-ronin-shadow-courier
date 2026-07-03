@@ -21,6 +21,7 @@ export type Stage1SaveData = {
   readonly schemaVersion: 1;
   readonly settings: Stage1Settings;
   readonly stage1: Stage1Progress;
+  readonly stage2: Stage1Progress;
 };
 
 const STORAGE_KEY = 'neon-ronin-stage1-save';
@@ -39,6 +40,12 @@ export const createDefaultSave = (): Stage1SaveData => ({
   schemaVersion: 1,
   settings: DefaultStage1Settings,
   stage1: {
+    cleared: false,
+    bestTimeMs: null,
+    bestRank: null,
+    scrollsFound: []
+  },
+  stage2: {
     cleared: false,
     bestTimeMs: null,
     bestRank: null,
@@ -65,12 +72,22 @@ export const normalizeSaveData = (raw: unknown): Stage1SaveData => {
   const candidate = raw as Record<string, unknown>;
   const settings = (candidate.settings ?? {}) as Record<string, unknown>;
   const stage1 = (candidate.stage1 ?? {}) as Record<string, unknown>;
-  const scrollsFound = Array.isArray(stage1.scrollsFound)
-    ? Array.from(new Set(stage1.scrollsFound.filter((item): item is string => typeof item === 'string'))).slice(0, 3)
-    : defaults.stage1.scrollsFound;
-  const bestRank = stage1.bestRank === 'S' || stage1.bestRank === 'A' || stage1.bestRank === 'B' || stage1.bestRank === 'C'
-    ? stage1.bestRank
-    : null;
+  const stage2 = (candidate.stage2 ?? {}) as Record<string, unknown>;
+  const normalizeProgress = (progress: Record<string, unknown>, fallback: Stage1Progress): Stage1Progress => {
+    const scrollsFound = Array.isArray(progress.scrollsFound)
+      ? Array.from(new Set(progress.scrollsFound.filter((item): item is string => typeof item === 'string'))).slice(0, 3)
+      : fallback.scrollsFound;
+    const bestRank = progress.bestRank === 'S' || progress.bestRank === 'A' || progress.bestRank === 'B' || progress.bestRank === 'C'
+      ? progress.bestRank
+      : null;
+    return {
+      cleared: normalizeBoolean(progress.cleared, fallback.cleared),
+      bestTimeMs:
+        typeof progress.bestTimeMs === 'number' && Number.isFinite(progress.bestTimeMs) ? Math.max(0, progress.bestTimeMs) : null,
+      bestRank,
+      scrollsFound
+    };
+  };
 
   return {
     schemaVersion: 1,
@@ -83,12 +100,8 @@ export const normalizeSaveData = (raw: unknown): Stage1SaveData => {
       touchControls: normalizeTouchMode(settings.touchControls),
       touchOpacity: normalizeNumber(settings.touchOpacity, defaults.settings.touchOpacity, 0.35, 1)
     },
-    stage1: {
-      cleared: normalizeBoolean(stage1.cleared, defaults.stage1.cleared),
-      bestTimeMs: typeof stage1.bestTimeMs === 'number' && Number.isFinite(stage1.bestTimeMs) ? Math.max(0, stage1.bestTimeMs) : null,
-      bestRank,
-      scrollsFound
-    }
+    stage1: normalizeProgress(stage1, defaults.stage1),
+    stage2: normalizeProgress(stage2, defaults.stage2)
   };
 };
 
@@ -121,14 +134,36 @@ export class SaveSystem {
     storage: Storage | undefined = globalThis.localStorage
   ): Stage1SaveData {
     const current = SaveSystem.load(storage);
-    const bestTimeMs = current.stage1.bestTimeMs === null ? timeMs : Math.min(current.stage1.bestTimeMs, timeMs);
-    const scrollUnion = Array.from(new Set([...current.stage1.scrollsFound, ...scrollsFound])).slice(0, 3);
+    return SaveSystem.recordStageClear('stage1', current, timeMs, rank, scrollsFound, storage);
+  }
+
+  static recordStage2Clear(
+    timeMs: number,
+    rank: 'S' | 'A' | 'B' | 'C',
+    scrollsFound: readonly string[] = [],
+    storage: Storage | undefined = globalThis.localStorage
+  ): Stage1SaveData {
+    const current = SaveSystem.load(storage);
+    return SaveSystem.recordStageClear('stage2', current, timeMs, rank, scrollsFound, storage);
+  }
+
+  private static recordStageClear(
+    stageKey: 'stage1' | 'stage2',
+    current: Stage1SaveData,
+    timeMs: number,
+    rank: 'S' | 'A' | 'B' | 'C',
+    scrollsFound: readonly string[],
+    storage: Storage | undefined
+  ): Stage1SaveData {
+    const currentProgress = current[stageKey];
+    const bestTimeMs = currentProgress.bestTimeMs === null ? timeMs : Math.min(currentProgress.bestTimeMs, timeMs);
+    const scrollUnion = Array.from(new Set([...currentProgress.scrollsFound, ...scrollsFound])).slice(0, 3);
     const rankScore = { S: 4, A: 3, B: 2, C: 1 } as const;
-    const bestRank = current.stage1.bestRank && rankScore[current.stage1.bestRank] > rankScore[rank] ? current.stage1.bestRank : rank;
+    const bestRank = currentProgress.bestRank && rankScore[currentProgress.bestRank] > rankScore[rank] ? currentProgress.bestRank : rank;
     return SaveSystem.save(
       {
         ...current,
-        stage1: {
+        [stageKey]: {
           cleared: true,
           bestTimeMs,
           bestRank,

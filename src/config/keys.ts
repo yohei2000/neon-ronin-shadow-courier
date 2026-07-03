@@ -6,6 +6,7 @@ export const SceneKey = {
   Settings: 'SettingsScene',
   Credits: 'CreditsScene',
   Stage1: 'Stage1Scene',
+  Stage2: 'Stage2Scene',
   StageClear: 'StageClearScene',
   ArtLab: 'ArtLabScene',
   GateAReview: 'GateAReviewScene'

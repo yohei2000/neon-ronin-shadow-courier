@@ -1,6 +1,6 @@
-# Neon Ronin: Shadow Courier - Stage 1
+# Neon Ronin: Shadow Courier
 
-This repository contains the playable Stage 1 vertical slice, `Neon Alley: First Delivery`, built on the frozen Gate B v2 art assets.
+This repository contains the playable Stage 1 vertical slice, `Neon Alley: First Delivery`, built on the frozen Gate B v2 art assets, plus the explicitly requested Stage 2 gameplay route, `Neon Drain: Signal Ascent`.
 
 Gate B v1 has been rejected as structurally complete but visually below product level. Gate B v2 replaces the final art path with native image-generated source assets while preserving the useful QA infrastructure.
 
@@ -20,11 +20,13 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Gate B v1: rejected.
 - Gate B v2: approved by explicit human input on 2026-06-27.
 - Animation Expansion Gate: opened on 2026-06-28 for Stage1 player/slash runtime animation only. Core Gate B v2 art remains the base; runtime player and slash sheets may derive from `art/source/player/player-animation-master-sheet.png` and `art/source/vfx/slash-flipbook.png`.
+- Stage 2 gameplay scope: requested on 2026-07-03 for a dynamic vertical route with the new Kage-Ito shadow-thread slash technique. This does not approve world map, final boss, player projectile, charged slash, ultimate, or a distinct Stage2 final-art gate.
 
 ## Runtime
 
-- Default route: title screen with `START STAGE 1`, controls, and settings.
-- Stage flow: `TitleScene -> Stage1Scene -> StageClearScene`.
+- Default route: title screen with `START STAGE 1`, `START STAGE 2`, controls, and settings.
+- Stage flows: `TitleScene -> Stage1Scene -> StageClearScene` and `TitleScene -> Stage2Scene -> StageClearScene`.
+- Direct boot routes: `?scene=stage1`, `?scene=stage2`, and `?scene=artlab&state=neutral`.
 - Art Lab route: `?scene=artlab&state=neutral`
 - Mobile controls review: `?scene=artlab&state=mobile-controls`
 - Approved production assets: `src/assets/approved-art/`
@@ -32,6 +34,8 @@ The A-H Markdown/PNG files define ink treatment, rainy lighting, sign density, p
 - Safe Stage1 derived runtime cutouts: `src/assets/runtime/`
 
 Stage 1 is a compact one-way route with 5 named sections: a safe rain-lantern slash tutorial, a tall neon sign lift, an elevated rooftop hazard line, a tall cyan updraft climb through the Neon Thorn section, and a small Lantern Warden miniboss arena that leads directly into the Moon Gate. The route now intentionally spans low floors and high ledges so the stage silhouette matches the approved linear structure concept rather than reading as a flat side-scroller. It includes checkpoints, 24 seal pickups, health/energy pickups, hazards, Ink Crawler and Kite Wraith encounters, settings, save data, pause, retry checkpoint, and mobile virtual controls.
+
+Stage 2 is `Neon Drain: Signal Ascent`, a taller vertical route built around Moon Gate drop, a left/right wall-gap drain shaft, hanging market switchbacks, a diagonal billboard downhill descent, signal spire climb, and a Relay Keeper miniboss arena. It introduces Kage-Ito, the shadow-thread slash: `K`/`X` or mobile `THREAD` targets nearby anchors or enemies, pulls the player into a slash, launches upward, and recharges on enemy hit or landing.
 
 Player runtime animation now separates idle, run, small jump, big jump rise, speed flip jump, apex, fall, wall slide, wall kick, ground slash, air slash, hurt, and checkpoint respawn. Slash VFX has separate ground and air runtime sequences.
 
@@ -68,11 +72,13 @@ npm.cmd run art:audit
 npm.cmd run art:all
 ```
 
+Stage2's current validation is covered by `npm.cmd run test`, including `validateStage2` content checks for vertical range, wall-gap shaft geometry, diagonal slope geometry, anchor coverage, airborne lanes, and Stage2 save progress.
+
 `art:generate` validates native image-generation evidence. The actual native `image_gen` calls were performed through Codex and preserved under `art/generated/`.
 
 After Gate B v2 freeze, do not regenerate core art for normal Stage1 work. Use `art:validate-freeze` to confirm `src/assets/approved-art/` remains byte-identical to `art/final-v2/assets/` and that every Stage1 runtime asset maps back to `art/source/` or `art/final-v2/`.
 
-Stage1 gameplay should use `src/assets/runtime/` for fixed-cell actors, VFX, cleaned background layers, ground/platform tiles, item icons, Moon Gate, HUD panels, and mobile controls. `qa:assets-stage1` audits these runtime cutouts for edge clipping and paper-background residue.
+Stage1 gameplay should use `src/assets/runtime/` for fixed-cell actors, VFX, cleaned background layers, ground/platform tiles, item icons, Moon Gate, HUD panels, and mobile controls. Stage2 currently reuses those runtime asset families for playable implementation; it is not a distinct final-art lock. `qa:assets-stage1` audits these runtime cutouts for edge clipping and paper-background residue.
 
 ## Key Review Files
 
@@ -106,6 +112,7 @@ The reference package is user-provided specification material and is not runtime
 
 ## Known Limitations
 
-- Scope is intentionally Stage 1 only. Stage 2+, world map, final boss, player dash/projectile, charged slash, and ultimate systems are not implemented.
+- Stage2 is a gameplay implementation using existing runtime asset families, not a separate approved Stage2 final-art package.
+- World map, final boss, player projectile, charged slash, and ultimate systems are not implemented.
 - Lantern Warden is a Stage 1 miniboss, not the campaign final boss.
 - Core art remains frozen outside the approved Animation Expansion Gate. Future broader art changes require a new explicit art-change gate.

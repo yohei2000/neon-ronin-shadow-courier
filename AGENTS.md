@@ -2,9 +2,11 @@
 
 ## Active Scope
 
-This repository is now governed by the Stage 1 playable vertical slice objective.
+This repository is governed by the Stage 1 playable vertical slice objective plus the explicitly requested Stage 2 gameplay implementation.
 
-The current runtime objective is Stage 1 only: `Neon Alley: First Delivery`, using the frozen Gate B v2 art assets. Do not implement or claim Stage 2+, world map, final boss, player dash/projectile/charged slash/ultimate, or broad campaign systems while this scope is active.
+Stage 1 remains `Neon Alley: First Delivery`, using the frozen Gate B v2 art assets. Stage 2 implementation scope was explicitly requested by the user on 2026-07-03 as a dynamic vertical stage with a new player technique, not a broad campaign expansion.
+
+Do not implement or claim world map, final boss, player projectile, charged slash, ultimate, or broad campaign systems while this scope is active. Stage 2 currently reuses the frozen Stage1 runtime asset families for playable implementation; a distinct Stage2 final-art gate is still not approved.
 
 ## Required Reference Package
 
@@ -21,7 +23,8 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 - Gate A: approved by explicit human phrase `Approve Gate A` on 2026-06-26.
 - Gate B v1: rejected as visually below product level.
 - Gate B v2: approved by explicit human input `ゲートBを承認します` on 2026-06-27.
-- Animation Expansion Gate: scoped approval on 2026-06-28 for Stage1 player/slash runtime animation expansion only. Do not treat this as approval for Stage2+, world map, final boss, player dash/projectile/charged slash/ultimate, or broad campaign systems.
+- Animation Expansion Gate: scoped approval on 2026-06-28 for Stage1 player/slash runtime animation expansion only. Do not treat this as approval for world map, final boss, player projectile/charged slash/ultimate, broad campaign systems, or a Stage2 final-art gate.
+- Stage 2 gameplay scope: explicitly requested by the user on 2026-07-03. It authorizes `Neon Drain: Signal Ascent`, a dynamic vertical Stage2 route, and the new `Kage-Ito` / shadow-thread slash technique only.
 - Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
 - Art Lock freeze: Gate B v2 core art is frozen. Runtime production assets are normalized under `src/assets/approved-art/` and indexed by `src/data/approvedArtManifest.ts`.
 
@@ -76,6 +79,14 @@ npm.cmd run qa:screenshots-stage1
 npm.cmd run qa:all-stage1
 ```
 
+Current Stage2 validation commands:
+
+```bash
+npm.cmd run typecheck
+npm.cmd run test
+npm.cmd run build
+```
+
 ## Handoff Rules
 
 - Treat `AGENTS.md` as a live operations log.
@@ -83,16 +94,19 @@ npm.cmd run qa:all-stage1
 - Do not weaken validators to make progress appear complete.
 - Do not use plain Phaser primitive programmer art as final visual implementation.
 - Keep Stage1 claims limited to the playable vertical slice.
-- Keep Stage2+, world map, final boss, and campaign claims out of docs/runtime unless a new explicit scope is approved.
+- Keep Stage2 claims limited to `Neon Drain: Signal Ascent`, Kage-Ito traversal/combat, Relay Keeper miniboss, and Signal Gate clear.
+- Keep world map, final boss, player projectile, charged slash, ultimate, and campaign claims out of docs/runtime unless a new explicit scope is approved.
 - If a required visual-production/browser capability is unavailable, report the concrete blocker.
 
 ## Next Step
 
 Gate B v2 is approved and frozen. Stage1 integration must consume the approved asset manifest rather than direct `art/final-v2/assets/` paths.
 
-Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flow `TitleScene -> Stage1Scene -> StageClearScene`. Deterministic `ArtLabScene` review states remain available via `?scene=artlab&state=...`.
+Current runtime is `BootScene -> PreloadScene -> TitleScene`, with playable flows `TitleScene -> Stage1Scene -> StageClearScene` and `TitleScene -> Stage2Scene -> StageClearScene`. Deterministic `ArtLabScene` review states remain available via `?scene=artlab&state=...`. Direct boot supports `?scene=stage1` and `?scene=stage2`.
 
 Runtime asset note: Stage1 character, slash, telegraph, Lantern Warden, background, ground/platform, Moon Gate, item icons, HUD panels, and mobile controls use derived assets under `src/assets/runtime/`. They are cut from frozen approved art and scoped Animation Expansion Gate sources by `npm.cmd run art:runtime-sheets` so each runtime frame contains one actor/effect/icon/layer only. Do not point gameplay directly back at generated contact-sheet layouts such as `player-spritesheet`, `enemy-spritesheet`, `kite-wraith-preview`, `slash-flipbook`, `telegraph-flipbook`, `lantern-warden-spritesheet`, `ui-kit`, `mobile-controls-kit`, or paper-backed `layer-*` environment sheets, because those sheets can expose adjacent poses, white paper backgrounds, UI kit fragments, or half-cut frames.
+
+Runtime stage composition note: Playable stages must not look like raw geometric rectangles or floating boards. Collision rectangles may remain data-only, but visible terrain must be assembled from approved sprite/tile assets, with support/facade masses, edge caps, side blending, and background-integrated seams connecting floors, ledges, walls, and lower ground. Avoid Phaser primitive graphics/rectangles/polygons/circles for runtime stage geometry and hazards; use runtime sprite sheets, environment tiles, telegraph sprites, and layered sprite dressing instead.
 
 Runtime animation note: Player runtime animation now uses idle 6, run 8, small jump 4, big jump rise 5, speed flip jump 8, apex 2, fall 3, wall slide 4, wall kick 4, ground slash 8, air slash 6, hurt 3, and checkpoint respawn 6 frames. Slash runtime animation uses separate ground 8 and air 6 frame sequences. The implementation is documented in `ANIMATION_EXPANSION_GATE.md` and `art/final-v3-animation/animation-expansion-manifest.json`.
 
@@ -117,3 +131,5 @@ Runtime mobile-control note: Stage1 touch controls must support simultaneous mov
 Runtime layout note: Stage1's route is intentionally linear while now carrying roughly 1.5x the former route length. `qa:stage1` and `validateStage1` check 5 contiguous sections, no optional branches, no hidden scroll routes, compact platform variety, collectible clearance, and two readable updraft moments instead of multi-branch neon runs.
 
 Runtime verticality note: Stage1 still needs strong vertical motion, but only as a first-stage one-way sequence: tall sign-shaft lift plus one tall updraft-assisted Neon Thorn climb, followed by a readable descent into the Warden approach. Keep `compact-vertical-route` and `two-updraft-gimmicks` validation strict so future edits do not flatten the route or reintroduce multi-branch complexity.
+
+Runtime Stage2 note: Stage2 is implemented as `Neon Drain: Signal Ascent`, a taller dynamic vertical route with Moon Gate drop, a left/right wall-gap drain shaft, hanging market switchbacks, a diagonal billboard downhill descent, signal spire climb, and a Relay Keeper arena. Stage2 introduces the new `Kage-Ito` shadow-thread slash technique on `K`/`X` and mobile `THREAD`: it targets nearby anchors or enemies, pulls the player into a slash, launches upward, and recharges on enemy hit or landing. Keep `validateStage2` strict for vertical range, anchor count, wall-gap shaft geometry, diagonal slope geometry, high/low platform density, airborne enemy lanes, and the fact that Relay Keeper is a miniboss, not a final boss. Stage2 may use rectangular gameplay colliders, but the runtime presentation should hide raw rectangle silhouettes with approved runtime sprite dressing, edge caps, trim, fascia, and seam-blending overlays.

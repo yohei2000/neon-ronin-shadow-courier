@@ -23,13 +23,14 @@ export class ControlsScene extends Phaser.Scene {
       'W / Space / Up      Variable jump',
       'Wall contact + Jump Wall kick',
       'J / Z               Slash',
+      'K / X               Kage-Ito thread slash',
       'Esc / P             Pause',
       'Enter               Confirm'
     ];
     lines.forEach((line, index) => {
-      this.add.text(124, 166 + index * 42, line, {
+      this.add.text(124, 158 + index * 38, line, {
         fontFamily: 'Consolas, monospace',
-        fontSize: '24px',
+        fontSize: '22px',
         color: index % 2 === 0 ? PaletteHex.warmPaper : PaletteHex.paleMoonMist
       });
     });

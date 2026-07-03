@@ -1,8 +1,10 @@
-# Implementation Notes - Stage 1 Vertical Slice
+# Implementation Notes - Neon Ronin Runtime
 
 ## Scope
 
-The active runtime scope is Stage 1 only: `Neon Alley: First Delivery`, implemented with frozen Gate B v2 art.
+The active runtime scope includes Stage 1, `Neon Alley: First Delivery`, implemented with frozen Gate B v2 art, and the explicitly requested Stage 2 gameplay route, `Neon Drain: Signal Ascent`.
+
+Stage 2 scope covers the dynamic vertical route, Kage-Ito shadow-thread slash, Relay Keeper miniboss, and Signal Gate clear. It does not approve world map, final boss, player projectile, charged slash, ultimate, broad campaign systems, or a distinct Stage2 final-art gate.
 
 This repo now preserves v1 evidence while building Gate B v2 from native image-generated source art:
 
@@ -14,17 +16,18 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `src/assets/approved-art/` contains frozen production copies of the approved runtime PNGs.
 - `src/data/approvedArtManifest.ts` is the Stage1 runtime asset contract.
 - `src/data/stage1Content.json` and `src/data/stage1.ts` own the Stage1 layout/content rules.
+- `src/data/stage2.ts` owns the Stage2 layout/content rules and `validateStage2`.
 - `src/data/stageValidation.ts` validates the Stage1 acceptance content.
 
 ## Runtime
 
 - `BootScene -> PreloadScene -> TitleScene` by default.
-- Playable flow is `TitleScene -> Stage1Scene -> StageClearScene`.
+- Playable flows are `TitleScene -> Stage1Scene -> StageClearScene` and `TitleScene -> Stage2Scene -> StageClearScene`.
 - Supporting screens are `ControlsScene`, `SettingsScene`, and `CreditsScene`.
 - `?scene=artlab&state=<state>` boots deterministic `ArtLabScene` review stations.
 - Frozen approved assets are loaded from `src/assets/approved-art/`; gameplay consumes safe derived Stage1 runtime cutouts from `src/assets/runtime/`.
 - The QA bridge is `window.__NEON_RONIN_ART_LOCK__`.
-- Stage1 E2E telemetry is `window.__NEON_RONIN_STAGE1__`.
+- Stage1 E2E telemetry is `window.__NEON_RONIN_STAGE1__`; Stage2 runtime telemetry is `window.__NEON_RONIN_STAGE2__`.
 
 ## Stage1 Architecture
 
@@ -36,6 +39,16 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `TouchControls` renders derived single-frame mobile control art and routes touches through `InputSystem`.
 - `Hud` owns HP, seal count, timer, objective, checkpoint feedback, and Lantern Warden health text.
 - `CameraController`, `CombatSystem`, `SaveSystem`, and `rank` keep shared logic out of the scene.
+
+## Stage2 Architecture
+
+- `Stage2Scene` orchestrates the taller vertical route, wall-gap shaft geometry, diagonal billboard slope, thread anchors, crosswind/updraft gimmicks, checkpoints, collectibles, Relay Keeper clear, pause, retry, and QA telemetry.
+- Stage2 gameplay colliders remain rectangular for deterministic traversal, but the runtime view dresses those shapes with approved runtime sprites: platform lips, brush caps, wall trims, back-wall crowns, slope fascia, and endpoint seam blends.
+- `Player` now accepts per-stage world bounds and owns Kage-Ito state: target pull, short slash impact, upward launch, charge consumption, recharge on landing, and explicit recharge when Stage2 confirms an enemy hit. It also resolves Stage2 slope surfaces so the billboard descent plays as a true diagonal downhill path instead of stair-stepped platforms.
+- `InputSystem` adds `K`/`X` and touch `THREAD` technique input without changing Stage1 slash controls.
+- `TouchControls` adds a `THREAD` button while keeping multi-pointer movement/jump/attack support.
+- `CameraController` accepts per-stage bounds so Stage2 can use a taller world without Stage1 camera regressions.
+- `SaveSystem` tracks Stage2 clear progress separately from Stage1.
 
 ## Image Generation Route
 
@@ -62,6 +75,7 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 - `e2e` runs Playwright-driven named tests: `title-flow`, `stage1-keyboard-clear`, `mobile-controls`, and `checkpoint-retry`.
 - `qa:screenshots-stage1` writes the required `artifacts/stage1/*.png`, `console-report.json`, and keeps the console clean.
 - `qa:all-stage1` runs final Stage1 validation and writes `artifacts/stage1/stage1-acceptance-report.md`.
+- `validateStage2` is covered by `npm.cmd run test` and checks six dynamic sections, continuous route coverage, large vertical range, wall-gap shaft geometry, diagonal slope geometry, high/low platform density, Kage-Ito anchor coverage, airborne enemy lanes, and Relay Keeper as a miniboss.
 - `art:validate-generated` checks raw generated candidates, logs, source assets, selected masters, final-v2 assets, and v2 approval state.
 - `art:validate-assets` checks manifests, runtime assets, screenshots, revision rounds, approvals, and scene asset usage.
 - `art:screenshots` captures `art/final-v2/` plus `art/reviews/gate-b-v2/round-01..03/`.

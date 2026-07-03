@@ -8,6 +8,7 @@ import { GateAReviewScene } from '../scenes/GateAReviewScene';
 import { PreloadScene } from '../scenes/PreloadScene';
 import { SettingsScene } from '../scenes/SettingsScene';
 import { Stage1Scene } from '../scenes/Stage1Scene';
+import { Stage2Scene } from '../scenes/Stage2Scene';
 import { StageClearScene } from '../scenes/StageClearScene';
 import { TitleScene } from '../scenes/TitleScene';
 
@@ -28,7 +29,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   input: {
     activePointers: 4
   },
-  scene: [BootScene, PreloadScene, TitleScene, ControlsScene, SettingsScene, CreditsScene, Stage1Scene, StageClearScene, ArtLabScene, GateAReviewScene],
-  title: 'Neon Ronin: Shadow Courier - Stage 1',
+  scene: [BootScene, PreloadScene, TitleScene, ControlsScene, SettingsScene, CreditsScene, Stage1Scene, Stage2Scene, StageClearScene, ArtLabScene, GateAReviewScene],
+  title: 'Neon Ronin: Shadow Courier',
   banner: false
 };

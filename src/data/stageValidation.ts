@@ -102,6 +102,23 @@ const compactStageVerticality = (data: Stage1DataType): { readonly passed: boole
     detail: `range=${verticalRange}, high=${highPlatforms}, mid=${middlePlatforms}, updrafts=${updrafts.length}`
   };
 };
+const continuousTerrainSupport = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const unsupported = data.platforms.filter((platform) => {
+    const platformBottom = platform.y + platform.height;
+    const horizontalInset = Math.min(48, platform.width * 0.12);
+    const requiredBottom = platform.y >= 500 ? data.worldHeight - 2 : 500;
+    return !data.terrainSupports.some((support) => {
+      const coversPlatformWidth = support.x <= platform.x + horizontalInset && support.x + support.width >= platform.x + platform.width - horizontalInset;
+      const touchesPlatformBottom = Math.abs(support.y - platformBottom) <= 4;
+      const reachesGroundMass = support.y + support.height >= requiredBottom;
+      return coversPlatformWidth && touchesPlatformBottom && reachesGroundMass;
+    });
+  });
+  return {
+    passed: data.terrainSupports.length >= 10 && unsupported.length === 0,
+    detail: `${data.terrainSupports.length} supports, unsupported=${unsupported.map((platform) => platform.id).join(', ') || 'none'}`
+  };
+};
 
 export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidationReport => {
   const names = data.sections.map((section) => section.name);
@@ -127,6 +144,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const linearRoute = linearStageRoute(data);
   const platformVariety = compactStagePlatformVariety(data);
   const verticalRoute = compactStageVerticality(data);
+  const terrainSupport = continuousTerrainSupport(data);
 
   const checks = [
     check(
@@ -157,6 +175,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('collectibles-clear-platforms', embeddedCollectibles.length === 0, embeddedCollectibles.join(', ') || 'no collectible visual overlaps platform geometry'),
     check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
     check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
+    check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
     check('two-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(

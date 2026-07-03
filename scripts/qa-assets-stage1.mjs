@@ -30,12 +30,23 @@ const stage1RuntimeFiles = sourceFiles.filter((file) =>
     `${path.sep}src${path.sep}ui${path.sep}TouchControls.ts`
   ].some((fragment) => file.includes(fragment))
 );
+const playableStageFiles = sourceFiles.filter((file) =>
+  [
+    `${path.sep}src${path.sep}scenes${path.sep}Stage1Scene.ts`,
+    `${path.sep}src${path.sep}scenes${path.sep}Stage2Scene.ts`,
+    `${path.sep}src${path.sep}entities${path.sep}`,
+    `${path.sep}src${path.sep}ui${path.sep}Hud.ts`,
+    `${path.sep}src${path.sep}ui${path.sep}TouchControls.ts`
+  ].some((fragment) => file.includes(fragment))
+);
 
 const productionMatches = [...manifestText.matchAll(/productionPath: '([^']+)'/g)].map((match) => match[1]);
 const approvedMatches = [...manifestText.matchAll(/approvedSourcePath: '([^']+)'/g)].map((match) => match[1]);
 const pngs = fs.readdirSync(path.resolve('src', 'assets', 'approved-art')).filter((file) => file.endsWith('.png'));
 const srcTextBundle = runtimeScanFiles.map((file) => `${file}\n${read(file)}`).join('\n');
 const stage1TextBundle = stage1RuntimeFiles.map((file) => `${file}\n${read(file)}`).join('\n');
+const playableStageTextBundle = playableStageFiles.map((file) => `${file}\n${read(file)}`).join('\n');
+const primitiveStageGeometryPattern = /\.add\.(rectangle|graphics|polygon|ellipse|circle)\(/;
 const requiredAnimations = [
   'ink-crawler-patrol',
   'ink-crawler-hit',
@@ -263,6 +274,7 @@ const checks = [
   check('no-direct-final-v2-runtime-imports', !srcTextBundle.includes('art/final-v2/assets'), 'only approvedArtManifest records source lineage'),
   check('no-remote-runtime-assets', !/https?:\/\//.test(srcTextBundle), 'runtime source requests no remote assets'),
   check('no-stage1-primitive-placeholder-art', !/\.add\.(rectangle|graphics)\(/.test(stage1TextBundle), 'Stage1 character/enemy/UI/environment visuals use approved images'),
+  check('no-playable-stage-geometric-primitives', !primitiveStageGeometryPattern.test(playableStageTextBundle), 'Stage1/Stage2 runtime geometry is sprite/tile dressed instead of primitive shapes'),
   check('required-textures-loaded', requiredTextures.every((key) => `${preloadText}\n${artAssetsText}`.includes(`ArtAssetKey.${key}`)), requiredTextures.join(', ')),
   check('runtime-sprite-sheets-exist', requiredRuntimeSpriteKeys.every((file) => fs.existsSync(path.resolve('src', 'assets', 'runtime', `${file}.png`))), requiredRuntimeSpriteKeys.join(', ')),
   check('runtime-environment-assets-exist', requiredRuntimeEnvironmentKeys.every((file) => fs.existsSync(path.resolve('src', 'assets', 'runtime', `${file}.png`))), requiredRuntimeEnvironmentKeys.join(', ')),

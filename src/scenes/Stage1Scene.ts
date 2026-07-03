@@ -13,7 +13,8 @@ import {
   type Stage1Hazard,
   type Stage1Pickup,
   type Stage1Scroll,
-  type Stage1Seal
+  type Stage1Seal,
+  type Stage1TerrainSupport
 } from '../data/stage1';
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
@@ -177,6 +178,10 @@ export class Stage1Scene extends Phaser.Scene {
   }
 
   private drawStageGeometry(): void {
+    for (const support of Stage1Data.terrainSupports) {
+      this.drawTerrainSupport(support);
+    }
+
     for (const platform of Stage1Data.platforms) {
       const key = platform.height <= 30 ? RuntimeEnvironmentAssetKey.PlatformThinTile : RuntimeEnvironmentAssetKey.GroundTile;
       const tile = this.add
@@ -226,6 +231,47 @@ export class Stage1Scene extends Phaser.Scene {
 
     this.add.image(Stage1Data.moonGate.x + 10, Stage1Data.moonGate.y + 56, ArtAssetKey.LightingMoonlight).setDisplaySize(220, 240).setAlpha(0.35).setDepth(14);
     this.add.image(Stage1Data.moonGate.x + 16, Stage1Data.moonGate.y + 42, RuntimeEnvironmentAssetKey.MoonGate).setDisplaySize(246, 230).setDepth(19);
+  }
+
+  private drawTerrainSupport(support: Stage1TerrainSupport): void {
+    const centerX = support.x + support.width / 2;
+    const centerY = support.y + support.height / 2;
+    const body = this.add
+      .tileSprite(centerX, centerY, support.width, support.height, RuntimeEnvironmentAssetKey.GroundTile)
+      .setDepth(10)
+      .setAlpha(0.76)
+      .setTint(Palette.darkBlueGray);
+    body.tilePositionX = support.x * 0.18;
+    body.tilePositionY = support.y * 0.12;
+
+    const sideWidth = Math.min(42, Math.max(22, support.width * 0.08));
+    for (const x of [support.x + sideWidth / 2, support.x + support.width - sideWidth / 2]) {
+      const sideBlend = this.add
+        .tileSprite(x, centerY, sideWidth, support.height, RuntimeEnvironmentAssetKey.BackgroundFront)
+        .setDepth(11)
+        .setAlpha(0.24)
+        .setTint(Palette.deepIndigo);
+      sideBlend.tilePositionX = x * 0.11;
+      sideBlend.tilePositionY = support.y * 0.08;
+    }
+
+    const lowerBlendHeight = Math.min(96, Math.max(36, support.height * 0.25));
+    const lowerBlend = this.add
+      .tileSprite(centerX, support.y + support.height - lowerBlendHeight / 2, support.width, lowerBlendHeight, RuntimeEnvironmentAssetKey.BackgroundFront)
+      .setDepth(11)
+      .setAlpha(0.18)
+      .setTint(Palette.inkBlack);
+    lowerBlend.tilePositionX = support.x * 0.09;
+    lowerBlend.tilePositionY = support.y * 0.07;
+
+    const seamHeight = Math.min(18, Math.max(8, support.height * 0.06));
+    const topSeam = this.add
+      .tileSprite(centerX, support.y + seamHeight / 2, support.width, seamHeight, RuntimeEnvironmentAssetKey.PlatformThinTile)
+      .setDepth(11)
+      .setAlpha(0.32)
+      .setTint(Palette.neutralGray);
+    topSeam.tilePositionX = support.x * 0.24;
+    topSeam.tilePositionY = 4;
   }
 
   private createCollectibles(): void {

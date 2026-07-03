@@ -14,6 +14,9 @@ export type HudUpdateState = {
   readonly objective: string;
   readonly checkpointMessage: string;
   readonly warden: { readonly current: number; readonly max: number; readonly state: string; readonly attack: string } | null;
+  readonly bossLabel?: string;
+  readonly techniqueLabel?: string;
+  readonly techniqueReady?: boolean;
 };
 
 export class Hud {
@@ -24,6 +27,7 @@ export class Hud {
   private readonly objectiveText: Phaser.GameObjects.Text;
   private readonly checkpointText: Phaser.GameObjects.Text;
   private readonly wardenText: Phaser.GameObjects.Text;
+  private readonly techniqueText: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene) {
     this.panel = scene.add.tileSprite(480, 42, 930, 82, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.48).setDepth(80).setScrollFactor(0);
@@ -33,6 +37,7 @@ export class Hud {
     this.objectiveText = scene.add.text(24, 50, '', this.smallStyle(PaletteHex.warmPaper)).setDepth(81).setScrollFactor(0);
     this.checkpointText = scene.add.text(650, 50, '', this.smallStyle(PaletteHex.lanternGold)).setDepth(81).setScrollFactor(0);
     this.wardenText = scene.add.text(610, 18, '', this.style(PaletteHex.enemyAmber)).setDepth(81).setScrollFactor(0);
+    this.techniqueText = scene.add.text(492, 18, '', this.style(PaletteHex.neonMagenta)).setDepth(81).setScrollFactor(0);
   }
 
   update(state: HudUpdateState): void {
@@ -41,8 +46,11 @@ export class Hud {
     this.timerText.setText(`TIME ${this.formatTime(state.elapsedMs)}`);
     this.objectiveText.setText(`${state.currentSection} - ${state.objective}`);
     this.checkpointText.setText(state.checkpointMessage);
+    this.techniqueText.setText(
+      state.techniqueLabel ? `${state.techniqueLabel} ${state.techniqueReady === false ? 'WAIT' : 'READY'}` : ''
+    );
     this.wardenText.setText(
-      state.warden ? `WARDEN ${formatWardenHealth(state.warden.current, state.warden.max)} ${state.warden.state}` : ''
+      state.warden ? `${state.bossLabel ?? 'WARDEN'} ${formatWardenHealth(state.warden.current, state.warden.max)} ${state.warden.state}` : ''
     );
     this.panel.setTint(state.player.invulnerable ? 0xfff0c0 : 0xffffff);
   }

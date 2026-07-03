@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser';
 import { Palette } from '../config/palette';
 import { RuntimePlayerVisualConfig, RuntimeSpriteAssetKey } from '../data/artAssets';
-import { Stage1Data, Stage1Tuning, type Stage1Platform } from '../data/stage1';
+import { Stage1Data, Stage1Tuning, type RectData } from '../data/stage1';
+import { Stage2Tuning } from '../data/stage2';
 import type { Stage1InputSnapshot } from '../systems/InputSystem';
 import { centerRect, clamp, rectsOverlap, type MutableRect } from '../systems/geometry';
 import { resolveHorizontalVelocity } from '../systems/horizontalMotion';
@@ -23,6 +24,7 @@ export type PlayerVisualPose =
   | 'fall'
   | 'wallSlide'
   | 'wallKick'
+  | 'shadowThread'
   | 'groundSlash'
   | 'airSlash'
   | 'hurt';
@@ -41,17 +43,49 @@ export type PlayerRuntimeState = {
   readonly slashMode: SlashMode;
   readonly pose: PlayerVisualPose;
   readonly jumpVariant: JumpVisualVariant | null;
+  readonly shadowThreading: boolean;
+  readonly shadowThreadCharge: boolean;
   readonly invulnerable: boolean;
   readonly damageTaken: number;
   readonly lastDamageSource: DamageSource | null;
   readonly lastDamageId: string | null;
 };
 
-export type PlayerActionEvent = 'jump' | 'speedFlipJump' | 'wallKick' | 'attack' | 'spinAttack' | 'hurt';
+export type PlayerActionEvent = 'jump' | 'speedFlipJump' | 'wallKick' | 'shadowThread' | 'attack' | 'spinAttack' | 'hurt';
 
 export type PlayerFrameResult = {
   readonly slash: SlashState;
   readonly events: readonly PlayerActionEvent[];
+};
+
+export type PlayerStageBounds = {
+  readonly worldWidth: number;
+  readonly worldHeight: number;
+};
+
+export type ShadowThreadTarget = {
+  readonly x: number;
+  readonly y: number;
+};
+
+export type SlopeSurface = {
+  readonly x1: number;
+  readonly y1: number;
+  readonly x2: number;
+  readonly y2: number;
+  readonly thickness: number;
+  readonly direction: 'down-right' | 'down-left';
+  readonly boost: number;
+};
+
+type ActiveShadowThread = {
+  readonly startX: number;
+  readonly startY: number;
+  readonly targetX: number;
+  readonly targetY: number;
+  readonly durationMs: number;
+  readonly direction: -1 | 1;
+  elapsedMs: number;
 };
 
 const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; readonly offsetY: number }> = {
@@ -64,6 +98,7 @@ const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; r
   fall: { angle: 5, offsetY: 2 },
   wallSlide: { angle: 6, offsetY: 1 },
   wallKick: { angle: -9, offsetY: -2 },
+  shadowThread: { angle: -16, offsetY: -10 },
   groundSlash: { angle: -3, offsetY: 1 },
   airSlash: { angle: -8, offsetY: -2 },
   hurt: { angle: 8, offsetY: 0 }
@@ -89,6 +124,10 @@ export class Player {
   private lastWallKickMs = -Infinity;
   private jumpStartedMs = -Infinity;
   private jumpVisualVariant: JumpVisualVariant | null = null;
+  private shadowThread: ActiveShadowThread | null = null;
+  private shadowThreadChargeAvailable = true;
+  private shadowThreadImpactUntilMs = -Infinity;
+  private shadowThreadImpactRect: RectData | null = null;
   private slashElapsedMs = -1;
   private slashStartedOnGround = true;
   private slashMode: SlashMode = 'arc';
@@ -104,7 +143,12 @@ export class Player {
   private readonly maxHp = 30;
   private damageTaken = 0;
 
-  constructor(private readonly scene: Phaser.Scene, startX: number, startY: number) {
+  constructor(
+    private readonly scene: Phaser.Scene,
+    startX: number,
+    startY: number,
+    private readonly bounds: PlayerStageBounds = Stage1Data
+  ) {
     this.x = startX;
     this.y = startY;
     this.respawnX = startX;
@@ -124,12 +168,18 @@ export class Player {
     this.sprite.play('player-idle');
   }
 
-  update(input: Stage1InputSnapshot, platforms: readonly Stage1Platform[], nowMs: number, deltaMs: number, paused = false): PlayerFrameResult {
+  update(input: Stage1InputSnapshot, platforms: readonly RectData[], nowMs: number, deltaMs: number, paused = false): PlayerFrameResult {
     const events: PlayerActionEvent[] = [];
 
     if (paused) {
       this.syncVisuals(null);
       return { slash: CombatSystem.buildSlashState(this.x, this.y, this.facing, -1), events };
+    }
+
+    if (this.shadowThread !== null) {
+      const slash = this.updateShadowThread(deltaMs, nowMs, events);
+      this.syncVisuals(slash);
+      return { slash, events };
     }
 
     if (input.jumpPressed) {
@@ -205,7 +255,7 @@ export class Player {
     this.moveAndCollide(this.vx * dt, 0, platforms);
     this.moveAndCollide(0, this.vy * dt, platforms);
 
-    if (this.y > Stage1Data.worldHeight - 48) {
+    if (this.y > this.bounds.worldHeight - 48) {
       if (this.takeDamage(1, nowMs, 'fall', undefined, 'world-fall')) {
         events.push('hurt');
       }
@@ -249,6 +299,82 @@ export class Player {
     this.jumpVisualVariant = 'big';
   }
 
+  applyCrosswind(strength: number, deltaMs: number): void {
+    const dt = deltaMs / 1000;
+    this.vx = clamp(this.vx + strength * dt, -Stage2Tuning.crosswindMaxVx, Stage2Tuning.crosswindMaxVx);
+  }
+
+  applySlopeSurface(surface: SlopeSurface, deltaMs: number): boolean {
+    if (this.shadowThread !== null) return false;
+    const minX = Math.min(surface.x1, surface.x2);
+    const maxX = Math.max(surface.x1, surface.x2);
+    const body = this.getBody();
+    if (this.x < minX - body.width / 2 || this.x > maxX + body.width / 2) return false;
+    const run = surface.x2 - surface.x1;
+    if (Math.abs(run) < 1) return false;
+
+    const progress = clamp((this.x - surface.x1) / run, 0, 1);
+    const surfaceY = surface.y1 + (surface.y2 - surface.y1) * progress;
+    const footY = body.y + body.height;
+    const closeAbove = footY >= surfaceY - Stage2Tuning.slopeSnapTolerance;
+    const notBuried = footY <= surfaceY + surface.thickness + Stage2Tuning.slopeSnapTolerance;
+    const notRisingHard = this.vy >= -Stage2Tuning.slopeAttachMaxRiseSpeed;
+    if (!closeAbove || !notBuried || !notRisingHard) return false;
+
+    this.y = surfaceY - body.height / 2;
+    this.vy = 0;
+    this.onGround = true;
+    this.wallSliding = false;
+    this.shadowThreadChargeAvailable = true;
+    this.lastGroundedMs = this.scene.time.now;
+    this.jumpStartedMs = -Infinity;
+    this.jumpVisualVariant = null;
+
+    const slopeDirection = surface.direction === 'down-left' ? -1 : 1;
+    this.vx = clamp(this.vx + slopeDirection * surface.boost * (deltaMs / 1000), -Stage2Tuning.slopeMaxVx, Stage2Tuning.slopeMaxVx);
+    return true;
+  }
+
+  tryShadowThread(target: ShadowThreadTarget, nowMs: number): boolean {
+    if (this.shadowThread !== null) return false;
+    if (!this.onGround && !this.shadowThreadChargeAvailable) return false;
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance < 32 || distance > Stage2Tuning.shadowThreadRange + 18) return false;
+    const direction: -1 | 1 = dx < 0 ? -1 : 1;
+    this.facing = direction;
+    this.shadowThread = {
+      startX: this.x,
+      startY: this.y,
+      targetX: target.x,
+      targetY: target.y,
+      durationMs: clamp(
+        (distance / Stage2Tuning.shadowThreadSpeed) * 1000,
+        Stage2Tuning.shadowThreadMinDurationMs,
+        Stage2Tuning.shadowThreadMaxDurationMs
+      ),
+      direction,
+      elapsedMs: 0
+    };
+    this.shadowThreadChargeAvailable = false;
+    this.shadowThreadImpactRect = null;
+    this.shadowThreadImpactUntilMs = -Infinity;
+    this.vx = 0;
+    this.vy = 0;
+    this.onGround = false;
+    this.wallSliding = false;
+    this.jumpStartedMs = nowMs;
+    this.jumpVisualVariant = null;
+    this.slashElapsedMs = -1;
+    this.slashMode = 'arc';
+    return true;
+  }
+
+  rechargeShadowThread(): void {
+    this.shadowThreadChargeAvailable = true;
+  }
+
   respawnAtCheckpoint(): void {
     this.x = this.respawnX;
     this.y = this.respawnY;
@@ -261,6 +387,10 @@ export class Player {
     this.slashElapsedMs = -1;
     this.slashMode = 'arc';
     this.knockbackControlUntilMs = 0;
+    this.shadowThread = null;
+    this.shadowThreadChargeAvailable = true;
+    this.shadowThreadImpactRect = null;
+    this.shadowThreadImpactUntilMs = -Infinity;
   }
 
   retryCheckpoint(): void {
@@ -285,6 +415,10 @@ export class Player {
     this.slashElapsedMs = -1;
     this.slashMode = 'arc';
     this.knockbackControlUntilMs = 0;
+    this.shadowThread = null;
+    this.shadowThreadChargeAvailable = true;
+    this.shadowThreadImpactRect = null;
+    this.shadowThreadImpactUntilMs = -Infinity;
   }
 
   heal(amount: number): void {
@@ -335,6 +469,8 @@ export class Player {
       slashMode: this.slashMode,
       pose: this.lastResolvedPose,
       jumpVariant: this.jumpVisualVariant,
+      shadowThreading: this.shadowThread !== null,
+      shadowThreadCharge: this.shadowThreadChargeAvailable,
       invulnerable: this.scene.time.now < this.invulnerableUntilMs,
       damageTaken: this.damageTaken,
       lastDamageSource: this.lastDamageSource,
@@ -360,7 +496,48 @@ export class Player {
     this.vx = Math.min(0, this.vx);
   }
 
-  private moveAndCollide(dx: number, dy: number, platforms: readonly Stage1Platform[]): void {
+  getShadowThreadStrike(): RectData | null {
+    return this.scene.time.now < this.shadowThreadImpactUntilMs ? this.shadowThreadImpactRect : null;
+  }
+
+  private updateShadowThread(deltaMs: number, nowMs: number, events: PlayerActionEvent[]): SlashState {
+    const thread = this.shadowThread;
+    if (thread === null) {
+      return CombatSystem.buildSlashState(this.x, this.y, this.facing, -1);
+    }
+
+    thread.elapsedMs += deltaMs;
+    const progress = clamp(thread.elapsedMs / thread.durationMs, 0, 1);
+    const eased = 1 - (1 - progress) * (1 - progress);
+    this.x = thread.startX + (thread.targetX - thread.startX) * eased;
+    this.y = thread.startY + (thread.targetY - thread.startY) * eased;
+    this.vx = 0;
+    this.vy = 0;
+    this.facing = thread.direction;
+
+    const activeRect = centerRect(this.x, this.y, Stage2Tuning.shadowThreadStrikeSize, Stage2Tuning.shadowThreadStrikeSize);
+    if (progress >= 1) {
+      this.x = thread.targetX;
+      this.y = thread.targetY;
+      this.vx = thread.direction * Stage2Tuning.shadowThreadLaunchX;
+      this.vy = Stage2Tuning.shadowThreadLaunchY;
+      this.shadowThread = null;
+      this.shadowThreadImpactRect = centerRect(this.x, this.y, Stage2Tuning.shadowThreadStrikeSize, Stage2Tuning.shadowThreadStrikeSize);
+      this.shadowThreadImpactUntilMs = nowMs + Stage2Tuning.shadowThreadImpactMs;
+      this.jumpStartedMs = nowMs;
+      this.jumpVisualVariant = 'big';
+      events.push('shadowThread');
+    }
+
+    return {
+      phase: 'active',
+      elapsedMs: thread.elapsedMs,
+      mode: 'arc',
+      activeRect
+    };
+  }
+
+  private moveAndCollide(dx: number, dy: number, platforms: readonly RectData[]): void {
     if (dx !== 0) {
       this.x += dx;
       this.touchingLeft = false;
@@ -376,7 +553,7 @@ export class Player {
         }
         this.vx = 0;
       }
-      this.x = clamp(this.x, 22, Stage1Data.worldWidth - 22);
+      this.x = clamp(this.x, 22, this.bounds.worldWidth - 22);
     }
 
     if (dy !== 0) {
@@ -388,6 +565,7 @@ export class Player {
           this.y = platform.y - this.getBody().height / 2;
           this.vy = 0;
           this.onGround = true;
+          this.shadowThreadChargeAvailable = true;
           this.lastGroundedMs = this.scene.time.now;
           this.jumpStartedMs = -Infinity;
           this.jumpVisualVariant = null;
@@ -404,6 +582,7 @@ export class Player {
     const pose = this.resolveVisualPose(nowMs);
     this.lastResolvedPose = pose;
     const transform = PlayerPoseTransforms[pose];
+    const animationPose = pose === 'shadowThread' ? 'airSlash' : pose;
     const baseScale = RuntimePlayerVisualConfig.scale;
     const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.5 : 0;
     const flipProgress = Math.max(0, (nowMs - this.jumpStartedMs) / Stage1Tuning.speedFlipRotationMs);
@@ -415,7 +594,7 @@ export class Player {
     this.sprite.setFlipX(this.facing < 0);
     this.sprite.setScale(visualScale);
     this.sprite.setAngle(dynamicAngle * this.facing);
-    this.sprite.play(`player-${pose}`, true);
+    this.sprite.play(`player-${animationPose}`, true);
 
     if (pose === 'hurt') {
       this.sprite.setTint(Palette.dangerCoral);
@@ -458,6 +637,7 @@ export class Player {
 
   private resolveVisualPose(nowMs: number): PlayerVisualPose {
     if (nowMs < this.invulnerableUntilMs && nowMs - this.lastDamageMs < 260) return 'hurt';
+    if (this.shadowThread !== null) return 'shadowThread';
     if (this.slashElapsedMs >= 0) {
       if (this.slashMode === 'spin' && !this.onGround) return 'speedFlipJump';
       return this.onGround ? 'groundSlash' : 'airSlash';
