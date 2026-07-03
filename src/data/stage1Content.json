@@ -60,7 +60,7 @@
     { "id": "timed-spark", "type": "timed-spark", "x": 4050, "y": 308, "width": 82, "height": 14, "damage": 1 },
     { "id": "central-fall-pit", "type": "fall-pit", "x": 5200, "y": 548, "width": 86, "height": 190, "damage": 1 },
     { "id": "thorn-entry-a", "type": "neon-thorn", "x": 6260, "y": 508, "width": 72, "height": 18, "damage": 1 },
-    { "id": "thorn-high-b", "type": "neon-thorn", "x": 6760, "y": 158, "width": 72, "height": 18, "damage": 1 },
+    { "id": "thorn-high-b", "type": "neon-thorn", "x": 7040, "y": 158, "width": 72, "height": 18, "damage": 1 },
     { "id": "thorn-descent-c", "type": "neon-thorn", "x": 7750, "y": 233, "width": 72, "height": 18, "damage": 1 },
     { "id": "warden-approach-pit", "type": "fall-pit", "x": 8060, "y": 548, "width": 80, "height": 180, "damage": 1 }
   ],
