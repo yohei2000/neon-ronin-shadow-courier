@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T11:29:28.891Z",
+  "generatedAt": "2026-07-04T11:02:39.566Z",
   "passed": true,
   "checks": [
     {
@@ -101,6 +101,21 @@
       "id": "compact-vertical-route",
       "passed": true,
       "detail": "range=350, high=4, mid=14, updrafts=2"
+    },
+    {
+      "id": "continuous-ground-supports",
+      "passed": true,
+      "detail": "11 supports, unsupported=none"
+    },
+    {
+      "id": "image-first-terrain-plates",
+      "passed": true,
+      "detail": "5 plates, gaps=0, sectionMisses=0, uncoveredColliders=0"
+    },
+    {
+      "id": "image-first-large-landforms",
+      "passed": true,
+      "detail": "25 landforms, 25 colliders, 12 frames, bySection=4/5/5/6/5, span=10050, invalid=0, outOfBounds=0, detached=0"
     },
     {
       "id": "two-updraft-gimmicks",

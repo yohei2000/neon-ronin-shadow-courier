@@ -3,8 +3,9 @@ import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
 import { Stage1SfxKey } from '../data/audioAssets';
-import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey, RuntimeStage1PropFrameCount } from '../data/artAssets';
+import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey, RuntimeStage1LandformFrameCount } from '../data/artAssets';
 import {
+  Stage1CollisionPlatforms,
   Stage1Data,
   Stage1Tuning,
   getSectionForX,
@@ -115,7 +116,7 @@ export class Stage1Scene extends Phaser.Scene {
 
     const gameplayDelta = Math.min(delta, Stage1Tuning.maxFrameDeltaMs) * Stage1Tuning.gameSpeed;
     this.updateParallax();
-    const playerFrame = this.player.update(input, Stage1Data.platforms, time, gameplayDelta);
+    const playerFrame = this.player.update(input, Stage1CollisionPlatforms, time, gameplayDelta);
     this.playPlayerActionSfx(playerFrame.events);
     const slash = playerFrame.slash;
     if (!this.warden.dead && this.player.getPosition().x > Stage1Data.warden.arena.x + Stage1Data.warden.arena.width - 92) {
@@ -223,14 +224,19 @@ export class Stage1Scene extends Phaser.Scene {
     for (const plate of Stage1Data.visualTerrain.plates) {
       this.add.image(plate.x, plate.y, plate.assetKey).setOrigin(0).setDisplaySize(plate.width, plate.height).setDepth(plate.depth).setAlpha(plate.alpha);
     }
-    for (const prop of Stage1Data.visualTerrain.props) {
+    const params = new URLSearchParams(window.location.search);
+    const showLandformAuthoring = params.get('debug') === 'landforms' || params.get('debugLandforms') === '1';
+    // Normal play uses the painted terrain plates; landform sprites are authoring references for collider review.
+    if (!showLandformAuthoring) return;
+
+    for (const landform of Stage1Data.visualTerrain.landforms) {
       this.add
-        .sprite(prop.x, prop.y, RuntimeEnvironmentAssetKey.Stage1Props, prop.frame % RuntimeStage1PropFrameCount)
-        .setDisplaySize(prop.width, prop.height)
-        .setDepth(prop.depth)
-        .setAlpha(prop.alpha)
-        .setAngle(prop.angle)
-        .setFlipX(prop.flipX);
+        .sprite(landform.x, landform.y, RuntimeEnvironmentAssetKey.Stage1Landforms, landform.frame % RuntimeStage1LandformFrameCount)
+        .setOrigin(0)
+        .setDisplaySize(landform.width, landform.height)
+        .setDepth(landform.depth)
+        .setAlpha(landform.alpha)
+        .setFlipX(landform.flipX);
     }
   }
 
@@ -252,6 +258,22 @@ export class Stage1Scene extends Phaser.Scene {
         .setTint(Palette.neonCyan)
         .setBlendMode(Phaser.BlendModes.ADD);
       tile.tilePositionX = platform.x * 0.2;
+    }
+
+    for (const collider of Stage1Data.visualTerrain.landformColliders) {
+      const tile = this.add
+        .tileSprite(
+          collider.x + collider.width / 2,
+          collider.y + collider.height / 2,
+          collider.width,
+          collider.height,
+          RuntimeEnvironmentAssetKey.PlatformThinTile
+        )
+        .setDepth(70)
+        .setAlpha(0.42)
+        .setTint(Palette.lanternGold)
+        .setBlendMode(Phaser.BlendModes.ADD);
+      tile.tilePositionX = collider.x * 0.25;
     }
 
     for (const hazard of Stage1Data.hazards) {
@@ -542,8 +564,9 @@ export class Stage1Scene extends Phaser.Scene {
       touch: { visible: this.touchControls?.isVisible() === true, buttons: this.inputSystem?.getTouchButtons() },
       visualTerrain: {
         plates: Stage1Data.visualTerrain.plates.length,
-        props: Stage1Data.visualTerrain.props.length,
-        propFrames: new Set(Stage1Data.visualTerrain.props.map((prop) => prop.frame)).size
+        landforms: Stage1Data.visualTerrain.landforms.length,
+        landformFrames: new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.frame)).size,
+        landformColliders: Stage1Data.visualTerrain.landformColliders.length
       },
       e2eIntegrity: {
         debugTeleport: false,

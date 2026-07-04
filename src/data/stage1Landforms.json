@@ -1,0 +1,639 @@
+{
+  "generation": "imagegen-concept-background-first-v2",
+  "assetKey": "stage1-landforms-spritesheet",
+  "frameWidth": 768,
+  "frameHeight": 384,
+  "sourcePanels": [
+    {
+      "id": "rain-lantern-start",
+      "file": "art/generated/stage1-concept-panels/stage1-panel-01-rain-lantern-start.png",
+      "sectionId": "rain-lantern-start",
+      "plateAssetKey": "stage1-terrain-rain-lantern-start"
+    },
+    {
+      "id": "neon-sign-run",
+      "file": "art/generated/stage1-concept-panels/stage1-panel-02-neon-sign-run.png",
+      "sectionId": "wall-kick-sign-shaft",
+      "plateAssetKey": "stage1-terrain-neon-sign-run"
+    },
+    {
+      "id": "rooftop-hazard-line",
+      "file": "art/generated/stage1-concept-panels/stage1-panel-03-rooftop-hazard-line.png",
+      "sectionId": "rooftop-hazard-line",
+      "plateAssetKey": "stage1-terrain-rooftop-hazard-line"
+    },
+    {
+      "id": "neon-thorn-climb",
+      "file": "art/generated/stage1-concept-panels/stage1-panel-04-neon-thorn-climb.png",
+      "sectionId": "neon-thorn-climb",
+      "plateAssetKey": "stage1-terrain-neon-thorn-climb"
+    },
+    {
+      "id": "lantern-warden-gate",
+      "file": "art/generated/stage1-concept-panels/stage1-panel-05-lantern-warden-gate.png",
+      "sectionId": "lantern-warden-gate",
+      "plateAssetKey": "stage1-terrain-lantern-warden-gate"
+    }
+  ],
+  "terrainPlateOutputs": [
+    {
+      "id": "stage1-terrain-rain-lantern-start",
+      "source": "art/generated/stage1-concept-panels",
+      "output": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
+      "width": 1600,
+      "height": 900,
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
+    },
+    {
+      "id": "stage1-terrain-neon-sign-run",
+      "source": "art/generated/stage1-concept-panels",
+      "output": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
+      "width": 1600,
+      "height": 900,
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
+    },
+    {
+      "id": "stage1-terrain-rooftop-hazard-line",
+      "source": "art/generated/stage1-concept-panels",
+      "output": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
+      "width": 2400,
+      "height": 900,
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
+    },
+    {
+      "id": "stage1-terrain-neon-thorn-climb",
+      "source": "art/generated/stage1-concept-panels",
+      "output": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
+      "width": 2300,
+      "height": 900,
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
+    },
+    {
+      "id": "stage1-terrain-lantern-warden-gate",
+      "source": "art/generated/stage1-concept-panels",
+      "output": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
+      "width": 2150,
+      "height": 900,
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
+    }
+  ],
+  "landforms": [
+    {
+      "id": "lf-start-canal-bank-left",
+      "frame": 0,
+      "x": 0,
+      "y": 430,
+      "width": 760,
+      "height": 350,
+      "depth": 12.12,
+      "alpha": 0.94,
+      "flipX": false,
+      "sectionId": "rain-lantern-start"
+    },
+    {
+      "id": "lf-start-shopfront-terrace",
+      "frame": 1,
+      "x": 540,
+      "y": 372,
+      "width": 760,
+      "height": 392,
+      "depth": 12.08,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "rain-lantern-start"
+    },
+    {
+      "id": "lf-start-shrine-bank",
+      "frame": 2,
+      "x": 1120,
+      "y": 418,
+      "width": 720,
+      "height": 350,
+      "depth": 12.14,
+      "alpha": 0.92,
+      "flipX": true,
+      "sectionId": "rain-lantern-start"
+    },
+    {
+      "id": "lf-start-right-eaves",
+      "frame": 1,
+      "x": 1410,
+      "y": 320,
+      "width": 520,
+      "height": 380,
+      "depth": 12.02,
+      "alpha": 0.82,
+      "flipX": true,
+      "sectionId": "rain-lantern-start"
+    },
+    {
+      "id": "lf-sign-base-canal-wall",
+      "frame": 3,
+      "x": 1760,
+      "y": 400,
+      "width": 540,
+      "height": 380,
+      "depth": 12.16,
+      "alpha": 0.92,
+      "flipX": false,
+      "sectionId": "wall-kick-sign-shaft"
+    },
+    {
+      "id": "lf-sign-low-attached-ledge",
+      "frame": 4,
+      "x": 1600,
+      "y": 338,
+      "width": 520,
+      "height": 330,
+      "depth": 12.18,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "wall-kick-sign-shaft"
+    },
+    {
+      "id": "lf-sign-mid-wall-ledge",
+      "frame": 5,
+      "x": 1880,
+      "y": 220,
+      "width": 560,
+      "height": 360,
+      "depth": 12.2,
+      "alpha": 0.9,
+      "flipX": true,
+      "sectionId": "wall-kick-sign-shaft"
+    },
+    {
+      "id": "lf-sign-high-tower-ledge",
+      "frame": 6,
+      "x": 2090,
+      "y": 108,
+      "width": 590,
+      "height": 380,
+      "depth": 12.22,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "wall-kick-sign-shaft"
+    },
+    {
+      "id": "lf-sign-roof-bridge",
+      "frame": 4,
+      "x": 2360,
+      "y": 92,
+      "width": 860,
+      "height": 350,
+      "depth": 12.12,
+      "alpha": 0.92,
+      "flipX": true,
+      "sectionId": "wall-kick-sign-shaft"
+    },
+    {
+      "id": "lf-central-drop-roof-wall",
+      "frame": 7,
+      "x": 3060,
+      "y": 254,
+      "width": 820,
+      "height": 330,
+      "depth": 12.14,
+      "alpha": 0.92,
+      "flipX": false,
+      "sectionId": "rooftop-hazard-line"
+    },
+    {
+      "id": "lf-central-market-roof-left",
+      "frame": 8,
+      "x": 3700,
+      "y": 238,
+      "width": 720,
+      "height": 340,
+      "depth": 12.14,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "rooftop-hazard-line"
+    },
+    {
+      "id": "lf-central-market-roof-right",
+      "frame": 8,
+      "x": 4260,
+      "y": 238,
+      "width": 780,
+      "height": 340,
+      "depth": 12.12,
+      "alpha": 0.88,
+      "flipX": true,
+      "sectionId": "rooftop-hazard-line"
+    },
+    {
+      "id": "lf-market-drain-bank",
+      "frame": 9,
+      "x": 4920,
+      "y": 280,
+      "width": 720,
+      "height": 400,
+      "depth": 12.1,
+      "alpha": 0.88,
+      "flipX": false,
+      "sectionId": "rooftop-hazard-line"
+    },
+    {
+      "id": "lf-canal-descent-embankment",
+      "frame": 2,
+      "x": 5400,
+      "y": 430,
+      "width": 900,
+      "height": 350,
+      "depth": 12.12,
+      "alpha": 0.9,
+      "flipX": true,
+      "sectionId": "rooftop-hazard-line"
+    },
+    {
+      "id": "lf-thorn-base-canal-bank",
+      "frame": 10,
+      "x": 6100,
+      "y": 430,
+      "width": 640,
+      "height": 350,
+      "depth": 12.16,
+      "alpha": 0.92,
+      "flipX": false,
+      "sectionId": "neon-thorn-climb"
+    },
+    {
+      "id": "lf-thorn-updraft-cliff",
+      "frame": 11,
+      "x": 5940,
+      "y": 118,
+      "width": 680,
+      "height": 650,
+      "depth": 12.05,
+      "alpha": 0.88,
+      "flipX": false,
+      "sectionId": "neon-thorn-climb"
+    },
+    {
+      "id": "lf-thorn-exit-roof-left",
+      "frame": 4,
+      "x": 6500,
+      "y": 112,
+      "width": 620,
+      "height": 320,
+      "depth": 12.18,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "neon-thorn-climb"
+    },
+    {
+      "id": "lf-thorn-exit-roof-right",
+      "frame": 5,
+      "x": 6960,
+      "y": 112,
+      "width": 540,
+      "height": 320,
+      "depth": 12.16,
+      "alpha": 0.86,
+      "flipX": true,
+      "sectionId": "neon-thorn-climb"
+    },
+    {
+      "id": "lf-thorn-high-roof-left",
+      "frame": 7,
+      "x": 7240,
+      "y": 184,
+      "width": 620,
+      "height": 330,
+      "depth": 12.18,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "neon-thorn-climb"
+    },
+    {
+      "id": "lf-thorn-high-roof-right",
+      "frame": 9,
+      "x": 7700,
+      "y": 196,
+      "width": 460,
+      "height": 330,
+      "depth": 12.1,
+      "alpha": 0.84,
+      "flipX": true,
+      "sectionId": "neon-thorn-climb"
+    },
+    {
+      "id": "lf-gate-descent-terrace",
+      "frame": 7,
+      "x": 7900,
+      "y": 344,
+      "width": 700,
+      "height": 330,
+      "depth": 12.16,
+      "alpha": 0.9,
+      "flipX": true,
+      "sectionId": "lantern-warden-gate"
+    },
+    {
+      "id": "lf-gate-rest-stonewall",
+      "frame": 0,
+      "x": 8380,
+      "y": 430,
+      "width": 650,
+      "height": 350,
+      "depth": 12.12,
+      "alpha": 0.9,
+      "flipX": false,
+      "sectionId": "lantern-warden-gate"
+    },
+    {
+      "id": "lf-warden-arena-causeway-left",
+      "frame": 9,
+      "x": 8820,
+      "y": 430,
+      "width": 720,
+      "height": 350,
+      "depth": 12.1,
+      "alpha": 0.88,
+      "flipX": false,
+      "sectionId": "lantern-warden-gate"
+    },
+    {
+      "id": "lf-warden-arena-gate-wall",
+      "frame": 10,
+      "x": 9360,
+      "y": 380,
+      "width": 690,
+      "height": 410,
+      "depth": 12.08,
+      "alpha": 0.88,
+      "flipX": false,
+      "sectionId": "lantern-warden-gate"
+    },
+    {
+      "id": "lf-moon-gate-threshold",
+      "frame": 10,
+      "x": 9650,
+      "y": 382,
+      "width": 400,
+      "height": 402,
+      "depth": 12.22,
+      "alpha": 0.9,
+      "flipX": true,
+      "sectionId": "lantern-warden-gate"
+    }
+  ],
+  "colliders": [
+    {
+      "id": "lc-start-bank-left-top",
+      "landformId": "lf-start-canal-bank-left",
+      "sectionId": "rain-lantern-start",
+      "role": "floor",
+      "x": 0,
+      "y": 520,
+      "width": 620,
+      "height": 42
+    },
+    {
+      "id": "lc-start-shopfront-top",
+      "landformId": "lf-start-shopfront-terrace",
+      "sectionId": "rain-lantern-start",
+      "role": "floor",
+      "x": 620,
+      "y": 520,
+      "width": 560,
+      "height": 42
+    },
+    {
+      "id": "lc-start-shrine-bank-top",
+      "landformId": "lf-start-shrine-bank",
+      "sectionId": "rain-lantern-start",
+      "role": "floor",
+      "x": 1200,
+      "y": 520,
+      "width": 360,
+      "height": 42
+    },
+    {
+      "id": "lc-start-right-eaves-top",
+      "landformId": "lf-start-right-eaves",
+      "sectionId": "rain-lantern-start",
+      "role": "floor",
+      "x": 1560,
+      "y": 520,
+      "width": 290,
+      "height": 42
+    },
+    {
+      "id": "lc-sign-base-canal-wall-top",
+      "landformId": "lf-sign-base-canal-wall",
+      "sectionId": "wall-kick-sign-shaft",
+      "role": "floor",
+      "x": 1850,
+      "y": 520,
+      "width": 280,
+      "height": 42
+    },
+    {
+      "id": "lc-sign-low-attached-ledge-top",
+      "landformId": "lf-sign-low-attached-ledge",
+      "sectionId": "wall-kick-sign-shaft",
+      "role": "floor",
+      "x": 1680,
+      "y": 430,
+      "width": 260,
+      "height": 30
+    },
+    {
+      "id": "lc-sign-mid-wall-ledge-top",
+      "landformId": "lf-sign-mid-wall-ledge",
+      "sectionId": "wall-kick-sign-shaft",
+      "role": "floor",
+      "x": 1940,
+      "y": 310,
+      "width": 260,
+      "height": 28
+    },
+    {
+      "id": "lc-sign-high-tower-ledge-top",
+      "landformId": "lf-sign-high-tower-ledge",
+      "sectionId": "wall-kick-sign-shaft",
+      "role": "floor",
+      "x": 2160,
+      "y": 235,
+      "width": 260,
+      "height": 28
+    },
+    {
+      "id": "lc-sign-roof-bridge-top",
+      "landformId": "lf-sign-roof-bridge",
+      "sectionId": "wall-kick-sign-shaft",
+      "role": "floor",
+      "x": 2400,
+      "y": 175,
+      "width": 740,
+      "height": 30
+    },
+    {
+      "id": "lc-central-drop-roof-wall-top",
+      "landformId": "lf-central-drop-roof-wall",
+      "sectionId": "rooftop-hazard-line",
+      "role": "floor",
+      "x": 3140,
+      "y": 320,
+      "width": 620,
+      "height": 42
+    },
+    {
+      "id": "lc-central-market-left-top",
+      "landformId": "lf-central-market-roof-left",
+      "sectionId": "rooftop-hazard-line",
+      "role": "floor",
+      "x": 3760,
+      "y": 320,
+      "width": 440,
+      "height": 42
+    },
+    {
+      "id": "lc-central-market-right-top",
+      "landformId": "lf-central-market-roof-right",
+      "sectionId": "rooftop-hazard-line",
+      "role": "floor",
+      "x": 4200,
+      "y": 320,
+      "width": 480,
+      "height": 42
+    },
+    {
+      "id": "lc-market-drain-bank-top",
+      "landformId": "lf-market-drain-bank",
+      "sectionId": "rooftop-hazard-line",
+      "role": "floor",
+      "x": 4680,
+      "y": 320,
+      "width": 800,
+      "height": 42
+    },
+    {
+      "id": "lc-canal-descent-embankment-top",
+      "landformId": "lf-canal-descent-embankment",
+      "sectionId": "rooftop-hazard-line",
+      "role": "floor",
+      "x": 5480,
+      "y": 520,
+      "width": 720,
+      "height": 42
+    },
+    {
+      "id": "lc-thorn-base-canal-bank-top",
+      "landformId": "lf-thorn-base-canal-bank",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 6200,
+      "y": 520,
+      "width": 360,
+      "height": 42
+    },
+    {
+      "id": "lc-thorn-updraft-cliff-foot",
+      "landformId": "lf-thorn-updraft-cliff",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 6200,
+      "y": 520,
+      "width": 300,
+      "height": 42
+    },
+    {
+      "id": "lc-thorn-exit-roof-left-top",
+      "landformId": "lf-thorn-exit-roof-left",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 6560,
+      "y": 170,
+      "width": 420,
+      "height": 28
+    },
+    {
+      "id": "lc-thorn-exit-roof-right-top",
+      "landformId": "lf-thorn-exit-roof-right",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 6980,
+      "y": 170,
+      "width": 340,
+      "height": 28
+    },
+    {
+      "id": "lc-thorn-high-roof-left-top",
+      "landformId": "lf-thorn-high-roof-left",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 7320,
+      "y": 245,
+      "width": 380,
+      "height": 30
+    },
+    {
+      "id": "lc-thorn-high-roof-right-top",
+      "landformId": "lf-thorn-high-roof-right",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 7700,
+      "y": 245,
+      "width": 280,
+      "height": 30
+    },
+    {
+      "id": "lc-gate-descent-terrace-top",
+      "landformId": "lf-gate-descent-terrace",
+      "sectionId": "lantern-warden-gate",
+      "role": "floor",
+      "x": 7980,
+      "y": 405,
+      "width": 480,
+      "height": 42
+    },
+    {
+      "id": "lc-gate-rest-stonewall-top",
+      "landformId": "lf-gate-rest-stonewall",
+      "sectionId": "lantern-warden-gate",
+      "role": "floor",
+      "x": 8460,
+      "y": 500,
+      "width": 440,
+      "height": 42
+    },
+    {
+      "id": "lc-warden-arena-causeway-left-top",
+      "landformId": "lf-warden-arena-causeway-left",
+      "sectionId": "lantern-warden-gate",
+      "role": "floor",
+      "x": 8900,
+      "y": 500,
+      "width": 500,
+      "height": 42
+    },
+    {
+      "id": "lc-warden-arena-gate-wall-top",
+      "landformId": "lf-warden-arena-gate-wall",
+      "sectionId": "lantern-warden-gate",
+      "role": "floor",
+      "x": 9400,
+      "y": 500,
+      "width": 420,
+      "height": 42
+    },
+    {
+      "id": "lc-moon-gate-threshold-top",
+      "landformId": "lf-moon-gate-threshold",
+      "sectionId": "lantern-warden-gate",
+      "role": "floor",
+      "x": 9820,
+      "y": 500,
+      "width": 230,
+      "height": 42
+    }
+  ]
+}

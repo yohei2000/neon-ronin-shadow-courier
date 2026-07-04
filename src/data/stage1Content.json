@@ -17,7 +17,7 @@
   ],
   "visualTerrain": {
     "mode": "image-first-v1",
-    "collisionSource": "platforms",
+    "collisionSource": "platforms+landform-colliders",
     "plates": [
       { "id": "plate-rain-lantern-start", "assetKey": "stage1-terrain-rain-lantern-start", "x": 0, "y": 0, "width": 1600, "height": 900, "depth": 11, "alpha": 1 },
       { "id": "plate-neon-sign-run", "assetKey": "stage1-terrain-neon-sign-run", "x": 1600, "y": 0, "width": 1600, "height": 900, "depth": 11, "alpha": 1 },

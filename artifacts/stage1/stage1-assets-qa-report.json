@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T11:29:31.357Z",
+  "generatedAt": "2026-07-04T11:05:39.081Z",
   "passed": true,
   "checks": [
     {
@@ -43,6 +43,11 @@
       "detail": "Stage1 character/enemy/UI/environment visuals use approved images"
     },
     {
+      "id": "no-playable-stage-geometric-primitives",
+      "passed": true,
+      "detail": "Stage1/Stage2 runtime geometry is sprite/tile dressed instead of primitive shapes"
+    },
+    {
       "id": "required-textures-loaded",
       "passed": true,
       "detail": "Player, Enemy, LanternWarden, KiteWraith, Slash, Telegraph, UiKit, MobileControlsKit, LayerGameplay, TitleMenuPanel"
@@ -55,17 +60,27 @@
     {
       "id": "runtime-environment-assets-exist",
       "passed": true,
-      "detail": "stage1-bg-far, stage1-bg-distant, stage1-bg-mid, stage1-bg-near, stage1-bg-front, stage1-ground-tile, stage1-platform-thin-tile, stage1-moon-gate, stage1-item-icons, stage1-touch-controls"
+      "detail": "stage1-bg-far, stage1-bg-distant, stage1-bg-mid, stage1-bg-near, stage1-bg-front, stage1-ground-tile, stage1-platform-thin-tile, stage1-terrain-rain-lantern-start, stage1-terrain-neon-sign-run, stage1-terrain-rooftop-hazard-line, stage1-terrain-neon-thorn-climb, stage1-terrain-lantern-warden-gate, stage1-landforms-spritesheet, stage1-moon-gate, stage1-item-icons, stage1-touch-controls"
     },
     {
       "id": "runtime-manifest-covers-stage1-assets",
       "passed": true,
-      "detail": "player-runtime-spritesheet, ink-crawler-runtime-spritesheet, kite-wraith-runtime-spritesheet, slash-runtime-spritesheet, telegraph-runtime-spritesheet, lantern-warden-runtime-spritesheet, stage1-bg-far, stage1-bg-distant, stage1-bg-mid, stage1-bg-near, stage1-bg-front, stage1-ground-tile, stage1-platform-thin-tile, stage1-moon-gate, stage1-item-icons, stage1-touch-controls"
+      "detail": "player-runtime-spritesheet, ink-crawler-runtime-spritesheet, kite-wraith-runtime-spritesheet, slash-runtime-spritesheet, telegraph-runtime-spritesheet, lantern-warden-runtime-spritesheet, stage1-bg-far, stage1-bg-distant, stage1-bg-mid, stage1-bg-near, stage1-bg-front, stage1-ground-tile, stage1-platform-thin-tile, stage1-terrain-rain-lantern-start, stage1-terrain-neon-sign-run, stage1-terrain-rooftop-hazard-line, stage1-terrain-neon-thorn-climb, stage1-terrain-lantern-warden-gate, stage1-landforms-spritesheet, stage1-moon-gate, stage1-item-icons, stage1-touch-controls"
+    },
+    {
+      "id": "stage1-image-first-terrain-rendering",
+      "passed": true,
+      "detail": "Stage1 terrain renders from image plates and large landform sprites; landform colliders stay data-only"
+    },
+    {
+      "id": "stage1-large-landform-runtime",
+      "passed": true,
+      "detail": "25 landforms, 25 colliders, 5 source panels, 12 frames"
     },
     {
       "id": "runtime-cutout-pixel-audit",
       "passed": true,
-      "detail": "16/16 runtime assets pass edge/beige checks"
+      "detail": "22/22 runtime assets pass edge/beige checks"
     },
     {
       "id": "required-animations-created",
@@ -216,6 +231,72 @@
       "maxHaloRatio": 0,
       "maxAverageLuma": 31.746021412037326,
       "minOpaqueRatio": 1
+    },
+    {
+      "id": "stage1-terrain-rain-lantern-start",
+      "file": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
+      "passed": true,
+      "activeFrames": 1,
+      "maxEdgeRatio": 1,
+      "maxBeigeRatio": 0.00002013888888888889,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 19.14926435185506,
+      "minOpaqueRatio": 1
+    },
+    {
+      "id": "stage1-terrain-neon-sign-run",
+      "file": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
+      "passed": true,
+      "activeFrames": 1,
+      "maxEdgeRatio": 1,
+      "maxBeigeRatio": 0.00005555555555555556,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 23.38427291666514,
+      "minOpaqueRatio": 1
+    },
+    {
+      "id": "stage1-terrain-rooftop-hazard-line",
+      "file": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
+      "passed": true,
+      "activeFrames": 1,
+      "maxEdgeRatio": 1,
+      "maxBeigeRatio": 0.0001638888888888889,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 25.086499691355154,
+      "minOpaqueRatio": 1
+    },
+    {
+      "id": "stage1-terrain-neon-thorn-climb",
+      "file": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
+      "passed": true,
+      "activeFrames": 1,
+      "maxEdgeRatio": 1,
+      "maxBeigeRatio": 0.000025120772946859902,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 23.805673107890673,
+      "minOpaqueRatio": 1
+    },
+    {
+      "id": "stage1-terrain-lantern-warden-gate",
+      "file": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
+      "passed": true,
+      "activeFrames": 1,
+      "maxEdgeRatio": 1,
+      "maxBeigeRatio": 0.00016227390180878552,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 25.366723858737355,
+      "minOpaqueRatio": 1
+    },
+    {
+      "id": "stage1-landforms-spritesheet",
+      "file": "src/assets/runtime/stage1-landforms-spritesheet.png",
+      "passed": true,
+      "activeFrames": 12,
+      "maxEdgeRatio": 0,
+      "maxBeigeRatio": 0.0001357148050311417,
+      "maxHaloRatio": 0,
+      "maxAverageLuma": 30.96420018337791,
+      "minOpaqueRatio": 0.4955579969618056
     },
     {
       "id": "stage1-moon-gate",

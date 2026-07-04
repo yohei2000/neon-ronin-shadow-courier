@@ -1,4 +1,4 @@
-import { RuntimeStage1PropFrameCount } from './artAssets';
+import { RuntimeStage1LandformFrameCount } from './artAssets';
 import { RequiredStage1SectionNames, Stage1Data, type RectData, type Stage1Data as Stage1DataType } from './stage1';
 
 export type StageValidationReport = {
@@ -140,7 +140,7 @@ const imageFirstTerrain = (data: Stage1DataType): { readonly passed: boolean; re
   return {
     passed:
       terrain.mode === 'image-first-v1' &&
-      terrain.collisionSource === 'platforms' &&
+      terrain.collisionSource === 'platforms+landform-colliders' &&
       plates.length === data.sections.length &&
       terrainAssets.length === plates.length &&
       ordered[0]?.x === 0 &&
@@ -151,27 +151,53 @@ const imageFirstTerrain = (data: Stage1DataType): { readonly passed: boolean; re
     detail: `${plates.length} plates, gaps=${gaps.length}, sectionMisses=${sectionMisses.length}, uncoveredColliders=${uncoveredColliders.length}`
   };
 };
-const imageFirstTerrainProps = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
-  const props = data.visualTerrain.props;
+const imageFirstTerrainLandforms = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const landforms = data.visualTerrain.landforms;
+  const colliders = data.visualTerrain.landformColliders;
   const sectionIds = new Set(data.sections.map((section) => section.id));
-  const coveredSections = new Set(props.map((prop) => prop.sectionId));
-  const frames = new Set(props.map((prop) => prop.frame));
-  const invalidFrames = props.filter((prop) => prop.frame < 0 || prop.frame >= RuntimeStage1PropFrameCount);
-  const outOfBounds = props.filter((prop) => prop.x < 0 || prop.x > data.worldWidth || prop.y < 0 || prop.y > data.worldHeight);
-  const propsBySection = data.sections.map((section) => props.filter((prop) => prop.sectionId === section.id).length);
-  const horizontalSpan = props.length > 0 ? Math.max(...props.map((prop) => prop.x)) - Math.min(...props.map((prop) => prop.x)) : 0;
-  const orphaned = props.filter((prop) => !sectionIds.has(prop.sectionId));
+  const landformById = new Map(landforms.map((landform) => [landform.id, landform]));
+  const coveredSections = new Set(landforms.map((landform) => landform.sectionId));
+  const frames = new Set(landforms.map((landform) => landform.frame));
+  const invalidFrames = landforms.filter((landform) => landform.frame < 0 || landform.frame >= RuntimeStage1LandformFrameCount);
+  const outOfBounds = landforms.filter(
+    (landform) => landform.x < 0 || landform.x + landform.width > data.worldWidth || landform.y < 0 || landform.y + landform.height > data.worldHeight
+  );
+  const orphaned = landforms.filter((landform) => !sectionIds.has(landform.sectionId));
+  const collidersWithoutLandform = colliders.filter((collider) => !landformById.has(collider.landformId));
+  const collidersOutOfBounds = colliders.filter(
+    (collider) => collider.x < 0 || collider.x + collider.width > data.worldWidth || collider.y < 0 || collider.y + collider.height > data.worldHeight
+  );
+  const collidersOutsideLandform = colliders.filter((collider) => {
+    const landform = landformById.get(collider.landformId);
+    if (!landform) return true;
+    const centerX = collider.x + collider.width / 2;
+    const centerY = collider.y + collider.height / 2;
+    return centerX < landform.x || centerX > landform.x + landform.width || centerY < landform.y || centerY > landform.y + landform.height;
+  });
+  const landformsWithoutCollider = landforms.filter((landform) => !colliders.some((collider) => collider.landformId === landform.id));
+  const largeEnough = landforms.filter((landform) => landform.width >= 360 && landform.height >= 250);
+  const landformsBySection = data.sections.map((section) => landforms.filter((landform) => landform.sectionId === section.id).length);
+  const horizontalSpan =
+    landforms.length > 0
+      ? Math.max(...landforms.map((landform) => landform.x + landform.width)) - Math.min(...landforms.map((landform) => landform.x))
+      : 0;
   return {
     passed:
-      props.length >= 100 &&
-      frames.size >= 14 &&
+      landforms.length >= 25 &&
+      colliders.length >= 25 &&
+      frames.size >= 12 &&
       coveredSections.size === data.sections.length &&
-      propsBySection.every((count) => count >= 20) &&
+      landformsBySection.every((count) => count >= 4) &&
       horizontalSpan >= data.worldWidth * 0.88 &&
+      largeEnough.length === landforms.length &&
       invalidFrames.length === 0 &&
       outOfBounds.length === 0 &&
-      orphaned.length === 0,
-    detail: `${props.length} props, ${frames.size} frames, bySection=${propsBySection.join('/')}, span=${Math.round(horizontalSpan)}, invalid=${invalidFrames.length}, outOfBounds=${outOfBounds.length}`
+      orphaned.length === 0 &&
+      collidersWithoutLandform.length === 0 &&
+      collidersOutOfBounds.length === 0 &&
+      collidersOutsideLandform.length === 0 &&
+      landformsWithoutCollider.length === 0,
+    detail: `${landforms.length} landforms, ${colliders.length} colliders, ${frames.size} frames, bySection=${landformsBySection.join('/')}, span=${Math.round(horizontalSpan)}, invalid=${invalidFrames.length}, outOfBounds=${outOfBounds.length}, detached=${collidersWithoutLandform.length}`
   };
 };
 
@@ -201,7 +227,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const verticalRoute = compactStageVerticality(data);
   const terrainSupport = continuousTerrainSupport(data);
   const visualTerrain = imageFirstTerrain(data);
-  const visualTerrainProps = imageFirstTerrainProps(data);
+  const visualTerrainLandforms = imageFirstTerrainLandforms(data);
 
   const checks = [
     check(
@@ -234,7 +260,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
     check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
     check('image-first-terrain-plates', visualTerrain.passed, visualTerrain.detail),
-    check('image-first-terrain-prop-density', visualTerrainProps.passed, visualTerrainProps.detail),
+    check('image-first-large-landforms', visualTerrainLandforms.passed, visualTerrainLandforms.detail),
     check('two-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { Stage1AudioAssets, Stage1SfxKey } from '../src/data/audioAssets';
 import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames, SlashAnimationFrames } from '../src/data/artAssets';
-import { Stage1Data, Stage1Tuning } from '../src/data/stage1';
+import { Stage1CollisionPlatforms, Stage1Data, Stage1Tuning } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
 import { CombatSystem, canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
 import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems/SaveSystem';
@@ -43,14 +43,16 @@ describe('Stage1 validation', () => {
     expect(report.checks.filter((check) => !check.passed)).toEqual([]);
   });
 
-  it('keeps Stage1 terrain image-first while preserving platform collision data', () => {
+  it('keeps Stage1 terrain image-first with large landform collision data', () => {
     expect(Stage1Data.visualTerrain.mode).toBe('image-first-v1');
-    expect(Stage1Data.visualTerrain.collisionSource).toBe('platforms');
+    expect(Stage1Data.visualTerrain.collisionSource).toBe('platforms+landform-colliders');
     expect(Stage1Data.visualTerrain.plates).toHaveLength(Stage1Data.sections.length);
     expect(Stage1Data.visualTerrain.plates.every((plate) => plate.assetKey.startsWith('stage1-terrain-'))).toBe(true);
-    expect(Stage1Data.visualTerrain.props.length).toBeGreaterThanOrEqual(100);
-    expect(new Set(Stage1Data.visualTerrain.props.map((prop) => prop.frame)).size).toBeGreaterThanOrEqual(14);
-    expect(new Set(Stage1Data.visualTerrain.props.map((prop) => prop.sectionId)).size).toBe(Stage1Data.sections.length);
+    expect(Stage1Data.visualTerrain.landforms.length).toBeGreaterThanOrEqual(25);
+    expect(Stage1Data.visualTerrain.landformColliders.length).toBeGreaterThanOrEqual(25);
+    expect(new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.frame)).size).toBeGreaterThanOrEqual(12);
+    expect(new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.sectionId)).size).toBe(Stage1Data.sections.length);
+    expect(Stage1CollisionPlatforms.length).toBe(Stage1Data.platforms.length + Stage1Data.visualTerrain.landformColliders.length);
     expect(Stage1Data.platforms.length).toBeGreaterThan(0);
   });
 });

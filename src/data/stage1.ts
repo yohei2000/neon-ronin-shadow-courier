@@ -1,5 +1,5 @@
 import stage1Content from './stage1Content.json';
-import stage1VisualProps from './stage1VisualProps.json';
+import stage1Landforms from './stage1Landforms.json';
 import type { RuntimeEnvironmentAssetKey } from './artAssets';
 
 export type Stage1SectionName =
@@ -40,25 +40,52 @@ export type StageVisualTerrainPlate = RectData & {
   readonly alpha: number;
 };
 
-export type StageVisualTerrainProp = {
+export type StageVisualTerrainLandform = RectData & {
   readonly id: string;
   readonly frame: number;
-  readonly x: number;
-  readonly y: number;
-  readonly width: number;
-  readonly height: number;
   readonly depth: number;
   readonly alpha: number;
-  readonly angle: number;
   readonly flipX: boolean;
   readonly sectionId: string;
 };
 
+export type StageVisualTerrainCollider = RectData & {
+  readonly id: string;
+  readonly landformId: string;
+  readonly sectionId: string;
+  readonly role: 'floor' | 'wall' | 'step';
+};
+
+export type Stage1LandformRuntimeData = {
+  readonly generation: 'background-first-landforms-v1' | 'imagegen-concept-background-first-v2';
+  readonly assetKey: RuntimeEnvironmentAssetKey;
+  readonly frameWidth: number;
+  readonly frameHeight: number;
+  readonly sourcePanels?: readonly {
+    readonly id: string;
+    readonly file: string;
+    readonly sectionId: string;
+    readonly plateAssetKey: RuntimeEnvironmentAssetKey;
+  }[];
+  readonly terrainPlateOutputs?: readonly {
+    readonly id: RuntimeEnvironmentAssetKey;
+    readonly source: string;
+    readonly output: string;
+    readonly width: number;
+    readonly height: number;
+    readonly mode: string;
+    readonly collisionSource: string;
+  }[];
+  readonly landforms: readonly StageVisualTerrainLandform[];
+  readonly colliders: readonly StageVisualTerrainCollider[];
+};
+
 export type StageVisualTerrain = {
   readonly mode: 'image-first-v1';
-  readonly collisionSource: 'platforms';
+  readonly collisionSource: 'platforms+landform-colliders';
   readonly plates: readonly StageVisualTerrainPlate[];
-  readonly props: readonly StageVisualTerrainProp[];
+  readonly landforms: readonly StageVisualTerrainLandform[];
+  readonly landformColliders: readonly StageVisualTerrainCollider[];
 };
 
 export type Stage1Checkpoint = RectData & {
@@ -199,16 +226,20 @@ export const Stage1Tuning = {
 } as const;
 
 const Stage1BaseData = stage1Content as unknown as Omit<Stage1Data, 'visualTerrain'> & {
-  readonly visualTerrain: Omit<StageVisualTerrain, 'props'>;
+  readonly visualTerrain: Omit<StageVisualTerrain, 'landforms' | 'landformColliders'>;
 };
+const Stage1Landforms = stage1Landforms as unknown as Stage1LandformRuntimeData;
 
 export const Stage1Data = {
   ...Stage1BaseData,
   visualTerrain: {
     ...Stage1BaseData.visualTerrain,
-    props: stage1VisualProps
+    landforms: Stage1Landforms.landforms,
+    landformColliders: Stage1Landforms.colliders
   }
 } as unknown as Stage1Data;
+
+export const Stage1CollisionPlatforms: readonly RectData[] = [...Stage1Data.platforms, ...Stage1Data.visualTerrain.landformColliders];
 
 export const getSectionForX = (x: number): Stage1Section => {
   return (

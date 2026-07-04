@@ -10,4 +10,13 @@ const server = await preview({
 });
 
 server.printUrls();
-process.stdin.resume();
+const keepPreviewAlive = setInterval(() => {}, 2 ** 31 - 1);
+
+const close = async () => {
+  clearInterval(keepPreviewAlive);
+  await server.httpServer?.close();
+  process.exit(0);
+};
+
+process.once('SIGINT', close);
+process.once('SIGTERM', close);

@@ -19,8 +19,8 @@ const manifestText = read(path.resolve('src', 'data', 'approvedArtManifest.ts'))
 const artAssetsText = read(path.resolve('src', 'data', 'artAssets.ts'));
 const preloadText = read(path.resolve('src', 'scenes', 'PreloadScene.ts'));
 const stage1ContentText = read(path.resolve('src', 'data', 'stage1Content.json'));
-const stage1VisualPropsText = read(path.resolve('src', 'data', 'stage1VisualProps.json'));
-const stage1VisualProps = JSON.parse(stage1VisualPropsText);
+const stage1LandformsText = read(path.resolve('src', 'data', 'stage1Landforms.json'));
+const stage1Landforms = JSON.parse(stage1LandformsText);
 const runtimeManifest = JSON.parse(read(path.resolve('src', 'assets', 'runtime', 'runtime-sprite-sheets.json')));
 const runtimeManifestIds = new Set((runtimeManifest.sheets ?? []).map((sheet) => sheet.id));
 const sourceFiles = listFiles(path.resolve('src')).filter((file) => /\.(ts|tsx|js|json)$/.test(file));
@@ -112,7 +112,7 @@ const requiredRuntimeEnvironmentKeys = [
   'stage1-terrain-rooftop-hazard-line',
   'stage1-terrain-neon-thorn-climb',
   'stage1-terrain-lantern-warden-gate',
-  'stage1-props-spritesheet',
+  'stage1-landforms-spritesheet',
   'stage1-moon-gate',
   'stage1-item-icons',
   'stage1-touch-controls'
@@ -146,12 +146,12 @@ const auditRuntimeAssetPixels = async () => {
     ...requiredRuntimeEnvironmentKeys.map((id) => ({
       id,
       file: `src/assets/runtime/${id}.png`,
-      frameWidth: id === 'stage1-item-icons' ? 128 : id === 'stage1-touch-controls' ? 192 : id === 'stage1-props-spritesheet' ? 96 : undefined,
-      frameHeight: id === 'stage1-item-icons' ? 128 : id === 'stage1-touch-controls' ? 160 : id === 'stage1-props-spritesheet' ? 96 : undefined,
-      maxEdgeRatio: id === 'stage1-item-icons' || id === 'stage1-touch-controls' || id === 'stage1-props-spritesheet' ? 0.20 : undefined,
-      maxBeigeRatio: id.includes('ground') || id.includes('platform') ? 0.01 : id === 'stage1-props-spritesheet' ? 0.05 : 0.08,
-      minOpaqueRatio: id === 'stage1-props-spritesheet' ? 0.015 : id === 'stage1-item-icons' || id === 'stage1-touch-controls' ? 0.03 : id.includes('bg-') ? 0.02 : 0.10,
-      maxAverageLuma: id.includes('ground') || id.includes('platform') ? 95 : id === 'stage1-props-spritesheet' ? 175 : 150
+      frameWidth: id === 'stage1-item-icons' ? 128 : id === 'stage1-touch-controls' ? 192 : id === 'stage1-landforms-spritesheet' ? 768 : undefined,
+      frameHeight: id === 'stage1-item-icons' ? 128 : id === 'stage1-touch-controls' ? 160 : id === 'stage1-landforms-spritesheet' ? 384 : undefined,
+      maxEdgeRatio: id === 'stage1-item-icons' || id === 'stage1-touch-controls' ? 0.20 : undefined,
+      maxBeigeRatio: id.includes('ground') || id.includes('platform') ? 0.01 : id === 'stage1-landforms-spritesheet' ? 0.04 : 0.08,
+      minOpaqueRatio: id === 'stage1-landforms-spritesheet' ? 0.10 : id === 'stage1-item-icons' || id === 'stage1-touch-controls' ? 0.03 : id.includes('bg-') ? 0.02 : 0.10,
+      maxAverageLuma: id.includes('ground') || id.includes('platform') ? 95 : id === 'stage1-landforms-spritesheet' ? 135 : 150
     }))
   ];
 
@@ -292,17 +292,23 @@ const checks = [
     'stage1-image-first-terrain-rendering',
       stage1ContentText.includes('"visualTerrain"') &&
       stage1TextBundle.includes('Stage1Data.visualTerrain.plates') &&
-      stage1TextBundle.includes('Stage1Data.visualTerrain.props') &&
+      stage1TextBundle.includes('Stage1Data.visualTerrain.landforms') &&
+      stage1TextBundle.includes('Stage1CollisionPlatforms') &&
       !stage1TextBundle.includes('platform.height <= 30 ? RuntimeEnvironmentAssetKey.PlatformThinTile'),
-    'Stage1 terrain renders from image plates and prop sprites; platforms remain collision data'
+    'Stage1 terrain renders from image plates and large landform sprites; landform colliders stay data-only'
   ),
   check(
-    'stage1-prop-density-runtime',
-    stage1VisualProps.length >= 100 &&
-      new Set(stage1VisualProps.map((prop) => prop.frame)).size >= 14 &&
-      preloadText.includes('RuntimeEnvironmentAssetKey.Stage1Props') &&
-      stage1TextBundle.includes('RuntimeEnvironmentAssetKey.Stage1Props'),
-    `${stage1VisualProps.length} prop sprites, ${new Set(stage1VisualProps.map((prop) => prop.frame)).size} frames`
+    'stage1-large-landform-runtime',
+    (stage1Landforms.landforms ?? []).length >= 25 &&
+      (stage1Landforms.colliders ?? []).length >= 25 &&
+      (stage1Landforms.sourcePanels ?? []).length === 5 &&
+      (stage1Landforms.terrainPlateOutputs ?? []).length === 5 &&
+      stage1Landforms.generation === 'imagegen-concept-background-first-v2' &&
+      new Set((stage1Landforms.landforms ?? []).map((landform) => landform.frame)).size >= 12 &&
+      preloadText.includes('RuntimeEnvironmentAssetKey.Stage1Landforms') &&
+      stage1TextBundle.includes('RuntimeEnvironmentAssetKey.Stage1Landforms') &&
+      stage1TextBundle.includes('landformColliders'),
+    `${stage1Landforms.landforms?.length ?? 0} landforms, ${stage1Landforms.colliders?.length ?? 0} colliders, ${stage1Landforms.sourcePanels?.length ?? 0} source panels, ${new Set((stage1Landforms.landforms ?? []).map((landform) => landform.frame)).size} frames`
   ),
   check('runtime-cutout-pixel-audit', runtimeAssetAudit.every((item) => item.passed), `${runtimeAssetAudit.filter((item) => item.passed).length}/${runtimeAssetAudit.length} runtime assets pass edge/beige checks`),
   check(

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T06:10:48.191Z",
+  "generatedAt": "2026-07-04T10:49:57.507Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -2378,132 +2378,61 @@
     },
     {
       "id": "stage1-terrain-rain-lantern-start",
-      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "source": "art/generated/stage1-concept-panels",
       "output": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
       "width": 1600,
       "height": 900,
-      "mode": "image-first-terrain-plate",
-      "collisionSource": "src/data/stage1Content.json#platforms",
-      "visualSource": "src/data/stage1Content.json#visualTerrain"
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-neon-sign-run",
-      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "source": "art/generated/stage1-concept-panels",
       "output": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
       "width": 1600,
       "height": 900,
-      "mode": "image-first-terrain-plate",
-      "collisionSource": "src/data/stage1Content.json#platforms",
-      "visualSource": "src/data/stage1Content.json#visualTerrain"
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-rooftop-hazard-line",
-      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "source": "art/generated/stage1-concept-panels",
       "output": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
       "width": 2400,
       "height": 900,
-      "mode": "image-first-terrain-plate",
-      "collisionSource": "src/data/stage1Content.json#platforms",
-      "visualSource": "src/data/stage1Content.json#visualTerrain"
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-neon-thorn-climb",
-      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "source": "art/generated/stage1-concept-panels",
       "output": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
       "width": 2300,
       "height": 900,
-      "mode": "image-first-terrain-plate",
-      "collisionSource": "src/data/stage1Content.json#platforms",
-      "visualSource": "src/data/stage1Content.json#visualTerrain"
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-lantern-warden-gate",
-      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "source": "art/generated/stage1-concept-panels",
       "output": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
       "width": 2150,
       "height": 900,
-      "mode": "image-first-terrain-plate",
-      "collisionSource": "src/data/stage1Content.json#platforms",
-      "visualSource": "src/data/stage1Content.json#visualTerrain"
+      "mode": "imagegen-concept-terrain-plate",
+      "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
-      "id": "stage1-props-spritesheet",
-      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png, src/assets/runtime/stage1-bg-near.png, src/assets/runtime/stage1-bg-mid.png, src/assets/runtime/stage1-item-icons.png, src/assets/runtime/telegraph-runtime-spritesheet.png, src/assets/runtime/slash-runtime-spritesheet.png",
-      "output": "src/assets/runtime/stage1-props-spritesheet.png",
-      "width": 384,
-      "height": 384,
-      "frameWidth": 96,
-      "frameHeight": 96,
-      "mode": "stage1-decor-prop-spritesheet",
-      "derivedFromApprovedArt": true,
-      "placementSource": "src/data/stage1VisualProps.json",
-      "runtimeInstances": 149,
-      "frames": [
-        {
-          "index": 0,
-          "name": "wet-stone-chips"
-        },
-        {
-          "index": 1,
-          "name": "broken-roof-cap"
-        },
-        {
-          "index": 2,
-          "name": "deep-ledge-corner"
-        },
-        {
-          "index": 3,
-          "name": "paper-lantern"
-        },
-        {
-          "index": 4,
-          "name": "cyan-cable"
-        },
-        {
-          "index": 5,
-          "name": "magenta-cable"
-        },
-        {
-          "index": 6,
-          "name": "amber-signal-lamp"
-        },
-        {
-          "index": 7,
-          "name": "market-crate"
-        },
-        {
-          "index": 8,
-          "name": "paper-charm-strip"
-        },
-        {
-          "index": 9,
-          "name": "pipe-vent"
-        },
-        {
-          "index": 10,
-          "name": "torn-shop-cloth"
-        },
-        {
-          "index": 11,
-          "name": "shrine-stone"
-        },
-        {
-          "index": 12,
-          "name": "steam-moss-tuft"
-        },
-        {
-          "index": 13,
-          "name": "neon-sign-scrap"
-        },
-        {
-          "index": 14,
-          "name": "under-ledge-bracket"
-        },
-        {
-          "index": 15,
-          "name": "moon-glass-shard"
-        }
-      ]
+      "id": "stage1-landforms-spritesheet",
+      "source": "art/generated/stage1-concept-panels",
+      "output": "src/assets/runtime/stage1-landforms-spritesheet.png",
+      "frameWidth": 768,
+      "frameHeight": 384,
+      "frameCount": 12,
+      "generatedAt": "2026-07-04T10:49:57.508Z",
+      "mode": "imagegen-concept-background-first-large-terrain",
+      "placementSource": "src/data/stage1Landforms.json",
+      "runtimeInstances": 25,
+      "colliderInstances": 25
     }
   ]
 }

@@ -36,8 +36,9 @@ export type Stage1QaState = {
   readonly touch?: { readonly visible: boolean; readonly buttons?: Record<TouchButton, boolean> };
   readonly visualTerrain?: {
     readonly plates: number;
-    readonly props: number;
-    readonly propFrames: number;
+    readonly landforms: number;
+    readonly landformFrames: number;
+    readonly landformColliders: number;
   };
   readonly e2eIntegrity?: {
     readonly debugTeleport: false;
