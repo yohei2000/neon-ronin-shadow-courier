@@ -159,6 +159,7 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
   let lastProgressX = 0;
   let lastProgressAt = Date.now();
   let lastDamageSeen = 0;
+  let highThornStaged = false;
   const setRight = async (down) => {
     const now = Date.now();
     if (down && rightDown && now - lastRightRefresh <= 650) return;
@@ -207,6 +208,25 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
     const now = Date.now();
     if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
+    if (player.x > 7200) highThornStaged = true;
+    if (!highThornStaged && player.x > 6680 && player.x < 6880 && player.y < 230 && !current.wardenDefeated) {
+      await setRight(false);
+      await page.keyboard.down('ArrowLeft');
+      await page.keyboard.down('a');
+      await page.waitForTimeout(180);
+      await page.keyboard.up('ArrowLeft');
+      await page.keyboard.up('a');
+      const braked = await state(page);
+      if (braked.player?.onGround === true) {
+        highThornStaged = true;
+        await setRight(true);
+        lastJump = Date.now();
+        await jump(page, 680);
+      } else {
+        await page.waitForTimeout(120);
+      }
+      continue;
+    }
     if (player.x > 6870 && player.x < 7045 && player.y > 90 && player.y < 210 && player.onGround) {
       lastJump = now;
       await jump(page, 560);
