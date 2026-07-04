@@ -53,6 +53,7 @@ export const RuntimeEnvironmentAssetKey = {
   TerrainRooftopHazardLine: 'stage1-terrain-rooftop-hazard-line',
   TerrainNeonThornClimb: 'stage1-terrain-neon-thorn-climb',
   TerrainLanternWardenGate: 'stage1-terrain-lantern-warden-gate',
+  Stage1Props: 'stage1-props-spritesheet',
   MoonGate: 'stage1-moon-gate',
   ItemIcons: 'stage1-item-icons',
   TouchControls: 'stage1-touch-controls'
@@ -116,6 +117,7 @@ export const RuntimeEnvironmentImageAssets: Record<RuntimeEnvironmentAssetKey, s
   [RuntimeEnvironmentAssetKey.TerrainRooftopHazardLine]: new URL('../assets/runtime/stage1-terrain-rooftop-hazard-line.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.TerrainNeonThornClimb]: new URL('../assets/runtime/stage1-terrain-neon-thorn-climb.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.TerrainLanternWardenGate]: new URL('../assets/runtime/stage1-terrain-lantern-warden-gate.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.Stage1Props]: new URL('../assets/runtime/stage1-props-spritesheet.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.MoonGate]: new URL('../assets/runtime/stage1-moon-gate.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.ItemIcons]: new URL('../assets/runtime/stage1-item-icons.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.TouchControls]: new URL('../assets/runtime/stage1-touch-controls.png', import.meta.url).href
@@ -139,6 +141,8 @@ export const RuntimeTouchFrame = {
   Jump: 1,
   Slash: 2
 } as const;
+
+export const RuntimeStage1PropFrameCount = 16;
 
 const frameRange = (start: number, count: number): number[] => Array.from({ length: count }, (_, index) => start + index);
 

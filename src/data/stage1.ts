@@ -1,4 +1,5 @@
 import stage1Content from './stage1Content.json';
+import stage1VisualProps from './stage1VisualProps.json';
 import type { RuntimeEnvironmentAssetKey } from './artAssets';
 
 export type Stage1SectionName =
@@ -39,10 +40,25 @@ export type StageVisualTerrainPlate = RectData & {
   readonly alpha: number;
 };
 
+export type StageVisualTerrainProp = {
+  readonly id: string;
+  readonly frame: number;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly depth: number;
+  readonly alpha: number;
+  readonly angle: number;
+  readonly flipX: boolean;
+  readonly sectionId: string;
+};
+
 export type StageVisualTerrain = {
   readonly mode: 'image-first-v1';
   readonly collisionSource: 'platforms';
   readonly plates: readonly StageVisualTerrainPlate[];
+  readonly props: readonly StageVisualTerrainProp[];
 };
 
 export type Stage1Checkpoint = RectData & {
@@ -182,7 +198,17 @@ export const Stage1Tuning = {
   cameraLead: 84
 } as const;
 
-export const Stage1Data = stage1Content as unknown as Stage1Data;
+const Stage1BaseData = stage1Content as unknown as Omit<Stage1Data, 'visualTerrain'> & {
+  readonly visualTerrain: Omit<StageVisualTerrain, 'props'>;
+};
+
+export const Stage1Data = {
+  ...Stage1BaseData,
+  visualTerrain: {
+    ...Stage1BaseData.visualTerrain,
+    props: stage1VisualProps
+  }
+} as unknown as Stage1Data;
 
 export const getSectionForX = (x: number): Stage1Section => {
   return (

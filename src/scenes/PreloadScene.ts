@@ -79,6 +79,10 @@ export class PreloadScene extends Phaser.Scene {
       frameWidth: 192,
       frameHeight: 160
     });
+    this.load.spritesheet(RuntimeEnvironmentAssetKey.Stage1Props, RuntimeEnvironmentImageAssets[RuntimeEnvironmentAssetKey.Stage1Props], {
+      frameWidth: 96,
+      frameHeight: 96
+    });
     this.load.spritesheet(RuntimeTitleAssetKey.TitleMenuOptions, RuntimeTitleImageAssets[RuntimeTitleAssetKey.TitleMenuOptions], {
       frameWidth: 512,
       frameHeight: 192
@@ -86,7 +90,7 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image(RuntimeTitleAssetKey.TitleMenuBacking, RuntimeTitleImageAssets[RuntimeTitleAssetKey.TitleMenuBacking]);
 
     for (const [key, url] of Object.entries(RuntimeEnvironmentImageAssets)) {
-      if (key === RuntimeEnvironmentAssetKey.ItemIcons || key === RuntimeEnvironmentAssetKey.TouchControls) continue;
+      if (key === RuntimeEnvironmentAssetKey.ItemIcons || key === RuntimeEnvironmentAssetKey.TouchControls || key === RuntimeEnvironmentAssetKey.Stage1Props) continue;
       this.load.image(key, url);
     }
 

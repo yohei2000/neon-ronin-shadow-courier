@@ -87,6 +87,7 @@ describe('Art Lock scope', () => {
       'stage1-terrain-rooftop-hazard-line',
       'stage1-terrain-neon-thorn-climb',
       'stage1-terrain-lantern-warden-gate',
+      'stage1-props-spritesheet',
       'stage1-moon-gate',
       'stage1-item-icons',
       'stage1-touch-controls'
@@ -112,6 +113,7 @@ describe('Art Lock scope', () => {
       'src/assets/runtime/stage1-terrain-rooftop-hazard-line.png',
       'src/assets/runtime/stage1-terrain-neon-thorn-climb.png',
       'src/assets/runtime/stage1-terrain-lantern-warden-gate.png',
+      'src/assets/runtime/stage1-props-spritesheet.png',
       'src/assets/runtime/stage1-moon-gate.png',
       'src/assets/runtime/stage1-item-icons.png',
       'src/assets/runtime/stage1-touch-controls.png',

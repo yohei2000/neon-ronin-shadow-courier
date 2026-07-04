@@ -1,3 +1,4 @@
+import { RuntimeStage1PropFrameCount } from './artAssets';
 import { RequiredStage1SectionNames, Stage1Data, type RectData, type Stage1Data as Stage1DataType } from './stage1';
 
 export type StageValidationReport = {
@@ -150,6 +151,29 @@ const imageFirstTerrain = (data: Stage1DataType): { readonly passed: boolean; re
     detail: `${plates.length} plates, gaps=${gaps.length}, sectionMisses=${sectionMisses.length}, uncoveredColliders=${uncoveredColliders.length}`
   };
 };
+const imageFirstTerrainProps = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const props = data.visualTerrain.props;
+  const sectionIds = new Set(data.sections.map((section) => section.id));
+  const coveredSections = new Set(props.map((prop) => prop.sectionId));
+  const frames = new Set(props.map((prop) => prop.frame));
+  const invalidFrames = props.filter((prop) => prop.frame < 0 || prop.frame >= RuntimeStage1PropFrameCount);
+  const outOfBounds = props.filter((prop) => prop.x < 0 || prop.x > data.worldWidth || prop.y < 0 || prop.y > data.worldHeight);
+  const propsBySection = data.sections.map((section) => props.filter((prop) => prop.sectionId === section.id).length);
+  const horizontalSpan = props.length > 0 ? Math.max(...props.map((prop) => prop.x)) - Math.min(...props.map((prop) => prop.x)) : 0;
+  const orphaned = props.filter((prop) => !sectionIds.has(prop.sectionId));
+  return {
+    passed:
+      props.length >= 100 &&
+      frames.size >= 14 &&
+      coveredSections.size === data.sections.length &&
+      propsBySection.every((count) => count >= 20) &&
+      horizontalSpan >= data.worldWidth * 0.88 &&
+      invalidFrames.length === 0 &&
+      outOfBounds.length === 0 &&
+      orphaned.length === 0,
+    detail: `${props.length} props, ${frames.size} frames, bySection=${propsBySection.join('/')}, span=${Math.round(horizontalSpan)}, invalid=${invalidFrames.length}, outOfBounds=${outOfBounds.length}`
+  };
+};
 
 export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidationReport => {
   const names = data.sections.map((section) => section.name);
@@ -177,6 +201,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const verticalRoute = compactStageVerticality(data);
   const terrainSupport = continuousTerrainSupport(data);
   const visualTerrain = imageFirstTerrain(data);
+  const visualTerrainProps = imageFirstTerrainProps(data);
 
   const checks = [
     check(
@@ -209,6 +234,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
     check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
     check('image-first-terrain-plates', visualTerrain.passed, visualTerrain.detail),
+    check('image-first-terrain-prop-density', visualTerrainProps.passed, visualTerrainProps.detail),
     check('two-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(

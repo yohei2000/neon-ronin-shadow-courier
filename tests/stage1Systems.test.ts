@@ -48,6 +48,9 @@ describe('Stage1 validation', () => {
     expect(Stage1Data.visualTerrain.collisionSource).toBe('platforms');
     expect(Stage1Data.visualTerrain.plates).toHaveLength(Stage1Data.sections.length);
     expect(Stage1Data.visualTerrain.plates.every((plate) => plate.assetKey.startsWith('stage1-terrain-'))).toBe(true);
+    expect(Stage1Data.visualTerrain.props.length).toBeGreaterThanOrEqual(100);
+    expect(new Set(Stage1Data.visualTerrain.props.map((prop) => prop.frame)).size).toBeGreaterThanOrEqual(14);
+    expect(new Set(Stage1Data.visualTerrain.props.map((prop) => prop.sectionId)).size).toBe(Stage1Data.sections.length);
     expect(Stage1Data.platforms.length).toBeGreaterThan(0);
   });
 });

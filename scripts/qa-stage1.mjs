@@ -5,6 +5,7 @@ const artifactDir = path.resolve('artifacts', 'stage1');
 fs.mkdirSync(artifactDir, { recursive: true });
 
 const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
+const stageVisualProps = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1VisualProps.json'), 'utf8'));
 const requiredNames = [
   'Rain Lantern Start',
   'Neon Sign Run',
@@ -143,6 +144,28 @@ const imageFirstTerrain = () => {
     detail: `${plates.length} plates, gaps=${gaps.length}, sectionMisses=${sectionMisses.length}, uncoveredColliders=${uncoveredColliders.length}`
   };
 };
+const imageFirstTerrainProps = () => {
+  const props = stageVisualProps ?? [];
+  const coveredSections = new Set(props.map((prop) => prop.sectionId));
+  const frames = new Set(props.map((prop) => prop.frame));
+  const invalidFrames = props.filter((prop) => prop.frame < 0 || prop.frame >= 16);
+  const outOfBounds = props.filter((prop) => prop.x < 0 || prop.x > stage.worldWidth || prop.y < 0 || prop.y > stage.worldHeight);
+  const orphaned = props.filter((prop) => !sectionIds.has(prop.sectionId));
+  const propsBySection = sections.map((section) => props.filter((prop) => prop.sectionId === section.id).length);
+  const horizontalSpan = props.length > 0 ? Math.max(...props.map((prop) => prop.x)) - Math.min(...props.map((prop) => prop.x)) : 0;
+  return {
+    passed:
+      props.length >= 100 &&
+      frames.size >= 14 &&
+      coveredSections.size === sections.length &&
+      propsBySection.every((count) => count >= 20) &&
+      horizontalSpan >= stage.worldWidth * 0.88 &&
+      invalidFrames.length === 0 &&
+      outOfBounds.length === 0 &&
+      orphaned.length === 0,
+    detail: `${props.length} props, ${frames.size} frames, bySection=${propsBySection.join('/')}, span=${Math.round(horizontalSpan)}, invalid=${invalidFrames.length}, outOfBounds=${outOfBounds.length}`
+  };
+};
 const sections = stage.sections ?? [];
 const hazards = stage.hazards ?? [];
 const enemies = stage.enemies ?? [];
@@ -159,6 +182,7 @@ const damageRects = [
   ...enemies.map((enemy) => ({ x: enemy.x - 36, y: enemy.y - 48, width: 72, height: 96 }))
 ];
 const sectionIds = new Set(sections.map((section) => section.id));
+const visualTerrainProps = imageFirstTerrainProps();
 const checks = [
   check(
     'five-linear-sections',
@@ -186,6 +210,7 @@ const checks = [
   check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
   check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
   check('image-first-terrain-plates', visualTerrain.passed, visualTerrain.detail),
+  check('image-first-terrain-prop-density', visualTerrainProps.passed, visualTerrainProps.detail),
   check('two-updraft-gimmicks', (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${stage.gimmicks?.length ?? 0} gimmicks`),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(

@@ -34,6 +34,11 @@ export type Stage1QaState = {
   readonly paused?: boolean;
   readonly gameOver?: boolean;
   readonly touch?: { readonly visible: boolean; readonly buttons?: Record<TouchButton, boolean> };
+  readonly visualTerrain?: {
+    readonly plates: number;
+    readonly props: number;
+    readonly propFrames: number;
+  };
   readonly e2eIntegrity?: {
     readonly debugTeleport: false;
     readonly hiddenClearStageCall: false;

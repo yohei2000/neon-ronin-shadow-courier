@@ -3,7 +3,7 @@ import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
 import { Stage1SfxKey } from '../data/audioAssets';
-import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey } from '../data/artAssets';
+import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey, RuntimeStage1PropFrameCount } from '../data/artAssets';
 import {
   Stage1Data,
   Stage1Tuning,
@@ -222,6 +222,15 @@ export class Stage1Scene extends Phaser.Scene {
   private drawVisualTerrain(): void {
     for (const plate of Stage1Data.visualTerrain.plates) {
       this.add.image(plate.x, plate.y, plate.assetKey).setOrigin(0).setDisplaySize(plate.width, plate.height).setDepth(plate.depth).setAlpha(plate.alpha);
+    }
+    for (const prop of Stage1Data.visualTerrain.props) {
+      this.add
+        .sprite(prop.x, prop.y, RuntimeEnvironmentAssetKey.Stage1Props, prop.frame % RuntimeStage1PropFrameCount)
+        .setDisplaySize(prop.width, prop.height)
+        .setDepth(prop.depth)
+        .setAlpha(prop.alpha)
+        .setAngle(prop.angle)
+        .setFlipX(prop.flipX);
     }
   }
 
@@ -531,6 +540,11 @@ export class Stage1Scene extends Phaser.Scene {
       paused: this.paused,
       gameOver: this.gameOver,
       touch: { visible: this.touchControls?.isVisible() === true, buttons: this.inputSystem?.getTouchButtons() },
+      visualTerrain: {
+        plates: Stage1Data.visualTerrain.plates.length,
+        props: Stage1Data.visualTerrain.props.length,
+        propFrames: new Set(Stage1Data.visualTerrain.props.map((prop) => prop.frame)).size
+      },
       e2eIntegrity: {
         debugTeleport: false,
         hiddenClearStageCall: false
