@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T12:03:10.674Z",
+  "generatedAt": "2026-07-04T03:44:24.446Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -2375,6 +2375,56 @@
           "height": 170
         }
       ]
+    },
+    {
+      "id": "stage1-terrain-rain-lantern-start",
+      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "output": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
+      "width": 1600,
+      "height": 900,
+      "mode": "image-first-terrain-plate",
+      "collisionSource": "src/data/stage1Content.json#platforms",
+      "visualSource": "src/data/stage1Content.json#visualTerrain"
+    },
+    {
+      "id": "stage1-terrain-neon-sign-run",
+      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "output": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
+      "width": 1600,
+      "height": 900,
+      "mode": "image-first-terrain-plate",
+      "collisionSource": "src/data/stage1Content.json#platforms",
+      "visualSource": "src/data/stage1Content.json#visualTerrain"
+    },
+    {
+      "id": "stage1-terrain-rooftop-hazard-line",
+      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "output": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
+      "width": 2400,
+      "height": 900,
+      "mode": "image-first-terrain-plate",
+      "collisionSource": "src/data/stage1Content.json#platforms",
+      "visualSource": "src/data/stage1Content.json#visualTerrain"
+    },
+    {
+      "id": "stage1-terrain-neon-thorn-climb",
+      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "output": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
+      "width": 2300,
+      "height": 900,
+      "mode": "image-first-terrain-plate",
+      "collisionSource": "src/data/stage1Content.json#platforms",
+      "visualSource": "src/data/stage1Content.json#visualTerrain"
+    },
+    {
+      "id": "stage1-terrain-lantern-warden-gate",
+      "source": "src/assets/runtime/stage1-ground-tile.png, src/assets/runtime/stage1-platform-thin-tile.png, src/assets/runtime/stage1-bg-front.png",
+      "output": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
+      "width": 2150,
+      "height": 900,
+      "mode": "image-first-terrain-plate",
+      "collisionSource": "src/data/stage1Content.json#platforms",
+      "visualSource": "src/data/stage1Content.json#visualTerrain"
     }
   ]
 }

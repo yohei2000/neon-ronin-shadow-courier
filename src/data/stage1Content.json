@@ -15,6 +15,17 @@
     { "id": "neon-thorn-climb", "name": "Neon Thorn Climb", "startX": 5600, "endX": 7900, "orientation": "vertical", "optionalRoute": false },
     { "id": "lantern-warden-gate", "name": "Lantern Warden Gate", "startX": 7900, "endX": 10050, "orientation": "horizontal", "optionalRoute": false }
   ],
+  "visualTerrain": {
+    "mode": "image-first-v1",
+    "collisionSource": "platforms",
+    "plates": [
+      { "id": "plate-rain-lantern-start", "assetKey": "stage1-terrain-rain-lantern-start", "x": 0, "y": 0, "width": 1600, "height": 900, "depth": 11, "alpha": 1 },
+      { "id": "plate-neon-sign-run", "assetKey": "stage1-terrain-neon-sign-run", "x": 1600, "y": 0, "width": 1600, "height": 900, "depth": 11, "alpha": 1 },
+      { "id": "plate-rooftop-hazard-line", "assetKey": "stage1-terrain-rooftop-hazard-line", "x": 3200, "y": 0, "width": 2400, "height": 900, "depth": 11, "alpha": 1 },
+      { "id": "plate-neon-thorn-climb", "assetKey": "stage1-terrain-neon-thorn-climb", "x": 5600, "y": 0, "width": 2300, "height": 900, "depth": 11, "alpha": 1 },
+      { "id": "plate-lantern-warden-gate", "assetKey": "stage1-terrain-lantern-warden-gate", "x": 7900, "y": 0, "width": 2150, "height": 900, "depth": 11, "alpha": 1 }
+    ]
+  },
   "platforms": [
     { "id": "start-walk", "x": 0, "y": 520, "width": 1200, "height": 42 },
     { "id": "slash-yard", "x": 1200, "y": 520, "width": 650, "height": 42 },

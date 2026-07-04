@@ -48,6 +48,11 @@ export const RuntimeEnvironmentAssetKey = {
   BackgroundFront: 'stage1-bg-front',
   GroundTile: 'stage1-ground-tile',
   PlatformThinTile: 'stage1-platform-thin-tile',
+  TerrainRainLanternStart: 'stage1-terrain-rain-lantern-start',
+  TerrainNeonSignRun: 'stage1-terrain-neon-sign-run',
+  TerrainRooftopHazardLine: 'stage1-terrain-rooftop-hazard-line',
+  TerrainNeonThornClimb: 'stage1-terrain-neon-thorn-climb',
+  TerrainLanternWardenGate: 'stage1-terrain-lantern-warden-gate',
   MoonGate: 'stage1-moon-gate',
   ItemIcons: 'stage1-item-icons',
   TouchControls: 'stage1-touch-controls'
@@ -106,6 +111,11 @@ export const RuntimeEnvironmentImageAssets: Record<RuntimeEnvironmentAssetKey, s
   [RuntimeEnvironmentAssetKey.BackgroundFront]: new URL('../assets/runtime/stage1-bg-front.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.GroundTile]: new URL('../assets/runtime/stage1-ground-tile.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.PlatformThinTile]: new URL('../assets/runtime/stage1-platform-thin-tile.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.TerrainRainLanternStart]: new URL('../assets/runtime/stage1-terrain-rain-lantern-start.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.TerrainNeonSignRun]: new URL('../assets/runtime/stage1-terrain-neon-sign-run.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.TerrainRooftopHazardLine]: new URL('../assets/runtime/stage1-terrain-rooftop-hazard-line.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.TerrainNeonThornClimb]: new URL('../assets/runtime/stage1-terrain-neon-thorn-climb.png', import.meta.url).href,
+  [RuntimeEnvironmentAssetKey.TerrainLanternWardenGate]: new URL('../assets/runtime/stage1-terrain-lantern-warden-gate.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.MoonGate]: new URL('../assets/runtime/stage1-moon-gate.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.ItemIcons]: new URL('../assets/runtime/stage1-item-icons.png', import.meta.url).href,
   [RuntimeEnvironmentAssetKey.TouchControls]: new URL('../assets/runtime/stage1-touch-controls.png', import.meta.url).href

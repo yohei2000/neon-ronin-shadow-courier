@@ -1,4 +1,5 @@
 import stage1Content from './stage1Content.json';
+import type { RuntimeEnvironmentAssetKey } from './artAssets';
 
 export type Stage1SectionName =
   | 'Rain Lantern Start'
@@ -29,6 +30,19 @@ export type Stage1Platform = RectData & {
 
 export type Stage1TerrainSupport = RectData & {
   readonly id: string;
+};
+
+export type StageVisualTerrainPlate = RectData & {
+  readonly id: string;
+  readonly assetKey: RuntimeEnvironmentAssetKey;
+  readonly depth: number;
+  readonly alpha: number;
+};
+
+export type StageVisualTerrain = {
+  readonly mode: 'image-first-v1';
+  readonly collisionSource: 'platforms';
+  readonly plates: readonly StageVisualTerrainPlate[];
 };
 
 export type Stage1Checkpoint = RectData & {
@@ -95,6 +109,7 @@ export type Stage1Data = {
   readonly safeFirstScreen: RectData;
   readonly safeRestBeforeMiniboss: RectData;
   readonly sections: readonly Stage1Section[];
+  readonly visualTerrain: StageVisualTerrain;
   readonly platforms: readonly Stage1Platform[];
   readonly terrainSupports: readonly Stage1TerrainSupport[];
   readonly checkpoints: readonly Stage1Checkpoint[];

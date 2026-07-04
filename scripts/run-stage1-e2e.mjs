@@ -476,6 +476,8 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     );
     assert(reached.checkpointCount >= 3, `checkpoint count too low: ${reached.checkpointCount}`);
     const checkpointX = reached.player?.x ?? 0;
+    await releaseMovementKeys(page);
+    await page.locator('canvas').click({ position: { x: 480, y: 270 } });
     await page.keyboard.down('ArrowRight');
     await page.keyboard.down('d');
     await waitFor(async () => {

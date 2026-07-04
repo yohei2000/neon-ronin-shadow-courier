@@ -42,6 +42,14 @@ describe('Stage1 validation', () => {
     expect(report.passed).toBe(true);
     expect(report.checks.filter((check) => !check.passed)).toEqual([]);
   });
+
+  it('keeps Stage1 terrain image-first while preserving platform collision data', () => {
+    expect(Stage1Data.visualTerrain.mode).toBe('image-first-v1');
+    expect(Stage1Data.visualTerrain.collisionSource).toBe('platforms');
+    expect(Stage1Data.visualTerrain.plates).toHaveLength(Stage1Data.sections.length);
+    expect(Stage1Data.visualTerrain.plates.every((plate) => plate.assetKey.startsWith('stage1-terrain-'))).toBe(true);
+    expect(Stage1Data.platforms.length).toBeGreaterThan(0);
+  });
 });
 
 describe('Stage1 save system', () => {

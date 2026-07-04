@@ -13,8 +13,7 @@ import {
   type Stage1Hazard,
   type Stage1Pickup,
   type Stage1Scroll,
-  type Stage1Seal,
-  type Stage1TerrainSupport
+  type Stage1Seal
 } from '../data/stage1';
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
@@ -178,21 +177,7 @@ export class Stage1Scene extends Phaser.Scene {
   }
 
   private drawStageGeometry(): void {
-    for (const support of Stage1Data.terrainSupports) {
-      this.drawTerrainSupport(support);
-    }
-
-    for (const platform of Stage1Data.platforms) {
-      const key = platform.height <= 30 ? RuntimeEnvironmentAssetKey.PlatformThinTile : RuntimeEnvironmentAssetKey.GroundTile;
-      const tile = this.add
-        .tileSprite(platform.x + platform.width / 2, platform.y + platform.height / 2, platform.width, platform.height, key)
-        .setDepth(12)
-        .setAlpha(platform.height <= 30 ? 0.92 : 0.98);
-      tile.tilePositionX = platform.x * 0.33;
-      if (platform.height <= 30) {
-        tile.tilePositionY = 4;
-      }
-    }
+    this.drawVisualTerrain();
 
     for (const checkpoint of Stage1Data.checkpoints) {
       this.add
@@ -231,47 +216,49 @@ export class Stage1Scene extends Phaser.Scene {
 
     this.add.image(Stage1Data.moonGate.x + 10, Stage1Data.moonGate.y + 56, ArtAssetKey.LightingMoonlight).setDisplaySize(220, 240).setAlpha(0.35).setDepth(14);
     this.add.image(Stage1Data.moonGate.x + 16, Stage1Data.moonGate.y + 42, RuntimeEnvironmentAssetKey.MoonGate).setDisplaySize(246, 230).setDepth(19);
+    this.drawCollisionDebugOverlay();
   }
 
-  private drawTerrainSupport(support: Stage1TerrainSupport): void {
-    const centerX = support.x + support.width / 2;
-    const centerY = support.y + support.height / 2;
-    const body = this.add
-      .tileSprite(centerX, centerY, support.width, support.height, RuntimeEnvironmentAssetKey.GroundTile)
-      .setDepth(10)
-      .setAlpha(0.76)
-      .setTint(Palette.darkBlueGray);
-    body.tilePositionX = support.x * 0.18;
-    body.tilePositionY = support.y * 0.12;
+  private drawVisualTerrain(): void {
+    for (const plate of Stage1Data.visualTerrain.plates) {
+      this.add.image(plate.x, plate.y, plate.assetKey).setOrigin(0).setDisplaySize(plate.width, plate.height).setDepth(plate.depth).setAlpha(plate.alpha);
+    }
+  }
 
-    const sideWidth = Math.min(42, Math.max(22, support.width * 0.08));
-    for (const x of [support.x + sideWidth / 2, support.x + support.width - sideWidth / 2]) {
-      const sideBlend = this.add
-        .tileSprite(x, centerY, sideWidth, support.height, RuntimeEnvironmentAssetKey.BackgroundFront)
-        .setDepth(11)
-        .setAlpha(0.24)
-        .setTint(Palette.deepIndigo);
-      sideBlend.tilePositionX = x * 0.11;
-      sideBlend.tilePositionY = support.y * 0.08;
+  private drawCollisionDebugOverlay(): void {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('debug') !== 'collision' && params.get('debugCollision') !== '1') return;
+
+    for (const platform of Stage1Data.platforms) {
+      const tile = this.add
+        .tileSprite(
+          platform.x + platform.width / 2,
+          platform.y + platform.height / 2,
+          platform.width,
+          platform.height,
+          RuntimeEnvironmentAssetKey.PlatformThinTile
+        )
+        .setDepth(70)
+        .setAlpha(0.5)
+        .setTint(Palette.neonCyan)
+        .setBlendMode(Phaser.BlendModes.ADD);
+      tile.tilePositionX = platform.x * 0.2;
     }
 
-    const lowerBlendHeight = Math.min(96, Math.max(36, support.height * 0.25));
-    const lowerBlend = this.add
-      .tileSprite(centerX, support.y + support.height - lowerBlendHeight / 2, support.width, lowerBlendHeight, RuntimeEnvironmentAssetKey.BackgroundFront)
-      .setDepth(11)
-      .setAlpha(0.18)
-      .setTint(Palette.inkBlack);
-    lowerBlend.tilePositionX = support.x * 0.09;
-    lowerBlend.tilePositionY = support.y * 0.07;
-
-    const seamHeight = Math.min(18, Math.max(8, support.height * 0.06));
-    const topSeam = this.add
-      .tileSprite(centerX, support.y + seamHeight / 2, support.width, seamHeight, RuntimeEnvironmentAssetKey.PlatformThinTile)
-      .setDepth(11)
-      .setAlpha(0.32)
-      .setTint(Palette.neutralGray);
-    topSeam.tilePositionX = support.x * 0.24;
-    topSeam.tilePositionY = 4;
+    for (const hazard of Stage1Data.hazards) {
+      this.add
+        .tileSprite(
+          hazard.x + hazard.width / 2,
+          hazard.y + hazard.height / 2,
+          hazard.width,
+          hazard.height,
+          RuntimeEnvironmentAssetKey.PlatformThinTile
+        )
+        .setDepth(71)
+        .setAlpha(0.55)
+        .setTint(Palette.enemyVermilion)
+        .setBlendMode(Phaser.BlendModes.ADD);
+    }
   }
 
   private createCollectibles(): void {

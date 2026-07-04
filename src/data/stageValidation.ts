@@ -119,6 +119,37 @@ const continuousTerrainSupport = (data: Stage1DataType): { readonly passed: bool
     detail: `${data.terrainSupports.length} supports, unsupported=${unsupported.map((platform) => platform.id).join(', ') || 'none'}`
   };
 };
+const imageFirstTerrain = (data: Stage1DataType): { readonly passed: boolean; readonly detail: string } => {
+  const terrain = data.visualTerrain;
+  const plates = terrain.plates;
+  const ordered = [...plates].sort((a, b) => a.x - b.x);
+  const gaps = ordered.filter((plate, index) => {
+    const expectedStart = index === 0 ? 0 : ordered[index - 1].x + ordered[index - 1].width;
+    return plate.x !== expectedStart;
+  });
+  const sectionMisses = data.sections.filter(
+    (section) => !plates.some((plate) => plate.x <= section.startX && plate.x + plate.width >= section.endX && plate.y <= 0 && plate.y + plate.height >= data.worldHeight)
+  );
+  const uncoveredColliders = data.platforms.filter((platform) => {
+    const centerX = platform.x + platform.width / 2;
+    const centerY = platform.y + platform.height / 2;
+    return !plates.some((plate) => centerX >= plate.x && centerX <= plate.x + plate.width && centerY >= plate.y && centerY <= plate.y + plate.height);
+  });
+  const terrainAssets = plates.filter((plate) => plate.assetKey.startsWith('stage1-terrain-'));
+  return {
+    passed:
+      terrain.mode === 'image-first-v1' &&
+      terrain.collisionSource === 'platforms' &&
+      plates.length === data.sections.length &&
+      terrainAssets.length === plates.length &&
+      ordered[0]?.x === 0 &&
+      ordered[ordered.length - 1]?.x + ordered[ordered.length - 1]?.width === data.worldWidth &&
+      gaps.length === 0 &&
+      sectionMisses.length === 0 &&
+      uncoveredColliders.length === 0,
+    detail: `${plates.length} plates, gaps=${gaps.length}, sectionMisses=${sectionMisses.length}, uncoveredColliders=${uncoveredColliders.length}`
+  };
+};
 
 export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidationReport => {
   const names = data.sections.map((section) => section.name);
@@ -145,6 +176,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
   const platformVariety = compactStagePlatformVariety(data);
   const verticalRoute = compactStageVerticality(data);
   const terrainSupport = continuousTerrainSupport(data);
+  const visualTerrain = imageFirstTerrain(data);
 
   const checks = [
     check(
@@ -176,6 +208,7 @@ export const validateStage1 = (data: Stage1DataType = Stage1Data): StageValidati
     check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
     check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
     check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
+    check('image-first-terrain-plates', visualTerrain.passed, visualTerrain.detail),
     check('two-updraft-gimmicks', data.gimmicks.filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${data.gimmicks.length} gimmicks`),
     check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
     check(

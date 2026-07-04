@@ -18,6 +18,7 @@ const check = (id, passed, detail) => ({ id, passed, detail });
 const manifestText = read(path.resolve('src', 'data', 'approvedArtManifest.ts'));
 const artAssetsText = read(path.resolve('src', 'data', 'artAssets.ts'));
 const preloadText = read(path.resolve('src', 'scenes', 'PreloadScene.ts'));
+const stage1ContentText = read(path.resolve('src', 'data', 'stage1Content.json'));
 const runtimeManifest = JSON.parse(read(path.resolve('src', 'assets', 'runtime', 'runtime-sprite-sheets.json')));
 const runtimeManifestIds = new Set((runtimeManifest.sheets ?? []).map((sheet) => sheet.id));
 const sourceFiles = listFiles(path.resolve('src')).filter((file) => /\.(ts|tsx|js|json)$/.test(file));
@@ -104,6 +105,11 @@ const requiredRuntimeEnvironmentKeys = [
   'stage1-bg-front',
   'stage1-ground-tile',
   'stage1-platform-thin-tile',
+  'stage1-terrain-rain-lantern-start',
+  'stage1-terrain-neon-sign-run',
+  'stage1-terrain-rooftop-hazard-line',
+  'stage1-terrain-neon-thorn-climb',
+  'stage1-terrain-lantern-warden-gate',
   'stage1-moon-gate',
   'stage1-item-icons',
   'stage1-touch-controls'
@@ -279,6 +285,13 @@ const checks = [
   check('runtime-sprite-sheets-exist', requiredRuntimeSpriteKeys.every((file) => fs.existsSync(path.resolve('src', 'assets', 'runtime', `${file}.png`))), requiredRuntimeSpriteKeys.join(', ')),
   check('runtime-environment-assets-exist', requiredRuntimeEnvironmentKeys.every((file) => fs.existsSync(path.resolve('src', 'assets', 'runtime', `${file}.png`))), requiredRuntimeEnvironmentKeys.join(', ')),
   check('runtime-manifest-covers-stage1-assets', requiredRuntimeAssetKeys.every((id) => runtimeManifestIds.has(id)), requiredRuntimeAssetKeys.join(', ')),
+  check(
+    'stage1-image-first-terrain-rendering',
+    stage1ContentText.includes('"visualTerrain"') &&
+      stage1TextBundle.includes('Stage1Data.visualTerrain.plates') &&
+      !stage1TextBundle.includes('platform.height <= 30 ? RuntimeEnvironmentAssetKey.PlatformThinTile'),
+    'Stage1 terrain renders from image plates; platforms remain collision data'
+  ),
   check('runtime-cutout-pixel-audit', runtimeAssetAudit.every((item) => item.passed), `${runtimeAssetAudit.filter((item) => item.passed).length}/${runtimeAssetAudit.length} runtime assets pass edge/beige checks`),
   check(
     'required-animations-created',

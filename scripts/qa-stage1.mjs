@@ -112,6 +112,37 @@ const continuousTerrainSupport = () => {
     detail: `${supports.length} supports, unsupported=${unsupported.map((platform) => platform.id).join(', ') || 'none'}`
   };
 };
+const imageFirstTerrain = () => {
+  const terrain = stage.visualTerrain;
+  const plates = terrain?.plates ?? [];
+  const ordered = [...plates].sort((a, b) => a.x - b.x);
+  const gaps = ordered.filter((plate, index) => {
+    const expectedStart = index === 0 ? 0 : ordered[index - 1].x + ordered[index - 1].width;
+    return plate.x !== expectedStart;
+  });
+  const sectionMisses = sections.filter(
+    (section) => !plates.some((plate) => plate.x <= section.startX && plate.x + plate.width >= section.endX && plate.y <= 0 && plate.y + plate.height >= stage.worldHeight)
+  );
+  const uncoveredColliders = (stage.platforms ?? []).filter((platform) => {
+    const centerX = platform.x + platform.width / 2;
+    const centerY = platform.y + platform.height / 2;
+    return !plates.some((plate) => centerX >= plate.x && centerX <= plate.x + plate.width && centerY >= plate.y && centerY <= plate.y + plate.height);
+  });
+  const terrainAssets = plates.filter((plate) => String(plate.assetKey ?? '').startsWith('stage1-terrain-'));
+  return {
+    passed:
+      terrain?.mode === 'image-first-v1' &&
+      terrain?.collisionSource === 'platforms' &&
+      plates.length === sections.length &&
+      terrainAssets.length === plates.length &&
+      ordered[0]?.x === 0 &&
+      ordered.at(-1)?.x + ordered.at(-1)?.width === stage.worldWidth &&
+      gaps.length === 0 &&
+      sectionMisses.length === 0 &&
+      uncoveredColliders.length === 0,
+    detail: `${plates.length} plates, gaps=${gaps.length}, sectionMisses=${sectionMisses.length}, uncoveredColliders=${uncoveredColliders.length}`
+  };
+};
 const sections = stage.sections ?? [];
 const hazards = stage.hazards ?? [];
 const enemies = stage.enemies ?? [];
@@ -122,6 +153,7 @@ const linearRoute = linearStageRoute();
 const platformVariety = compactStagePlatformVariety();
 const verticalRoute = compactStageVerticality();
 const terrainSupport = continuousTerrainSupport();
+const visualTerrain = imageFirstTerrain();
 const damageRects = [
   ...hazards,
   ...enemies.map((enemy) => ({ x: enemy.x - 36, y: enemy.y - 48, width: 72, height: 96 }))
@@ -153,6 +185,7 @@ const checks = [
   check('compact-platform-variety', platformVariety.passed, platformVariety.detail),
   check('compact-vertical-route', verticalRoute.passed, verticalRoute.detail),
   check('continuous-ground-supports', terrainSupport.passed, terrainSupport.detail),
+  check('image-first-terrain-plates', visualTerrain.passed, visualTerrain.detail),
   check('two-updraft-gimmicks', (stage.gimmicks ?? []).filter((gimmick) => gimmick.type === 'updraft-vent').length === 2, `${stage.gimmicks?.length ?? 0} gimmicks`),
   check('timed-spark-jump-clearance', firePassage.passed, firePassage.detail),
   check(
