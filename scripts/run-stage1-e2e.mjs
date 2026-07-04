@@ -207,7 +207,7 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
     const now = Date.now();
     if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
-    if (player.x > 6720 && player.x < 7045 && player.y > 90 && player.y < 210 && player.onGround) {
+    if (player.x > 6870 && player.x < 7045 && player.y > 90 && player.y < 210 && player.onGround) {
       lastJump = now;
       await jump(page, 560);
       continue;
@@ -310,8 +310,8 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
               ? 430
               : player.x > 3920 && player.x < 4200
                 ? 260
-                : player.x > 6800 && player.x < 7180
-                  ? 520
+                : player.x > 6880 && player.x < 7180
+                  ? 560
                 : player.x > 7300 && player.x < 7620
                   ? 260
                   : player.x <= 1200
@@ -361,20 +361,20 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
     }
 
     const hazardAhead = routeHazards.find((hazard) => {
-      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 240 : hazard.type === 'neon-thorn' ? 330 : 120;
+      const lead = hazard.type === 'fall-pit' ? 150 : hazard.type === 'timed-spark' ? 240 : hazard.type === 'neon-thorn' ? (hazard.y < 260 ? 145 : 330) : 120;
       const tail = hazard.type === 'fall-pit' ? hazard.width + 44 : hazard.width + 110;
       return player.x > hazard.x - lead && player.x < hazard.x + tail;
     });
     if (hazardAhead && (player.onGround || player.y > 365) && now - lastJump > 260) {
       lastJump = now;
-      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? 360 : 280);
+      await jump(page, hazardAhead.type === 'fall-pit' ? 230 : hazardAhead.type === 'timed-spark' ? 390 : hazardAhead.type === 'neon-thorn' ? (hazardAhead.y < 260 ? 560 : 360) : 280);
     }
     const jumpNow =
       (player.x > 1320 && player.x < 1520 && player.y > 410) ||
       (player.x > 1500 && player.x < 2460 && player.y > 165) ||
       (player.x > 3920 && player.x < 4200 && player.y > 245) ||
       (player.x > 6080 && player.x < 6740 && player.y > 165) ||
-      (player.x > 6800 && player.x < 7180 && player.y > 100) ||
+      (player.x > 6880 && player.x < 7180 && player.y > 100) ||
       (player.x > 7280 && player.x < 7620 && player.y > 205);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
