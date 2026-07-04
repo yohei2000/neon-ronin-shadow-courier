@@ -207,6 +207,11 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
     const now = Date.now();
     if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
+    if (player.x > 6720 && player.x < 7045 && player.y > 90 && player.y < 210 && player.onGround) {
+      lastJump = now;
+      await jump(page, 560);
+      continue;
+    }
     if (current.wardenDefeated) {
       await setRight(true);
       if (player.x > lastProgressX + 6 || player.x < lastProgressX -120) {
