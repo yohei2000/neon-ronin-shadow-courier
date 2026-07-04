@@ -305,6 +305,8 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
               ? 430
               : player.x > 3920 && player.x < 4200
                 ? 260
+                : player.x > 6800 && player.x < 7180
+                  ? 520
                 : player.x > 7300 && player.x < 7620
                   ? 260
                   : player.x <= 1200
@@ -367,6 +369,7 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
       (player.x > 1500 && player.x < 2460 && player.y > 165) ||
       (player.x > 3920 && player.x < 4200 && player.y > 245) ||
       (player.x > 6080 && player.x < 6740 && player.y > 165) ||
+      (player.x > 6800 && player.x < 7180 && player.y > 100) ||
       (player.x > 7280 && player.x < 7620 && player.y > 205);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
