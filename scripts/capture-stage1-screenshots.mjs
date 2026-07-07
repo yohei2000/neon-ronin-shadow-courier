@@ -59,6 +59,16 @@ const slash = async (page, holdMs = 70) => {
   await page.waitForTimeout(holdMs);
   await page.keyboard.up('J');
 };
+// Visual capture should not fail from CI runner timing; unassisted clear remains covered by e2e.
+const stabilizeScreenshotRun = async (page) => {
+  await page
+    .evaluate(() => {
+      const game = window.__NEON_RONIN_GAME__;
+      const scene = game?.scene?.getScene?.('Stage1Scene');
+      scene?.player?.heal?.(30);
+    })
+    .catch(() => undefined);
+};
 const verticalAssistFor = (player) =>
   verticalAssistZones.find((zone) => player.x > zone.startX && player.x < zone.endX && player.y > zone.minY);
 const startStage1 = async (page) => {
@@ -111,6 +121,7 @@ const captureRoute = async (page) => {
   await setRight(true);
   const started = Date.now();
   while (Date.now() - started < routeTimeoutMs) {
+    await stabilizeScreenshotRun(page);
     const current = await state(page);
     if (current.scene === 'StageClearScene') {
       await setRight(false);
