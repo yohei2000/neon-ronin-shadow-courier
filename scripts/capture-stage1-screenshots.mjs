@@ -20,7 +20,7 @@ await server.listen();
 const baseUrl = server.resolvedUrls?.local?.[0]?.replace(/\/$/, '') ?? 'http://127.0.0.1:5174';
 const browser = await chromium.launch();
 const consoleMessages = [];
-const routeTimeoutMs = Number(process.env.E2E_ROUTE_TIMEOUT_MS ?? 420000);
+const routeTimeoutMs = Number(process.env.SCREENSHOT_ROUTE_TIMEOUT_MS ?? process.env.E2E_ROUTE_TIMEOUT_MS ?? 540000);
 const wardenEngageX = stage.warden.arena.x + 160;
 const wardenStopX = stage.warden.x - 120;
 const wardenAdvanceX = stage.warden.x - 130;
@@ -345,7 +345,12 @@ const captureRoute = async (page) => {
     await page.waitForTimeout(50);
   }
   await setRight(false);
-  throw new Error(`Screenshot route timed out: ${JSON.stringify(await state(page))}`);
+  const finalState = await state(page);
+  if (finalState.scene === 'StageClearScene' || finalState.stageClear) {
+    await page.screenshot({ path: path.join(artifactDir, 'stage-clear.png') });
+    return;
+  }
+  throw new Error(`Screenshot route timed out: ${JSON.stringify(finalState)}`);
 };
 
 try {
