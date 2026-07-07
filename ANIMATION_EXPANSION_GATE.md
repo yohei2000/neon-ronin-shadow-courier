@@ -2,12 +2,15 @@
 
 Date: 2026-06-28
 
+Supplemental scope: 2026-07-07 user request to double player and enemy runtime sprite animation frame counts. This supplement does not unlock world map, final boss, player projectile, charged slash, ultimate, broad campaign systems, or a Stage2 final-art gate.
+
 This gate unlocks only the Stage 1 player and slash runtime animation pass. Gate B v2 core art remains the visual base, but runtime animation may derive additional player frames from `art/source/player/player-animation-master-sheet.png` and additional slash runtime frames from `art/source/vfx/slash-flipbook.png`.
 
 ## Scope
 
 - Player runtime spritesheet: replace unstable connected-component extraction with explicit master-sheet frame extraction.
-- Player animation states: idle 6, run 8, small jump 4, big jump rise 5, speed flip jump 8, apex 2, fall 3, wall slide 4, wall kick 4, ground slash 8, air slash 6, hurt 3, checkpoint respawn 6.
+- Player animation states: idle 12, run 16, small jump 8, big jump rise 10, speed flip jump 16, apex 4, fall 6, wall slide 8, wall kick 8, ground slash 16, air slash 12, hurt 6, checkpoint respawn 12.
+- Enemy runtime states: Ink Crawler patrol 16, hit 8, defeat 12; Kite Wraith drift 16, hit 8, defeat 12; Lantern Warden idle/telegraph/attack/recovery/defeat 2 frames each.
 - Slash runtime spritesheet: split into ground slash 8 frames and air slash 6 frames.
 - Runtime behavior: choose jump pose from input duration and horizontal speed; choose slash pose from whether the slash started grounded or airborne.
 

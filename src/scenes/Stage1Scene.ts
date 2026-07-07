@@ -243,6 +243,7 @@ export class Stage1Scene extends Phaser.Scene {
   private drawCollisionDebugOverlay(): void {
     const params = new URLSearchParams(window.location.search);
     if (params.get('debug') !== 'collision' && params.get('debugCollision') !== '1') return;
+    if (params.get('showCollisionRects') !== '1') return;
 
     for (const platform of Stage1Data.platforms) {
       const tile = this.add

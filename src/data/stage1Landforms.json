@@ -327,7 +327,7 @@
       "id": "lf-gate-descent-terrace",
       "frame": 7,
       "x": 7900,
-      "y": 344,
+      "y": 286,
       "width": 700,
       "height": 330,
       "depth": 12.16,
@@ -339,7 +339,7 @@
       "id": "lf-gate-rest-stonewall",
       "frame": 0,
       "x": 8380,
-      "y": 430,
+      "y": 286,
       "width": 650,
       "height": 350,
       "depth": 12.12,
@@ -441,7 +441,7 @@
       "sectionId": "wall-kick-sign-shaft",
       "role": "floor",
       "x": 1680,
-      "y": 430,
+      "y": 462,
       "width": 260,
       "height": 30
     },
@@ -451,7 +451,7 @@
       "sectionId": "wall-kick-sign-shaft",
       "role": "floor",
       "x": 1940,
-      "y": 310,
+      "y": 360,
       "width": 260,
       "height": 28
     },
@@ -461,7 +461,7 @@
       "sectionId": "wall-kick-sign-shaft",
       "role": "floor",
       "x": 2160,
-      "y": 235,
+      "y": 252,
       "width": 260,
       "height": 28
     },
@@ -481,7 +481,7 @@
       "sectionId": "rooftop-hazard-line",
       "role": "floor",
       "x": 3140,
-      "y": 320,
+      "y": 382,
       "width": 620,
       "height": 42
     },
@@ -491,7 +491,7 @@
       "sectionId": "rooftop-hazard-line",
       "role": "floor",
       "x": 3760,
-      "y": 320,
+      "y": 390,
       "width": 440,
       "height": 42
     },
@@ -501,7 +501,7 @@
       "sectionId": "rooftop-hazard-line",
       "role": "floor",
       "x": 4200,
-      "y": 320,
+      "y": 396,
       "width": 480,
       "height": 42
     },
@@ -511,7 +511,7 @@
       "sectionId": "rooftop-hazard-line",
       "role": "floor",
       "x": 4680,
-      "y": 320,
+      "y": 430,
       "width": 800,
       "height": 42
     },
@@ -550,27 +550,37 @@
       "landformId": "lf-thorn-exit-roof-left",
       "sectionId": "neon-thorn-climb",
       "role": "floor",
-      "x": 6560,
-      "y": 170,
-      "width": 420,
+      "x": 6710,
+      "y": 286,
+      "width": 200,
       "height": 28
     },
     {
-      "id": "lc-thorn-exit-roof-right-top",
+      "id": "lc-thorn-exit-roof-mid-top",
       "landformId": "lf-thorn-exit-roof-right",
       "sectionId": "neon-thorn-climb",
       "role": "floor",
-      "x": 6980,
-      "y": 170,
-      "width": 340,
-      "height": 28
+      "x": 7140,
+      "y": 245,
+      "width": 200,
+      "height": 30
+    },
+    {
+      "id": "lc-thorn-exit-roof-low-top",
+      "landformId": "lf-thorn-high-roof-left",
+      "sectionId": "neon-thorn-climb",
+      "role": "floor",
+      "x": 7340,
+      "y": 245,
+      "width": 220,
+      "height": 30
     },
     {
       "id": "lc-thorn-high-roof-left-top",
       "landformId": "lf-thorn-high-roof-left",
       "sectionId": "neon-thorn-climb",
       "role": "floor",
-      "x": 7320,
+      "x": 7240,
       "y": 245,
       "width": 380,
       "height": 30
@@ -580,9 +590,9 @@
       "landformId": "lf-thorn-high-roof-right",
       "sectionId": "neon-thorn-climb",
       "role": "floor",
-      "x": 7700,
+      "x": 7620,
       "y": 245,
-      "width": 280,
+      "width": 360,
       "height": 30
     },
     {
@@ -591,7 +601,7 @@
       "sectionId": "lantern-warden-gate",
       "role": "floor",
       "x": 7980,
-      "y": 405,
+      "y": 314,
       "width": 480,
       "height": 42
     },
@@ -601,7 +611,7 @@
       "sectionId": "lantern-warden-gate",
       "role": "floor",
       "x": 8460,
-      "y": 500,
+      "y": 315,
       "width": 440,
       "height": 42
     },

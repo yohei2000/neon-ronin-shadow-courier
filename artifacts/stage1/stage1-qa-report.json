@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T13:09:32.117Z",
+  "generatedAt": "2026-07-07T00:16:23.433Z",
   "passed": true,
   "checks": [
     {
@@ -95,17 +95,17 @@
     {
       "id": "compact-platform-variety",
       "passed": true,
-      "detail": "18 platforms, maxWidth=1200, elevated=8, fallPits=2"
+      "detail": "22 platforms, maxWidth=920, elevated=10, fallPits=2"
     },
     {
       "id": "compact-vertical-route",
       "passed": true,
-      "detail": "range=350, high=4, mid=14, updrafts=2"
+      "detail": "range=345, high=4, mid=18, updrafts=2"
     },
     {
       "id": "continuous-ground-supports",
       "passed": true,
-      "detail": "11 supports, unsupported=none"
+      "detail": "15 supports, unsupported=none"
     },
     {
       "id": "image-first-terrain-plates",
@@ -115,7 +115,7 @@
     {
       "id": "image-first-large-landforms",
       "passed": true,
-      "detail": "25 landforms, 25 colliders, 12 frames, bySection=4/5/5/6/5, span=10050, invalid=0, outOfBounds=0, detached=0"
+      "detail": "25 landforms, 26 colliders, 12 frames, bySection=4/5/5/6/5, span=10050, invalid=0, outOfBounds=0, detached=0"
     },
     {
       "id": "two-updraft-gimmicks",

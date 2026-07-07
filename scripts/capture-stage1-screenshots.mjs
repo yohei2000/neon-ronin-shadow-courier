@@ -29,7 +29,7 @@ const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
   { startX: 1500, endX: 2460, minY: 165, holdMs: 430 },
-  { startX: 6100, endX: 6740, minY: 165, holdMs: 460 }
+  { startX: 6100, endX: 7240, minY: 135, holdMs: 520 }
 ];
 
 const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
@@ -136,7 +136,7 @@ const captureRoute = async (page) => {
     if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
     if (player.x > 7200) highThornStaged = true;
-    if (!highThornStaged && player.x > 6680 && player.x < 6880 && player.y < 230 && !current.wardenDefeated) {
+    if (!highThornStaged && player.x > 6680 && player.x < 6940 && player.y < 330 && !current.wardenDefeated) {
       await setRight(false);
       await page.keyboard.down('ArrowLeft');
       await page.keyboard.down('a');
@@ -259,7 +259,7 @@ const captureRoute = async (page) => {
               ? 430
               : player.x > 3920 && player.x < 4200
                 ? 260
-                : player.x > 6880 && player.x < 7180
+                : player.x > 6880 && player.x < 7240
                   ? 560
                   : player.x > 7580 && player.x < 7860
                     ? 560
@@ -322,8 +322,8 @@ const captureRoute = async (page) => {
       (player.x > 1320 && player.x < 1520 && player.y > 410) ||
       (player.x > 1500 && player.x < 2460 && player.y > 165) ||
       (player.x > 3920 && player.x < 4200 && player.y > 245) ||
-      (player.x > 6080 && player.x < 6740 && player.y > 165) ||
-      (player.x > 6880 && player.x < 7180 && player.y > 100) ||
+      (player.x > 6080 && player.x < 7240 && player.y > 135) ||
+      (player.x > 6880 && player.x < 7240 && player.y > 100) ||
       (player.x > 7580 && player.x < 7860 && player.y > 160);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;

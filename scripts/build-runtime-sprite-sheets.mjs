@@ -5,6 +5,33 @@ import { chromium } from '@playwright/test';
 const rootDir = process.cwd();
 const runtimeDir = path.join(rootDir, 'src', 'assets', 'runtime');
 
+const combineFrameMotion = (frame, motion) => ({
+  ...frame,
+  offsetX: (frame.offsetX ?? 0) + (motion.offsetX ?? 0),
+  offsetY: (frame.offsetY ?? 0) + (motion.offsetY ?? 0),
+  scaleX: (frame.scaleX ?? 1) * (motion.scaleX ?? 1),
+  scaleY: (frame.scaleY ?? 1) * (motion.scaleY ?? 1),
+  rotate: (frame.rotate ?? 0) + (motion.rotate ?? 0),
+  alpha: (frame.alpha ?? 1) * (motion.alpha ?? 1)
+});
+
+const doubleMotionFrames = (frames, motions) =>
+  frames.flatMap((frame, index) => [frame, combineFrameMotion(frame, motions[index % motions.length])]);
+
+const playerInbetweenMotions = [
+  { offsetX: 1, offsetY: -1, scaleX: 1.01, scaleY: 0.995, rotate: -0.7 },
+  { offsetX: -1, offsetY: 0, scaleX: 0.995, scaleY: 1.01, rotate: 0.5 },
+  { offsetX: 2, offsetY: -1, scaleX: 1.008, scaleY: 1.0, rotate: 0.8 },
+  { offsetX: -2, offsetY: 1, scaleX: 0.998, scaleY: 1.006, rotate: -0.5 }
+];
+
+const enemyInbetweenMotions = [
+  { offsetX: 1, offsetY: 0, scaleX: 1.01, scaleY: 0.99, rotate: 1 },
+  { offsetX: -1, offsetY: -1, scaleX: 0.99, scaleY: 1.01, rotate: -1 },
+  { offsetX: 2, offsetY: 1, scaleX: 1.008, scaleY: 0.992, rotate: 1.5 },
+  { offsetX: -2, offsetY: 0, scaleX: 0.992, scaleY: 1.008, rotate: -1.5 }
+];
+
 const sheetSpecs = [
   {
     id: 'ink-crawler-runtime-spritesheet',
@@ -21,7 +48,7 @@ const sheetSpecs = [
       {
         id: 'patrol',
         componentIndex: 2,
-        frames: [
+        frames: doubleMotionFrames([
           { offsetX: -5, offsetY: 1, scaleX: 0.98, scaleY: 1.02, rotate: -2 },
           { offsetX: -3, offsetY: 0, scaleX: 1.02, scaleY: 0.98, rotate: -1 },
           { offsetX: -1, offsetY: -1, scaleX: 1.04, scaleY: 0.96, rotate: 0 },
@@ -30,29 +57,29 @@ const sheetSpecs = [
           { offsetX: 2, offsetY: 0, scaleX: 1.0, scaleY: 1.0, rotate: 1 },
           { offsetX: -2, offsetY: -1, scaleX: 1.03, scaleY: 0.97, rotate: 0 },
           { offsetX: -4, offsetY: 0, scaleX: 1.0, scaleY: 1.01, rotate: -1 }
-        ]
+        ], enemyInbetweenMotions)
       },
       {
         id: 'hit',
         componentIndex: 2,
-        frames: [
+        frames: doubleMotionFrames([
           { offsetX: 6, offsetY: -1, scaleX: 0.96, scaleY: 1.04, rotate: 5 },
           { offsetX: -8, offsetY: 1, scaleX: 1.05, scaleY: 0.96, rotate: -6 },
           { offsetX: 4, offsetY: 2, scaleX: 1.0, scaleY: 1.0, rotate: 4 },
           { offsetX: 0, offsetY: 0, scaleX: 0.98, scaleY: 1.02, rotate: 0 }
-        ]
+        ], enemyInbetweenMotions)
       },
       {
         id: 'defeat',
         componentIndex: 2,
-        frames: [
+        frames: doubleMotionFrames([
           { offsetX: 2, offsetY: 2, scaleX: 1.0, scaleY: 0.98, rotate: 8 },
           { offsetX: 5, offsetY: 6, scaleX: 1.02, scaleY: 0.92, rotate: 16 },
           { offsetX: 8, offsetY: 11, scaleX: 1.0, scaleY: 0.82, rotate: 24 },
           { offsetX: 10, offsetY: 16, scaleX: 0.98, scaleY: 0.72, rotate: 32 },
           { offsetX: 12, offsetY: 21, scaleX: 0.96, scaleY: 0.62, rotate: 38 },
           { offsetX: 14, offsetY: 26, scaleX: 0.94, scaleY: 0.54, rotate: 42, alpha: 0.82 }
-        ]
+        ], enemyInbetweenMotions)
       }
     ]
   },
@@ -70,7 +97,7 @@ const sheetSpecs = [
     derivedSequences: [
       {
         id: 'drift',
-        frames: [
+        frames: doubleMotionFrames([
           { componentIndex: 0, offsetX: -4, offsetY: 2, scaleX: 0.99, scaleY: 1.01, rotate: -3 },
           { componentIndex: 1, offsetX: -2, offsetY: -1, scaleX: 1.0, scaleY: 1.0, rotate: -1 },
           { componentIndex: 2, offsetX: 1, offsetY: -4, scaleX: 1.01, scaleY: 0.99, rotate: 1 },
@@ -79,28 +106,28 @@ const sheetSpecs = [
           { componentIndex: 1, offsetX: -1, offsetY: 4, scaleX: 1.01, scaleY: 0.99, rotate: 0 },
           { componentIndex: 0, offsetX: -4, offsetY: 1, scaleX: 1.0, scaleY: 1.01, rotate: -2 },
           { componentIndex: 1, offsetX: -2, offsetY: -2, scaleX: 1.0, scaleY: 1.0, rotate: -1 }
-        ]
+        ], enemyInbetweenMotions)
       },
       {
         id: 'hit',
-        frames: [
+        frames: doubleMotionFrames([
           { componentIndex: 0, offsetX: 7, offsetY: 0, scaleX: 0.97, scaleY: 1.03, rotate: 6 },
           { componentIndex: 2, offsetX: -8, offsetY: 2, scaleX: 1.03, scaleY: 0.97, rotate: -8 },
           { componentIndex: 3, offsetX: 4, offsetY: -1, scaleX: 1.0, scaleY: 1.0, rotate: 4 },
           { componentIndex: 1, offsetX: 0, offsetY: 0, scaleX: 1.0, scaleY: 1.0, rotate: 0 }
-        ]
+        ], enemyInbetweenMotions)
       },
       {
         id: 'defeat',
         componentIndex: 3,
-        frames: [
+        frames: doubleMotionFrames([
           { offsetX: 2, offsetY: 5, scaleX: 1.0, scaleY: 0.98, rotate: 12 },
           { offsetX: 7, offsetY: 12, scaleX: 0.98, scaleY: 0.94, rotate: 28 },
           { offsetX: 12, offsetY: 20, scaleX: 0.96, scaleY: 0.88, rotate: 46 },
           { offsetX: 18, offsetY: 31, scaleX: 0.94, scaleY: 0.8, rotate: 64 },
           { offsetX: 20, offsetY: 43, scaleX: 0.9, scaleY: 0.72, rotate: 78 },
           { offsetX: 22, offsetY: 55, scaleX: 0.86, scaleY: 0.64, rotate: 88, alpha: 0.8 }
-        ]
+        ], enemyInbetweenMotions)
       }
     ]
   }
@@ -122,22 +149,35 @@ const explicitGridSheetSpecs = [
     bottomPadding: 12,
     maxScale: 1.32,
     sequences: [
-      { id: 'idle', frames: [masterFrame(0, 0), masterFrame(0, 1), masterFrame(0, 2), masterFrame(0, 3), masterFrame(0, 4), masterFrame(0, 5)] },
-      { id: 'run', frames: [masterFrame(1, 0), masterFrame(1, 1), masterFrame(1, 2), masterFrame(1, 3), masterFrame(1, 4), masterFrame(1, 5), masterFrame(1, 2), masterFrame(1, 4)] },
-      { id: 'smallJump', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3)] },
-      { id: 'bigJumpRise', frames: [masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4)] },
-      { id: 'speedFlipJump', frames: [masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(7, 3), masterFrame(7, 2), masterFrame(7, 1), masterFrame(7, 2)] },
-      { id: 'apex', frames: [masterFrame(2, 3), masterFrame(2, 4)] },
-      { id: 'fall', frames: [masterFrame(2, 4), masterFrame(2, 3), masterFrame(4, 5)] },
-      { id: 'wallSlide', frames: [masterFrame(3, 0), masterFrame(3, 1), masterFrame(3, 2), masterFrame(3, 3)] },
-      { id: 'wallKick', frames: [masterFrame(4, 2), masterFrame(4, 3), masterFrame(4, 4), masterFrame(4, 5)] },
-      { id: 'groundSlash', frames: [masterFrame(5, 0), masterFrame(5, 1), masterFrame(5, 2), masterFrame(5, 3), masterFrame(5, 4), masterFrame(5, 3), masterFrame(5, 2), masterFrame(5, 4)] },
-      { id: 'airSlash', frames: [masterFrame(6, 0), masterFrame(6, 1), masterFrame(6, 2), masterFrame(6, 3), masterFrame(6, 4), masterFrame(6, 3)] },
-      { id: 'hurt', frames: [masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2)] },
-      { id: 'checkpointRespawn', frames: [masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(0, 0)] }
+      { id: 'idle', frames: doubleMotionFrames([masterFrame(0, 0), masterFrame(0, 1), masterFrame(0, 2), masterFrame(0, 3), masterFrame(0, 4), masterFrame(0, 5)], playerInbetweenMotions) },
+      { id: 'run', frames: doubleMotionFrames([masterFrame(1, 0), masterFrame(1, 1), masterFrame(1, 2), masterFrame(1, 3), masterFrame(1, 4), masterFrame(1, 5), masterFrame(1, 2), masterFrame(1, 4)], playerInbetweenMotions) },
+      { id: 'smallJump', frames: doubleMotionFrames([masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3)], playerInbetweenMotions) },
+      { id: 'bigJumpRise', frames: doubleMotionFrames([masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4)], playerInbetweenMotions) },
+      { id: 'speedFlipJump', frames: doubleMotionFrames([masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(7, 3), masterFrame(7, 2), masterFrame(7, 1), masterFrame(7, 2)], playerInbetweenMotions) },
+      { id: 'apex', frames: doubleMotionFrames([masterFrame(2, 3), masterFrame(2, 4)], playerInbetweenMotions) },
+      { id: 'fall', frames: doubleMotionFrames([masterFrame(2, 4), masterFrame(2, 3), masterFrame(4, 5)], playerInbetweenMotions) },
+      { id: 'wallSlide', frames: doubleMotionFrames([masterFrame(3, 0), masterFrame(3, 1), masterFrame(3, 2), masterFrame(3, 3)], playerInbetweenMotions) },
+      { id: 'wallKick', frames: doubleMotionFrames([masterFrame(4, 2), masterFrame(4, 3), masterFrame(4, 4), masterFrame(4, 5)], playerInbetweenMotions) },
+      { id: 'groundSlash', frames: doubleMotionFrames([masterFrame(5, 0), masterFrame(5, 1), masterFrame(5, 2), masterFrame(5, 3), masterFrame(5, 4), masterFrame(5, 3), masterFrame(5, 2), masterFrame(5, 4)], playerInbetweenMotions) },
+      { id: 'airSlash', frames: doubleMotionFrames([masterFrame(6, 0), masterFrame(6, 1), masterFrame(6, 2), masterFrame(6, 3), masterFrame(6, 4), masterFrame(6, 3)], playerInbetweenMotions) },
+      { id: 'hurt', frames: doubleMotionFrames([masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2)], playerInbetweenMotions) },
+      { id: 'checkpointRespawn', frames: doubleMotionFrames([masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(0, 0)], playerInbetweenMotions) }
     ]
   }
 ];
+
+const wardenCrop = {
+  defeated: { x: 51, y: 30, width: 218, height: 181 },
+  idle: { x: 328, y: 28, width: 155, height: 182 },
+  telegraph: { x: 543, y: 14, width: 198, height: 197 },
+  attack: { x: 785, y: 23, width: 201, height: 188 }
+};
+const wardenStateFrame = (source, sequence, stateFrame, motion = {}) => ({
+  ...source,
+  sequence,
+  stateFrame,
+  ...motion
+});
 
 const gridSheetSpecs = [
   {
@@ -192,10 +232,16 @@ const gridSheetSpecs = [
     columns: 4,
     maxScale: 1,
     cropFrames: [
-      { x: 51, y: 30, width: 218, height: 181 },
-      { x: 328, y: 28, width: 155, height: 182 },
-      { x: 543, y: 14, width: 198, height: 197 },
-      { x: 785, y: 23, width: 201, height: 188 }
+      wardenStateFrame(wardenCrop.idle, 'idle', 0),
+      wardenStateFrame(wardenCrop.idle, 'idle', 1, { offsetY: -1, scale: 1.01, rotate: -0.5 }),
+      wardenStateFrame(wardenCrop.telegraph, 'telegraph', 0),
+      wardenStateFrame(wardenCrop.telegraph, 'telegraph', 1, { offsetY: -1, scale: 1.015, rotate: 0.7 }),
+      wardenStateFrame(wardenCrop.attack, 'attack', 0),
+      wardenStateFrame(wardenCrop.attack, 'attack', 1, { offsetY: 1, scale: 1.01, rotate: -1.1 }),
+      wardenStateFrame(wardenCrop.idle, 'recovery', 0, { offsetY: 1, scale: 0.99, rotate: 0.5 }),
+      wardenStateFrame(wardenCrop.idle, 'recovery', 1, { offsetY: 0, scale: 1.0, rotate: 0 }),
+      wardenStateFrame(wardenCrop.defeated, 'defeat', 0),
+      wardenStateFrame(wardenCrop.defeated, 'defeat', 1, { offsetY: 2, scale: 0.985, rotate: 1.2, alpha: 0.86 })
     ]
   }
 ];
@@ -584,27 +630,41 @@ try {
             (spec.frameHeight - spec.bottomPadding - 8) / trimmed.trimHeight,
             spec.maxScale ?? 1.35
           );
-          const drawWidth = trimmed.trimWidth * fitScale;
-          const drawHeight = trimmed.trimHeight * fitScale;
-          const dx = column * spec.frameWidth + (spec.frameWidth - drawWidth) / 2;
-          const dy = row * spec.frameHeight + spec.frameHeight - spec.bottomPadding - drawHeight;
+          const scaleX = frame.scaleX ?? 1;
+          const scaleY = frame.scaleY ?? 1;
+          const drawWidth = trimmed.trimWidth * fitScale * Math.abs(scaleX);
+          const drawHeight = trimmed.trimHeight * fitScale * Math.abs(scaleY);
+          const centerX = column * spec.frameWidth + spec.frameWidth / 2 + (frame.offsetX ?? 0);
+          const centerY = row * spec.frameHeight + spec.frameHeight - spec.bottomPadding - drawHeight / 2 + (frame.offsetY ?? 0);
+          targetContext.save();
+          targetContext.globalAlpha = frame.alpha ?? 1;
+          targetContext.translate(centerX, centerY);
+          targetContext.rotate(((frame.rotate ?? 0) * Math.PI) / 180);
+          targetContext.scale(Math.sign(scaleX) || 1, Math.sign(scaleY) || 1);
           targetContext.drawImage(
             trimmed.canvas,
             trimmed.trimX,
             trimmed.trimY,
             trimmed.trimWidth,
             trimmed.trimHeight,
-            dx,
-            dy,
+            -drawWidth / 2,
+            -drawHeight / 2,
             drawWidth,
             drawHeight
           );
+          targetContext.restore();
         }
         return {
           sequence: frame.sequence,
           stateFrame: frame.stateFrame,
           componentRow: frame.componentRow,
           componentColumn: frame.componentColumn,
+          offsetX: frame.offsetX ?? 0,
+          offsetY: frame.offsetY ?? 0,
+          scaleX: frame.scaleX ?? 1,
+          scaleY: frame.scaleY ?? 1,
+          rotate: frame.rotate ?? 0,
+          alpha: frame.alpha ?? 1,
           x: trimmed.sourceX,
           y: trimmed.sourceY,
           width: trimmed.sourceWidth,
@@ -1077,16 +1137,21 @@ try {
         const fitScale = Math.min((spec.frameWidth - 14) / sourceWidth, (spec.frameHeight - 14) / sourceHeight, spec.maxScale ?? 1.35);
         const drawWidth = sourceWidth * fitScale * (sourceFrame.scale ?? 1);
         const drawHeight = sourceHeight * fitScale * (sourceFrame.scale ?? 1);
-        const dx = column * spec.frameWidth + (spec.frameWidth - drawWidth) / 2;
+        const dx = column * spec.frameWidth + (spec.frameWidth - drawWidth) / 2 + (sourceFrame.offsetX ?? 0);
         const dy = row * spec.frameHeight + (spec.frameHeight - drawHeight) / 2 + (sourceFrame.offsetY ?? 0);
         const drawFrameCanvas = (canvas) => {
+          targetContext.save();
+          targetContext.globalAlpha = sourceFrame.alpha ?? 1;
           const angleRadians = ((sourceFrame.rotate ?? 0) * Math.PI) / 180;
           if (angleRadians === 0) {
             targetContext.drawImage(canvas, 0, 0, sourceWidth, sourceHeight, dx, dy, drawWidth, drawHeight);
+            targetContext.restore();
             return;
           }
-          targetContext.save();
-          targetContext.translate(column * spec.frameWidth + spec.frameWidth / 2, row * spec.frameHeight + spec.frameHeight / 2 + (sourceFrame.offsetY ?? 0));
+          targetContext.translate(
+            column * spec.frameWidth + spec.frameWidth / 2 + (sourceFrame.offsetX ?? 0),
+            row * spec.frameHeight + spec.frameHeight / 2 + (sourceFrame.offsetY ?? 0)
+          );
           targetContext.rotate(angleRadians);
           targetContext.drawImage(canvas, 0, 0, sourceWidth, sourceHeight, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
           targetContext.restore();
@@ -1106,6 +1171,11 @@ try {
             stateFrame: sourceFrame.stateFrame,
             sourceFrame: sourceFrame.sourceFrame,
             procedural: sourceFrame.draw,
+            offsetX: sourceFrame.offsetX ?? 0,
+            offsetY: sourceFrame.offsetY ?? 0,
+            scale: sourceFrame.scale ?? 1,
+            rotate: sourceFrame.rotate ?? 0,
+            alpha: sourceFrame.alpha ?? 1,
             x: sourceX,
             y: sourceY,
             width: sourceWidth,
@@ -1148,6 +1218,11 @@ try {
           stateFrame: sourceFrame.stateFrame,
           sourceFrame: sourceFrame.sourceFrame,
           procedural: sourceFrame.procedural ? sourceFrame.draw : undefined,
+          offsetX: sourceFrame.offsetX ?? 0,
+          offsetY: sourceFrame.offsetY ?? 0,
+          scale: sourceFrame.scale ?? 1,
+          rotate: sourceFrame.rotate ?? 0,
+          alpha: sourceFrame.alpha ?? 1,
           x: sourceX,
           y: sourceY,
           width: sourceWidth,

@@ -8,15 +8,18 @@ const artifactDir = path.resolve('artifacts', 'stage1');
 fs.mkdirSync(artifactDir, { recursive: true });
 const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
 
-const baseUrl = 'http://127.0.0.1:5175';
+const preferredPort = 5175;
 const server = await createServer({
   ...createInlineViteConfig(),
   server: {
     host: '127.0.0.1',
-    port: 5175
+    port: preferredPort
   }
 });
 await server.listen();
+const address = server.httpServer?.address();
+const actualPort = typeof address === 'object' && address ? address.port : preferredPort;
+const baseUrl = `http://127.0.0.1:${actualPort}`;
 console.log(`stage1-e2e server ${baseUrl}`);
 
 const browser = await chromium.launch();
@@ -32,7 +35,7 @@ const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
   { startX: 1500, endX: 2460, minY: 165, holdMs: 430 },
-  { startX: 6100, endX: 6740, minY: 165, holdMs: 460 }
+  { startX: 6100, endX: 7240, minY: 135, holdMs: 520 }
 ];
 
 const assert = (condition, message) => {
@@ -209,7 +212,7 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
     if (player.x >= wardenStopX && !current.wardenDefeated) await setRight(false);
     else await setRight(true);
     if (player.x > 7200) highThornStaged = true;
-    if (!highThornStaged && player.x > 6680 && player.x < 6880 && player.y < 230 && !current.wardenDefeated) {
+    if (!highThornStaged && player.x > 6680 && player.x < 6940 && player.y < 330 && !current.wardenDefeated) {
       await setRight(false);
       await page.keyboard.down('ArrowLeft');
       await page.keyboard.down('a');
@@ -330,7 +333,7 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
               ? 430
               : player.x > 3920 && player.x < 4200
                 ? 260
-                : player.x > 6880 && player.x < 7180
+                : player.x > 6880 && player.x < 7240
                   ? 560
                 : player.x > 7300 && player.x < 7620
                   ? 260
@@ -393,8 +396,8 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
       (player.x > 1320 && player.x < 1520 && player.y > 410) ||
       (player.x > 1500 && player.x < 2460 && player.y > 165) ||
       (player.x > 3920 && player.x < 4200 && player.y > 245) ||
-      (player.x > 6080 && player.x < 6740 && player.y > 165) ||
-      (player.x > 6880 && player.x < 7180 && player.y > 100) ||
+      (player.x > 6080 && player.x < 7240 && player.y > 135) ||
+      (player.x > 6880 && player.x < 7240 && player.y > 100) ||
       (player.x > 7280 && player.x < 7620 && player.y > 205);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
@@ -508,8 +511,24 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.locator('canvas').click({ position: { x: 480, y: 270 } });
     await page.keyboard.down('ArrowRight');
     await page.keyboard.down('d');
+    let lastRetryJump = 0;
+    let lastRetrySlash = 0;
     await waitFor(async () => {
       const current = await state(page);
+      const player = current.player;
+      if (!player) return false;
+      const now = Date.now();
+      if (player.onGround && now - lastRetryJump > 650) {
+        lastRetryJump = now;
+        await jump(page, 150);
+      }
+      const enemyNear = (current.enemies ?? []).some(
+        (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 240 && Math.abs(enemy.y - player.y) < 180
+      );
+      if (enemyNear && now - lastRetrySlash > 320) {
+        lastRetrySlash = now;
+        await slash(page);
+      }
       return (current.player?.x ?? 0) > checkpointX + 180;
     }, 'player did not move away from checkpoint before retry', 6000);
     await page.keyboard.up('ArrowRight');

@@ -6,19 +6,19 @@ const manifest = JSON.parse(await fs.readFile(path.join(rootDir, 'art', 'animati
 const errors = [];
 
 const requiredPlayerStates = {
-  idle: 6,
-  run: 8,
-  'small-jump': 4,
-  'big-jump-rise': 5,
-  'speed-flip-jump': 8,
-  apex: 2,
-  fall: 3,
-  'wall-slide': 4,
-  'wall-kick': 4,
-  'ground-slash': 8,
-  'air-slash': 6,
-  hurt: 3,
-  'checkpoint-respawn': 6
+  idle: 12,
+  run: 16,
+  'small-jump': 8,
+  'big-jump-rise': 10,
+  'speed-flip-jump': 16,
+  apex: 4,
+  fall: 6,
+  'wall-slide': 8,
+  'wall-kick': 8,
+  'ground-slash': 16,
+  'air-slash': 12,
+  hurt: 6,
+  'checkpoint-respawn': 12
 };
 
 const player = manifest.player;
@@ -55,8 +55,13 @@ for (const [state, minimumFrames] of Object.entries(requiredSlashStates)) {
   if (!(entry.frameDurationSeconds > 0 && entry.frameDurationSeconds <= 0.08)) errors.push(`slash ${state} has invalid frame duration.`);
 }
 
-if (manifest.enemies?.inkCrawler?.frames < 4) errors.push('Ink Crawler animation frames below expected visual set.');
-if (manifest.enemies?.lanternWarden?.frames < 8) errors.push('Lantern Warden state frames below expected visual set.');
+if (manifest.enemies?.inkCrawler?.patrolFrames < 16) errors.push('Ink Crawler patrol frames below doubled visual set.');
+if (manifest.enemies?.inkCrawler?.hitFrames < 8) errors.push('Ink Crawler hit frames below doubled visual set.');
+if (manifest.enemies?.inkCrawler?.defeatFrames < 12) errors.push('Ink Crawler defeat frames below doubled visual set.');
+if (manifest.enemies?.kiteWraith?.driftFrames < 16) errors.push('Kite Wraith drift frames below doubled visual set.');
+if (manifest.enemies?.kiteWraith?.hitFrames < 8) errors.push('Kite Wraith hit frames below doubled visual set.');
+if (manifest.enemies?.kiteWraith?.defeatFrames < 12) errors.push('Kite Wraith defeat frames below doubled visual set.');
+if (manifest.enemies?.lanternWarden?.runtimeFrames < 10) errors.push('Lantern Warden runtime state frames below doubled visual set.');
 if (!manifest.enemies?.kiteWraithPreview?.file) errors.push('Kite Wraith preview file missing.');
 
 await writeJson(path.join(rootDir, 'art', 'final-v2', 'animation-validation-report.json'), {

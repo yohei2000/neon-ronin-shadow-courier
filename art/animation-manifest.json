@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-06-28T00:00:00.000Z",
-  "phase": "gate-b-v2-animation-expansion-v1",
-  "artLockException": "Animation Expansion Gate allows player and slash runtime animation expansion only; Stage1 enemies, environment, UI, physics, hitboxes, and campaign scope remain unchanged.",
+  "generatedAt": "2026-07-07T00:00:00.000Z",
+  "phase": "gate-b-v2-animation-frame-doubling-v1",
+  "artLockException": "The 2026-07-07 user request allows player and enemy runtime sprite animation frame doubling. Gate B v2 core approved art remains frozen; this pass only regenerates derived runtime spritesheets and animation metadata.",
+  "imagegenReferenceBoard": "art/generated/animation-frame-doubling/raw/animation-frame-doubling-reference-board-raw-001.png",
   "player": {
     "spritesheet": "art/source/player/player-animation-master-sheet.png",
     "frameSize": {
@@ -25,81 +26,81 @@
     },
     "states": {
       "idle": {
-        "frames": 6,
+        "frames": 12,
         "start": 0,
-        "frameDurationSeconds": 0.142,
+        "frameDurationSeconds": 0.071,
         "stableOrigin": true
       },
       "run": {
-        "frames": 8,
-        "start": 6,
-        "frameDurationSeconds": 0.056,
+        "frames": 16,
+        "start": 12,
+        "frameDurationSeconds": 0.028,
         "stableOrigin": true
       },
       "small-jump": {
-        "frames": 4,
-        "start": 14,
-        "frameDurationSeconds": 0.077,
+        "frames": 8,
+        "start": 28,
+        "frameDurationSeconds": 0.038,
         "stableOrigin": true
       },
       "big-jump-rise": {
-        "frames": 5,
-        "start": 18,
-        "frameDurationSeconds": 0.071,
+        "frames": 10,
+        "start": 36,
+        "frameDurationSeconds": 0.036,
         "stableOrigin": true
       },
       "speed-flip-jump": {
-        "frames": 8,
-        "start": 23,
-        "frameDurationSeconds": 0.05,
+        "frames": 16,
+        "start": 46,
+        "frameDurationSeconds": 0.025,
         "stableOrigin": true
       },
       "apex": {
-        "frames": 2,
-        "start": 31,
-        "frameDurationSeconds": 0.167,
+        "frames": 4,
+        "start": 62,
+        "frameDurationSeconds": 0.083,
         "stableOrigin": true
       },
       "fall": {
-        "frames": 3,
-        "start": 33,
-        "frameDurationSeconds": 0.125,
+        "frames": 6,
+        "start": 66,
+        "frameDurationSeconds": 0.063,
         "stableOrigin": true
       },
       "wall-slide": {
-        "frames": 4,
-        "start": 36,
-        "frameDurationSeconds": 0.125,
+        "frames": 8,
+        "start": 72,
+        "frameDurationSeconds": 0.063,
         "stableOrigin": true
       },
       "wall-kick": {
-        "frames": 4,
-        "start": 40,
-        "frameDurationSeconds": 0.071,
+        "frames": 8,
+        "start": 80,
+        "frameDurationSeconds": 0.036,
         "stableOrigin": true
       },
       "ground-slash": {
-        "frames": 8,
-        "start": 44,
-        "frameDurationSeconds": 0.042,
+        "frames": 16,
+        "start": 88,
+        "frameDurationSeconds": 0.021,
         "stableOrigin": true
       },
       "air-slash": {
-        "frames": 6,
-        "start": 52,
-        "frameDurationSeconds": 0.045,
+        "frames": 12,
+        "start": 104,
+        "frameDurationSeconds": 0.023,
         "stableOrigin": true
       },
       "hurt": {
-        "frames": 3,
-        "start": 58,
-        "frameDurationSeconds": 0.1,
+        "frames": 6,
+        "start": 116,
+        "frameDurationSeconds": 0.05,
         "stableOrigin": true
       },
       "checkpoint-respawn": {
-        "frames": 6,
-        "start": 61,
-        "frameDurationSeconds": 0.125,
+        "frames": 12,
+        "start": 122,
+        "frameDurationSeconds": 0.063,
         "stableOrigin": true
       }
     }
@@ -127,16 +128,22 @@
   "enemies": {
     "inkCrawler": {
       "source": "art/source/enemies/ink-crawler-sheet.png",
-      "frames": 6,
-      "movementFrames": 6,
-      "hurtFrames": 3,
-      "defeatFrames": 6,
+      "runtimeSpritesheet": "src/assets/runtime/ink-crawler-runtime-spritesheet.png",
+      "frames": 36,
+      "patrolFrames": 16,
+      "hitFrames": 8,
+      "defeatFrames": 12,
       "warningPose": true
     },
     "kiteWraith": {
       "source": "art/source/enemies/kite-wraith-preview-sheet.png",
       "file": "art/final-v2/assets/kite-wraith-preview.png",
-      "previewFrames": 4
+      "runtimeSpritesheet": "src/assets/runtime/kite-wraith-runtime-spritesheet.png",
+      "previewFrames": 4,
+      "runtimeFrames": 36,
+      "driftFrames": 16,
+      "hitFrames": 8,
+      "defeatFrames": 12
     },
     "kiteWraithPreview": {
       "file": "art/final-v2/assets/kite-wraith-preview.png",
@@ -144,13 +151,13 @@
     },
     "lanternWarden": {
       "source": "art/source/enemies/lantern-warden-sheet.png",
-      "frames": 8,
+      "runtimeSpritesheet": "src/assets/runtime/lantern-warden-runtime-spritesheet.png",
+      "sourceStateFrames": 4,
+      "runtimeFrames": 10,
       "states": [
-        "closed",
-        "open",
-        "telegraph-1",
-        "telegraph-2",
-        "telegraph-3",
+        "idle",
+        "telegraph",
+        "attack",
         "recover",
         "defeat"
       ]
