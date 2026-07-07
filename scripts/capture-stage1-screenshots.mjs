@@ -154,11 +154,7 @@ const captureRoute = async (page) => {
       }
       continue;
     }
-    if (
-      ((player.x > 6870 && player.x < 7045 && player.y > 90 && player.y < 210) ||
-        (player.x > 7580 && player.x < 7755 && player.y > 160 && player.y < 290)) &&
-      player.onGround
-    ) {
+    if (player.x > 6870 && player.x < 7045 && player.y > 90 && player.y < 210 && player.onGround) {
       lastJump = now;
       await jump(page, 560);
       continue;
@@ -261,8 +257,8 @@ const captureRoute = async (page) => {
                 ? 260
                 : player.x > 6880 && player.x < 7240
                   ? 560
-                  : player.x > 7580 && player.x < 7860
-                    ? 560
+                  : player.x > 7300 && player.x < 7620
+                    ? 260
                   : player.x <= 1200
                     ? 220
                     : 0;
@@ -324,7 +320,7 @@ const captureRoute = async (page) => {
       (player.x > 3920 && player.x < 4200 && player.y > 245) ||
       (player.x > 6080 && player.x < 7240 && player.y > 135) ||
       (player.x > 6880 && player.x < 7240 && player.y > 100) ||
-      (player.x > 7580 && player.x < 7860 && player.y > 160);
+      (player.x > 7280 && player.x < 7620 && player.y > 205);
     if (jumpNow && now - lastJump > 360) {
       lastJump = now;
       const assist = verticalAssistFor(player);
