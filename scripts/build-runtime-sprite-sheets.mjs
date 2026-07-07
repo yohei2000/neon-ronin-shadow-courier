@@ -5,7 +5,7 @@ import { chromium } from '@playwright/test';
 const rootDir = process.cwd();
 const runtimeDir = path.join(rootDir, 'src', 'assets', 'runtime');
 
-const combineFrameMotion = (frame, motion) => ({
+const combineFrameMotion = (frame, motion = {}) => ({
   ...frame,
   offsetX: (frame.offsetX ?? 0) + (motion.offsetX ?? 0),
   offsetY: (frame.offsetY ?? 0) + (motion.offsetY ?? 0),
@@ -15,8 +15,29 @@ const combineFrameMotion = (frame, motion) => ({
   alpha: (frame.alpha ?? 1) * (motion.alpha ?? 1)
 });
 
-const doubleMotionFrames = (frames, motions) =>
-  frames.flatMap((frame, index) => [frame, combineFrameMotion(frame, motions[index % motions.length])]);
+const scaleMotion = (motion = {}, progress = 1) => ({
+  ...motion,
+  offsetX: (motion.offsetX ?? 0) * progress,
+  offsetY: (motion.offsetY ?? 0) * progress,
+  scaleX: 1 + ((motion.scaleX ?? 1) - 1) * progress,
+  scaleY: 1 + ((motion.scaleY ?? 1) - 1) * progress,
+  rotate: (motion.rotate ?? 0) * progress,
+  alpha: 1 + ((motion.alpha ?? 1) - 1) * progress
+});
+
+const expandMotionFrames = (frames, motions, phaseCount = 2) =>
+  frames.flatMap((frame, index) =>
+    Array.from({ length: phaseCount }, (_, phase) => {
+      if (phase === 0) {
+        return frame;
+      }
+      const motionIndex = (index * (phaseCount - 1) + phase - 1) % motions.length;
+      return combineFrameMotion(frame, scaleMotion(motions[motionIndex], phase / phaseCount));
+    })
+  );
+
+const doubleMotionFrames = (frames, motions) => expandMotionFrames(frames, motions, 2);
+const fluidMotionFrames = (frames, motions) => expandMotionFrames(frames, motions, 4);
 
 const playerInbetweenMotions = [
   { offsetX: 1, offsetY: -1, scaleX: 1.01, scaleY: 0.995, rotate: -0.7 },
@@ -48,7 +69,7 @@ const sheetSpecs = [
       {
         id: 'patrol',
         componentIndex: 2,
-        frames: doubleMotionFrames([
+        frames: fluidMotionFrames([
           { offsetX: -5, offsetY: 1, scaleX: 0.98, scaleY: 1.02, rotate: -2 },
           { offsetX: -3, offsetY: 0, scaleX: 1.02, scaleY: 0.98, rotate: -1 },
           { offsetX: -1, offsetY: -1, scaleX: 1.04, scaleY: 0.96, rotate: 0 },
@@ -72,7 +93,7 @@ const sheetSpecs = [
       {
         id: 'defeat',
         componentIndex: 2,
-        frames: doubleMotionFrames([
+        frames: fluidMotionFrames([
           { offsetX: 2, offsetY: 2, scaleX: 1.0, scaleY: 0.98, rotate: 8 },
           { offsetX: 5, offsetY: 6, scaleX: 1.02, scaleY: 0.92, rotate: 16 },
           { offsetX: 8, offsetY: 11, scaleX: 1.0, scaleY: 0.82, rotate: 24 },
@@ -97,7 +118,7 @@ const sheetSpecs = [
     derivedSequences: [
       {
         id: 'drift',
-        frames: doubleMotionFrames([
+        frames: fluidMotionFrames([
           { componentIndex: 0, offsetX: -4, offsetY: 2, scaleX: 0.99, scaleY: 1.01, rotate: -3 },
           { componentIndex: 1, offsetX: -2, offsetY: -1, scaleX: 1.0, scaleY: 1.0, rotate: -1 },
           { componentIndex: 2, offsetX: 1, offsetY: -4, scaleX: 1.01, scaleY: 0.99, rotate: 1 },
@@ -120,13 +141,13 @@ const sheetSpecs = [
       {
         id: 'defeat',
         componentIndex: 3,
-        frames: doubleMotionFrames([
+        frames: fluidMotionFrames([
           { offsetX: 2, offsetY: 5, scaleX: 1.0, scaleY: 0.98, rotate: 12 },
           { offsetX: 7, offsetY: 12, scaleX: 0.98, scaleY: 0.94, rotate: 28 },
           { offsetX: 12, offsetY: 20, scaleX: 0.96, scaleY: 0.88, rotate: 46 },
-          { offsetX: 18, offsetY: 31, scaleX: 0.94, scaleY: 0.8, rotate: 64 },
-          { offsetX: 20, offsetY: 43, scaleX: 0.9, scaleY: 0.72, rotate: 78 },
-          { offsetX: 22, offsetY: 55, scaleX: 0.86, scaleY: 0.64, rotate: 88, alpha: 0.8 }
+          { offsetX: 10, offsetY: 24, scaleX: 0.82, scaleY: 0.72, rotate: 48 },
+          { offsetX: 6, offsetY: 28, scaleX: 0.58, scaleY: 0.56, rotate: 52 },
+          { offsetX: 2, offsetY: 30, scaleX: 0.42, scaleY: 0.42, rotate: 54, alpha: 0.72 }
         ], enemyInbetweenMotions)
       }
     ]
@@ -150,16 +171,16 @@ const explicitGridSheetSpecs = [
     maxScale: 1.32,
     sequences: [
       { id: 'idle', frames: doubleMotionFrames([masterFrame(0, 0), masterFrame(0, 1), masterFrame(0, 2), masterFrame(0, 3), masterFrame(0, 4), masterFrame(0, 5)], playerInbetweenMotions) },
-      { id: 'run', frames: doubleMotionFrames([masterFrame(1, 0), masterFrame(1, 1), masterFrame(1, 2), masterFrame(1, 3), masterFrame(1, 4), masterFrame(1, 5), masterFrame(1, 2), masterFrame(1, 4)], playerInbetweenMotions) },
-      { id: 'smallJump', frames: doubleMotionFrames([masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3)], playerInbetweenMotions) },
-      { id: 'bigJumpRise', frames: doubleMotionFrames([masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4)], playerInbetweenMotions) },
-      { id: 'speedFlipJump', frames: doubleMotionFrames([masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(7, 3), masterFrame(7, 2), masterFrame(7, 1), masterFrame(7, 2)], playerInbetweenMotions) },
-      { id: 'apex', frames: doubleMotionFrames([masterFrame(2, 3), masterFrame(2, 4)], playerInbetweenMotions) },
-      { id: 'fall', frames: doubleMotionFrames([masterFrame(2, 4), masterFrame(2, 3), masterFrame(4, 5)], playerInbetweenMotions) },
-      { id: 'wallSlide', frames: doubleMotionFrames([masterFrame(3, 0), masterFrame(3, 1), masterFrame(3, 2), masterFrame(3, 3)], playerInbetweenMotions) },
-      { id: 'wallKick', frames: doubleMotionFrames([masterFrame(4, 2), masterFrame(4, 3), masterFrame(4, 4), masterFrame(4, 5)], playerInbetweenMotions) },
-      { id: 'groundSlash', frames: doubleMotionFrames([masterFrame(5, 0), masterFrame(5, 1), masterFrame(5, 2), masterFrame(5, 3), masterFrame(5, 4), masterFrame(5, 3), masterFrame(5, 2), masterFrame(5, 4)], playerInbetweenMotions) },
-      { id: 'airSlash', frames: doubleMotionFrames([masterFrame(6, 0), masterFrame(6, 1), masterFrame(6, 2), masterFrame(6, 3), masterFrame(6, 4), masterFrame(6, 3)], playerInbetweenMotions) },
+      { id: 'run', frames: fluidMotionFrames([masterFrame(1, 0), masterFrame(1, 1), masterFrame(1, 2), masterFrame(1, 3), masterFrame(1, 4), masterFrame(1, 5), masterFrame(1, 2), masterFrame(1, 4)], playerInbetweenMotions) },
+      { id: 'smallJump', frames: fluidMotionFrames([masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3)], playerInbetweenMotions) },
+      { id: 'bigJumpRise', frames: fluidMotionFrames([masterFrame(2, 0), masterFrame(2, 1), masterFrame(2, 2), masterFrame(2, 3), masterFrame(2, 4)], playerInbetweenMotions) },
+      { id: 'speedFlipJump', frames: fluidMotionFrames([masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(7, 3), masterFrame(7, 2), masterFrame(7, 1), masterFrame(7, 2)], playerInbetweenMotions) },
+      { id: 'apex', frames: fluidMotionFrames([masterFrame(2, 3), masterFrame(2, 4)], playerInbetweenMotions) },
+      { id: 'fall', frames: fluidMotionFrames([masterFrame(2, 4), masterFrame(2, 3), masterFrame(4, 5)], playerInbetweenMotions) },
+      { id: 'wallSlide', frames: fluidMotionFrames([masterFrame(3, 0), masterFrame(3, 1), masterFrame(3, 2), masterFrame(3, 3)], playerInbetweenMotions) },
+      { id: 'wallKick', frames: fluidMotionFrames([masterFrame(4, 2), masterFrame(4, 3), masterFrame(4, 4), masterFrame(4, 5)], playerInbetweenMotions) },
+      { id: 'groundSlash', frames: fluidMotionFrames([masterFrame(5, 0), masterFrame(5, 1), masterFrame(5, 2), masterFrame(5, 3), masterFrame(5, 4), masterFrame(5, 3), masterFrame(5, 2), masterFrame(5, 4)], playerInbetweenMotions) },
+      { id: 'airSlash', frames: fluidMotionFrames([masterFrame(6, 0), masterFrame(6, 1), masterFrame(6, 2), masterFrame(6, 3), masterFrame(6, 4), masterFrame(6, 3)], playerInbetweenMotions) },
       { id: 'hurt', frames: doubleMotionFrames([masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2)], playerInbetweenMotions) },
       { id: 'checkpointRespawn', frames: doubleMotionFrames([masterFrame(7, 0), masterFrame(7, 1), masterFrame(7, 2), masterFrame(7, 3), masterFrame(7, 4), masterFrame(0, 0)], playerInbetweenMotions) }
     ]
@@ -178,6 +199,9 @@ const wardenStateFrame = (source, sequence, stateFrame, motion = {}) => ({
   stateFrame,
   ...motion
 });
+
+const wardenStateFrames = (source, sequence, motions) =>
+  motions.map((motion, stateFrame) => wardenStateFrame(source, sequence, stateFrame, motion));
 
 const gridSheetSpecs = [
   {
@@ -232,16 +256,36 @@ const gridSheetSpecs = [
     columns: 4,
     maxScale: 1,
     cropFrames: [
-      wardenStateFrame(wardenCrop.idle, 'idle', 0),
-      wardenStateFrame(wardenCrop.idle, 'idle', 1, { offsetY: -1, scale: 1.01, rotate: -0.5 }),
-      wardenStateFrame(wardenCrop.telegraph, 'telegraph', 0),
-      wardenStateFrame(wardenCrop.telegraph, 'telegraph', 1, { offsetY: -1, scale: 1.015, rotate: 0.7 }),
-      wardenStateFrame(wardenCrop.attack, 'attack', 0),
-      wardenStateFrame(wardenCrop.attack, 'attack', 1, { offsetY: 1, scale: 1.01, rotate: -1.1 }),
-      wardenStateFrame(wardenCrop.idle, 'recovery', 0, { offsetY: 1, scale: 0.99, rotate: 0.5 }),
-      wardenStateFrame(wardenCrop.idle, 'recovery', 1, { offsetY: 0, scale: 1.0, rotate: 0 }),
-      wardenStateFrame(wardenCrop.defeated, 'defeat', 0),
-      wardenStateFrame(wardenCrop.defeated, 'defeat', 1, { offsetY: 2, scale: 0.985, rotate: 1.2, alpha: 0.86 })
+      ...wardenStateFrames(wardenCrop.idle, 'idle', [
+        {},
+        { offsetY: -0.5, scale: 1.005, rotate: -0.25 },
+        { offsetY: -1.2, scale: 1.012, rotate: -0.5 },
+        { offsetY: -0.6, scale: 1.006, rotate: 0.15 }
+      ]),
+      ...wardenStateFrames(wardenCrop.telegraph, 'telegraph', [
+        {},
+        { offsetY: -0.6, scale: 1.006, rotate: 0.25 },
+        { offsetY: -1.2, scale: 1.015, rotate: 0.7 },
+        { offsetY: -0.4, scale: 1.01, rotate: 0.35 }
+      ]),
+      ...wardenStateFrames(wardenCrop.attack, 'attack', [
+        {},
+        { offsetY: 0.4, scale: 1.004, rotate: -0.35 },
+        { offsetY: 1, scale: 1.012, rotate: -1.1 },
+        { offsetY: 0.5, scale: 1.006, rotate: -0.45 }
+      ]),
+      ...wardenStateFrames(wardenCrop.idle, 'recovery', [
+        { offsetY: 1, scale: 0.99, rotate: 0.5 },
+        { offsetY: 0.7, scale: 0.994, rotate: 0.35 },
+        { offsetY: 0.3, scale: 0.998, rotate: 0.15 },
+        { offsetY: 0, scale: 1.0, rotate: 0 }
+      ]),
+      ...wardenStateFrames(wardenCrop.defeated, 'defeat', [
+        {},
+        { offsetY: 0.8, scale: 0.994, rotate: 0.45, alpha: 0.95 },
+        { offsetY: 1.6, scale: 0.988, rotate: 0.9, alpha: 0.9 },
+        { offsetY: 2, scale: 0.985, rotate: 1.2, alpha: 0.86 }
+      ])
     ]
   }
 ];

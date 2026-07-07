@@ -5,6 +5,8 @@ import type { Stage1EnemyDefinition } from '../data/stage1';
 import { centerRect } from '../systems/geometry';
 import type { EnemyRuntimeState, StageEnemy } from './types';
 
+const KiteWraithVisualScale = 0.38;
+
 export class KiteWraith implements StageEnemy {
   readonly id: string;
   readonly kind = 'kite-wraith' as const;
@@ -22,7 +24,7 @@ export class KiteWraith implements StageEnemy {
     this.image = scene.add
       .sprite(definition.x, definition.y, RuntimeSpriteAssetKey.KiteWraith, 0)
       .setOrigin(0.5, 0.58)
-      .setScale(0.38)
+      .setScale(KiteWraithVisualScale)
       .setDepth(24);
     this.image.play('kite-wraith-drift');
   }
@@ -32,6 +34,7 @@ export class KiteWraith implements StageEnemy {
     const dt = deltaMs / 1000;
     this.localTime += deltaMs;
     const chaseBias = Math.abs(playerX - this.image.x) < 260 ? Math.sign(playerX - this.image.x) * 18 : 0;
+    const drift = Math.sin(this.localTime / 260);
     this.image.x += (this.direction * 58 + chaseBias) * dt;
     this.image.y = this.spawnY + Math.sin(this.localTime / 360) * 22;
     if (this.image.x > this.definition.patrolMaxX) {
@@ -42,7 +45,10 @@ export class KiteWraith implements StageEnemy {
       this.image.x = this.definition.patrolMinX;
       this.direction = 1;
     }
-    this.image.setFlipX(this.direction > 0);
+    this.image
+      .setFlipX(this.direction > 0)
+      .setScale(KiteWraithVisualScale * (1 + drift * 0.018), KiteWraithVisualScale * (1 - drift * 0.012))
+      .setAngle(drift * 2.0);
   }
 
   getBody() {

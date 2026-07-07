@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T00:16:27.178Z",
+  "generatedAt": "2026-07-07T03:25:42.748Z",
   "passed": true,
   "checks": [
     {
@@ -93,34 +93,34 @@
       "id": "player-runtime-spritesheet",
       "file": "src/assets/runtime/player-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 134,
+      "activeFrames": 238,
       "maxEdgeRatio": 0,
       "maxBeigeRatio": 0.0005291938613512083,
-      "maxHaloRatio": 0.0008870967741935484,
-      "maxAverageLuma": 48.94511016621577,
-      "minOpaqueRatio": 0.10546875
+      "maxHaloRatio": 0.0010488100040338846,
+      "maxAverageLuma": 49.005765904285845,
+      "minOpaqueRatio": 0.10518391927083333
     },
     {
       "id": "ink-crawler-runtime-spritesheet",
       "file": "src/assets/runtime/ink-crawler-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 36,
-      "maxEdgeRatio": 0.10858585858585859,
+      "activeFrames": 66,
+      "maxEdgeRatio": 0.13484848484848486,
       "maxBeigeRatio": 0,
-      "maxHaloRatio": 0.0004508566275924256,
-      "maxAverageLuma": 36.696960696960716,
-      "minOpaqueRatio": 0.08861400462962964
+      "maxHaloRatio": 0.0012254901960784314,
+      "maxAverageLuma": 44.48570261437905,
+      "minOpaqueRatio": 0.029513888888888888
     },
     {
       "id": "kite-wraith-runtime-spritesheet",
       "file": "src/assets/runtime/kite-wraith-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 36,
-      "maxEdgeRatio": 0.11904761904761904,
-      "maxBeigeRatio": 0.000588119976475201,
-      "maxHaloRatio": 0.00133422281521014,
-      "maxAverageLuma": 53.20594059405937,
-      "minOpaqueRatio": 0.074462890625
+      "activeFrames": 64,
+      "maxEdgeRatio": 0.062169312169312166,
+      "maxBeigeRatio": 0.00039184952978056425,
+      "maxHaloRatio": 0.0015007503751875938,
+      "maxAverageLuma": 53.321534408956275,
+      "minOpaqueRatio": 0.046712239583333336
     },
     {
       "id": "slash-runtime-spritesheet",
@@ -148,11 +148,11 @@
       "id": "lantern-warden-runtime-spritesheet",
       "file": "src/assets/runtime/lantern-warden-runtime-spritesheet.png",
       "passed": true,
-      "activeFrames": 10,
+      "activeFrames": 20,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.00005798782255726298,
-      "maxHaloRatio": 0.00005798782255726298,
-      "maxAverageLuma": 45.43949192662093,
+      "maxBeigeRatio": 0.00017398364553731949,
+      "maxHaloRatio": 0.00006196554715578138,
+      "maxAverageLuma": 45.82626926095765,
       "minOpaqueRatio": 0.24066162109375
     },
     {

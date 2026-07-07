@@ -8,6 +8,7 @@ import type { EnemyRuntimeState, StageEnemy } from './types';
 const InkCrawlerVisualGroundOffsetY = 50;
 const InkCrawlerBodyCenterOffsetY = -9;
 const InkCrawlerPatrolAcceleration = 7.5;
+const InkCrawlerVisualScale = 0.54;
 
 export class InkCrawler implements StageEnemy {
   readonly id: string;
@@ -18,13 +19,15 @@ export class InkCrawler implements StageEnemy {
   private direction: -1 | 1 = 1;
   private hp = 2;
   private speed = 0;
+  private localTime = 0;
+  private visualOffsetY = 0;
 
   constructor(private readonly scene: Phaser.Scene, private readonly definition: Stage1EnemyDefinition) {
     this.id = definition.id;
     this.sprite = scene.add
       .sprite(definition.x, definition.y + InkCrawlerVisualGroundOffsetY, RuntimeSpriteAssetKey.InkCrawler, 2)
       .setOrigin(0.5, 0.74)
-      .setScale(0.54)
+      .setScale(InkCrawlerVisualScale)
       .setDepth(25);
     this.sprite.play('ink-crawler-patrol');
   }
@@ -32,6 +35,7 @@ export class InkCrawler implements StageEnemy {
   update(deltaMs: number): void {
     if (this.dead) return;
     const dt = deltaMs / 1000;
+    this.localTime += deltaMs;
     const targetSpeed = this.direction * 62;
     this.speed += (targetSpeed - this.speed) * Math.min(1, InkCrawlerPatrolAcceleration * dt);
     this.sprite.x += this.speed * dt;
@@ -46,10 +50,16 @@ export class InkCrawler implements StageEnemy {
       this.speed = 0;
     }
     this.sprite.setFlipX(this.direction < 0);
+    const crawl = Math.sin(this.localTime / 95);
+    this.visualOffsetY = Math.abs(crawl) * 1.2;
+    this.sprite
+      .setY(this.definition.y + InkCrawlerVisualGroundOffsetY + this.visualOffsetY)
+      .setScale(InkCrawlerVisualScale * (1 + Math.abs(crawl) * 0.018), InkCrawlerVisualScale * (1 - Math.abs(crawl) * 0.012))
+      .setAngle(crawl * 1.2);
   }
 
   getBody() {
-    return centerRect(this.sprite.x, this.sprite.y + InkCrawlerBodyCenterOffsetY, 58, 42);
+    return centerRect(this.sprite.x, this.sprite.y - this.visualOffsetY + InkCrawlerBodyCenterOffsetY, 58, 42);
   }
 
   takeHit(amount: number): boolean {

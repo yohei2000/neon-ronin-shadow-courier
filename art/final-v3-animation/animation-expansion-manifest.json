@@ -1,8 +1,8 @@
 {
-  "phase": "gate-b-v2-animation-frame-doubling-v1",
+  "phase": "gate-b-v2-fluid-animation-v2",
   "playerRuntimeSource": "art/source/player/player-animation-master-sheet.png",
   "slashRuntimeSource": "art/source/vfx/slash-flipbook.png",
-  "imagegenReferenceBoard": "art/generated/animation-frame-doubling/raw/animation-frame-doubling-reference-board-raw-001.png",
+  "imagegenReferenceBoard": "art/generated/fluid-motion-pass/raw/fluid-motion-reference-board-raw-001.png",
   "runtimeOutputs": [
     "src/assets/runtime/player-runtime-spritesheet.png",
     "src/assets/runtime/ink-crawler-runtime-spritesheet.png",
@@ -13,36 +13,36 @@
   "frameCounts": {
     "player": {
       "idle": 12,
-      "run": 16,
-      "smallJump": 8,
-      "bigJumpRise": 10,
-      "speedFlipJump": 16,
-      "apex": 4,
-      "fall": 6,
-      "wallSlide": 8,
-      "wallKick": 8,
-      "groundSlash": 16,
-      "airSlash": 12,
+      "run": 32,
+      "smallJump": 16,
+      "bigJumpRise": 20,
+      "speedFlipJump": 32,
+      "apex": 8,
+      "fall": 12,
+      "wallSlide": 16,
+      "wallKick": 16,
+      "groundSlash": 32,
+      "airSlash": 24,
       "hurt": 6,
       "checkpointRespawn": 12
     },
     "enemies": {
       "inkCrawler": {
-        "patrol": 16,
+        "patrol": 32,
         "hit": 8,
-        "defeat": 12
+        "defeat": 24
       },
       "kiteWraith": {
-        "drift": 16,
+        "drift": 32,
         "hit": 8,
-        "defeat": 12
+        "defeat": 24
       },
       "lanternWarden": {
-        "idle": 2,
-        "telegraph": 2,
-        "attack": 2,
-        "recovery": 2,
-        "defeat": 2
+        "idle": 4,
+        "telegraph": 4,
+        "attack": 4,
+        "recovery": 4,
+        "defeat": 4
       }
     },
     "slash": {

@@ -148,18 +148,18 @@ const frameRange = (start: number, count: number): number[] => Array.from({ leng
 
 export const PlayerAnimationFrames = {
   idle: { frames: frameRange(0, 12), frameRate: 14, repeat: -1 },
-  run: { frames: frameRange(12, 16), frameRate: 36, repeat: -1 },
-  smallJump: { frames: frameRange(28, 8), frameRate: 26, repeat: 0 },
-  bigJumpRise: { frames: frameRange(36, 10), frameRate: 28, repeat: 0 },
-  speedFlipJump: { frames: frameRange(46, 16), frameRate: 40, repeat: -1 },
-  apex: { frames: frameRange(62, 4), frameRate: 12, repeat: -1 },
-  fall: { frames: frameRange(66, 6), frameRate: 16, repeat: -1 },
-  wallSlide: { frames: frameRange(72, 8), frameRate: 16, repeat: -1 },
-  wallKick: { frames: frameRange(80, 8), frameRate: 28, repeat: 0 },
-  groundSlash: { frames: frameRange(88, 16), frameRate: 48, repeat: 0 },
-  airSlash: { frames: frameRange(104, 12), frameRate: 44, repeat: 0 },
-  hurt: { frames: frameRange(116, 6), frameRate: 20, repeat: -1 },
-  checkpointRespawn: { frames: frameRange(122, 12), frameRate: 16, repeat: -1 }
+  run: { frames: frameRange(12, 32), frameRate: 56, repeat: -1 },
+  smallJump: { frames: frameRange(44, 16), frameRate: 36, repeat: 0 },
+  bigJumpRise: { frames: frameRange(60, 20), frameRate: 40, repeat: 0 },
+  speedFlipJump: { frames: frameRange(80, 32), frameRate: 56, repeat: -1 },
+  apex: { frames: frameRange(112, 8), frameRate: 18, repeat: -1 },
+  fall: { frames: frameRange(120, 12), frameRate: 24, repeat: -1 },
+  wallSlide: { frames: frameRange(132, 16), frameRate: 28, repeat: -1 },
+  wallKick: { frames: frameRange(148, 16), frameRate: 40, repeat: 0 },
+  groundSlash: { frames: frameRange(164, 32), frameRate: 60, repeat: 0 },
+  airSlash: { frames: frameRange(196, 24), frameRate: 56, repeat: 0 },
+  hurt: { frames: frameRange(220, 6), frameRate: 20, repeat: -1 },
+  checkpointRespawn: { frames: frameRange(226, 12), frameRate: 16, repeat: -1 }
 } as const;
 
 export const RuntimePlayerVisualConfig = {
@@ -168,15 +168,15 @@ export const RuntimePlayerVisualConfig = {
 } as const;
 
 export const InkCrawlerAnimationFrames = {
-  patrol: { frames: frameRange(0, 16), frameRate: 24, repeat: -1 },
-  hit: { frames: frameRange(16, 8), frameRate: 32, repeat: 0 },
-  defeat: { frames: frameRange(24, 12), frameRate: 20, repeat: 0 }
+  patrol: { frames: frameRange(0, 32), frameRate: 30, repeat: -1 },
+  hit: { frames: frameRange(32, 8), frameRate: 32, repeat: 0 },
+  defeat: { frames: frameRange(40, 24), frameRate: 26, repeat: 0 }
 } as const;
 
 export const KiteWraithAnimationFrames = {
-  drift: { frames: frameRange(0, 16), frameRate: 20, repeat: -1 },
-  hit: { frames: frameRange(16, 8), frameRate: 32, repeat: 0 },
-  defeat: { frames: frameRange(24, 12), frameRate: 20, repeat: 0 }
+  drift: { frames: frameRange(0, 32), frameRate: 28, repeat: -1 },
+  hit: { frames: frameRange(32, 8), frameRate: 32, repeat: 0 },
+  defeat: { frames: frameRange(40, 24), frameRate: 26, repeat: 0 }
 } as const;
 
 export const SlashAnimationFrames = {
@@ -186,11 +186,11 @@ export const SlashAnimationFrames = {
 } as const;
 
 export const LanternWardenAnimationFrames = {
-  idle: { frames: frameRange(0, 2), frameRate: 2, repeat: -1 },
-  telegraph: { frames: frameRange(2, 2), frameRate: 2, repeat: -1 },
-  attack: { frames: frameRange(4, 2), frameRate: 2, repeat: -1 },
-  recovery: { frames: frameRange(6, 2), frameRate: 2, repeat: -1 },
-  defeat: { frames: frameRange(8, 2), frameRate: 2, repeat: 0 }
+  idle: { frames: frameRange(0, 4), frameRate: 4, repeat: -1 },
+  telegraph: { frames: frameRange(4, 4), frameRate: 5, repeat: -1 },
+  attack: { frames: frameRange(8, 4), frameRate: 6, repeat: -1 },
+  recovery: { frames: frameRange(12, 4), frameRate: 4, repeat: -1 },
+  defeat: { frames: frameRange(16, 4), frameRate: 4, repeat: 0 }
 } as const;
 
 export const RuntimeAssetKeys = Object.values(ArtAssetKey);

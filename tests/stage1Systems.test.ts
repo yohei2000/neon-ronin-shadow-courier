@@ -205,37 +205,37 @@ describe('Stage1 player visual state', () => {
 });
 
 describe('Stage1 enemy animation coverage', () => {
-  it('doubles player action frame coverage for smoother runtime animation', () => {
+  it('expands player action frame coverage for fluid runtime animation', () => {
     expect(PlayerAnimationFrames.idle.frames).toHaveLength(12);
-    expect(PlayerAnimationFrames.run.frames).toHaveLength(16);
-    expect(PlayerAnimationFrames.smallJump.frames).toHaveLength(8);
-    expect(PlayerAnimationFrames.bigJumpRise.frames).toHaveLength(10);
-    expect(PlayerAnimationFrames.speedFlipJump.frames).toHaveLength(16);
-    expect(PlayerAnimationFrames.apex.frames).toHaveLength(4);
-    expect(PlayerAnimationFrames.fall.frames).toHaveLength(6);
-    expect(PlayerAnimationFrames.wallSlide.frames).toHaveLength(8);
-    expect(PlayerAnimationFrames.wallKick.frames).toHaveLength(8);
-    expect(PlayerAnimationFrames.groundSlash.frames).toHaveLength(16);
-    expect(PlayerAnimationFrames.airSlash.frames).toHaveLength(12);
+    expect(PlayerAnimationFrames.run.frames).toHaveLength(32);
+    expect(PlayerAnimationFrames.smallJump.frames).toHaveLength(16);
+    expect(PlayerAnimationFrames.bigJumpRise.frames).toHaveLength(20);
+    expect(PlayerAnimationFrames.speedFlipJump.frames).toHaveLength(32);
+    expect(PlayerAnimationFrames.apex.frames).toHaveLength(8);
+    expect(PlayerAnimationFrames.fall.frames).toHaveLength(12);
+    expect(PlayerAnimationFrames.wallSlide.frames).toHaveLength(16);
+    expect(PlayerAnimationFrames.wallKick.frames).toHaveLength(16);
+    expect(PlayerAnimationFrames.groundSlash.frames).toHaveLength(32);
+    expect(PlayerAnimationFrames.airSlash.frames).toHaveLength(24);
     expect(PlayerAnimationFrames.hurt.frames).toHaveLength(6);
     expect(PlayerAnimationFrames.checkpointRespawn.frames).toHaveLength(12);
   });
 
   it('gives small enemies multi-frame patrol, hit, and defeat motions', () => {
-    expect(InkCrawlerAnimationFrames.patrol.frames).toHaveLength(16);
+    expect(InkCrawlerAnimationFrames.patrol.frames).toHaveLength(32);
     expect(InkCrawlerAnimationFrames.hit.frames).toHaveLength(8);
-    expect(InkCrawlerAnimationFrames.defeat.frames).toHaveLength(12);
-    expect(KiteWraithAnimationFrames.drift.frames).toHaveLength(16);
+    expect(InkCrawlerAnimationFrames.defeat.frames).toHaveLength(24);
+    expect(KiteWraithAnimationFrames.drift.frames).toHaveLength(32);
     expect(KiteWraithAnimationFrames.hit.frames).toHaveLength(8);
-    expect(KiteWraithAnimationFrames.defeat.frames).toHaveLength(12);
+    expect(KiteWraithAnimationFrames.defeat.frames).toHaveLength(24);
   });
 
-  it('animates each Lantern Warden combat state with paired runtime frames', () => {
-    expect(LanternWardenAnimationFrames.idle.frames).toHaveLength(2);
-    expect(LanternWardenAnimationFrames.telegraph.frames).toHaveLength(2);
-    expect(LanternWardenAnimationFrames.attack.frames).toHaveLength(2);
-    expect(LanternWardenAnimationFrames.recovery.frames).toHaveLength(2);
-    expect(LanternWardenAnimationFrames.defeat.frames).toHaveLength(2);
+  it('animates each Lantern Warden combat state with four runtime frames', () => {
+    expect(LanternWardenAnimationFrames.idle.frames).toHaveLength(4);
+    expect(LanternWardenAnimationFrames.telegraph.frames).toHaveLength(4);
+    expect(LanternWardenAnimationFrames.attack.frames).toHaveLength(4);
+    expect(LanternWardenAnimationFrames.recovery.frames).toHaveLength(4);
+    expect(LanternWardenAnimationFrames.defeat.frames).toHaveLength(4);
   });
 
   it('keeps damage knockback strong enough to read before input resumes', () => {

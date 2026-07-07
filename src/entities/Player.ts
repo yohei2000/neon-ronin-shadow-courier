@@ -105,11 +105,22 @@ const PlayerPoseTransforms: Record<PlayerVisualPose, { readonly angle: number; r
 };
 
 const PlayerVisualGroundOffsetY = 16;
+const PlayerAfterimageCount = 4;
+const PlayerAfterimageIntervalMs = 54;
+const PlayerAfterimagePoses = new Set<PlayerVisualPose>([
+  'run',
+  'speedFlipJump',
+  'wallKick',
+  'shadowThread',
+  'groundSlash',
+  'airSlash'
+]);
 
 export class Player {
   readonly sprite: Phaser.GameObjects.Sprite;
   private readonly slashSprite: Phaser.GameObjects.Sprite;
   private readonly spinSlashSprite: Phaser.GameObjects.Sprite;
+  private readonly afterimageSprites: Phaser.GameObjects.Sprite[] = [];
   private x: number;
   private y: number;
   private vx = 0;
@@ -137,6 +148,7 @@ export class Player {
   private lastDamageId: string | null = null;
   private knockbackControlUntilMs = 0;
   private lastResolvedPose: PlayerVisualPose = 'idle';
+  private lastAfterimageMs = -Infinity;
   private respawnX: number;
   private respawnY: number;
   private hp = 30;
@@ -165,6 +177,17 @@ export class Player {
       .setDepth(32)
       .setBlendMode(Phaser.BlendModes.ADD)
       .setVisible(false);
+    for (let index = 0; index < PlayerAfterimageCount; index += 1) {
+      const afterimage = scene.add
+        .sprite(this.x, this.y, RuntimePlayerVisualConfig.textureKey, 0)
+        .setOrigin(0.5, 0.76)
+        .setScale(RuntimePlayerVisualConfig.scale)
+        .setDepth(29)
+        .setBlendMode(Phaser.BlendModes.ADD)
+        .setVisible(false)
+        .setAlpha(0);
+      this.afterimageSprites.push(afterimage);
+    }
     this.sprite.play('player-idle');
   }
 
@@ -584,15 +607,53 @@ export class Player {
     const transform = PlayerPoseTransforms[pose];
     const animationPose = pose === 'shadowThread' ? 'airSlash' : pose;
     const baseScale = RuntimePlayerVisualConfig.scale;
-    const motionBob = pose === 'run' ? Math.sin(nowMs / 70) * 1.4 : pose === 'idle' ? Math.sin(nowMs / 260) * 0.5 : 0;
+    const stride = Math.sin(nowMs / 58);
+    const secondary = Math.sin(nowMs / 116 + 0.7);
+    const motionBob =
+      pose === 'run'
+        ? stride * 1.8
+        : pose === 'idle'
+          ? Math.sin(nowMs / 260) * 0.5
+          : pose === 'wallSlide'
+            ? Math.sin(nowMs / 90) * 0.8
+            : pose === 'fall'
+              ? Math.sin(nowMs / 110) * 0.7
+              : pose === 'airSlash' || pose === 'shadowThread'
+                ? Math.sin(nowMs / 72) * 1.0
+                : 0;
+    const poseScaleX =
+      pose === 'run'
+        ? 1 + Math.abs(stride) * 0.018
+        : pose === 'speedFlipJump'
+          ? 1 + Math.sin(nowMs / 42) * 0.012
+          : pose === 'groundSlash' || pose === 'airSlash' || pose === 'shadowThread'
+            ? 1 + Math.abs(secondary) * 0.016
+            : 1;
+    const poseScaleY =
+      pose === 'run'
+        ? 1 - Math.abs(stride) * 0.012
+        : pose === 'speedFlipJump'
+          ? 1 - Math.sin(nowMs / 42) * 0.01
+          : pose === 'groundSlash' || pose === 'airSlash' || pose === 'shadowThread'
+            ? 1 - Math.abs(secondary) * 0.01
+            : 1;
     const flipProgress = Math.max(0, (nowMs - this.jumpStartedMs) / Stage1Tuning.speedFlipRotationMs);
-    const dynamicAngle = pose === 'speedFlipJump' ? transform.angle + 360 * flipProgress : transform.angle;
+    const followThroughAngle =
+      pose === 'run'
+        ? stride * 1.2
+        : pose === 'groundSlash' || pose === 'airSlash' || pose === 'shadowThread'
+          ? secondary * 1.8
+          : 0;
+    const dynamicAngle = pose === 'speedFlipJump' ? transform.angle + 360 * flipProgress : transform.angle + followThroughAngle;
     const visualScale = pose === 'speedFlipJump' ? baseScale * 0.92 : baseScale;
+    const scaleX = visualScale * poseScaleX;
+    const scaleY = visualScale * poseScaleY;
+    const visualOffsetY = PlayerVisualGroundOffsetY + transform.offsetY + motionBob;
 
-    this.sprite.setPosition(this.x, this.y + PlayerVisualGroundOffsetY + transform.offsetY + motionBob);
+    this.sprite.setPosition(this.x, this.y + visualOffsetY);
     this.sprite.setOrigin(0.5, pose === 'speedFlipJump' ? 0.52 : 0.76);
     this.sprite.setFlipX(this.facing < 0);
-    this.sprite.setScale(visualScale);
+    this.sprite.setScale(scaleX, scaleY);
     this.sprite.setAngle(dynamicAngle * this.facing);
     this.sprite.play(`player-${animationPose}`, true);
 
@@ -602,6 +663,7 @@ export class Player {
       this.sprite.clearTint();
     }
     this.sprite.setAlpha(nowMs < this.invulnerableUntilMs && Math.floor(nowMs / 90) % 2 === 0 ? 0.64 : 1);
+    this.maybeSpawnAfterimage(nowMs, pose, visualOffsetY, dynamicAngle, scaleX, scaleY);
 
     if (!slash || slash.phase === 'idle') {
       this.hideSlashEffects();
@@ -671,5 +733,50 @@ export class Player {
 
   private hideSpinSlashEffects(): void {
     this.spinSlashSprite.setVisible(false);
+  }
+
+  private maybeSpawnAfterimage(
+    nowMs: number,
+    pose: PlayerVisualPose,
+    visualOffsetY: number,
+    angle: number,
+    scaleX: number,
+    scaleY: number
+  ): void {
+    if (!PlayerAfterimagePoses.has(pose)) return;
+    if (pose === 'run' && Math.abs(this.vx) < Stage1Tuning.runSpeed * 0.45) return;
+    if (nowMs - this.lastAfterimageMs < PlayerAfterimageIntervalMs) return;
+
+    this.lastAfterimageMs = nowMs;
+    const afterimage = this.afterimageSprites.shift();
+    if (!afterimage) return;
+    this.afterimageSprites.push(afterimage);
+
+    const speedLag = pose === 'run' || pose === 'speedFlipJump' || pose === 'shadowThread' ? clamp(Math.abs(this.vx) * 0.055, 8, 18) : 10;
+    const frameName = this.sprite.frame.name;
+    const tint = pose === 'groundSlash' || pose === 'airSlash' || pose === 'shadowThread' ? Palette.neonMagenta : Palette.neonCyan;
+    const alpha = pose === 'run' ? 0.18 : 0.27;
+
+    this.scene.tweens.killTweensOf(afterimage);
+    afterimage
+      .setTexture(RuntimePlayerVisualConfig.textureKey)
+      .setFrame(frameName)
+      .setOrigin(this.sprite.originX, this.sprite.originY)
+      .setPosition(this.x - this.facing * speedLag, this.y + visualOffsetY)
+      .setFlipX(this.facing < 0)
+      .setScale(scaleX, scaleY)
+      .setAngle(angle * this.facing)
+      .setTint(tint)
+      .setAlpha(alpha)
+      .setVisible(true);
+
+    this.scene.tweens.add({
+      targets: afterimage,
+      alpha: 0,
+      x: afterimage.x - this.facing * 4,
+      duration: pose === 'run' ? 150 : 190,
+      ease: 'Quad.easeOut',
+      onComplete: () => afterimage.setVisible(false)
+    });
   }
 }

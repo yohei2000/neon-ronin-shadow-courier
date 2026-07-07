@@ -13,6 +13,7 @@ type WardenState = 'idle' | 'telegraph' | 'active' | 'recovery' | 'defeated';
 const WardenVisualGroundOffsetY = 61;
 const WardenBodyCenterOffsetY = -10;
 const WardenTelegraphOffsetY = 65;
+const WardenVisualScale = 0.72;
 
 type WardenProjectile = {
   readonly id: number;
@@ -46,7 +47,7 @@ export class LanternWarden implements StageEnemy {
     this.hp = definition.hp;
     this.sprite = scene.add
       .sprite(definition.x, definition.y + WardenVisualGroundOffsetY, RuntimeSpriteAssetKey.LanternWarden, 1)
-      .setScale(0.72)
+      .setScale(WardenVisualScale)
       .setDepth(26);
     this.telegraph = scene.add
       .sprite(definition.x, definition.y + 86, RuntimeSpriteAssetKey.Telegraph, 1)
@@ -62,6 +63,7 @@ export class LanternWarden implements StageEnemy {
     this.stateMs += deltaMs;
     this.facing = playerX < this.sprite.x ? -1 : 1;
     this.sprite.setFlipX(this.facing < 0);
+    this.applyFluidVisualMotion();
 
     if (this.state === 'idle' && this.stateMs > 900) {
       this.enterState('telegraph');
@@ -125,6 +127,7 @@ export class LanternWarden implements StageEnemy {
       this.dead = true;
       this.state = 'defeated';
       this.sprite.play('warden-defeat');
+      this.sprite.setScale(WardenVisualScale).setAngle(0);
       this.sprite.setAlpha(0.42);
       this.telegraph.setVisible(false);
       this.clearProjectiles();
@@ -180,6 +183,14 @@ export class LanternWarden implements StageEnemy {
       this.scene.events.emit(Stage1SfxEvent, Stage1SfxKey.WardenAttack);
     }
     if (state === 'recovery') this.sprite.play('warden-recovery', true);
+  }
+
+  private applyFluidVisualMotion(): void {
+    const pulse = Math.sin((this.scene.time.now + this.attackIndex * 53) / 180);
+    const intensity = this.state === 'active' ? 1.7 : this.state === 'telegraph' ? 1.35 : this.state === 'recovery' ? 0.8 : 0.55;
+    const stretch = Math.abs(pulse) * 0.01 * intensity;
+    const angle = pulse * intensity * 0.55;
+    this.sprite.setScale(WardenVisualScale * (1 + stretch), WardenVisualScale * (1 - stretch * 0.75)).setAngle(angle * this.facing);
   }
 
   private fireProjectile(playerX: number, playerY: number): void {

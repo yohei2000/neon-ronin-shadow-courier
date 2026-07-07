@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T12:37:39.400Z",
+  "generatedAt": "2026-07-07T03:32:41.015Z",
   "valid": true,
   "checkedFiles": [
     {
@@ -8,7 +8,7 @@
     },
     {
       "file": "art/animation-manifest.json",
-      "bytes": 3869
+      "bytes": 4412
     },
     {
       "file": "art/vfx-manifest.json",
