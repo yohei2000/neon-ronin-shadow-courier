@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T03:25:38.544Z",
+  "generatedAt": "2026-07-11T04:21:50.820Z",
   "passed": true,
   "checks": [
     {
@@ -110,7 +110,7 @@
     {
       "id": "image-first-terrain-plates",
       "passed": true,
-      "detail": "5 plates, gaps=0, sectionMisses=0, uncoveredColliders=0"
+      "detail": "5 plates, usableRangeBreaks=0, placementMisses=0, overlapMisses=0, sectionMisses=0, outOfBounds=0, uncoveredColliders=0"
     },
     {
       "id": "image-first-large-landforms",

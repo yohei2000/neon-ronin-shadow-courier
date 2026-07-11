@@ -116,14 +116,26 @@ const continuousTerrainSupport = () => {
 const imageFirstTerrain = () => {
   const terrain = stage.visualTerrain;
   const plates = terrain?.plates ?? [];
-  const ordered = [...plates].sort((a, b) => a.x - b.x);
-  const gaps = ordered.filter((plate, index) => {
-    const expectedStart = index === 0 ? 0 : ordered[index - 1].x + ordered[index - 1].width;
-    return plate.x !== expectedStart;
+  const ordered = [...plates].sort((a, b) => a.usableRange.start - b.usableRange.start);
+  const usableRangeBreaks = ordered.filter((plate, index) => {
+    const expectedStart = index === 0 ? 0 : ordered[index - 1].usableRange.end;
+    return plate.usableRange.start !== expectedStart || plate.usableRange.end <= plate.usableRange.start;
+  });
+  const placementMisses = ordered.filter((plate) => {
+    const expectedX = plate.usableRange.start - plate.overlap.left;
+    const expectedWidth = plate.usableRange.end - plate.usableRange.start + plate.overlap.left + plate.overlap.right;
+    return plate.x !== expectedX || plate.width !== expectedWidth || plate.y !== 0 || plate.height !== stage.worldHeight;
+  });
+  const overlapMisses = ordered.slice(1).filter((plate, index) => {
+    const previous = ordered[index];
+    const sharedWidth = previous.x + previous.width - plate.x;
+    const expectedSharedWidth = previous.overlap.right + plate.overlap.left;
+    return sharedWidth !== expectedSharedWidth || expectedSharedWidth !== terrain.overlapPerUsableBoundaryPx * 2;
   });
   const sectionMisses = sections.filter(
-    (section) => !plates.some((plate) => plate.x <= section.startX && plate.x + plate.width >= section.endX && plate.y <= 0 && plate.y + plate.height >= stage.worldHeight)
+    (section) => !plates.some((plate) => plate.usableRange.start === section.startX && plate.usableRange.end === section.endX)
   );
+  const outOfBounds = plates.filter((plate) => plate.x < 0 || plate.x + plate.width > stage.worldWidth);
   const uncoveredColliders = (stage.platforms ?? []).filter((platform) => {
     const centerX = platform.x + platform.width / 2;
     const centerY = platform.y + platform.height / 2;
@@ -132,16 +144,21 @@ const imageFirstTerrain = () => {
   const terrainAssets = plates.filter((plate) => String(plate.assetKey ?? '').startsWith('stage1-terrain-'));
   return {
     passed:
-      terrain?.mode === 'image-first-v1' &&
+      terrain?.mode === 'image-first-overlap-v4' &&
+      String(terrain?.sourceManifest ?? '').endsWith('stage1-continuous-background-manifest.json') &&
+      terrain?.overlapPerUsableBoundaryPx === 256 &&
       terrain?.collisionSource === 'platforms+landform-colliders' &&
       plates.length === sections.length &&
       terrainAssets.length === plates.length &&
       ordered[0]?.x === 0 &&
       ordered.at(-1)?.x + ordered.at(-1)?.width === stage.worldWidth &&
-      gaps.length === 0 &&
+      usableRangeBreaks.length === 0 &&
+      placementMisses.length === 0 &&
+      overlapMisses.length === 0 &&
       sectionMisses.length === 0 &&
+      outOfBounds.length === 0 &&
       uncoveredColliders.length === 0,
-    detail: `${plates.length} plates, gaps=${gaps.length}, sectionMisses=${sectionMisses.length}, uncoveredColliders=${uncoveredColliders.length}`
+    detail: `${plates.length} plates, usableRangeBreaks=${usableRangeBreaks.length}, placementMisses=${placementMisses.length}, overlapMisses=${overlapMisses.length}, sectionMisses=${sectionMisses.length}, outOfBounds=${outOfBounds.length}, uncoveredColliders=${uncoveredColliders.length}`
   };
 };
 const imageFirstTerrainLandforms = () => {

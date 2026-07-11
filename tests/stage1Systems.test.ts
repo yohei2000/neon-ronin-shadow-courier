@@ -44,10 +44,25 @@ describe('Stage1 validation', () => {
   });
 
   it('keeps Stage1 terrain image-first with large landform collision data', () => {
-    expect(Stage1Data.visualTerrain.mode).toBe('image-first-v1');
+    expect(Stage1Data.visualTerrain.mode).toBe('image-first-overlap-v4');
+    expect(Stage1Data.visualTerrain.overlapPerUsableBoundaryPx).toBe(256);
+    expect(Stage1Data.visualTerrain.sourceManifest).toContain('continuous-background-v4-single-master');
     expect(Stage1Data.visualTerrain.collisionSource).toBe('platforms+landform-colliders');
     expect(Stage1Data.visualTerrain.plates).toHaveLength(Stage1Data.sections.length);
     expect(Stage1Data.visualTerrain.plates.every((plate) => plate.assetKey.startsWith('stage1-terrain-'))).toBe(true);
+    const orderedPlates = [...Stage1Data.visualTerrain.plates].sort((left, right) => left.usableRange.start - right.usableRange.start);
+    expect(orderedPlates[0].x).toBe(0);
+    expect(orderedPlates.at(-1)!.x + orderedPlates.at(-1)!.width).toBe(Stage1Data.worldWidth);
+    orderedPlates.forEach((plate, index) => {
+      const section = Stage1Data.sections[index];
+      expect(plate.usableRange).toEqual({ start: section.startX, end: section.endX });
+      expect(plate.x).toBe(plate.usableRange.start - plate.overlap.left);
+      expect(plate.width).toBe(plate.usableRange.end - plate.usableRange.start + plate.overlap.left + plate.overlap.right);
+      if (index > 0) {
+        const previous = orderedPlates[index - 1];
+        expect(previous.x + previous.width - plate.x).toBe(previous.overlap.right + plate.overlap.left);
+      }
+    });
     expect(Stage1Data.visualTerrain.landforms.length).toBeGreaterThanOrEqual(25);
     expect(Stage1Data.visualTerrain.landformColliders.length).toBeGreaterThanOrEqual(25);
     expect(new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.frame)).size).toBeGreaterThanOrEqual(12);

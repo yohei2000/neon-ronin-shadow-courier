@@ -4,7 +4,8 @@ import { chromium } from '@playwright/test';
 
 const rootDir = process.cwd();
 const runtimeDir = path.resolve(rootDir, 'src', 'assets', 'runtime');
-const sourceDir = path.resolve(rootDir, 'art', 'generated', 'stage1-concept-panels');
+const sourceRelativeDir = 'artifacts/stage1/continuous-background-v4-single-master';
+const sourceDir = path.resolve(rootDir, ...sourceRelativeDir.split('/'));
 const stagePath = path.resolve(rootDir, 'src', 'data', 'stage1Content.json');
 const dataOutputPath = path.resolve(rootDir, 'src', 'data', 'stage1Landforms.json');
 const sheetOutputPath = path.join(runtimeDir, 'stage1-landforms-spritesheet.png');
@@ -18,31 +19,31 @@ const frameCount = 12;
 const sourcePanels = [
   {
     id: 'rain-lantern-start',
-    file: 'stage1-panel-01-rain-lantern-start.png',
+    file: 'stage1-plate-01-rain-lantern-start.png',
     plateAssetKey: 'stage1-terrain-rain-lantern-start',
     sectionId: 'rain-lantern-start'
   },
   {
     id: 'neon-sign-run',
-    file: 'stage1-panel-02-neon-sign-run.png',
+    file: 'stage1-plate-02-neon-sign-run.png',
     plateAssetKey: 'stage1-terrain-neon-sign-run',
     sectionId: 'wall-kick-sign-shaft'
   },
   {
     id: 'rooftop-hazard-line',
-    file: 'stage1-panel-03-rooftop-hazard-line.png',
+    file: 'stage1-plate-03-rooftop-hazard-line.png',
     plateAssetKey: 'stage1-terrain-rooftop-hazard-line',
     sectionId: 'rooftop-hazard-line'
   },
   {
     id: 'neon-thorn-climb',
-    file: 'stage1-panel-04-neon-thorn-climb.png',
+    file: 'stage1-plate-04-neon-thorn-climb.png',
     plateAssetKey: 'stage1-terrain-neon-thorn-climb',
     sectionId: 'neon-thorn-climb'
   },
   {
     id: 'lantern-warden-gate',
-    file: 'stage1-panel-05-lantern-warden-gate.png',
+    file: 'stage1-plate-05-lantern-warden-gate.png',
     plateAssetKey: 'stage1-terrain-lantern-warden-gate',
     sectionId: 'lantern-warden-gate'
   }
@@ -129,10 +130,19 @@ const toDataUrl = (file) => {
   return `data:image/png;base64,${bytes.toString('base64')}`;
 };
 
+const readPngDimensions = (file) => {
+  const bytes = fs.readFileSync(file);
+  const pngSignature = '89504e470d0a1a0a';
+  if (bytes.length < 24 || bytes.subarray(0, 8).toString('hex') !== pngSignature) {
+    throw new Error(`Invalid PNG source: ${file}`);
+  }
+  return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
+};
+
 const assertSources = () => {
   const missing = sourcePanels.filter((panel) => !fs.existsSync(path.join(sourceDir, panel.file)));
   if (missing.length > 0) {
-    throw new Error(`Missing Stage1 concept panel sources: ${missing.map((panel) => path.join(sourceDir, panel.file)).join(', ')}`);
+    throw new Error(`Missing approved Stage1 continuous background sources: ${missing.map((panel) => path.join(sourceDir, panel.file)).join(', ')}`);
   }
 };
 
@@ -140,12 +150,33 @@ const generateRuntimeImages = async () => {
   const stage = JSON.parse(fs.readFileSync(stagePath, 'utf8'));
   const plateByAsset = new Map((stage.visualTerrain?.plates ?? []).map((plate) => [plate.assetKey, plate]));
   const panelUrls = Object.fromEntries(sourcePanels.map((panel) => [panel.id, toDataUrl(path.join(sourceDir, panel.file))]));
+  const terrainOutputs = sourcePanels.map((panel) => {
+    const plate = plateByAsset.get(panel.plateAssetKey);
+    if (!plate) throw new Error(`Missing visual terrain plate for ${panel.plateAssetKey}`);
+    const sourcePath = path.join(sourceDir, panel.file);
+    const dimensions = readPngDimensions(sourcePath);
+    if (dimensions.width !== plate.width || dimensions.height !== plate.height) {
+      throw new Error(
+        `Approved terrain source size mismatch for ${panel.plateAssetKey}: ${dimensions.width}x${dimensions.height}, expected ${plate.width}x${plate.height}`
+      );
+    }
+    return {
+      id: panel.plateAssetKey,
+      source: sourceRelativeDir,
+      sourcePath,
+      output: `src/assets/runtime/${panel.plateAssetKey}.png`,
+      width: dimensions.width,
+      height: dimensions.height,
+      mode: 'imagegen-continuous-background-rolling-v4',
+      collisionSource: 'src/data/stage1Landforms.json#colliders'
+    };
+  });
 
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 1 });
   try {
     const result = await page.evaluate(
-      async ({ panelUrls, sourcePanels, frameWidth, frameHeight, frameCount, columns, plateConfigs }) => {
+      async ({ panelUrls, frameWidth, frameHeight, frameCount, columns }) => {
         const loadImage = (src) =>
           new Promise((resolve, reject) => {
             const image = new Image();
@@ -165,19 +196,6 @@ const generateRuntimeImages = async () => {
           const sx = Math.max(0, Math.min(image.naturalWidth - sw, image.naturalWidth * focusX - sw / 2));
           const sy = Math.max(0, Math.min(image.naturalHeight - sh, image.naturalHeight * focusY - sh / 2));
           ctx.drawImage(image, sx, sy, sw, sh, 0, 0, width, height);
-        };
-
-        const applyPlateGrade = (ctx, width, height) => {
-          const top = ctx.createLinearGradient(0, 0, 0, height);
-          top.addColorStop(0, 'rgba(1,4,10,0.22)');
-          top.addColorStop(0.46, 'rgba(0,0,0,0)');
-          top.addColorStop(1, 'rgba(1,4,10,0.36)');
-          ctx.fillStyle = top;
-          ctx.fillRect(0, 0, width, height);
-          ctx.globalAlpha = 0.16;
-          ctx.fillStyle = '#07111A';
-          ctx.fillRect(0, height - 130, width, 130);
-          ctx.globalAlpha = 1;
         };
 
         const wavyTopPath = (ctx, width, height, seed, bottom = frameHeight - 24) => {
@@ -275,34 +293,6 @@ const generateRuntimeImages = async () => {
           ctx.restore();
         };
 
-        const panelFocus = {
-          'rain-lantern-start': [0.48, 0.52],
-          'neon-sign-run': [0.52, 0.55],
-          'rooftop-hazard-line': [0.52, 0.5],
-          'neon-thorn-climb': [0.52, 0.54],
-          'lantern-warden-gate': [0.55, 0.52]
-        };
-
-        const terrainOutputs = sourcePanels.map((panel) => {
-          const plate = plateConfigs.find((item) => item.assetKey === panel.plateAssetKey);
-          if (!plate) throw new Error(`Missing visual terrain plate for ${panel.plateAssetKey}`);
-          const canvas = document.createElement('canvas');
-          canvas.width = plate.width;
-          canvas.height = plate.height;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) throw new Error('2D canvas unavailable');
-          ctx.imageSmoothingEnabled = true;
-          const [focusX, focusY] = panelFocus[panel.id] ?? [0.5, 0.5];
-          drawCover(ctx, images[panel.id], plate.width, plate.height, focusX, focusY);
-          applyPlateGrade(ctx, plate.width, plate.height);
-          return {
-            assetKey: panel.plateAssetKey,
-            width: plate.width,
-            height: plate.height,
-            dataUrl: canvas.toDataURL('image/png')
-          };
-        });
-
         const frameDefs = [
           { panel: 'rain-lantern-start', focusX: 0.36, focusY: 0.72, mask: 'bank', seed: 3 },
           { panel: 'rain-lantern-start', focusX: 0.24, focusY: 0.45, mask: 'ledge', seed: 9 },
@@ -341,7 +331,6 @@ const generateRuntimeImages = async () => {
         });
 
         return {
-          terrainOutputs,
           landformSheetDataUrl: sheet.toDataURL('image/png')
         };
       },
@@ -351,29 +340,16 @@ const generateRuntimeImages = async () => {
         frameWidth,
         frameHeight,
         frameCount,
-        columns,
-        plateConfigs: (stage.visualTerrain?.plates ?? []).map((plate) => ({
-          assetKey: plate.assetKey,
-          width: plate.width,
-          height: plate.height
-        }))
+        columns
       }
     );
 
-    for (const output of result.terrainOutputs) {
-      fs.writeFileSync(path.join(runtimeDir, `${output.assetKey}.png`), Buffer.from(output.dataUrl.split(',')[1], 'base64'));
+    for (const output of terrainOutputs) {
+      fs.copyFileSync(output.sourcePath, path.resolve(rootDir, output.output));
     }
     fs.writeFileSync(sheetOutputPath, Buffer.from(result.landformSheetDataUrl.split(',')[1], 'base64'));
 
-    return result.terrainOutputs.map((output) => ({
-      id: output.assetKey,
-      source: 'art/generated/stage1-concept-panels',
-      output: `src/assets/runtime/${output.assetKey}.png`,
-      width: output.width,
-      height: output.height,
-      mode: 'imagegen-concept-terrain-plate',
-      collisionSource: 'src/data/stage1Landforms.json#colliders'
-    }));
+    return terrainOutputs.map(({ sourcePath: _sourcePath, ...output }) => output);
   } finally {
     await browser.close();
   }
@@ -385,13 +361,13 @@ const writeData = (terrainPlateOutputs) => {
     dataOutputPath,
     `${JSON.stringify(
       {
-        generation: 'imagegen-concept-background-first-v2',
+        generation: 'imagegen-continuous-background-rolling-v4',
         assetKey: 'stage1-landforms-spritesheet',
         frameWidth,
         frameHeight,
         sourcePanels: sourcePanels.map((panel) => ({
           id: panel.id,
-          file: `art/generated/stage1-concept-panels/${panel.file}`,
+          file: `${sourceRelativeDir}/${panel.file}`,
           sectionId: panel.sectionId,
           plateAssetKey: panel.plateAssetKey
         })),
@@ -414,13 +390,13 @@ const updateManifest = (terrainPlateOutputs) => {
     ...terrainPlateOutputs,
     {
       id: 'stage1-landforms-spritesheet',
-      source: 'art/generated/stage1-concept-panels',
+      source: sourceRelativeDir,
       output: 'src/assets/runtime/stage1-landforms-spritesheet.png',
       frameWidth,
       frameHeight,
       frameCount,
       generatedAt: new Date().toISOString(),
-      mode: 'imagegen-concept-background-first-large-terrain',
+      mode: 'imagegen-continuous-background-rolling-v4-landforms',
       placementSource: 'src/data/stage1Landforms.json',
       runtimeInstances: landforms.length,
       colliderInstances: colliders.length
@@ -435,5 +411,5 @@ const terrainPlateOutputs = await generateRuntimeImages();
 writeData(terrainPlateOutputs);
 updateManifest(terrainPlateOutputs);
 
-console.log(`Generated ${terrainPlateOutputs.length} Stage1 concept terrain plates`);
+console.log(`Installed ${terrainPlateOutputs.length} approved Stage1 continuous terrain plates`);
 console.log(`Generated ${landforms.length} Stage1 large landforms, ${colliders.length} landform colliders, and ${sheetOutputPath}`);

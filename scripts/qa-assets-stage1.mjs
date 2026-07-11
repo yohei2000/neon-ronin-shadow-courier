@@ -19,10 +19,14 @@ const manifestText = read(path.resolve('src', 'data', 'approvedArtManifest.ts'))
 const artAssetsText = read(path.resolve('src', 'data', 'artAssets.ts'));
 const preloadText = read(path.resolve('src', 'scenes', 'PreloadScene.ts'));
 const stage1ContentText = read(path.resolve('src', 'data', 'stage1Content.json'));
+const stage1Content = JSON.parse(stage1ContentText);
 const stage1LandformsText = read(path.resolve('src', 'data', 'stage1Landforms.json'));
 const stage1Landforms = JSON.parse(stage1LandformsText);
 const runtimeManifest = JSON.parse(read(path.resolve('src', 'assets', 'runtime', 'runtime-sprite-sheets.json')));
 const runtimeManifestIds = new Set((runtimeManifest.sheets ?? []).map((sheet) => sheet.id));
+const continuousTerrainRoot = path.resolve('artifacts', 'stage1', 'continuous-background-v4-single-master');
+const continuousTerrainManifest = JSON.parse(read(path.join(continuousTerrainRoot, 'stage1-continuous-background-manifest.json')));
+const continuousTerrainValidation = JSON.parse(read(path.join(continuousTerrainRoot, 'stage1-continuous-background-validation.json')));
 const sourceFiles = listFiles(path.resolve('src')).filter((file) => /\.(ts|tsx|js|json)$/.test(file));
 const runtimeScanFiles = sourceFiles.filter((file) => !file.endsWith(path.join('src', 'data', 'approvedArtManifest.ts')));
 const stage1RuntimeFiles = sourceFiles.filter((file) =>
@@ -132,6 +136,37 @@ const copyChecks = productionMatches.map((productionPath, index) => {
     approvedPath,
     exists: fs.existsSync(productionPath) && fs.existsSync(approvedPath),
     byteEqual: fs.existsSync(productionPath) && fs.existsSync(approvedPath) ? byteEqual(productionPath, approvedPath) : false
+  };
+});
+
+const continuousTerrainSources = [
+  { id: 'stage1-terrain-rain-lantern-start', file: 'stage1-plate-01-rain-lantern-start.png' },
+  { id: 'stage1-terrain-neon-sign-run', file: 'stage1-plate-02-neon-sign-run.png' },
+  { id: 'stage1-terrain-rooftop-hazard-line', file: 'stage1-plate-03-rooftop-hazard-line.png' },
+  { id: 'stage1-terrain-neon-thorn-climb', file: 'stage1-plate-04-neon-thorn-climb.png' },
+  { id: 'stage1-terrain-lantern-warden-gate', file: 'stage1-plate-05-lantern-warden-gate.png' }
+];
+const runtimeTerrainSourceChecks = continuousTerrainSources.map((source) => {
+  const approvedPath = path.join(continuousTerrainRoot, source.file);
+  const runtimePath = path.resolve('src', 'assets', 'runtime', `${source.id}.png`);
+  return {
+    ...source,
+    approvedPath,
+    runtimePath,
+    exists: fs.existsSync(approvedPath) && fs.existsSync(runtimePath),
+    byteEqual: fs.existsSync(approvedPath) && fs.existsSync(runtimePath) ? byteEqual(approvedPath, runtimePath) : false
+  };
+});
+const runtimeTerrainManifestChecks = continuousTerrainSources.map((source) => {
+  const manifestEntry = (runtimeManifest.sheets ?? []).find((sheet) => sheet.id === source.id);
+  const plate = (stage1Content.visualTerrain?.plates ?? []).find((item) => item.assetKey === source.id);
+  return {
+    id: source.id,
+    passed:
+      manifestEntry?.source === 'artifacts/stage1/continuous-background-v4-single-master' &&
+      manifestEntry?.mode === 'imagegen-continuous-background-rolling-v4' &&
+      manifestEntry?.width === plate?.width &&
+      manifestEntry?.height === plate?.height
   };
 });
 
@@ -289,6 +324,29 @@ const checks = [
   check('runtime-environment-assets-exist', requiredRuntimeEnvironmentKeys.every((file) => fs.existsSync(path.resolve('src', 'assets', 'runtime', `${file}.png`))), requiredRuntimeEnvironmentKeys.join(', ')),
   check('runtime-manifest-covers-stage1-assets', requiredRuntimeAssetKeys.every((id) => runtimeManifestIds.has(id)), requiredRuntimeAssetKeys.join(', ')),
   check(
+    'stage1-continuous-terrain-approved-source',
+    continuousTerrainManifest.id === 'stage1-continuous-background-v4-rolling-master' &&
+      continuousTerrainManifest.scope === 'approved-stage1-runtime-terrain-source' &&
+      continuousTerrainManifest.notRuntimeIntegrated === false &&
+      continuousTerrainValidation.allSharedPixelsIdentical === true &&
+      continuousTerrainValidation.allRollingSeamChecksPass === true &&
+      continuousTerrainValidation.maximumSeamFeatherPx <= 2 &&
+      continuousTerrainValidation.wideAlphaCrossfadeUsed === false &&
+      continuousTerrainValidation.generationContinuity?.lowResolutionGeometryAuthorityCount === 1 &&
+      continuousTerrainValidation.generationContinuity?.independentlyGeneratedStagePanels === false,
+    `${continuousTerrainManifest.id}, overlap=${continuousTerrainValidation.allSharedPixelsIdentical}, rollingSeams=${continuousTerrainValidation.allRollingSeamChecksPass}, feather=${continuousTerrainValidation.maximumSeamFeatherPx}px, wideCrossfade=${continuousTerrainValidation.wideAlphaCrossfadeUsed}`
+  ),
+  check(
+    'runtime-terrain-byte-equal-approved-source',
+    runtimeTerrainSourceChecks.every((item) => item.exists && item.byteEqual),
+    `${runtimeTerrainSourceChecks.filter((item) => item.exists && item.byteEqual).length}/${runtimeTerrainSourceChecks.length} byte-equal`
+  ),
+  check(
+    'runtime-terrain-manifest-rolling-v4',
+    runtimeTerrainManifestChecks.every((item) => item.passed),
+    `${runtimeTerrainManifestChecks.filter((item) => item.passed).length}/${runtimeTerrainManifestChecks.length} manifest entries`
+  ),
+  check(
     'stage1-image-first-terrain-rendering',
       stage1ContentText.includes('"visualTerrain"') &&
       stage1TextBundle.includes('Stage1Data.visualTerrain.plates') &&
@@ -303,7 +361,7 @@ const checks = [
       (stage1Landforms.colliders ?? []).length >= 25 &&
       (stage1Landforms.sourcePanels ?? []).length === 5 &&
       (stage1Landforms.terrainPlateOutputs ?? []).length === 5 &&
-      stage1Landforms.generation === 'imagegen-concept-background-first-v2' &&
+      stage1Landforms.generation === 'imagegen-continuous-background-rolling-v4' &&
       new Set((stage1Landforms.landforms ?? []).map((landform) => landform.frame)).size >= 12 &&
       preloadText.includes('RuntimeEnvironmentAssetKey.Stage1Landforms') &&
       stage1TextBundle.includes('RuntimeEnvironmentAssetKey.Stage1Landforms') &&

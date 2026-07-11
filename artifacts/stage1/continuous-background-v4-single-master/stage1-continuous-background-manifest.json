@@ -1,0 +1,366 @@
+{
+  "version": 4,
+  "id": "stage1-continuous-background-v4-rolling-master",
+  "generatedAt": "2026-07-11T05:19:45.849556+00:00",
+  "scope": "approved-stage1-runtime-terrain-source",
+  "notRuntimeIntegrated": false,
+  "generation": {
+    "mode": "built-in-image_gen sequential rolling extension",
+    "workflow": "one full-stage low-res panorama -> five chained high-res rolling strips with inherited context -> one 10050x900 master -> overlap plate crops",
+    "independentStagePanels": false,
+    "stripWidth": 2700,
+    "inheritedOverlapNominalPx": 862,
+    "geometryAuthority": "sources/stage1-v4-single-panorama-imagegen.png",
+    "geometryAuthoritySha256": "be9197cc85a50a477524be7c6de8f1c38f0fad029318595092df3be3bc43a713",
+    "rollingStrips": [
+      {
+        "id": "strip-01",
+        "worldX": 0,
+        "generatedFile": "rolling-strips/strip-01-imagegen.png",
+        "generatedSize": [
+          2172,
+          724
+        ],
+        "generatedSha256": "dc00a3d54c93f9a26358106b687ff5c7f5a3bbdbcbb9c39964b0353c8449b17f",
+        "normalizedFile": "rolling-strips/strip-01-normalized.png",
+        "normalizedSize": [
+          2700,
+          900
+        ],
+        "normalizedSha256": "be2fe313a418f4177848e378cc8ca5c5bb2dbbc66cd0cb412fbe48fe03dde3ff"
+      },
+      {
+        "id": "strip-02",
+        "worldX": 1838,
+        "generatedFile": "rolling-strips/strip-02-imagegen.png",
+        "generatedSize": [
+          2172,
+          724
+        ],
+        "generatedSha256": "04ed17155775c911bbf1df30a04cbc6e84a529fafe30b983a5aabcef641c9de7",
+        "normalizedFile": "rolling-strips/strip-02-normalized.png",
+        "normalizedSize": [
+          2700,
+          900
+        ],
+        "normalizedSha256": "dae78f332899320a58811ac5a7815ee56112ae15b2d2e4430777dbc856f1961c"
+      },
+      {
+        "id": "strip-03",
+        "worldX": 3676,
+        "generatedFile": "rolling-strips/strip-03-imagegen.png",
+        "generatedSize": [
+          2172,
+          724
+        ],
+        "generatedSha256": "2f507785b089118ec77a490758fd230085ff2f35c37dd656d3697b0fb7e1fa88",
+        "normalizedFile": "rolling-strips/strip-03-normalized.png",
+        "normalizedSize": [
+          2700,
+          900
+        ],
+        "normalizedSha256": "9e2b310e55131c31b7828193a77f309daed90b9f9f0bfc9f6584149dcb15cfb7"
+      },
+      {
+        "id": "strip-04",
+        "worldX": 5514,
+        "generatedFile": "rolling-strips/strip-04-imagegen.png",
+        "generatedSize": [
+          2172,
+          724
+        ],
+        "generatedSha256": "f17fa93a2bc1071928211335893118ede8d315701c2bd160e18c9dd06edd2832",
+        "normalizedFile": "rolling-strips/strip-04-normalized.png",
+        "normalizedSize": [
+          2700,
+          900
+        ],
+        "normalizedSha256": "ed813c569bf38f2b36a397fc9b103cb1e7acde5e6523ba7627173495ea409963"
+      },
+      {
+        "id": "strip-05",
+        "worldX": 7350,
+        "generatedFile": "rolling-strips/strip-05-imagegen.png",
+        "generatedSize": [
+          2172,
+          724
+        ],
+        "generatedSha256": "2dc25207e43a86ce5c2634c2337294f3dc8b53481273c96656821f292348fadc",
+        "normalizedFile": "rolling-strips/strip-05-normalized.png",
+        "normalizedSize": [
+          2700,
+          900
+        ],
+        "normalizedSha256": "158fed59e2d61eab4420ca0f037debedc1afcb2ffd5c749594de89688ba78ee3"
+      }
+    ]
+  },
+  "worldWidth": 10050,
+  "worldHeight": 900,
+  "overlapPerUsableBoundaryPx": 256,
+  "master": {
+    "file": "stage1-master-layout.png",
+    "width": 10050,
+    "height": 900,
+    "sha256": "4b02e5c2522343f5152937ec3fcace8b9b379400a0de90afc9fe469c957d4784"
+  },
+  "overview": {
+    "file": "stage1-continuous-background-overview.png"
+  },
+  "joinReview": {
+    "file": "stage1-continuous-background-join-review.png"
+  },
+  "rollingSeamReview": {
+    "file": "stage1-continuous-background-rolling-seam-review.png"
+  },
+  "cleanRollingSeamReview": {
+    "file": "stage1-continuous-background-rolling-seam-review-clean.png"
+  },
+  "plates": [
+    {
+      "id": "plate-01-rain-lantern-start",
+      "name": "Rain Lantern Start",
+      "file": "stage1-plate-01-rain-lantern-start.png",
+      "worldX": 0,
+      "worldY": 0,
+      "width": 1856,
+      "height": 900,
+      "usableRange": {
+        "start": 0,
+        "end": 1600
+      },
+      "overlap": {
+        "left": 0,
+        "right": 256
+      },
+      "source": "cropped-from-stage1-master-layout.png",
+      "sha256": "195b3c389812aeb8027c12733a3e173039709a234a3f0d61552632b94bbd0b8f"
+    },
+    {
+      "id": "plate-02-neon-sign-run",
+      "name": "Neon Sign Run",
+      "file": "stage1-plate-02-neon-sign-run.png",
+      "worldX": 1344,
+      "worldY": 0,
+      "width": 2112,
+      "height": 900,
+      "usableRange": {
+        "start": 1600,
+        "end": 3200
+      },
+      "overlap": {
+        "left": 256,
+        "right": 256
+      },
+      "source": "cropped-from-stage1-master-layout.png",
+      "sha256": "0e497089916887cb41320c74bcd3815ea58773be21e27a0fdbb045f4dab316ac"
+    },
+    {
+      "id": "plate-03-rooftop-hazard-line",
+      "name": "Rooftop Hazard Line",
+      "file": "stage1-plate-03-rooftop-hazard-line.png",
+      "worldX": 2944,
+      "worldY": 0,
+      "width": 2912,
+      "height": 900,
+      "usableRange": {
+        "start": 3200,
+        "end": 5600
+      },
+      "overlap": {
+        "left": 256,
+        "right": 256
+      },
+      "source": "cropped-from-stage1-master-layout.png",
+      "sha256": "d06ad119e59bb80bf2c58350e371127ce276567a0bb0ae06da05af42cc5bee77"
+    },
+    {
+      "id": "plate-04-neon-thorn-climb",
+      "name": "Neon Thorn Climb",
+      "file": "stage1-plate-04-neon-thorn-climb.png",
+      "worldX": 5344,
+      "worldY": 0,
+      "width": 2812,
+      "height": 900,
+      "usableRange": {
+        "start": 5600,
+        "end": 7900
+      },
+      "overlap": {
+        "left": 256,
+        "right": 256
+      },
+      "source": "cropped-from-stage1-master-layout.png",
+      "sha256": "629414b9d9e90fa5eae6940d4900938f9c68e9381d5f0b78009015da422f184c"
+    },
+    {
+      "id": "plate-05-lantern-warden-gate",
+      "name": "Lantern Warden Gate",
+      "file": "stage1-plate-05-lantern-warden-gate.png",
+      "worldX": 7644,
+      "worldY": 0,
+      "width": 2406,
+      "height": 900,
+      "usableRange": {
+        "start": 7900,
+        "end": 10050
+      },
+      "overlap": {
+        "left": 256,
+        "right": 0
+      },
+      "source": "cropped-from-stage1-master-layout.png",
+      "sha256": "6d6e62f07c6f3ec892c91bc7078cf86a79843f75bd043abf3c11c1f48965229a"
+    }
+  ],
+  "validation": {
+    "master": {
+      "file": "stage1-master-layout.png",
+      "width": 10050,
+      "height": 900,
+      "sha256": "4b02e5c2522343f5152937ec3fcace8b9b379400a0de90afc9fe469c957d4784"
+    },
+    "generationContinuity": {
+      "lowResolutionGeometryAuthorityCount": 1,
+      "lowResolutionGeometryAuthority": "sources/stage1-v4-single-panorama-imagegen.png",
+      "highResolutionMethod": "sequential rolling ImageGen extension with inherited 862px context",
+      "independentlyGeneratedStagePanels": false,
+      "structuralTransitionLocation": "inside generated rolling strips, not at Stage section boundaries"
+    },
+    "adjacentSharedOverlap": [
+      {
+        "leftPlate": "plate-01-rain-lantern-start",
+        "rightPlate": "plate-02-neon-sign-run",
+        "sharedWorldRange": [
+          1344,
+          1856
+        ],
+        "sharedWidth": 512,
+        "maxPixelDelta": 0,
+        "pixelIdentical": true
+      },
+      {
+        "leftPlate": "plate-02-neon-sign-run",
+        "rightPlate": "plate-03-rooftop-hazard-line",
+        "sharedWorldRange": [
+          2944,
+          3456
+        ],
+        "sharedWidth": 512,
+        "maxPixelDelta": 0,
+        "pixelIdentical": true
+      },
+      {
+        "leftPlate": "plate-03-rooftop-hazard-line",
+        "rightPlate": "plate-04-neon-thorn-climb",
+        "sharedWorldRange": [
+          5344,
+          5856
+        ],
+        "sharedWidth": 512,
+        "maxPixelDelta": 0,
+        "pixelIdentical": true
+      },
+      {
+        "leftPlate": "plate-04-neon-thorn-climb",
+        "rightPlate": "plate-05-lantern-warden-gate",
+        "sharedWorldRange": [
+          7644,
+          8156
+        ],
+        "sharedWidth": 512,
+        "maxPixelDelta": 0,
+        "pixelIdentical": true
+      }
+    ],
+    "allSharedPixelsIdentical": true,
+    "rollingSeamAudit": [
+      {
+        "incomingSource": "strip-02",
+        "overlapWorldRange": [
+          1838,
+          2700
+        ],
+        "pathMinWorldX": 2173,
+        "pathMaxWorldX": 2423,
+        "seamMeanPixelDelta": 6.8363,
+        "localMedianPixelDelta": 4.8267,
+        "seamToLocalRatio": 1.4164,
+        "hardEdgePass": true,
+        "featherPx": 2,
+        "colorMatchDeltaRgb": [
+          -2.0,
+          2.0,
+          0.0
+        ]
+      },
+      {
+        "incomingSource": "strip-03",
+        "overlapWorldRange": [
+          3676,
+          4538
+        ],
+        "pathMinWorldX": 4044,
+        "pathMaxWorldX": 4177,
+        "seamMeanPixelDelta": 4.0978,
+        "localMedianPixelDelta": 3.8237,
+        "seamToLocalRatio": 1.0717,
+        "hardEdgePass": true,
+        "featherPx": 2,
+        "colorMatchDeltaRgb": [
+          4.0,
+          6.0,
+          6.0
+        ]
+      },
+      {
+        "incomingSource": "strip-04",
+        "overlapWorldRange": [
+          5514,
+          6376
+        ],
+        "pathMinWorldX": 5753,
+        "pathMaxWorldX": 5990,
+        "seamMeanPixelDelta": 5.8419,
+        "localMedianPixelDelta": 4.857,
+        "seamToLocalRatio": 1.2028,
+        "hardEdgePass": true,
+        "featherPx": 2,
+        "colorMatchDeltaRgb": [
+          6.0,
+          6.0,
+          6.0
+        ]
+      },
+      {
+        "incomingSource": "strip-05",
+        "overlapWorldRange": [
+          7350,
+          8214
+        ],
+        "pathMinWorldX": 7765,
+        "pathMaxWorldX": 7870,
+        "seamMeanPixelDelta": 3.5989,
+        "localMedianPixelDelta": 2.8015,
+        "seamToLocalRatio": 1.2846,
+        "hardEdgePass": true,
+        "featherPx": 2,
+        "colorMatchDeltaRgb": [
+          6.0,
+          6.0,
+          6.0
+        ]
+      }
+    ],
+    "allRollingSeamChecksPass": true,
+    "maximumSeamFeatherPx": 2,
+    "wideAlphaCrossfadeUsed": false
+  },
+  "constraints": [
+    "Stage layout is authored once as one uninterrupted ImageGen panorama.",
+    "High-resolution strips form a dependency chain; each strip is conditioned on the previous strip's exact tail.",
+    "Stage section transitions are rendered inside strips rather than created by stitching unrelated sections.",
+    "Final plate overlaps are cropped from one master and are pixel-identical.",
+    "The five runtime terrain PNGs must remain byte-identical to these adopted plate crops."
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T03:25:42.748Z",
+  "generatedAt": "2026-07-11T04:22:10.968Z",
   "passed": true,
   "checks": [
     {
@@ -66,6 +66,21 @@
       "id": "runtime-manifest-covers-stage1-assets",
       "passed": true,
       "detail": "player-runtime-spritesheet, ink-crawler-runtime-spritesheet, kite-wraith-runtime-spritesheet, slash-runtime-spritesheet, telegraph-runtime-spritesheet, lantern-warden-runtime-spritesheet, stage1-bg-far, stage1-bg-distant, stage1-bg-mid, stage1-bg-near, stage1-bg-front, stage1-ground-tile, stage1-platform-thin-tile, stage1-terrain-rain-lantern-start, stage1-terrain-neon-sign-run, stage1-terrain-rooftop-hazard-line, stage1-terrain-neon-thorn-climb, stage1-terrain-lantern-warden-gate, stage1-landforms-spritesheet, stage1-moon-gate, stage1-item-icons, stage1-touch-controls"
+    },
+    {
+      "id": "stage1-continuous-terrain-approved-source",
+      "passed": true,
+      "detail": "stage1-continuous-background-v4-rolling-master, overlap=true, rollingSeams=true, feather=2px, wideCrossfade=false"
+    },
+    {
+      "id": "runtime-terrain-byte-equal-approved-source",
+      "passed": true,
+      "detail": "5/5 byte-equal"
+    },
+    {
+      "id": "runtime-terrain-manifest-rolling-v4",
+      "passed": true,
+      "detail": "5/5 manifest entries"
     },
     {
       "id": "stage1-image-first-terrain-rendering",
@@ -238,9 +253,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.00002013888888888889,
+      "maxBeigeRatio": 0.0032489224137931035,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 19.14926435185506,
+      "maxAverageLuma": 27.624325311313694,
       "minOpaqueRatio": 1
     },
     {
@@ -249,9 +264,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.00005555555555555556,
+      "maxBeigeRatio": 0.001709280303030303,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 23.38427291666514,
+      "maxAverageLuma": 29.29241056399259,
       "minOpaqueRatio": 1
     },
     {
@@ -260,9 +275,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.0001638888888888889,
+      "maxBeigeRatio": 0.0001655982905982906,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 25.086499691355154,
+      "maxAverageLuma": 26.78423331299662,
       "minOpaqueRatio": 1
     },
     {
@@ -271,9 +286,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.000025120772946859902,
+      "maxBeigeRatio": 0.0002706654022443496,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 23.805673107890673,
+      "maxAverageLuma": 30.742970997314423,
       "minOpaqueRatio": 1
     },
     {
@@ -282,9 +297,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.00016227390180878552,
+      "maxBeigeRatio": 0.00044703057171885103,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 25.366723858737355,
+      "maxAverageLuma": 35.12140666851132,
       "minOpaqueRatio": 1
     },
     {
@@ -293,9 +308,9 @@
       "passed": true,
       "activeFrames": 12,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0001357148050311417,
+      "maxBeigeRatio": 0.0016751805445310711,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 30.96420018337791,
+      "maxAverageLuma": 38.42231079211771,
       "minOpaqueRatio": 0.4955579969618056
     },
     {

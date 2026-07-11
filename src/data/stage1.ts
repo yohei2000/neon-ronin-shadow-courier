@@ -36,6 +36,14 @@ export type Stage1TerrainSupport = RectData & {
 export type StageVisualTerrainPlate = RectData & {
   readonly id: string;
   readonly assetKey: RuntimeEnvironmentAssetKey;
+  readonly usableRange: {
+    readonly start: number;
+    readonly end: number;
+  };
+  readonly overlap: {
+    readonly left: number;
+    readonly right: number;
+  };
   readonly depth: number;
   readonly alpha: number;
 };
@@ -57,7 +65,11 @@ export type StageVisualTerrainCollider = RectData & {
 };
 
 export type Stage1LandformRuntimeData = {
-  readonly generation: 'background-first-landforms-v1' | 'imagegen-concept-background-first-v2';
+  readonly generation:
+    | 'background-first-landforms-v1'
+    | 'imagegen-concept-background-first-v2'
+    | 'imagegen-continuous-background-overlap-v2'
+    | 'imagegen-continuous-background-rolling-v4';
   readonly assetKey: RuntimeEnvironmentAssetKey;
   readonly frameWidth: number;
   readonly frameHeight: number;
@@ -81,7 +93,9 @@ export type Stage1LandformRuntimeData = {
 };
 
 export type StageVisualTerrain = {
-  readonly mode: 'image-first-v1';
+  readonly mode: 'image-first-overlap-v4';
+  readonly sourceManifest: string;
+  readonly overlapPerUsableBoundaryPx: number;
   readonly collisionSource: 'platforms+landform-colliders';
   readonly plates: readonly StageVisualTerrainPlate[];
   readonly landforms: readonly StageVisualTerrainLandform[];

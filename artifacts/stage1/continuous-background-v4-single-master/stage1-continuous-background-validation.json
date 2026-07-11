@@ -1,0 +1,143 @@
+{
+  "master": {
+    "file": "stage1-master-layout.png",
+    "width": 10050,
+    "height": 900,
+    "sha256": "4b02e5c2522343f5152937ec3fcace8b9b379400a0de90afc9fe469c957d4784"
+  },
+  "generationContinuity": {
+    "lowResolutionGeometryAuthorityCount": 1,
+    "lowResolutionGeometryAuthority": "sources/stage1-v4-single-panorama-imagegen.png",
+    "highResolutionMethod": "sequential rolling ImageGen extension with inherited 862px context",
+    "independentlyGeneratedStagePanels": false,
+    "structuralTransitionLocation": "inside generated rolling strips, not at Stage section boundaries"
+  },
+  "adjacentSharedOverlap": [
+    {
+      "leftPlate": "plate-01-rain-lantern-start",
+      "rightPlate": "plate-02-neon-sign-run",
+      "sharedWorldRange": [
+        1344,
+        1856
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    },
+    {
+      "leftPlate": "plate-02-neon-sign-run",
+      "rightPlate": "plate-03-rooftop-hazard-line",
+      "sharedWorldRange": [
+        2944,
+        3456
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    },
+    {
+      "leftPlate": "plate-03-rooftop-hazard-line",
+      "rightPlate": "plate-04-neon-thorn-climb",
+      "sharedWorldRange": [
+        5344,
+        5856
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    },
+    {
+      "leftPlate": "plate-04-neon-thorn-climb",
+      "rightPlate": "plate-05-lantern-warden-gate",
+      "sharedWorldRange": [
+        7644,
+        8156
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    }
+  ],
+  "allSharedPixelsIdentical": true,
+  "rollingSeamAudit": [
+    {
+      "incomingSource": "strip-02",
+      "overlapWorldRange": [
+        1838,
+        2700
+      ],
+      "pathMinWorldX": 2173,
+      "pathMaxWorldX": 2423,
+      "seamMeanPixelDelta": 6.8363,
+      "localMedianPixelDelta": 4.8267,
+      "seamToLocalRatio": 1.4164,
+      "hardEdgePass": true,
+      "featherPx": 2,
+      "colorMatchDeltaRgb": [
+        -2.0,
+        2.0,
+        0.0
+      ]
+    },
+    {
+      "incomingSource": "strip-03",
+      "overlapWorldRange": [
+        3676,
+        4538
+      ],
+      "pathMinWorldX": 4044,
+      "pathMaxWorldX": 4177,
+      "seamMeanPixelDelta": 4.0978,
+      "localMedianPixelDelta": 3.8237,
+      "seamToLocalRatio": 1.0717,
+      "hardEdgePass": true,
+      "featherPx": 2,
+      "colorMatchDeltaRgb": [
+        4.0,
+        6.0,
+        6.0
+      ]
+    },
+    {
+      "incomingSource": "strip-04",
+      "overlapWorldRange": [
+        5514,
+        6376
+      ],
+      "pathMinWorldX": 5753,
+      "pathMaxWorldX": 5990,
+      "seamMeanPixelDelta": 5.8419,
+      "localMedianPixelDelta": 4.857,
+      "seamToLocalRatio": 1.2028,
+      "hardEdgePass": true,
+      "featherPx": 2,
+      "colorMatchDeltaRgb": [
+        6.0,
+        6.0,
+        6.0
+      ]
+    },
+    {
+      "incomingSource": "strip-05",
+      "overlapWorldRange": [
+        7350,
+        8214
+      ],
+      "pathMinWorldX": 7765,
+      "pathMaxWorldX": 7870,
+      "seamMeanPixelDelta": 3.5989,
+      "localMedianPixelDelta": 2.8015,
+      "seamToLocalRatio": 1.2846,
+      "hardEdgePass": true,
+      "featherPx": 2,
+      "colorMatchDeltaRgb": [
+        6.0,
+        6.0,
+        6.0
+      ]
+    }
+  ],
+  "allRollingSeamChecksPass": true,
+  "maximumSeamFeatherPx": 2,
+  "wideAlphaCrossfadeUsed": false
+}

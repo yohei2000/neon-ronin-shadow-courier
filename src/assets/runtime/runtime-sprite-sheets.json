@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T03:07:54.455Z",
+  "generatedAt": "2026-07-11T04:20:43.329Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -8390,58 +8390,58 @@
     },
     {
       "id": "stage1-terrain-rain-lantern-start",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
-      "width": 1600,
+      "width": 1856,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-neon-sign-run",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
-      "width": 1600,
+      "width": 2112,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-rooftop-hazard-line",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
-      "width": 2400,
+      "width": 2912,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-neon-thorn-climb",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
-      "width": 2300,
+      "width": 2812,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-lantern-warden-gate",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
-      "width": 2150,
+      "width": 2406,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-landforms-spritesheet",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-landforms-spritesheet.png",
       "frameWidth": 768,
       "frameHeight": 384,
       "frameCount": 12,
-      "generatedAt": "2026-07-07T03:07:54.456Z",
-      "mode": "imagegen-concept-background-first-large-terrain",
+      "generatedAt": "2026-07-11T04:20:43.333Z",
+      "mode": "imagegen-continuous-background-rolling-v4-landforms",
       "placementSource": "src/data/stage1Landforms.json",
       "runtimeInstances": 25,
       "colliderInstances": 26

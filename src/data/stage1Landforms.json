@@ -1,36 +1,36 @@
 {
-  "generation": "imagegen-concept-background-first-v2",
+  "generation": "imagegen-continuous-background-rolling-v4",
   "assetKey": "stage1-landforms-spritesheet",
   "frameWidth": 768,
   "frameHeight": 384,
   "sourcePanels": [
     {
       "id": "rain-lantern-start",
-      "file": "art/generated/stage1-concept-panels/stage1-panel-01-rain-lantern-start.png",
+      "file": "artifacts/stage1/continuous-background-v4-single-master/stage1-plate-01-rain-lantern-start.png",
       "sectionId": "rain-lantern-start",
       "plateAssetKey": "stage1-terrain-rain-lantern-start"
     },
     {
       "id": "neon-sign-run",
-      "file": "art/generated/stage1-concept-panels/stage1-panel-02-neon-sign-run.png",
+      "file": "artifacts/stage1/continuous-background-v4-single-master/stage1-plate-02-neon-sign-run.png",
       "sectionId": "wall-kick-sign-shaft",
       "plateAssetKey": "stage1-terrain-neon-sign-run"
     },
     {
       "id": "rooftop-hazard-line",
-      "file": "art/generated/stage1-concept-panels/stage1-panel-03-rooftop-hazard-line.png",
+      "file": "artifacts/stage1/continuous-background-v4-single-master/stage1-plate-03-rooftop-hazard-line.png",
       "sectionId": "rooftop-hazard-line",
       "plateAssetKey": "stage1-terrain-rooftop-hazard-line"
     },
     {
       "id": "neon-thorn-climb",
-      "file": "art/generated/stage1-concept-panels/stage1-panel-04-neon-thorn-climb.png",
+      "file": "artifacts/stage1/continuous-background-v4-single-master/stage1-plate-04-neon-thorn-climb.png",
       "sectionId": "neon-thorn-climb",
       "plateAssetKey": "stage1-terrain-neon-thorn-climb"
     },
     {
       "id": "lantern-warden-gate",
-      "file": "art/generated/stage1-concept-panels/stage1-panel-05-lantern-warden-gate.png",
+      "file": "artifacts/stage1/continuous-background-v4-single-master/stage1-plate-05-lantern-warden-gate.png",
       "sectionId": "lantern-warden-gate",
       "plateAssetKey": "stage1-terrain-lantern-warden-gate"
     }
@@ -38,47 +38,47 @@
   "terrainPlateOutputs": [
     {
       "id": "stage1-terrain-rain-lantern-start",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
-      "width": 1600,
+      "width": 1856,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-neon-sign-run",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
-      "width": 1600,
+      "width": 2112,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-rooftop-hazard-line",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
-      "width": 2400,
+      "width": 2912,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-neon-thorn-climb",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
-      "width": 2300,
+      "width": 2812,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     },
     {
       "id": "stage1-terrain-lantern-warden-gate",
-      "source": "art/generated/stage1-concept-panels",
+      "source": "artifacts/stage1/continuous-background-v4-single-master",
       "output": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
-      "width": 2150,
+      "width": 2406,
       "height": 900,
-      "mode": "imagegen-concept-terrain-plate",
+      "mode": "imagegen-continuous-background-rolling-v4",
       "collisionSource": "src/data/stage1Landforms.json#colliders"
     }
   ],

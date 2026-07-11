@@ -1,0 +1,672 @@
+{
+  "version": 4,
+  "projectName": "Neon Ronin Stage 1 - Continuous Background v4 Rolling Master Collision Draft",
+  "world": {
+    "unit": "px",
+    "width": 10050,
+    "height": 900,
+    "gravity": 1420
+  },
+  "playerProfile": {
+    "bodyWidth": 42,
+    "bodyHeight": 72,
+    "footOffsetY": 0,
+    "jumpHeight": 110,
+    "maxRunSpeed": 183
+  },
+  "plates": [
+    {
+      "id": "plate-01-rain-lantern-start",
+      "name": "Rain Lantern Start",
+      "imageName": "stage1-plate-01-rain-lantern-start.png",
+      "imageRef": "stage1-plate-01-rain-lantern-start.png",
+      "worldX": 0,
+      "worldY": 0,
+      "scale": 1,
+      "width": 1856,
+      "height": 900,
+      "usableRange": {
+        "start": 0,
+        "end": 1600
+      },
+      "overlap": {
+        "left": 0,
+        "right": 256
+      },
+      "opacity": 1,
+      "locked": true,
+      "visible": true
+    },
+    {
+      "id": "plate-02-neon-sign-run",
+      "name": "Neon Sign Run",
+      "imageName": "stage1-plate-02-neon-sign-run.png",
+      "imageRef": "stage1-plate-02-neon-sign-run.png",
+      "worldX": 1344,
+      "worldY": 0,
+      "scale": 1,
+      "width": 2112,
+      "height": 900,
+      "usableRange": {
+        "start": 1600,
+        "end": 3200
+      },
+      "overlap": {
+        "left": 256,
+        "right": 256
+      },
+      "opacity": 1,
+      "locked": true,
+      "visible": true
+    },
+    {
+      "id": "plate-03-rooftop-hazard-line",
+      "name": "Rooftop Hazard Line",
+      "imageName": "stage1-plate-03-rooftop-hazard-line.png",
+      "imageRef": "stage1-plate-03-rooftop-hazard-line.png",
+      "worldX": 2944,
+      "worldY": 0,
+      "scale": 1,
+      "width": 2912,
+      "height": 900,
+      "usableRange": {
+        "start": 3200,
+        "end": 5600
+      },
+      "overlap": {
+        "left": 256,
+        "right": 256
+      },
+      "opacity": 1,
+      "locked": true,
+      "visible": true
+    },
+    {
+      "id": "plate-04-neon-thorn-climb",
+      "name": "Neon Thorn Climb",
+      "imageName": "stage1-plate-04-neon-thorn-climb.png",
+      "imageRef": "stage1-plate-04-neon-thorn-climb.png",
+      "worldX": 5344,
+      "worldY": 0,
+      "scale": 1,
+      "width": 2812,
+      "height": 900,
+      "usableRange": {
+        "start": 5600,
+        "end": 7900
+      },
+      "overlap": {
+        "left": 256,
+        "right": 256
+      },
+      "opacity": 1,
+      "locked": true,
+      "visible": true
+    },
+    {
+      "id": "plate-05-lantern-warden-gate",
+      "name": "Lantern Warden Gate",
+      "imageName": "stage1-plate-05-lantern-warden-gate.png",
+      "imageRef": "stage1-plate-05-lantern-warden-gate.png",
+      "worldX": 7644,
+      "worldY": 0,
+      "scale": 1,
+      "width": 2406,
+      "height": 900,
+      "usableRange": {
+        "start": 7900,
+        "end": 10050
+      },
+      "overlap": {
+        "left": 256,
+        "right": 0
+      },
+      "opacity": 1,
+      "locked": true,
+      "visible": true
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "draft-surface-001-rain-bank-left",
+      "plateId": "plate-01-rain-lantern-start",
+      "type": "ground",
+      "points": [
+        [
+          0,
+          520
+        ],
+        [
+          620,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-002-rain-shopfront",
+      "plateId": "plate-01-rain-lantern-start",
+      "type": "ground",
+      "points": [
+        [
+          620,
+          520
+        ],
+        [
+          1180,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-003-rain-shrine-bank",
+      "plateId": "plate-01-rain-lantern-start",
+      "type": "ground",
+      "points": [
+        [
+          1200,
+          520
+        ],
+        [
+          1560,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-004-rain-right-eaves",
+      "plateId": "plate-01-rain-lantern-start",
+      "type": "ground",
+      "points": [
+        [
+          1560,
+          520
+        ],
+        [
+          1850,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-005-sign-base-canal-wall",
+      "plateId": "plate-02-neon-sign-run",
+      "type": "ground",
+      "points": [
+        [
+          1850,
+          520
+        ],
+        [
+          2130,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-006-sign-low-attached-ledge",
+      "plateId": "plate-02-neon-sign-run",
+      "type": "ground",
+      "points": [
+        [
+          1680,
+          462
+        ],
+        [
+          1940,
+          462
+        ]
+      ],
+      "thickness": 30,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-007-sign-mid-wall-ledge",
+      "plateId": "plate-02-neon-sign-run",
+      "type": "ground",
+      "points": [
+        [
+          1940,
+          360
+        ],
+        [
+          2200,
+          360
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-008-sign-high-tower-ledge",
+      "plateId": "plate-02-neon-sign-run",
+      "type": "ground",
+      "points": [
+        [
+          2160,
+          252
+        ],
+        [
+          2420,
+          252
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-009-sign-roof-bridge",
+      "plateId": "plate-02-neon-sign-run",
+      "type": "ground",
+      "points": [
+        [
+          2400,
+          175
+        ],
+        [
+          3140,
+          175
+        ]
+      ],
+      "thickness": 30,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-010-central-drop-roof-wall",
+      "plateId": "plate-02-neon-sign-run",
+      "type": "ground",
+      "points": [
+        [
+          3140,
+          382
+        ],
+        [
+          3760,
+          382
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-011-central-market-left",
+      "plateId": "plate-03-rooftop-hazard-line",
+      "type": "ground",
+      "points": [
+        [
+          3760,
+          390
+        ],
+        [
+          4200,
+          390
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-012-central-market-right",
+      "plateId": "plate-03-rooftop-hazard-line",
+      "type": "ground",
+      "points": [
+        [
+          4200,
+          396
+        ],
+        [
+          4680,
+          396
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-013-market-drain-bank",
+      "plateId": "plate-03-rooftop-hazard-line",
+      "type": "ground",
+      "points": [
+        [
+          4680,
+          430
+        ],
+        [
+          5480,
+          430
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-014-canal-descent-embankment",
+      "plateId": "plate-03-rooftop-hazard-line",
+      "type": "ground",
+      "points": [
+        [
+          5480,
+          520
+        ],
+        [
+          6200,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-015-thorn-base-canal-bank",
+      "plateId": "plate-04-neon-thorn-climb",
+      "type": "ground",
+      "points": [
+        [
+          6200,
+          520
+        ],
+        [
+          6560,
+          520
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-016-thorn-updraft-stone-ledge",
+      "plateId": "plate-04-neon-thorn-climb",
+      "type": "ground",
+      "points": [
+        [
+          6710,
+          286
+        ],
+        [
+          6910,
+          286
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-017-thorn-high-roof-left",
+      "plateId": "plate-04-neon-thorn-climb",
+      "type": "ground",
+      "points": [
+        [
+          7240,
+          245
+        ],
+        [
+          7620,
+          245
+        ]
+      ],
+      "thickness": 30,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-018-thorn-high-roof-right",
+      "plateId": "plate-04-neon-thorn-climb",
+      "type": "ground",
+      "points": [
+        [
+          7620,
+          245
+        ],
+        [
+          7980,
+          245
+        ]
+      ],
+      "thickness": 30,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-019-gate-descent-terrace",
+      "plateId": "plate-05-lantern-warden-gate",
+      "type": "ground",
+      "points": [
+        [
+          7980,
+          314
+        ],
+        [
+          8460,
+          314
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-020-gate-rest-stonewall",
+      "plateId": "plate-05-lantern-warden-gate",
+      "type": "ground",
+      "points": [
+        [
+          8460,
+          315
+        ],
+        [
+          8900,
+          315
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-021-warden-arena-causeway",
+      "plateId": "plate-05-lantern-warden-gate",
+      "type": "ground",
+      "points": [
+        [
+          8900,
+          500
+        ],
+        [
+          9820,
+          500
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    },
+    {
+      "id": "draft-surface-022-moon-gate-threshold",
+      "plateId": "plate-05-lantern-warden-gate",
+      "type": "ground",
+      "points": [
+        [
+          9820,
+          500
+        ],
+        [
+          10050,
+          500
+        ]
+      ],
+      "thickness": 42,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "status": "draft-authoring-candidate",
+      "notes": "Retrace against v4 before replacing runtime collision data; current runtime collision remains unchanged."
+    }
+  ],
+  "visualGroundlineCandidates": [
+    {
+      "id": "visual-line-join-01-wet-alley-to-sign-base",
+      "points": [
+        [
+          0,
+          520
+        ],
+        [
+          1850,
+          520
+        ],
+        [
+          2130,
+          520
+        ]
+      ],
+      "notes": "Continuous alley ground and sign tower base through Join 01."
+    },
+    {
+      "id": "visual-line-join-02-high-sign-bridge-to-market-roof",
+      "points": [
+        [
+          2400,
+          175
+        ],
+        [
+          3140,
+          175
+        ],
+        [
+          3200,
+          382
+        ],
+        [
+          3760,
+          382
+        ]
+      ],
+      "notes": "Bridge descends by visible stairs into market roof across Join 02."
+    },
+    {
+      "id": "visual-line-join-03-roof-to-drain-bank",
+      "points": [
+        [
+          4680,
+          430
+        ],
+        [
+          5480,
+          430
+        ],
+        [
+          5600,
+          520
+        ],
+        [
+          6560,
+          520
+        ]
+      ],
+      "notes": "Rooftop hazard line steps down into drain-wall base across Join 03."
+    },
+    {
+      "id": "visual-line-join-04-high-roof-to-gate-terrace",
+      "points": [
+        [
+          7240,
+          245
+        ],
+        [
+          7980,
+          245
+        ],
+        [
+          8460,
+          314
+        ],
+        [
+          8900,
+          315
+        ],
+        [
+          8900,
+          500
+        ],
+        [
+          10050,
+          500
+        ]
+      ],
+      "notes": "High roof, terrace, and Warden arena are visually tied across Join 04."
+    }
+  ],
+  "notes": [
+    "The v4 terrain images were adopted for Stage1 runtime on 2026-07-11.",
+    "One low-resolution panorama controls the whole route; high-resolution strips were generated sequentially, never as independent stage panels.",
+    "Every strip inherits 862 pixels from the previous strip, and section transitions occur inside a generated strip.",
+    "Collision surfaces remain draft authoring candidates; runtime collision data is unchanged by the background adoption."
+  ],
+  "imageSource": "single low-res panorama, sequentially extended high-res master, then overlap plate crops"
+}
