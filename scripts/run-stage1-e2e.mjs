@@ -35,7 +35,8 @@ const wardenFarRightX = stage.warden.x + 260;
 const wardenFaceLeftX = stage.warden.x - 40;
 const verticalAssistZones = [
   { startX: 1500, endX: 2460, minY: 165, holdMs: 430 },
-  { startX: 6100, endX: 7240, minY: 135, holdMs: 520 }
+  { startX: 6100, endX: 7240, minY: 135, holdMs: 520 },
+  { startX: 8150, endX: wardenEngageX, minY: 230, holdMs: 240 }
 ];
 
 const assert = (condition, message) => {
