@@ -86,10 +86,22 @@ export type Stage2QaState = Omit<Stage1QaState, 'scene' | 'warden' | 'wardenDefe
   readonly signalGateActive?: boolean;
 };
 
+export type GameAudioQaState = {
+  readonly profile: 'menu' | 'stage1' | 'stage2' | 'clear' | null;
+  readonly locked: boolean;
+  readonly activeLoopKeys: readonly string[];
+  readonly activeVoices: number;
+  readonly limiterActive: boolean;
+  readonly bossIntensity: number;
+  readonly paused: boolean;
+  readonly musicDuck: number;
+};
+
 declare global {
   interface Window {
     __NEON_RONIN_STAGE1__?: Stage1QaState;
     __NEON_RONIN_STAGE2__?: Stage2QaState;
     __NEON_RONIN_STAGE1_MENU__?: Stage1MenuQaState;
+    __NEON_RONIN_AUDIO__?: GameAudioQaState;
   }
 }

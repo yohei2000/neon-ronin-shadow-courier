@@ -62,8 +62,8 @@ export class InkCrawler implements StageEnemy {
     return centerRect(this.sprite.x, this.sprite.y - this.visualOffsetY + InkCrawlerBodyCenterOffsetY, 58, 42);
   }
 
-  takeHit(amount: number): boolean {
-    if (this.dead) return false;
+  takeHit(amount: number): import('./types').EnemyHitResult {
+    if (this.dead) return 'ignored';
     this.hp -= amount;
     if (this.hp <= 0) {
       this.dead = true;
@@ -78,7 +78,7 @@ export class InkCrawler implements StageEnemy {
         ease: 'Sine.easeOut',
         onComplete: () => this.sprite.setVisible(false)
       });
-      return true;
+      return 'defeated';
     }
     this.sprite.setTint(Palette.enemyAmber);
     this.sprite.setAlpha(0.82);
@@ -89,7 +89,7 @@ export class InkCrawler implements StageEnemy {
       this.sprite.setAlpha(1);
       this.sprite.play('ink-crawler-patrol', true);
     });
-    return false;
+    return 'hit';
   }
 
   getRuntimeState(): EnemyRuntimeState {

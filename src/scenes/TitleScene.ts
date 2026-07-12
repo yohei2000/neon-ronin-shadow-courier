@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
+import { GameAudioKey } from '../data/audioAssets';
 import { ArtAssetKey, RuntimeAssetKeys, RuntimeSpriteAssetKey, RuntimeTitleAssetKey } from '../data/artAssets';
 import {
   ArtLockPhase,
@@ -12,6 +13,7 @@ import {
   SelectedDirection
 } from '../data/artLockGate';
 import { SaveSystem } from '../systems/SaveSystem';
+import { GameAudio } from '../systems/Stage1Audio';
 import type { ArtLockQaState } from '../types/artLockQa';
 import '../types/stage1Qa';
 
@@ -42,12 +44,14 @@ export class TitleScene extends Phaser.Scene {
   private menuLabels: Phaser.GameObjects.Text[] = [];
   private selectionAura?: Phaser.GameObjects.Sprite;
   private activating = false;
+  private audio!: GameAudio;
 
   constructor() {
     super(SceneKey.Title);
   }
 
   create(): void {
+    this.audio = new GameAudio(this, SaveSystem.load().settings, 'menu');
     this.selected = 0;
     this.menuButtons = [];
     this.menuLabels = [];
@@ -60,7 +64,8 @@ export class TitleScene extends Phaser.Scene {
     this.publishQaState();
   }
 
-  update(time: number): void {
+  update(time: number, delta: number): void {
+    this.audio.update({ bossIntensity: 0 }, delta);
     this.children.list.forEach((child) => {
       const tile = child as Phaser.GameObjects.TileSprite;
       if (tile instanceof Phaser.GameObjects.TileSprite && tile.getData('scrollSpeed')) {
@@ -135,6 +140,7 @@ export class TitleScene extends Phaser.Scene {
   private select(index: number): void {
     if (this.activating || index === this.selected) return;
     this.selected = index;
+    this.audio.play(GameAudioKey.UiMove, { variation: false });
     this.renderMenu();
     this.playSelectionAnimation(index);
   }
@@ -164,6 +170,7 @@ export class TitleScene extends Phaser.Scene {
   private move(delta: number): void {
     if (this.activating) return;
     this.selected = (this.selected + this.menuItems.length + delta) % this.menuItems.length;
+    this.audio.play(GameAudioKey.UiMove, { variation: false });
     this.renderMenu();
     this.playSelectionAnimation(this.selected);
   }
@@ -174,10 +181,11 @@ export class TitleScene extends Phaser.Scene {
     this.selected = index;
     this.renderMenu();
     this.spawnConfirmEffect(index);
+    this.audio.play(GameAudioKey.UiConfirm, { variation: false });
     const visualIndex = this.visualMenuIndex(index);
     this.menuButtons[index]?.play(`title-menu-confirm-${visualIndex}`, true);
     const item = this.menuItems[index];
-    this.time.delayedCall(250, () => this.scene.start(item.scene, item.data));
+    this.time.delayedCall(300, () => this.scene.start(item.scene, item.data));
   }
 
   private renderMenu(): void {

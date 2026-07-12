@@ -2,14 +2,22 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
+import { GameAudioKey } from '../data/audioAssets';
 import { RuntimeEnvironmentAssetKey } from '../data/artAssets';
+import { SaveSystem } from '../systems/SaveSystem';
+import { GameAudio } from '../systems/Stage1Audio';
 
 export class CreditsScene extends Phaser.Scene {
+  private audio!: GameAudio;
+  private leaving = false;
+
   constructor() {
     super(SceneKey.Credits);
   }
 
   create(): void {
+    this.audio = new GameAudio(this, SaveSystem.load().settings, 'menu');
+    this.leaving = false;
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundFar).setAlpha(0.94);
     this.add.tileSprite(BASE_WIDTH / 2, BASE_HEIGHT / 2, BASE_WIDTH, BASE_HEIGHT, RuntimeEnvironmentAssetKey.BackgroundDistant).setAlpha(0.66);
@@ -40,9 +48,20 @@ export class CreditsScene extends Phaser.Scene {
       color: PaletteHex.paleMoonMist
     });
     this.input.keyboard?.removeAllListeners('keydown-ESC');
-    this.input.keyboard?.on('keydown-ESC', () => this.scene.start(SceneKey.Title));
+    this.input.keyboard?.on('keydown-ESC', () => this.back());
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.keyboard?.removeAllListeners('keydown-ESC'));
-    this.input.on('pointerup', () => this.scene.start(SceneKey.Title));
+    this.input.on('pointerup', () => this.back());
     window.__NEON_RONIN_STAGE1_MENU__ = { scene: 'CreditsScene' };
+  }
+
+  update(_time: number, delta: number): void {
+    this.audio.update({ bossIntensity: 0 }, delta);
+  }
+
+  private back(): void {
+    if (this.leaving) return;
+    this.leaving = true;
+    this.audio.play(GameAudioKey.UiBack, { variation: false });
+    this.time.delayedCall(240, () => this.scene.start(SceneKey.Title));
   }
 }

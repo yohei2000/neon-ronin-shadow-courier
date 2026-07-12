@@ -3,6 +3,7 @@ import type { RectData } from '../data/stage1';
 export type DamageSource = 'enemy-contact' | 'hazard' | 'fall' | 'warden-attack';
 
 export type EnemyKind = 'ink-crawler' | 'kite-wraith' | 'lantern-warden';
+export type EnemyHitResult = 'ignored' | 'hit' | 'defeated';
 
 export type EnemyRuntimeState = {
   readonly id: string;
@@ -23,7 +24,7 @@ export interface StageEnemy {
   dead: boolean;
   update(deltaMs: number, playerX: number, playerY: number): void;
   getBody(): RectData;
-  takeHit(amount: number): boolean;
+  takeHit(amount: number): EnemyHitResult;
   getRuntimeState(): EnemyRuntimeState;
   destroy(): void;
 }

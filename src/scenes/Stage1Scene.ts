@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { Palette, PaletteHex } from '../config/palette';
-import { Stage1SfxKey } from '../data/audioAssets';
+import { GameAudioKey, type GameAudioKey as GameAudioKeyType } from '../data/audioAssets';
 import { ArtAssetKey, RuntimeEnvironmentAssetKey, RuntimeItemFrame, RuntimeSpriteAssetKey, RuntimeStage1LandformFrameCount } from '../data/artAssets';
 import {
   Stage1CollisionPlatforms,
@@ -25,7 +25,7 @@ import { CameraController } from '../systems/CameraController';
 import { CombatSystem, type SlashState } from '../systems/CombatSystem';
 import { InputSystem } from '../systems/InputSystem';
 import { SaveSystem } from '../systems/SaveSystem';
-import { Stage1Audio } from '../systems/Stage1Audio';
+import { GameAudio } from '../systems/Stage1Audio';
 import { centerRect, rectsOverlap } from '../systems/geometry';
 import { calculateStageRank } from '../systems/rank';
 import { Hud } from '../ui/Hud';
@@ -48,7 +48,7 @@ export class Stage1Scene extends Phaser.Scene {
   private inputSystem!: InputSystem;
   private touchControls!: TouchControls;
   private cameraController!: CameraController;
-  private audio!: Stage1Audio;
+  private audio!: GameAudio;
   private hud!: Hud;
   private enemies: StageEnemy[] = [];
   private warden!: LanternWarden;
@@ -70,6 +70,7 @@ export class Stage1Scene extends Phaser.Scene {
   private checkpointMessageUntilMs = 0;
   private pauseObjects: Phaser.GameObjects.GameObject[] = [];
   private parallaxLayers: ParallaxLayer[] = [];
+  private updraftActive = false;
 
   constructor() {
     super(SceneKey.Stage1);
@@ -77,7 +78,7 @@ export class Stage1Scene extends Phaser.Scene {
 
   create(): void {
     const save = SaveSystem.load();
-    this.audio = new Stage1Audio(this, save.settings);
+    this.audio = new GameAudio(this, save.settings, 'stage1');
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.cameras.main.setBounds(0, 0, Stage1Data.worldWidth, Stage1Data.worldHeight);
     this.startTimeMs = this.time.now;
@@ -105,6 +106,7 @@ export class Stage1Scene extends Phaser.Scene {
     }
 
     if (this.paused || this.gameOver) {
+      this.updateAudioMix(Math.min(delta, Stage1Tuning.maxFrameDeltaMs), false);
       if (input.retryPressed || input.confirmPressed) {
         this.retryCheckpoint();
       } else if (input.restartPressed) {
@@ -131,6 +133,7 @@ export class Stage1Scene extends Phaser.Scene {
     this.resolveCombat(slash, time);
     this.resolveEnemyContact(time);
     this.resolveHazards(time);
+    this.updraftActive = false;
     this.resolveGimmicks(time);
     this.resolveCheckpoints(time);
     this.resolveCollectibles();
@@ -139,6 +142,8 @@ export class Stage1Scene extends Phaser.Scene {
     if (this.player.isDead()) {
       this.showGameOver();
     }
+
+    this.updateAudioMix(gameplayDelta, this.updraftActive);
 
     this.cameraController.update(playerPosition, gameplayDelta);
     const section = getSectionForX(playerPosition.x);
@@ -342,15 +347,21 @@ export class Stage1Scene extends Phaser.Scene {
       const lastHit = this.lastEnemyHitMs.get(enemy.id) ?? -Infinity;
       if (nowMs - lastHit < 260) continue;
       if (CombatSystem.overlapsActiveSlash(slash, enemy.getBody())) {
-        const hitLanded = enemy.takeHit(1);
-        if (hitLanded) {
-          this.lastEnemyHitMs.set(enemy.id, nowMs);
-          this.audio.play(Stage1SfxKey.EnemyDefeat, {
-            volume: enemy.kind === 'lantern-warden' ? 1 : 0.82,
-            detune: enemy.kind === 'kite-wraith' ? 160 : enemy.kind === 'lantern-warden' ? -260 : 0
-          });
-          this.cameras.main.shake(SaveSystem.load().settings.reducedShake ? 20 : 45, 0.002);
+        const enemyBody = enemy.getBody();
+        const hitResult = enemy.takeHit(1);
+        if (hitResult === 'ignored') continue;
+        this.lastEnemyHitMs.set(enemy.id, nowMs);
+        const sourceX = enemyBody.x + enemyBody.width / 2;
+        if (enemy.kind === 'lantern-warden') {
+          this.audio.play(hitResult === 'defeated' ? GameAudioKey.WardenDefeat : GameAudioKey.WardenHit, { sourceX });
+        } else if (hitResult === 'defeated') {
+          this.audio.play(enemy.kind === 'kite-wraith' ? GameAudioKey.EnemyDefeatWraith : GameAudioKey.EnemyDefeat, { sourceX });
+        } else if (slash.mode === 'spin') {
+          this.audio.play(GameAudioKey.HitHeavy, { sourceX, detune: enemy.kind === 'kite-wraith' ? 70 : -30 });
+        } else {
+          this.audio.playGroup('hitLight', { sourceX, detune: enemy.kind === 'kite-wraith' ? 90 : -20 });
         }
+        this.cameras.main.shake(SaveSystem.load().settings.reducedShake ? 20 : 45, hitResult === 'defeated' ? 0.0024 : 0.0017);
       }
     }
   }
@@ -361,14 +372,14 @@ export class Stage1Scene extends Phaser.Scene {
       if (!enemy.dead && rectsOverlap(body, enemy.getBody())) {
         const enemyBody = enemy.getBody();
         if (this.player.takeDamage(enemy.damage, nowMs, 'enemy-contact', enemyBody.x + enemyBody.width / 2, enemy.id)) {
-          this.audio.play(Stage1SfxKey.PlayerHurt);
+          this.audio.play(GameAudioKey.PlayerHurt);
         }
       }
     }
     for (const attack of this.warden.getAttackRects()) {
       if (rectsOverlap(body, attack)) {
         if (this.player.takeDamage(1, nowMs, 'warden-attack', attack.x + attack.width / 2, 'lantern-warden')) {
-          this.audio.play(Stage1SfxKey.PlayerHurt);
+          this.audio.play(GameAudioKey.PlayerHurt);
         }
       }
     }
@@ -381,7 +392,7 @@ export class Stage1Scene extends Phaser.Scene {
       hazard.image.setAlpha(active ? (hazard.type === 'fall-pit' ? 0.30 : 0.78) : 0.24);
       if (active && rectsOverlap(body, hazard)) {
         if (this.player.takeDamage(hazard.damage, nowMs, hazard.type === 'fall-pit' ? 'fall' : 'hazard', hazard.x + hazard.width / 2, hazard.id)) {
-          this.audio.play(Stage1SfxKey.PlayerHurt);
+          this.audio.play(GameAudioKey.PlayerHurt);
         }
         if (hazard.type === 'fall-pit') this.player.respawnAtCheckpoint();
       }
@@ -398,6 +409,7 @@ export class Stage1Scene extends Phaser.Scene {
       const pulse = 0.36 + Math.sin(nowMs / 180 + gimmick.x * 0.01) * 0.14;
       gimmick.image.setAlpha(pulse).setAngle(Math.sin(nowMs / 260 + gimmick.x * 0.006) * 3);
       if (gimmick.type === 'updraft-vent' && rectsOverlap(body, gimmick)) {
+        this.updraftActive = true;
         this.player.applyUpdraft(gimmick.strength);
       }
     }
@@ -411,31 +423,31 @@ export class Stage1Scene extends Phaser.Scene {
         this.player.setCheckpoint(checkpoint.respawnX, checkpoint.respawnY);
         this.checkpointMessage = `Checkpoint: ${checkpoint.name}`;
         this.checkpointMessageUntilMs = nowMs + 2500;
-        this.audio.play(Stage1SfxKey.Checkpoint);
+        this.audio.playAt(GameAudioKey.Checkpoint, checkpoint.x + checkpoint.width / 2);
       }
     }
   }
 
   private resolveCollectibles(): void {
     const body = this.player.getBody();
-    this.collect(this.sealVisuals, this.collectedSeals, body, Stage1SfxKey.PickupSeal);
-    this.collect(this.scrollVisuals, this.collectedScrolls, body, Stage1SfxKey.PickupScroll);
+    this.collect(this.sealVisuals, this.collectedSeals, body, GameAudioKey.PickupSeal);
+    this.collect(this.scrollVisuals, this.collectedScrolls, body, GameAudioKey.PickupScroll);
     for (const pickup of this.pickupVisuals) {
       if (this.collectedPickups.has(pickup.id) || !rectsOverlap(body, pickup.body)) continue;
       this.collectedPickups.add(pickup.id);
       pickup.image.setVisible(false);
-      this.audio.play(pickup.type === 'health' ? Stage1SfxKey.PickupHealth : Stage1SfxKey.PickupEnergy);
+      this.audio.playAt(pickup.type === 'health' ? GameAudioKey.PickupHealth : GameAudioKey.PickupEnergy, pickup.image.x);
       if (pickup.type === 'health') this.player.heal(5);
     }
   }
 
-  private collect(visuals: readonly CollectibleVisual[], target: Set<string>, body: RectData, sfxKey: Stage1SfxKey): void {
+  private collect(visuals: readonly CollectibleVisual[], target: Set<string>, body: RectData, sfxKey: GameAudioKeyType): void {
     for (const visual of visuals) {
       if (target.has(visual.id) || !rectsOverlap(body, visual.body)) continue;
-      const detune = sfxKey === Stage1SfxKey.PickupSeal ? Math.min(420, target.size * 18) : 0;
+      const detune = sfxKey === GameAudioKey.PickupSeal ? Math.min(420, target.size * 18) : 0;
       target.add(visual.id);
       visual.image.setVisible(false);
-      this.audio.play(sfxKey, { detune });
+      this.audio.play(sfxKey, { detune, sourceX: visual.image.x });
     }
   }
 
@@ -446,7 +458,6 @@ export class Stage1Scene extends Phaser.Scene {
       const timeMs = this.elapsedMs();
       const rank = calculateStageRank(timeMs, this.player.getDamageTaken(), this.collectedSeals.size);
       const save = SaveSystem.recordStage1Clear(timeMs, rank, Array.from(this.collectedScrolls));
-      this.audio.play(Stage1SfxKey.StageClear);
       this.scene.start(SceneKey.StageClear, {
         timeMs,
         rank,
@@ -472,13 +483,37 @@ export class Stage1Scene extends Phaser.Scene {
 
   private playPlayerActionSfx(events: readonly PlayerActionEvent[]): void {
     for (const event of events) {
-      if (event === 'jump') this.audio.play(Stage1SfxKey.Jump);
-      if (event === 'speedFlipJump') this.audio.play(Stage1SfxKey.Jump, { detune: 180, volume: 0.68 });
-      if (event === 'wallKick') this.audio.play(Stage1SfxKey.WallKick);
-      if (event === 'attack') this.audio.play(Stage1SfxKey.Attack);
-      if (event === 'spinAttack') this.audio.play(Stage1SfxKey.SpinAttack);
-      if (event === 'hurt') this.audio.play(Stage1SfxKey.PlayerHurt);
+      if (event === 'jump') this.audio.play(GameAudioKey.Jump);
+      if (event === 'speedFlipJump') this.audio.play(GameAudioKey.Jump, { detune: 180, volume: 1.08 });
+      if (event === 'wallKick') this.audio.play(GameAudioKey.WallKick);
+      if (event === 'landSoft') this.audio.play(GameAudioKey.LandSoft, { detuneVariance: 24 });
+      if (event === 'landHeavy') this.audio.play(GameAudioKey.LandHeavy, { detuneVariance: 14 });
+      if (event === 'attack') this.audio.play(GameAudioKey.Attack);
+      if (event === 'spinAttack') this.audio.play(GameAudioKey.SpinAttack);
+      if (event === 'hurt') this.audio.play(GameAudioKey.PlayerHurt);
     }
+  }
+
+  private updateAudioMix(deltaMs: number, updraftActive: boolean): void {
+    const playerState = this.player.getRuntimeState();
+    const bossDistance = Stage1Data.warden.arena.x - playerState.x;
+    this.audio.update(
+      {
+        listenerX: playerState.x,
+        velocityX: playerState.vx,
+        velocityY: playerState.vy,
+        onGround: playerState.onGround,
+        wallSliding: playerState.wallSliding,
+        bossIntensity:
+          this.paused || this.gameOver || this.warden.dead
+            ? 0
+            : Phaser.Math.Clamp(1 - Math.max(0, bossDistance) / 720, 0, 1),
+        updraftActive,
+        paused: this.paused,
+        gameOver: this.gameOver
+      },
+      deltaMs
+    );
   }
 
   private createPauseOverlay(): void {
@@ -497,14 +532,17 @@ export class Stage1Scene extends Phaser.Scene {
     this.pauseObjects.forEach((object) => (object as unknown as { setVisible: (value: boolean) => void }).setVisible(false));
   }
 
-  private setPaused(value: boolean): void {
+  private setPaused(value: boolean, announce = true): void {
     this.paused = value;
     this.pauseObjects.forEach((object) => (object as unknown as { setVisible: (value: boolean) => void }).setVisible(value));
+    this.audio.setPaused(value);
+    if (announce) this.audio.play(GameAudioKey.UiPause, { detune: value ? -40 : 120, variation: false });
   }
 
   private showGameOver(): void {
     this.gameOver = true;
-    this.setPaused(true);
+    this.setPaused(true, false);
+    this.audio.setGameOver(true);
     const text = this.pauseObjects[1] as Phaser.GameObjects.Text;
     text.setText('GAME OVER').setColor(PaletteHex.enemyVermilion);
   }
@@ -512,7 +550,9 @@ export class Stage1Scene extends Phaser.Scene {
   private retryCheckpoint(): void {
     this.gameOver = false;
     this.player.retryCheckpoint();
-    this.setPaused(false);
+    this.audio.setGameOver(false);
+    this.audio.play(GameAudioKey.Respawn, { variation: false });
+    this.setPaused(false, false);
     const text = this.pauseObjects[1] as Phaser.GameObjects.Text;
     text.setText('PAUSED').setColor(PaletteHex.neonCyan);
   }

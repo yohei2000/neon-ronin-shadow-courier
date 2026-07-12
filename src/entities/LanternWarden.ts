@@ -118,8 +118,8 @@ export class LanternWarden implements StageEnemy {
     return melee ? [melee, ...projectiles] : projectiles;
   }
 
-  takeHit(amount: number): boolean {
-    if (this.dead || this.state === 'telegraph') return false;
+  takeHit(amount: number): import('./types').EnemyHitResult {
+    if (this.dead || this.state === 'telegraph') return 'ignored';
     this.hp = Math.max(0, this.hp - amount);
     this.sprite.setTint(Palette.enemyAmber);
     this.scene.time.delayedCall(90, () => this.sprite.clearTint());
@@ -131,9 +131,9 @@ export class LanternWarden implements StageEnemy {
       this.sprite.setAlpha(0.42);
       this.telegraph.setVisible(false);
       this.clearProjectiles();
-      return true;
+      return 'defeated';
     }
-    return false;
+    return 'hit';
   }
 
   getHp(): { current: number; max: number; state: WardenState; attack: string; projectileCount: number } {
@@ -180,7 +180,11 @@ export class LanternWarden implements StageEnemy {
     if (state === 'telegraph') this.sprite.play('warden-telegraph', true);
     if (state === 'active') {
       this.sprite.play('warden-attack', true);
-      this.scene.events.emit(Stage1SfxEvent, Stage1SfxKey.WardenAttack);
+      this.scene.events.emit(
+        Stage1SfxEvent,
+        this.id.includes('relay-keeper') ? Stage1SfxKey.RelayAttack : Stage1SfxKey.WardenAttack,
+        { sourceX: this.sprite.x }
+      );
     }
     if (state === 'recovery') this.sprite.play('warden-recovery', true);
   }
@@ -214,7 +218,11 @@ export class LanternWarden implements StageEnemy {
       angleDeg: motion.angleDeg,
       lifeMs: 0
     });
-    this.scene.events.emit(Stage1SfxEvent, Stage1SfxKey.WardenProjectile, { detune: this.nextProjectileId % 2 === 0 ? 80 : -60 });
+    this.scene.events.emit(
+      Stage1SfxEvent,
+      this.id.includes('relay-keeper') ? Stage1SfxKey.RelayProjectile : Stage1SfxKey.WardenProjectile,
+      { detune: this.nextProjectileId % 2 === 0 ? 80 : -60, sourceX: originX }
+    );
     this.nextProjectileId += 1;
   }
 

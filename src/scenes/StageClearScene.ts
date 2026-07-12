@@ -2,8 +2,10 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
+import { GameAudioKey } from '../data/audioAssets';
 import { RuntimeEnvironmentAssetKey } from '../data/artAssets';
 import { SaveSystem } from '../systems/SaveSystem';
+import { GameAudio } from '../systems/Stage1Audio';
 import type { StageRank } from '../systems/rank';
 
 export type StageClearData = {
@@ -19,12 +21,18 @@ export type StageClearData = {
 };
 
 export class StageClearScene extends Phaser.Scene {
+  private audio!: GameAudio;
+  private leaving = false;
+
   constructor() {
     super(SceneKey.StageClear);
   }
 
   create(data: StageClearData): void {
     const save = SaveSystem.load();
+    this.audio = new GameAudio(this, save.settings, 'clear');
+    this.audio.play(GameAudioKey.StageClear, { variation: false });
+    this.leaving = false;
     const retryScene = data.retryScene ?? SceneKey.Stage1;
     const persistedBest = retryScene === SceneKey.Stage2 ? save.stage2.bestTimeMs : save.stage1.bestTimeMs;
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
@@ -59,8 +67,12 @@ export class StageClearScene extends Phaser.Scene {
       fontSize: '20px',
       color: PaletteHex.neonMagenta
     });
-    this.input.keyboard?.on('keydown-ENTER', () => this.scene.start(retryScene));
-    this.input.keyboard?.on('keydown-T', () => this.scene.start(SceneKey.Title));
+    this.input.keyboard?.on('keydown-ENTER', () => this.leave(retryScene, false));
+    this.input.keyboard?.on('keydown-T', () => this.leave(SceneKey.Title, true));
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.input.keyboard?.removeAllListeners('keydown-ENTER');
+      this.input.keyboard?.removeAllListeners('keydown-T');
+    });
     window.__NEON_RONIN_STAGE1__ = {
       scene: 'StageClearScene',
       stageClear: true,
@@ -70,6 +82,17 @@ export class StageClearScene extends Phaser.Scene {
       sealsFound: data.sealsFound,
       damageTaken: data.damageTaken
     };
+  }
+
+  update(_time: number, delta: number): void {
+    this.audio.update({ bossIntensity: 0 }, delta);
+  }
+
+  private leave(scene: SceneKey, back: boolean): void {
+    if (this.leaving) return;
+    this.leaving = true;
+    this.audio.play(back ? GameAudioKey.UiBack : GameAudioKey.UiConfirm, { variation: false });
+    this.time.delayedCall(back ? 240 : 300, () => this.scene.start(scene));
   }
 
   private formatTime(ms: number): string {

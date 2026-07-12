@@ -29,6 +29,7 @@ It contains A-H Markdown/PNG references. The PNGs are specification sheets only.
 - Stage1 continuous background v3 review candidate: generated on 2026-07-11 after deployment of the v2 integration was explicitly canceled. The candidate is stored under `artifacts/stage1/continuous-background-v3-imagegen/`, replaces wide structural alpha crossfades with four newly generated neighbor-conditioned transition sources and eight single-owner dynamic seams, and is not approved or runtime integrated. It must not replace the adopted v4 runtime terrain without a new explicit human decision.
 - Stage1 continuous background v4 runtime terrain adoption: approved by explicit user input `採用します。デプロイまで進めて` on 2026-07-11. The adopted source is stored under `artifacts/stage1/continuous-background-v4-single-master/`. It starts from one full-stage low-resolution ImageGen panorama, then generates five high-resolution strips sequentially from left to right while inheriting the previous strip's exact 862 px tail. Stage section transitions are rendered inside a generated strip instead of being assembled from independent stage panels. This authorizes the five overlap-aware Stage1 visible terrain plates, their derived landform authoring sheet, required runtime metadata/validation updates, and deployment only. Gate B v2 core art remains frozen, and this is not a Stage2 final-art gate.
 - Stage 2 gameplay scope: explicitly requested by the user on 2026-07-03. It authorizes `Neon Drain: Signal Ascent`, a dynamic vertical Stage2 route, and the new `Kage-Ito` / shadow-thread slash technique only.
+- Product-level audio expansion: explicitly requested by the user as `サウンドを製品レベルにして` on 2026-07-11. It authorizes original generated music, ambience, UI feedback, action/hit/defeat variants, and runtime mixing for the already-approved menu, Stage1, and Stage2 flows only. It does not expand campaign or gameplay scope.
 - Latest visual revision: enemy/friendly accent groups are separated. Player/friendly keeps cyan/magenta; enemy eyes, cores, and telegraphs use amber/vermilion. `art:validate-assets` now checks enemy runtime assets for zero player-hue residue.
 - Art Lock freeze: Gate B v2 core art is frozen. Runtime production assets are normalized under `src/assets/approved-art/` and indexed by `src/data/approvedArtManifest.ts`.
 
@@ -83,6 +84,14 @@ npm.cmd run qa:screenshots-stage1
 npm.cmd run qa:all-stage1
 ```
 
+Current audio commands:
+
+```bash
+npm.cmd run audio:generate
+npm.cmd run audio:validate
+npm.cmd run qa:audio
+```
+
 Current Stage2 validation commands:
 
 ```bash
@@ -124,7 +133,7 @@ Runtime movement note: Stage1 player movement now uses stronger acceleration/dec
 
 Runtime boss note: Lantern Warden is the Stage1 miniboss, not the campaign final boss. The scoped Stage1 boss kit includes melee attacks plus a spark-drop ranged projectile; this does not authorize player projectile systems or broader campaign combat systems.
 
-Runtime audio note: Stage1 SFX are generated WAV assets under `src/assets/audio/`, indexed by `src/data/audioAssets.ts`, loaded in `PreloadScene`, and routed through `src/systems/Stage1Audio.ts`. Keep audio additions scoped to Stage1 actions unless a new scope is approved; current timing covers jump, wall kick, slash/spin slash, player hurt, enemy defeat, pickups, checkpoints, Lantern Warden attack/projectile, and Stage1 clear. Current SFX tuning favors heavier low-frequency impacts, longer tails, and restrained high-frequency chimes.
+Runtime audio note: The product-level audio pass is generated deterministically by `scripts/generate-stage1-sfx.mjs` as 52 original 48 kHz/16-bit WAV assets under `src/assets/audio/`, indexed by `src/data/audioAssets.ts`, loaded in `PreloadScene`, and routed through the `GameAudio` director in `src/systems/Stage1Audio.ts` (`Stage1Audio` remains a compatibility alias). Menu, Stage1, Stage2, and clear profiles use persistent crossfading music/ambience; Stage1/Stage2 base and combat stems are sample-aligned. Runtime mixing includes a separate saved music-volume setting, a WebAudio output limiter, action variation, hit/defeat layering, listener-relative pan/attenuation, priority voice limiting, wall-clock music ducking that continues through pause/low-FPS states, boss intensity, footsteps, landings, wall-slide and updraft loops, pause/game-over states, and WebAudio unlock recovery. Stage2 Kage-Ito and Relay Keeper use dedicated sounds rather than pitched Stage1 reuse. Keep the direction heavy and grounded with low-frequency body, longer tails, restrained high-frequency neon detail, and no external licensed samples. `npm.cmd run audio:validate` must remain strict for required-file coverage, 48 kHz PCM format, peak/RMS/DC/clipping, boundary clicks, isolated internal music steps, loop seams, stereo low-band mono compatibility, duplicate hashes, and synchronized music-pair correlation; fix generation or routing instead of weakening the validator.
 
 Runtime item/UI note: Stage1 seal collectibles are rendered as koban coins in the derived `stage1-item-icons` runtime sheet. The sheet still contains the makimono scroll frame for asset compatibility, but the current linear Stage1 route has no hidden scroll routes. The mobile jump button is authored in the derived `stage1-touch-controls` sheet so the visual button and hit zone share a center. Keep these fixes in `npm.cmd run art:runtime-sheets`; do not edit frozen approved core art for this.
 

@@ -23,6 +23,7 @@ const commandResults = [
   runNpm('typecheck'),
   runNpm('test'),
   runNpm('build'),
+  runNpm('qa:audio'),
   runNpm('qa:stage1'),
   runNpm('qa:assets-stage1'),
   runNpm('e2e'),
@@ -78,6 +79,7 @@ const acceptance = [
   ['typecheck passes', commandPassed('typecheck')],
   ['tests pass', commandPassed('test')],
   ['build passes', commandPassed('build')],
+  ['audio quality validation passes', commandPassed('qa:audio')],
   ['qa:stage1 passes', commandPassed('qa:stage1')],
   ['qa:assets-stage1 passes', commandPassed('qa:assets-stage1')],
   ['qa:screenshots-stage1 passes', commandPassed('qa:screenshots-stage1') && screenshotsPresent]

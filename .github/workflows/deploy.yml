@@ -39,6 +39,9 @@ jobs:
       - name: Unit tests
         run: npm run test
 
+      - name: Audio QA
+        run: npm run qa:audio
+
       - name: Approved Art Freeze QA
         run: |
           npm run art:validate-freeze

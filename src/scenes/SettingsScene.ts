@@ -2,16 +2,19 @@ import * as Phaser from 'phaser';
 import { BASE_HEIGHT, BASE_WIDTH } from '../config/dimensions';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
+import { GameAudioKey } from '../data/audioAssets';
 import { ArtAssetKey, RuntimeEnvironmentAssetKey } from '../data/artAssets';
 import { SaveSystem, type Stage1Settings, type TouchControlsMode } from '../systems/SaveSystem';
+import { GameAudio } from '../systems/Stage1Audio';
 
 type SettingRow = keyof Pick<
   Stage1Settings,
-  'masterVolume' | 'sfxVolume' | 'reducedShake' | 'reducedParticles' | 'highContrast' | 'touchControls' | 'touchOpacity'
+  'masterVolume' | 'musicVolume' | 'sfxVolume' | 'reducedShake' | 'reducedParticles' | 'highContrast' | 'touchControls' | 'touchOpacity'
 >;
 
 const rows: readonly SettingRow[] = [
   'masterVolume',
+  'musicVolume',
   'sfxVolume',
   'reducedShake',
   'reducedParticles',
@@ -24,12 +27,16 @@ export class SettingsScene extends Phaser.Scene {
   private settings = SaveSystem.load().settings;
   private selected = 0;
   private rowTexts: Phaser.GameObjects.Text[] = [];
+  private audio!: GameAudio;
+  private leaving = false;
 
   constructor() {
     super(SceneKey.Settings);
   }
 
   create(): void {
+    this.audio = new GameAudio(this, this.settings, 'menu');
+    this.leaving = false;
     this.cameras.main.setBackgroundColor(PaletteHex.inkBlack);
     this.add.image(BASE_WIDTH / 2, BASE_HEIGHT / 2, ArtAssetKey.LightingWarmCool).setAlpha(0.45);
     this.add.tileSprite(BASE_WIDTH / 2, 292, 760, 360, RuntimeEnvironmentAssetKey.GroundTile).setAlpha(0.72);
@@ -54,6 +61,10 @@ export class SettingsScene extends Phaser.Scene {
       color: PaletteHex.paleMoonMist
     });
     window.__NEON_RONIN_STAGE1_MENU__ = { scene: 'SettingsScene' };
+  }
+
+  update(_time: number, delta: number): void {
+    this.audio.update({ bossIntensity: 0 }, delta);
   }
 
   private bindInput(): void {
@@ -81,13 +92,14 @@ export class SettingsScene extends Phaser.Scene {
 
   private moveSelection(delta: number): void {
     this.selected = (this.selected + rows.length + delta) % rows.length;
+    this.audio.play(GameAudioKey.UiMove, { variation: false });
     this.renderRows();
   }
 
   private adjust(delta: -1 | 1): void {
     const row = rows[this.selected];
     const step = 0.05 * delta;
-    if (row === 'masterVolume' || row === 'sfxVolume' || row === 'touchOpacity') {
+    if (row === 'masterVolume' || row === 'musicVolume' || row === 'sfxVolume' || row === 'touchOpacity') {
       this.settings = { ...this.settings, [row]: Math.max(row === 'touchOpacity' ? 0.35 : 0, Math.min(1, this.settings[row] + step)) };
     } else if (row === 'touchControls') {
       const modes: readonly TouchControlsMode[] = ['auto', 'on', 'off'];
@@ -97,6 +109,8 @@ export class SettingsScene extends Phaser.Scene {
       this.settings = { ...this.settings, [row]: !this.settings[row] };
     }
     SaveSystem.saveSettings(this.settings);
+    this.audio.updateSettings(this.settings);
+    this.audio.play(GameAudioKey.UiConfirm, { detune: delta > 0 ? 80 : -80, volume: 0.72, variation: false });
     this.renderRows();
   }
 
@@ -112,6 +126,7 @@ export class SettingsScene extends Phaser.Scene {
   private label(row: SettingRow): string {
     return {
       masterVolume: 'Master volume',
+      musicVolume: 'Music volume',
       sfxVolume: 'SFX volume',
       reducedShake: 'Reduced shake',
       reducedParticles: 'Reduced particles',
@@ -127,7 +142,10 @@ export class SettingsScene extends Phaser.Scene {
   }
 
   private back(): void {
+    if (this.leaving) return;
+    this.leaving = true;
     SaveSystem.saveSettings(this.settings);
-    this.scene.start(SceneKey.Title);
+    this.audio.play(GameAudioKey.UiBack, { variation: false });
+    this.time.delayedCall(240, () => this.scene.start(SceneKey.Title));
   }
 }

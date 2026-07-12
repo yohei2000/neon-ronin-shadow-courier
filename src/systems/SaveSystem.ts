@@ -2,6 +2,7 @@ export type TouchControlsMode = 'auto' | 'on' | 'off';
 
 export type Stage1Settings = {
   readonly masterVolume: number;
+  readonly musicVolume: number;
   readonly sfxVolume: number;
   readonly reducedShake: boolean;
   readonly reducedParticles: boolean;
@@ -28,6 +29,7 @@ const STORAGE_KEY = 'neon-ronin-stage1-save';
 
 export const DefaultStage1Settings: Stage1Settings = {
   masterVolume: 0.8,
+  musicVolume: 0.68,
   sfxVolume: 0.8,
   reducedShake: false,
   reducedParticles: false,
@@ -93,6 +95,7 @@ export const normalizeSaveData = (raw: unknown): Stage1SaveData => {
     schemaVersion: 1,
     settings: {
       masterVolume: normalizeNumber(settings.masterVolume, defaults.settings.masterVolume, 0, 1),
+      musicVolume: normalizeNumber(settings.musicVolume, defaults.settings.musicVolume, 0, 1),
       sfxVolume: normalizeNumber(settings.sfxVolume, defaults.settings.sfxVolume, 0, 1),
       reducedShake: normalizeBoolean(settings.reducedShake, defaults.settings.reducedShake),
       reducedParticles: normalizeBoolean(settings.reducedParticles, defaults.settings.reducedParticles),

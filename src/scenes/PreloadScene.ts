@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { SceneKey } from '../config/keys';
 import { PaletteHex } from '../config/palette';
-import { Stage1AudioAssets } from '../data/audioAssets';
+import { GameAudioAssets } from '../data/audioAssets';
 import {
   ArtAssetKey,
   ArtImageAssets,
@@ -94,7 +94,7 @@ export class PreloadScene extends Phaser.Scene {
       this.load.image(key, url);
     }
 
-    for (const [key, url] of Object.entries(Stage1AudioAssets)) {
+    for (const [key, url] of Object.entries(GameAudioAssets)) {
       this.load.audio(key, url);
     }
 

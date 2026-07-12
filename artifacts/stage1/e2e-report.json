@@ -1,11 +1,27 @@
 {
-  "generatedAt": "2026-07-07T03:29:27.172Z",
+  "generatedAt": "2026-07-11T13:26:05.718Z",
   "passed": true,
   "tests": [
     {
+      "name": "audio-director",
+      "status": "passed",
+      "durationMs": 35289,
+      "details": {
+        "menuProfile": true,
+        "stage1Profile": true,
+        "stage2Profile": true,
+        "unlocked": true,
+        "limiter": true,
+        "pauseMix": true,
+        "pauseDuckRecovered": true,
+        "oneShotVoice": true,
+        "kageItoVoice": true
+      }
+    },
+    {
       "name": "title-flow",
       "status": "passed",
-      "durationMs": 11253,
+      "durationMs": 16648,
       "details": {
         "title": true,
         "controls": true,
@@ -16,18 +32,18 @@
     {
       "name": "stage1-keyboard-clear",
       "status": "passed",
-      "durationMs": 148889,
+      "durationMs": 185821,
       "details": {
-        "timeMs": 148084.6,
+        "timeMs": 185245.4,
         "rank": "C",
-        "sealsFound": 19,
-        "damageTaken": 14
+        "sealsFound": 17,
+        "damageTaken": 7
       }
     },
     {
       "name": "mobile-controls",
       "status": "passed",
-      "durationMs": 12233,
+      "durationMs": 15275,
       "details": {
         "viewport": "390x844",
         "touchControls": true,
@@ -37,7 +53,7 @@
     {
       "name": "checkpoint-retry",
       "status": "passed",
-      "durationMs": 50836,
+      "durationMs": 70386,
       "details": {
         "checkpointRetry": true,
         "checkpointCount": 3

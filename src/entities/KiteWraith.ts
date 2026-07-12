@@ -55,8 +55,8 @@ export class KiteWraith implements StageEnemy {
     return centerRect(this.image.x, this.image.y, 66, 50);
   }
 
-  takeHit(amount: number): boolean {
-    if (this.dead) return false;
+  takeHit(amount: number): import('./types').EnemyHitResult {
+    if (this.dead) return 'ignored';
     this.hp -= amount;
     if (this.hp <= 0) {
       this.dead = true;
@@ -71,7 +71,7 @@ export class KiteWraith implements StageEnemy {
         ease: 'Sine.easeOut',
         onComplete: () => this.image.setVisible(false)
       });
-      return true;
+      return 'defeated';
     }
     this.image.setTint(Palette.enemyAmber);
     this.image.play('kite-wraith-hit', true);
@@ -81,7 +81,7 @@ export class KiteWraith implements StageEnemy {
         this.image.play('kite-wraith-drift', true);
       }
     });
-    return false;
+    return 'hit';
   }
 
   getRuntimeState(): EnemyRuntimeState {

@@ -3,12 +3,19 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { Stage1AudioAssets, Stage1SfxKey } from '../src/data/audioAssets';
+import {
+  GameAudioAssets,
+  GameAudioGroups,
+  GameAudioKey,
+  GameAudioMetadata,
+  GameAudioProfiles
+} from '../src/data/audioAssets';
 import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames, LanternWardenAnimationFrames, PlayerAnimationFrames, SlashAnimationFrames } from '../src/data/artAssets';
 import { Stage1CollisionPlatforms, Stage1Data, Stage1Tuning } from '../src/data/stage1';
 import { validateStage1 } from '../src/data/stageValidation';
 import { CombatSystem, canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
 import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems/SaveSystem';
+import { resolveAudioMixDelta, resolveFootstepInterval, resolveSpatialMix } from '../src/systems/audioMix';
 import { resolveHorizontalVelocity } from '../src/systems/horizontalMotion';
 import { resolveInitialJumpVisualVariant, shouldUseSmallJumpVariant } from '../src/systems/playerVisualState';
 import { calculateStageRank } from '../src/systems/rank';
@@ -84,6 +91,7 @@ describe('Stage1 save system', () => {
       schemaVersion: 99,
       settings: {
         masterVolume: 5,
+        musicVolume: 2,
         sfxVolume: -2,
         touchControls: 'sideways',
         touchOpacity: 0.1,
@@ -98,10 +106,14 @@ describe('Stage1 save system', () => {
     });
     expect(save.schemaVersion).toBe(1);
     expect(save.settings.masterVolume).toBe(1);
+    expect(save.settings.musicVolume).toBe(1);
     expect(save.settings.sfxVolume).toBe(0);
     expect(save.settings.touchControls).toBe('auto');
     expect(save.settings.touchOpacity).toBe(0.35);
     expect(save.stage1.scrollsFound).toEqual(['scroll-a', 'scroll-b']);
+
+    const legacySave = normalizeSaveData({ settings: { masterVolume: 0.7, sfxVolume: 0.55 } });
+    expect(legacySave.settings.musicVolume).toBe(createDefaultSave().settings.musicVolume);
   });
 });
 
@@ -260,17 +272,22 @@ describe('Stage1 enemy animation coverage', () => {
   });
 });
 
-describe('Stage1 audio assets', () => {
-  it('loads one generated SFX asset for every Stage1 sound key', () => {
-    expect(Object.keys(Stage1AudioAssets).sort()).toEqual(Object.values(Stage1SfxKey).sort());
+describe('Game audio assets', () => {
+  it('loads one unique generated asset for every sound key', () => {
+    expect(Object.keys(GameAudioAssets).sort()).toEqual(Object.values(GameAudioKey).sort());
     const audioDir = resolve(dirname(fileURLToPath(import.meta.url)), '../src/assets/audio');
     const hashes = new Set<string>();
 
-    for (const url of Object.values(Stage1AudioAssets)) {
+    for (const url of Object.values(GameAudioAssets)) {
       expect(url.endsWith('.wav')).toBe(true);
       const fileName = url.replace(/\\/g, '/').split('/').pop();
       expect(fileName).toBeTruthy();
       const data = readFileSync(resolve(audioDir, fileName ?? ''));
+      expect(data.toString('ascii', 0, 4)).toBe('RIFF');
+      expect(data.toString('ascii', 8, 12)).toBe('WAVE');
+      expect([1, 2]).toContain(data.readUInt16LE(22));
+      expect(data.readUInt32LE(24)).toBe(48000);
+      expect(data.readUInt16LE(34)).toBe(16);
       let nonzeroSamples = 0;
       for (let index = 44; index < data.length; index += 2) {
         if (data.readInt16LE(index) !== 0) nonzeroSamples += 1;
@@ -278,7 +295,40 @@ describe('Stage1 audio assets', () => {
       expect(nonzeroSamples).toBeGreaterThan(1000);
       hashes.add(createHash('sha256').update(data).digest('hex'));
     }
-    expect(hashes.size).toBe(Object.keys(Stage1AudioAssets).length);
+    expect(hashes.size).toBe(Object.keys(GameAudioAssets).length);
+  });
+
+  it('keeps groups, profiles, and mixer metadata internally consistent', () => {
+    expect(Object.keys(GameAudioMetadata).sort()).toEqual(Object.values(GameAudioKey).sort());
+    for (const keys of Object.values(GameAudioGroups)) {
+      expect(keys.length).toBeGreaterThanOrEqual(2);
+      keys.forEach((key) => expect(GameAudioMetadata[key].category).toBe('sfx'));
+    }
+    for (const profile of Object.values(GameAudioProfiles)) {
+      if (profile.ambience) expect(GameAudioMetadata[profile.ambience].category).toBe('ambience');
+      if (profile.musicBase) expect(GameAudioMetadata[profile.musicBase].category).toBe('music');
+      if (profile.musicCombat) expect(GameAudioMetadata[profile.musicCombat].category).toBe('music');
+    }
+    expect(GameAudioMetadata[GameAudioProfiles.clear.musicBase!].loop).toBe(true);
+  });
+
+  it('resolves stable spatial attenuation and speed-scaled footsteps', () => {
+    expect(resolveSpatialMix(500, 500)).toEqual({ pan: 0, attenuation: 1 });
+    const right = resolveSpatialMix(800, 500, 900);
+    const left = resolveSpatialMix(200, 500, 900);
+    expect(right.pan).toBeGreaterThan(0);
+    expect(left.pan).toBeLessThan(0);
+    expect(right.attenuation).toBeCloseTo(left.attenuation, 8);
+    expect(resolveSpatialMix(1400, 500, 900).attenuation).toBe(0);
+    expect(resolveFootstepInterval(80)).toBeGreaterThan(resolveFootstepInterval(420));
+    expect(resolveFootstepInterval(0)).toBe(350);
+    expect(resolveFootstepInterval(900)).toBe(178);
+  });
+
+  it('keeps mix envelopes on wall time instead of scaled gameplay time', () => {
+    expect(resolveAudioMixDelta(32, 16)).toBe(16);
+    expect(resolveAudioMixDelta(32, 0)).toBe(32);
+    expect(resolveAudioMixDelta(250, 1500)).toBe(1000);
   });
 });
 

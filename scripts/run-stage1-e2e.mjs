@@ -51,7 +51,9 @@ const waitFor = async (predicate, message, timeoutMs = 12000) => {
   throw new Error(message);
 };
 const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
+const stage2State = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE2__ ?? {});
 const menuState = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1_MENU__ ?? {});
+const audioState = async (page) => page.evaluate(() => window.__NEON_RONIN_AUDIO__ ?? {});
 const withPage = async (viewport, fn) => {
   const page = await browser.newPage(viewport ? { viewport, isMobile: viewport.width <= 480, hasTouch: viewport.width <= 480 } : undefined);
   const consoleErrors = [];
@@ -426,6 +428,60 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
   throw new Error(`keyboard route timed out at ${JSON.stringify(await state(page))}`);
 };
 
+if (shouldRun('audio-director')) await record('audio-director', () =>
+  withPage(null, async (page) => {
+    await page.goto(baseUrl);
+    await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open for audio QA');
+    await waitFor(async () => (await audioState(page)).profile === 'menu', 'menu audio profile did not initialize');
+    await page.keyboard.press('ArrowDown');
+    await waitFor(async () => (await audioState(page)).locked === false, 'WebAudio did not unlock after user input');
+    assert((await audioState(page)).limiterActive === true, 'WebAudio output limiter is not active');
+    await waitFor(
+      async () => (await audioState(page)).activeLoopKeys?.includes('game-music-menu') === true,
+      'menu music loop did not start after unlock'
+    );
+
+    await selectTitleMenuItem(page, 'START STAGE 1');
+    await waitFor(async () => (await state(page)).scene === 'Stage1Scene', 'Stage1 did not start for audio QA');
+    await waitFor(async () => (await audioState(page)).profile === 'stage1', 'Stage1 audio profile did not activate');
+    await waitFor(async () => {
+      const active = (await audioState(page)).activeLoopKeys ?? [];
+      return active.includes('game-ambience-stage1') && active.includes('game-music-stage1-base') && active.includes('game-music-stage1-combat');
+    }, 'Stage1 synchronized ambience/base/combat loops did not start');
+
+    await page.keyboard.down('Space');
+    await waitFor(async () => (await audioState(page)).activeVoices > 0, 'jump one-shot voice did not play');
+    await page.keyboard.up('Space');
+    await page.keyboard.press('p');
+    await waitFor(async () => (await audioState(page)).paused === true, 'audio mix did not enter paused state');
+    const pauseDuck = (await audioState(page)).musicDuck ?? 0;
+    assert(pauseDuck > 0.02, `pause one-shot did not duck music: ${pauseDuck}`);
+    await page.waitForTimeout(1800);
+    const recoveredPauseDuck = (await audioState(page)).musicDuck ?? 1;
+    assert(
+      recoveredPauseDuck < 0.02,
+      `pause duck did not recover while gameplay was paused: initial=${pauseDuck}, after1800ms=${recoveredPauseDuck}`
+    );
+    await page.keyboard.press('p');
+    await waitFor(async () => (await audioState(page)).paused === false, 'audio mix did not resume from paused state');
+
+    await page.goto(`${baseUrl}/?scene=stage2`);
+    await waitFor(async () => (await audioState(page)).profile === 'stage2', 'Stage2 audio profile did not initialize');
+    await page.keyboard.press('ArrowRight');
+    await waitFor(async () => (await audioState(page)).locked === false, 'Stage2 WebAudio did not unlock');
+    await waitFor(async () => {
+      const active = (await audioState(page)).activeLoopKeys ?? [];
+      return active.includes('game-ambience-stage2') && active.includes('game-music-stage2-base') && active.includes('game-music-stage2-combat');
+    }, 'Stage2 synchronized ambience/base/combat loops did not start');
+    await page.keyboard.press('k');
+    await waitFor(async () => (await stage2State(page)).player?.shadowThreading === true, 'Kage-Ito did not launch in Stage2 audio QA');
+    await waitFor(async () => (await audioState(page)).activeVoices > 0, 'Kage-Ito one-shot voice did not play');
+    await waitFor(async () => (await stage2State(page)).player?.shadowThreading === false, 'Kage-Ito did not complete');
+
+    return { menuProfile: true, stage1Profile: true, stage2Profile: true, unlocked: true, limiter: true, pauseMix: true, pauseDuckRecovered: true, oneShotVoice: true, kageItoVoice: true };
+  })
+);
+
 if (shouldRun('title-flow')) await record('title-flow', () =>
   withPage(null, async (page) => {
     await page.goto(baseUrl);
@@ -550,7 +606,10 @@ const report = {
   passed: tests.every((test) => test.status === 'passed'),
   tests
 };
-fs.writeFileSync(path.join(artifactDir, 'e2e-report.json'), `${JSON.stringify(report, null, 2)}\n`);
+const reportSuffix = process.env.E2E_FILTER
+  ? `-${process.env.E2E_FILTER.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+  : '';
+fs.writeFileSync(path.join(artifactDir, `e2e${reportSuffix}-report.json`), `${JSON.stringify(report, null, 2)}\n`);
 
 await browser.close();
 await server.close();

@@ -51,7 +51,16 @@ export type PlayerRuntimeState = {
   readonly lastDamageId: string | null;
 };
 
-export type PlayerActionEvent = 'jump' | 'speedFlipJump' | 'wallKick' | 'shadowThread' | 'attack' | 'spinAttack' | 'hurt';
+export type PlayerActionEvent =
+  | 'jump'
+  | 'speedFlipJump'
+  | 'wallKick'
+  | 'landSoft'
+  | 'landHeavy'
+  | 'shadowThread'
+  | 'attack'
+  | 'spinAttack'
+  | 'hurt';
 
 export type PlayerFrameResult = {
   readonly slash: SlashState;
@@ -275,8 +284,13 @@ export class Player {
       this.vy = Math.min(this.vy, Stage1Tuning.wallSlideMaxFall);
     }
 
+    const wasGroundedBeforeMove = this.onGround;
+    const verticalSpeedBeforeMove = this.vy;
     this.moveAndCollide(this.vx * dt, 0, platforms);
     this.moveAndCollide(0, this.vy * dt, platforms);
+    if (!wasGroundedBeforeMove && this.onGround && verticalSpeedBeforeMove > 140) {
+      events.push(verticalSpeedBeforeMove >= 560 ? 'landHeavy' : 'landSoft');
+    }
 
     if (this.y > this.bounds.worldHeight - 48) {
       if (this.takeDamage(1, nowMs, 'fall', undefined, 'world-fall')) {

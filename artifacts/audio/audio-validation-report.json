@@ -1,0 +1,6482 @@
+{
+  "schemaVersion": 1,
+  "validator": "scripts/validate-audio-assets.mjs",
+  "generatedAt": "2026-07-11T13:16:43.836Z",
+  "audioDirectory": "src/assets/audio",
+  "valid": true,
+  "summary": {
+    "wavFileCount": 52,
+    "requiredFileCount": 52,
+    "missingRequiredFileCount": 0,
+    "invalidFileCount": 0,
+    "duplicateGroupCount": 0,
+    "invalidMusicPairCount": 0,
+    "issueCount": 0
+  },
+  "limits": {
+    "allowedSampleRates": [
+      48000
+    ],
+    "allowedChannels": [
+      1,
+      2
+    ],
+    "bitsPerSample": 16,
+    "peakMin": 0.15,
+    "peakMax": 0.96,
+    "rmsMin": 0.001,
+    "dcOffsetMax": 0.01,
+    "clippedSampleRatioMax": 0.0001,
+    "oneShotBoundaryAmplitudeMax": 0.02,
+    "oneShotBoundarySlopeMax": 0.08,
+    "loopSeamValueDeltaMax": 0.02,
+    "loopSeamSlopeDeltaMax": 0.02,
+    "musicInternalStepAmplitudeMin": 0.04,
+    "musicInternalStepIsolationRatio": 2.2,
+    "stereoLowBandCorrelationMin": 0.5,
+    "stereoLowBandMonoFoldDbMin": -1.5,
+    "musicPairCorrelationMin": 0.55,
+    "musicPairBestLagBucketsMax": 0,
+    "durationSeconds": {
+      "oneShot": {
+        "min": 0.08,
+        "max": 4
+      },
+      "shortLoop": {
+        "min": 0.5,
+        "max": 4
+      },
+      "ambienceLoop": {
+        "min": 3,
+        "max": 120
+      },
+      "musicLoop": {
+        "min": 6,
+        "max": 180
+      }
+    }
+  },
+  "checks": {
+    "requiredFilesPresent": true,
+    "everyWavValid": true,
+    "uniqueFileHashes": true,
+    "musicPairsAligned": true,
+    "runCompleted": true
+  },
+  "requiredFiles": [
+    "stage1-jump.wav",
+    "stage1-wall-kick.wav",
+    "stage1-attack.wav",
+    "stage1-spin-attack.wav",
+    "stage1-enemy-defeat.wav",
+    "stage1-player-hurt.wav",
+    "stage1-pickup-seal.wav",
+    "stage1-pickup-scroll.wav",
+    "stage1-pickup-health.wav",
+    "stage1-pickup-energy.wav",
+    "stage1-checkpoint.wav",
+    "stage1-warden-attack.wav",
+    "stage1-warden-projectile.wav",
+    "stage1-stage-clear.wav",
+    "stage1-jump-alt.wav",
+    "stage1-wall-kick-alt.wav",
+    "stage1-footstep-a.wav",
+    "stage1-footstep-b.wav",
+    "stage1-land-soft.wav",
+    "stage1-land-heavy.wav",
+    "stage1-wall-slide-loop.wav",
+    "stage1-attack-alt-a.wav",
+    "stage1-attack-alt-b.wav",
+    "stage1-hit-light-a.wav",
+    "stage1-hit-light-b.wav",
+    "stage1-hit-heavy.wav",
+    "stage1-enemy-defeat-wraith.wav",
+    "stage1-player-hurt-alt.wav",
+    "stage1-pickup-seal-alt.wav",
+    "stage1-warden-hit.wav",
+    "stage1-warden-defeat.wav",
+    "stage2-shadow-thread-launch.wav",
+    "stage2-shadow-thread-hit.wav",
+    "stage2-relay-attack.wav",
+    "stage2-relay-projectile.wav",
+    "stage2-relay-hit.wav",
+    "stage2-relay-defeat.wav",
+    "ui-move.wav",
+    "ui-confirm.wav",
+    "ui-back.wav",
+    "ui-pause.wav",
+    "game-over.wav",
+    "respawn.wav",
+    "ambience-updraft-loop.wav",
+    "music-menu.wav",
+    "ambience-stage1.wav",
+    "music-stage1-base.wav",
+    "music-stage1-combat.wav",
+    "ambience-stage2.wav",
+    "music-stage2-base.wav",
+    "music-stage2-combat.wav",
+    "music-stage-clear.wav"
+  ],
+  "missingRequiredFiles": [],
+  "duplicateGroups": [],
+  "musicPairs": [
+    {
+      "base": "music-stage1-base.wav",
+      "combat": "music-stage1-combat.wav",
+      "sameSampleRate": true,
+      "sameFrameCount": true,
+      "sameChannelCount": true,
+      "waveformCorrelation": 0.55072,
+      "bestLagBuckets": 0,
+      "bestLagCorrelation": 0.55072,
+      "valid": true,
+      "errors": []
+    },
+    {
+      "base": "music-stage2-base.wav",
+      "combat": "music-stage2-combat.wav",
+      "sameSampleRate": true,
+      "sameFrameCount": true,
+      "sameChannelCount": true,
+      "waveformCorrelation": 0.61718,
+      "bestLagBuckets": 0,
+      "bestLagCorrelation": 0.61718,
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "runErrors": [],
+  "files": [
+    {
+      "file": "ambience-stage1.wav",
+      "bytes": 2304044,
+      "sha256": "2c6497c148483a757419bf5638e6c469f5c6170fb12570199f75cf5d13cab58a",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "ambienceLoop",
+        "min": 3,
+        "max": 120
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 2304000,
+        "frameCount": 576000,
+        "durationSeconds": 12
+      },
+      "metrics": {
+        "peak": 0.67998291,
+        "rms": 0.16542486,
+        "rmsByChannel": [
+          0.1654835,
+          0.1653662
+        ],
+        "dcOffsetByChannel": [
+          0.00000204,
+          0.00000204
+        ],
+        "maxAbsoluteDcOffset": 0.00000204,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999210069,
+        "maxAdjacentDelta": 0.02966309,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.53601216,
+          "monoFoldDb": -1.14635,
+          "lowBandCorrelation": 0.80077421,
+          "lowBandMonoFoldDb": -0.45571
+        },
+        "edge": {
+          "firstValues": [
+            0.33481857,
+            0.17102573
+          ],
+          "lastValues": [
+            0.33481857,
+            0.17102573
+          ],
+          "startSlopes": [
+            0.01342814,
+            -0.0097354
+          ],
+          "endSlopes": [
+            0.01886044,
+            -0.00387585
+          ],
+          "startBoundaryAmplitude": 0.33481857,
+          "endBoundaryAmplitude": 0.33481857,
+          "startBoundarySlope": 0.01342814,
+          "endBoundarySlope": 0.01886044,
+          "loopSeamValueDelta": 0,
+          "loopSeamSlopeDelta": 0.00585955
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "ambienceLoop duration must be 3..120s; found 12s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.16542486, non-zero ratio 0.9999210069)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.67998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000204."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.80077421."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.45571 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00585955."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "ambience-stage2.wav",
+      "bytes": 2304044,
+      "sha256": "242b9f0e5d28108bf2454825d595cb35e5508dfd00aad9c0e26d392249fa4152",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "ambienceLoop",
+        "min": 3,
+        "max": 120
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 2304000,
+        "frameCount": 576000,
+        "durationSeconds": 12
+      },
+      "metrics": {
+        "peak": 0.70000305,
+        "rms": 0.20811534,
+        "rmsByChannel": [
+          0.20825959,
+          0.20797099
+        ],
+        "dcOffsetByChannel": [
+          0.00000256,
+          0.00000254
+        ],
+        "maxAbsoluteDcOffset": 0.00000256,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999479167,
+        "maxAdjacentDelta": 0.03051851,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.65227955,
+          "monoFoldDb": -0.82947,
+          "lowBandCorrelation": 0.88031017,
+          "lowBandMonoFoldDb": -0.26801
+        },
+        "edge": {
+          "firstValues": [
+            -0.15686035,
+            0.01791437
+          ],
+          "lastValues": [
+            -0.15689087,
+            0.01791437
+          ],
+          "startSlopes": [
+            -0.01260376,
+            0.01821955
+          ],
+          "endSlopes": [
+            -0.01351929,
+            0.01712088
+          ],
+          "startBoundaryAmplitude": 0.15686035,
+          "endBoundaryAmplitude": 0.15689087,
+          "startBoundarySlope": 0.01821955,
+          "endBoundarySlope": 0.01712088,
+          "loopSeamValueDelta": 0.00003052,
+          "loopSeamSlopeDelta": 0.00109867
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "ambienceLoop duration must be 3..120s; found 12s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.20811534, non-zero ratio 0.9999479167)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.70000305."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000256."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.88031017."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.26801 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0.00003052."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00109867."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "ambience-updraft-loop.wav",
+      "bytes": 768044,
+      "sha256": "5c4954115b7711af73033f4e3fcffcd961062e96ad76a81cb1abb5ae2bd97ddb",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "ambienceLoop",
+        "min": 3,
+        "max": 120
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 768000,
+        "frameCount": 192000,
+        "durationSeconds": 4
+      },
+      "metrics": {
+        "peak": 0.71999268,
+        "rms": 0.20673952,
+        "rmsByChannel": [
+          0.20676812,
+          0.20671091
+        ],
+        "dcOffsetByChannel": [
+          0.00000253,
+          0.0000025
+        ],
+        "maxAbsoluteDcOffset": 0.00000253,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999635417,
+        "maxAdjacentDelta": 0.03640747,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.69618732,
+          "monoFoldDb": -0.71556,
+          "lowBandCorrelation": 0.91228709,
+          "lowBandMonoFoldDb": -0.19477
+        },
+        "edge": {
+          "firstValues": [
+            0.29627369,
+            0.36069826
+          ],
+          "lastValues": [
+            0.29627369,
+            0.36069826
+          ],
+          "startSlopes": [
+            0.01052889,
+            0.01751762
+          ],
+          "endSlopes": [
+            0.01089511,
+            0.0196234
+          ],
+          "startBoundaryAmplitude": 0.36069826,
+          "endBoundaryAmplitude": 0.36069826,
+          "startBoundarySlope": 0.01751762,
+          "endBoundarySlope": 0.0196234,
+          "loopSeamValueDelta": 0,
+          "loopSeamSlopeDelta": 0.00210578
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "ambienceLoop duration must be 3..120s; found 4s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.20673952, non-zero ratio 0.9999635417)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.71999268."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000253."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.91228709."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.19477 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00210578."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "game-over.wav",
+      "bytes": 230444,
+      "sha256": "e09f831363b7465046c3602b7f478f167299fdb025b2430c4eec4870bcad6b06",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 230400,
+        "frameCount": 115200,
+        "durationSeconds": 2.4
+      },
+      "metrics": {
+        "peak": 0.87997437,
+        "rms": 0.17899699,
+        "rmsByChannel": [
+          0.17899699
+        ],
+        "dcOffsetByChannel": [
+          0.00000181
+        ],
+        "maxAbsoluteDcOffset": 0.00000181,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9973871528,
+        "maxAdjacentDelta": 0.0244751,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 2.4s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.17899699, non-zero ratio 0.9973871528)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.87997437."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000181."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "music-menu.wav",
+      "bytes": 3072044,
+      "sha256": "5d4f9634a381ca5508766734ad3281513b8f3ff4b7a9dabd70e488db3f65a556",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "musicLoop",
+        "min": 6,
+        "max": 180
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 3072000,
+        "frameCount": 768000,
+        "durationSeconds": 16
+      },
+      "metrics": {
+        "peak": 0.8600116,
+        "rms": 0.21659988,
+        "rmsByChannel": [
+          0.21626581,
+          0.21693343
+        ],
+        "dcOffsetByChannel": [
+          0.00000264,
+          0.00000264
+        ],
+        "maxAbsoluteDcOffset": 0.00000264,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999316406,
+        "maxAdjacentDelta": 0.02731323,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.97342682,
+          "monoFoldDb": -0.0581,
+          "lowBandCorrelation": 0.9825537,
+          "lowBandMonoFoldDb": -0.03805
+        },
+        "edge": {
+          "firstValues": [
+            0.01474044,
+            0.03482162
+          ],
+          "lastValues": [
+            0.01474044,
+            0.03485214
+          ],
+          "startSlopes": [
+            -0.00006104,
+            0.00057985
+          ],
+          "endSlopes": [
+            -0.00009156,
+            0.00064089
+          ],
+          "startBoundaryAmplitude": 0.03482162,
+          "endBoundaryAmplitude": 0.03485214,
+          "startBoundarySlope": 0.00057985,
+          "endBoundarySlope": 0.00064089,
+          "loopSeamValueDelta": 0.00003052,
+          "loopSeamSlopeDelta": 0.00006104
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "musicLoop duration must be 6..180s; found 16s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.21659988, non-zero ratio 0.9999316406)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.8600116."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000264."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "internalDiscontinuities": {
+          "passed": true,
+          "detail": "Music must not contain isolated internal steps above 0.04; found 0, max 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.9825537."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.03805 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0.00003052."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00006104."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "music-stage-clear.wav",
+      "bytes": 1536044,
+      "sha256": "b4d0bf7d4ebc439359192ebb2c9443ce4c08a6984d9e458e528aa4886bacd9b9",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "musicLoop",
+        "min": 6,
+        "max": 180
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 1536000,
+        "frameCount": 384000,
+        "durationSeconds": 8
+      },
+      "metrics": {
+        "peak": 0.86999115,
+        "rms": 0.21989964,
+        "rmsByChannel": [
+          0.21930239,
+          0.22049528
+        ],
+        "dcOffsetByChannel": [
+          0.00000264,
+          0.00000265
+        ],
+        "maxAbsoluteDcOffset": 0.00000265,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999375,
+        "maxAdjacentDelta": 0.04623554,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.96056884,
+          "monoFoldDb": -0.08651,
+          "lowBandCorrelation": 0.98071032,
+          "lowBandMonoFoldDb": -0.0421
+        },
+        "edge": {
+          "firstValues": [
+            0.03286843,
+            0.03991821
+          ],
+          "lastValues": [
+            0.03283792,
+            0.03991821
+          ],
+          "startSlopes": [
+            0.00027467,
+            0.00067141
+          ],
+          "endSlopes": [
+            0.00088504,
+            0.00024415
+          ],
+          "startBoundaryAmplitude": 0.03991821,
+          "endBoundaryAmplitude": 0.03991821,
+          "startBoundarySlope": 0.00067141,
+          "endBoundarySlope": 0.00088504,
+          "loopSeamValueDelta": 0.00003052,
+          "loopSeamSlopeDelta": 0.00061037
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "musicLoop duration must be 6..180s; found 8s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.21989964, non-zero ratio 0.9999375)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.86999115."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000265."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "internalDiscontinuities": {
+          "passed": true,
+          "detail": "Music must not contain isolated internal steps above 0.04; found 0, max 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.98071032."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.0421 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0.00003052."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00061037."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "music-stage1-base.wav",
+      "bytes": 3072044,
+      "sha256": "d09c8cd677e4543095aa50d50d6f643d37746c6ef0b4fd837049f33e5088f660",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "musicLoop",
+        "min": 6,
+        "max": 180
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 3072000,
+        "frameCount": 768000,
+        "durationSeconds": 16
+      },
+      "metrics": {
+        "peak": 0.86999115,
+        "rms": 0.2435275,
+        "rmsByChannel": [
+          0.24356649,
+          0.24348851
+        ],
+        "dcOffsetByChannel": [
+          0.00000297,
+          0.00000296
+        ],
+        "maxAbsoluteDcOffset": 0.00000297,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999375,
+        "maxAdjacentDelta": 0.04525895,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.9791319,
+          "monoFoldDb": -0.04555,
+          "lowBandCorrelation": 0.98699602,
+          "lowBandMonoFoldDb": -0.02833
+        },
+        "edge": {
+          "firstValues": [
+            0.00250252,
+            0.00360118
+          ],
+          "lastValues": [
+            0.002472,
+            0.00360118
+          ],
+          "startSlopes": [
+            0,
+            0
+          ],
+          "endSlopes": [
+            0,
+            -0.00003052
+          ],
+          "startBoundaryAmplitude": 0.00360118,
+          "endBoundaryAmplitude": 0.00360118,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0.00003052,
+          "loopSeamValueDelta": 0.00003052,
+          "loopSeamSlopeDelta": 0.00003052
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "musicLoop duration must be 6..180s; found 16s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.2435275, non-zero ratio 0.9999375)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.86999115."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000297."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "internalDiscontinuities": {
+          "passed": true,
+          "detail": "Music must not contain isolated internal steps above 0.04; found 0, max 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.98699602."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.02833 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0.00003052."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00003052."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "music-stage1-combat.wav",
+      "bytes": 3072044,
+      "sha256": "50ca788be833c7a0904522d9811ca35ebd53f5bc54b12657ef0b27f7955facee",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "musicLoop",
+        "min": 6,
+        "max": 180
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 3072000,
+        "frameCount": 768000,
+        "durationSeconds": 16
+      },
+      "metrics": {
+        "peak": 0.88998413,
+        "rms": 0.22599953,
+        "rmsByChannel": [
+          0.22603729,
+          0.22596177
+        ],
+        "dcOffsetByChannel": [
+          0.00000272,
+          0.00000273
+        ],
+        "maxAbsoluteDcOffset": 0.00000273,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999303385,
+        "maxAdjacentDelta": 0.08102664,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.97984408,
+          "monoFoldDb": -0.04399,
+          "lowBandCorrelation": 0.98819236,
+          "lowBandMonoFoldDb": -0.02572
+        },
+        "edge": {
+          "firstValues": [
+            0.00518815,
+            0.01095614
+          ],
+          "lastValues": [
+            0.00521867,
+            0.01095614
+          ],
+          "startSlopes": [
+            0.00097659,
+            0.00091556
+          ],
+          "endSlopes": [
+            0.00097659,
+            0.00094607
+          ],
+          "startBoundaryAmplitude": 0.01095614,
+          "endBoundaryAmplitude": 0.01095614,
+          "startBoundarySlope": 0.00097659,
+          "endBoundarySlope": 0.00097659,
+          "loopSeamValueDelta": 0.00003052,
+          "loopSeamSlopeDelta": 0.00003052
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "musicLoop duration must be 6..180s; found 16s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22599953, non-zero ratio 0.9999303385)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.88998413."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000273."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "internalDiscontinuities": {
+          "passed": true,
+          "detail": "Music must not contain isolated internal steps above 0.04; found 0, max 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.98819236."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.02572 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0.00003052."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00003052."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "music-stage2-base.wav",
+      "bytes": 3072044,
+      "sha256": "fdda181998a8575f96856f96fdf9fff700b0c55b225b6c3a19501c31a62c91e4",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "musicLoop",
+        "min": 6,
+        "max": 180
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 3072000,
+        "frameCount": 768000,
+        "durationSeconds": 16
+      },
+      "metrics": {
+        "peak": 0.8699646,
+        "rms": 0.23235799,
+        "rmsByChannel": [
+          0.23259212,
+          0.23212362
+        ],
+        "dcOffsetByChannel": [
+          0.00000285,
+          0.00000283
+        ],
+        "maxAbsoluteDcOffset": 0.00000285,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999329427,
+        "maxAdjacentDelta": 0.03674379,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.97930366,
+          "monoFoldDb": -0.04518,
+          "lowBandCorrelation": 0.98828088,
+          "lowBandMonoFoldDb": -0.02552
+        },
+        "edge": {
+          "firstValues": [
+            -0.01345825,
+            -0.01013184
+          ],
+          "lastValues": [
+            -0.01345825,
+            -0.01013184
+          ],
+          "startSlopes": [
+            0,
+            0.00003052
+          ],
+          "endSlopes": [
+            0.00003052,
+            0
+          ],
+          "startBoundaryAmplitude": 0.01345825,
+          "endBoundaryAmplitude": 0.01345825,
+          "startBoundarySlope": 0.00003052,
+          "endBoundarySlope": 0.00003052,
+          "loopSeamValueDelta": 0,
+          "loopSeamSlopeDelta": 0.00003052
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "musicLoop duration must be 6..180s; found 16s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.23235799, non-zero ratio 0.9999329427)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.8699646."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000285."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "internalDiscontinuities": {
+          "passed": true,
+          "detail": "Music must not contain isolated internal steps above 0.04; found 0, max 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.98828088."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.02552 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00003052."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "music-stage2-combat.wav",
+      "bytes": 3072044,
+      "sha256": "1a1959583be4ab992704b1dca7dd9a15c086575f0d5afb1a7307d1164719e550",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "musicLoop",
+        "min": 6,
+        "max": 180
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 2,
+        "sampleRate": 48000,
+        "byteRate": 192000,
+        "blockAlign": 4,
+        "bitsPerSample": 16,
+        "dataBytes": 3072000,
+        "frameCount": 768000,
+        "durationSeconds": 16
+      },
+      "metrics": {
+        "peak": 0.88995361,
+        "rms": 0.23834691,
+        "rmsByChannel": [
+          0.23866438,
+          0.23802902
+        ],
+        "dcOffsetByChannel": [
+          0.00000293,
+          0.00000289
+        ],
+        "maxAbsoluteDcOffset": 0.00000293,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.999953125,
+        "maxAdjacentDelta": 0.07333598,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": {
+          "correlation": 0.97899317,
+          "monoFoldDb": -0.04586,
+          "lowBandCorrelation": 0.98863406,
+          "lowBandMonoFoldDb": -0.02475
+        },
+        "edge": {
+          "firstValues": [
+            -0.01434326,
+            -0.0055542
+          ],
+          "lastValues": [
+            -0.01437378,
+            -0.0055542
+          ],
+          "startSlopes": [
+            0.00094604,
+            0.00091553
+          ],
+          "endSlopes": [
+            0.00097656,
+            0.00094604
+          ],
+          "startBoundaryAmplitude": 0.01434326,
+          "endBoundaryAmplitude": 0.01437378,
+          "startBoundarySlope": 0.00094604,
+          "endBoundarySlope": 0.00097656,
+          "loopSeamValueDelta": 0.00003052,
+          "loopSeamSlopeDelta": 0.00003052
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 2."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 4; found 4."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 192000; found 192000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "musicLoop duration must be 6..180s; found 16s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.23834691, non-zero ratio 0.999953125)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.88995361."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000293."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "internalDiscontinuities": {
+          "passed": true,
+          "detail": "Music must not contain isolated internal steps above 0.04; found 0, max 0."
+        },
+        "stereoLowBandCorrelation": {
+          "passed": true,
+          "detail": "Stereo low-band correlation must be >= 0.5; found 0.98863406."
+        },
+        "stereoLowBandMonoFold": {
+          "passed": true,
+          "detail": "Stereo low-band mono fold must be >= -1.5 dB; found -0.02475 dB."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0.00003052."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00003052."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "respawn.wav",
+      "bytes": 129644,
+      "sha256": "fb815d2fbae3a1e789755be47921178a1330cfd0f507e66a9add0be5a475084d",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 129600,
+        "frameCount": 64800,
+        "durationSeconds": 1.35
+      },
+      "metrics": {
+        "peak": 0.88000122,
+        "rms": 0.23766032,
+        "rmsByChannel": [
+          0.23766032
+        ],
+        "dcOffsetByChannel": [
+          0.0000027
+        ],
+        "maxAbsoluteDcOffset": 0.0000027,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9993364198,
+        "maxAdjacentDelta": 0.06912442,
+        "isolatedInternalStepCount": 205,
+        "maxIsolatedInternalStep": 0.06912442,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 1.35s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.23766032, non-zero ratio 0.9993364198)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.88000122."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.0000027."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-attack-alt-a.wav",
+      "bytes": 38444,
+      "sha256": "0e93f3313469140380e1bc858c624231b857deff47cc0fb56a73d67c9fee93eb",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 38400,
+        "frameCount": 19200,
+        "durationSeconds": 0.4
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.44884123,
+        "rmsByChannel": [
+          0.44884123
+        ],
+        "dcOffsetByChannel": [
+          0.00000561
+        ],
+        "maxAbsoluteDcOffset": 0.00000561,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9951041667,
+        "maxAdjacentDelta": 0.24878096,
+        "isolatedInternalStepCount": 1948,
+        "maxIsolatedInternalStep": 0.24878096,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.4s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.44884123, non-zero ratio 0.9951041667)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000561."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-attack-alt-b.wav",
+      "bytes": 42284,
+      "sha256": "7997ebdaae3f7554f4517893218af8443a417682a2b477b0f9745520bbde0570",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 42240,
+        "frameCount": 21120,
+        "durationSeconds": 0.44
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.46526665,
+        "rmsByChannel": [
+          0.46526665
+        ],
+        "dcOffsetByChannel": [
+          0.00000605
+        ],
+        "maxAbsoluteDcOffset": 0.00000605,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9993844697,
+        "maxAdjacentDelta": 0.27854096,
+        "isolatedInternalStepCount": 2220,
+        "maxIsolatedInternalStep": 0.27854096,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.44s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.46526665, non-zero ratio 0.9993844697)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000605."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-attack.wav",
+      "bytes": 36524,
+      "sha256": "55d5a4d296cfacc6e5f0a853de0ecc465af828631e21505ccd8e2270dd5b45c0",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 36480,
+        "frameCount": 18240,
+        "durationSeconds": 0.38
+      },
+      "metrics": {
+        "peak": 0.91998047,
+        "rms": 0.45164947,
+        "rmsByChannel": [
+          0.45164947
+        ],
+        "dcOffsetByChannel": [
+          0.00000574
+        ],
+        "maxAbsoluteDcOffset": 0.00000574,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9987390351,
+        "maxAdjacentDelta": 0.27563939,
+        "isolatedInternalStepCount": 1843,
+        "maxIsolatedInternalStep": 0.26599443,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.38s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.45164947, non-zero ratio 0.9987390351)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998047."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000574."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-checkpoint.wav",
+      "bytes": 134444,
+      "sha256": "8fe385fe441cbee590387ad1ea896d95cb1e4be532f1ca95c874205086951bda",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 134400,
+        "frameCount": 67200,
+        "durationSeconds": 1.4
+      },
+      "metrics": {
+        "peak": 0.87997437,
+        "rms": 0.27213554,
+        "rmsByChannel": [
+          0.27213554
+        ],
+        "dcOffsetByChannel": [
+          0.00000316
+        ],
+        "maxAbsoluteDcOffset": 0.00000316,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9996130952,
+        "maxAdjacentDelta": 0.0568865,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 1.4s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.27213554, non-zero ratio 0.9996130952)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.87997437."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000316."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-enemy-defeat-wraith.wav",
+      "bytes": 90284,
+      "sha256": "24b2197de36743d112c34c92d9fadccb9f07ab6c24075297eb7429814b3c03cb",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 90240,
+        "frameCount": 45120,
+        "durationSeconds": 0.94
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.22751464,
+        "rmsByChannel": [
+          0.22751464
+        ],
+        "dcOffsetByChannel": [
+          0.00000246
+        ],
+        "maxAbsoluteDcOffset": 0.00000246,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9985815603,
+        "maxAdjacentDelta": 0.13794065,
+        "isolatedInternalStepCount": 922,
+        "maxIsolatedInternalStep": 0.13794065,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.94s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22751464, non-zero ratio 0.9985815603)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000246."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-enemy-defeat.wav",
+      "bytes": 78764,
+      "sha256": "6f9605a1723cadf7bbf4a30f2a5f0c6d3b66a2c07bff1d5bed367dbf78ff4f2f",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 78720,
+        "frameCount": 39360,
+        "durationSeconds": 0.82
+      },
+      "metrics": {
+        "peak": 0.92001099,
+        "rms": 0.23607316,
+        "rmsByChannel": [
+          0.23607316
+        ],
+        "dcOffsetByChannel": [
+          0.00000255
+        ],
+        "maxAbsoluteDcOffset": 0.00000255,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9978150407,
+        "maxAdjacentDelta": 0.13970947,
+        "isolatedInternalStepCount": 688,
+        "maxIsolatedInternalStep": 0.13970947,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.82s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.23607316, non-zero ratio 0.9978150407)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.92001099."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000255."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-footstep-a.wav",
+      "bytes": 13484,
+      "sha256": "832b50a32aaa36fab91928aba771ba52a876e3dcc108ad00615b1de0f4418c57",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 13440,
+        "frameCount": 6720,
+        "durationSeconds": 0.14
+      },
+      "metrics": {
+        "peak": 0.91995239,
+        "rms": 0.22776701,
+        "rmsByChannel": [
+          0.22776701
+        ],
+        "dcOffsetByChannel": [
+          0.00000224
+        ],
+        "maxAbsoluteDcOffset": 0.00000224,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9979166667,
+        "maxAdjacentDelta": 0.1421814,
+        "isolatedInternalStepCount": 97,
+        "maxIsolatedInternalStep": 0.1421814,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.14s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22776701, non-zero ratio 0.9979166667)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91995239."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000224."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-footstep-b.wav",
+      "bytes": 14444,
+      "sha256": "986b25f3516239f1429e5f130eeb1748ca4cc16d3b157a588fa8e8d87f3c1d3e",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 14400,
+        "frameCount": 7200,
+        "durationSeconds": 0.15
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.22420851,
+        "rmsByChannel": [
+          0.22420851
+        ],
+        "dcOffsetByChannel": [
+          0.00000171
+        ],
+        "maxAbsoluteDcOffset": 0.00000171,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9959722222,
+        "maxAdjacentDelta": 0.13488888,
+        "isolatedInternalStepCount": 110,
+        "maxIsolatedInternalStep": 0.13488888,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.15s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22420851, non-zero ratio 0.9959722222)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000171."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-hit-heavy.wav",
+      "bytes": 49964,
+      "sha256": "7e81f15a60aead1b12daf51070d09829fd2a847b5b8a0c1988e158187be1abd2",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 49920,
+        "frameCount": 24960,
+        "durationSeconds": 0.52
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.21157746,
+        "rmsByChannel": [
+          0.21157746
+        ],
+        "dcOffsetByChannel": [
+          0.00000174
+        ],
+        "maxAbsoluteDcOffset": 0.00000174,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9971554487,
+        "maxAdjacentDelta": 0.16152973,
+        "isolatedInternalStepCount": 214,
+        "maxIsolatedInternalStep": 0.16152973,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.52s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.21157746, non-zero ratio 0.9971554487)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000174."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-hit-light-a.wav",
+      "bytes": 25004,
+      "sha256": "603b704a9cf9fc91f5b489e32f5368cb699cf8d7d517d3b8fa71cdf0b46e5f47",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 24960,
+        "frameCount": 12480,
+        "durationSeconds": 0.26
+      },
+      "metrics": {
+        "peak": 0.91995239,
+        "rms": 0.18586163,
+        "rmsByChannel": [
+          0.18586163
+        ],
+        "dcOffsetByChannel": [
+          0.00000137
+        ],
+        "maxAbsoluteDcOffset": 0.00000137,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9909455128,
+        "maxAdjacentDelta": 0.16824854,
+        "isolatedInternalStepCount": 213,
+        "maxIsolatedInternalStep": 0.16824854,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.26s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.18586163, non-zero ratio 0.9909455128)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91995239."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000137."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-hit-light-b.wav",
+      "bytes": 26924,
+      "sha256": "d5c6d2c64c1c9db52ff5ae257a7499f650548275e4d5c9492255c6b468b90627",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 26880,
+        "frameCount": 13440,
+        "durationSeconds": 0.28
+      },
+      "metrics": {
+        "peak": 0.91995239,
+        "rms": 0.17145386,
+        "rmsByChannel": [
+          0.17145386
+        ],
+        "dcOffsetByChannel": [
+          0.00000144
+        ],
+        "maxAbsoluteDcOffset": 0.00000144,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9943452381,
+        "maxAdjacentDelta": 0.16144147,
+        "isolatedInternalStepCount": 213,
+        "maxIsolatedInternalStep": 0.16144147,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.28s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.17145386, non-zero ratio 0.9943452381)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91995239."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000144."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-jump-alt.wav",
+      "bytes": 42284,
+      "sha256": "4c47d578ed41c822e259ae637b227769a0a22a6272863e098482ba3a81a52f83",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 42240,
+        "frameCount": 21120,
+        "durationSeconds": 0.44
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.27722167,
+        "rmsByChannel": [
+          0.27722167
+        ],
+        "dcOffsetByChannel": [
+          0.00000303
+        ],
+        "maxAbsoluteDcOffset": 0.00000303,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9968276515,
+        "maxAdjacentDelta": 0.10827967,
+        "isolatedInternalStepCount": 145,
+        "maxIsolatedInternalStep": 0.10827967,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.44s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.27722167, non-zero ratio 0.9968276515)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000303."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-jump.wav",
+      "bytes": 40364,
+      "sha256": "305d566b52563d114477e34274c3539a3420ae70f662e701b506b332b8d031d8",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 40320,
+        "frameCount": 20160,
+        "durationSeconds": 0.42
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.26451143,
+        "rmsByChannel": [
+          0.26451143
+        ],
+        "dcOffsetByChannel": [
+          0.00000288
+        ],
+        "maxAbsoluteDcOffset": 0.00000288,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9944940476,
+        "maxAdjacentDelta": 0.1368746,
+        "isolatedInternalStepCount": 224,
+        "maxIsolatedInternalStep": 0.1368746,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.42s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.26451143, non-zero ratio 0.9944940476)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000288."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-land-heavy.wav",
+      "bytes": 46124,
+      "sha256": "d88467f327a0adbcd2ced4f058031e9d10772936757d586e18bbd4ed5f2ef1be",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 46080,
+        "frameCount": 23040,
+        "durationSeconds": 0.48
+      },
+      "metrics": {
+        "peak": 0.91995239,
+        "rms": 0.21787104,
+        "rmsByChannel": [
+          0.21787104
+        ],
+        "dcOffsetByChannel": [
+          0.00000169
+        ],
+        "maxAbsoluteDcOffset": 0.00000169,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9955295139,
+        "maxAdjacentDelta": 0.12728882,
+        "isolatedInternalStepCount": 148,
+        "maxIsolatedInternalStep": 0.12728882,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.48s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.21787104, non-zero ratio 0.9955295139)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91995239."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000169."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-land-soft.wav",
+      "bytes": 25004,
+      "sha256": "c90d7658af6da04d455630073b685048b852d3317a75a3272c02f6d935ae46c1",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 24960,
+        "frameCount": 12480,
+        "durationSeconds": 0.26
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.24234292,
+        "rmsByChannel": [
+          0.24234292
+        ],
+        "dcOffsetByChannel": [
+          0.00000219
+        ],
+        "maxAbsoluteDcOffset": 0.00000219,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9974358974,
+        "maxAdjacentDelta": 0.11890011,
+        "isolatedInternalStepCount": 109,
+        "maxIsolatedInternalStep": 0.11194189,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.26s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.24234292, non-zero ratio 0.9974358974)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000219."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-pickup-energy.wav",
+      "bytes": 48044,
+      "sha256": "a5fc363d3045fb0fae69ef4022e59cca7ba4c4d16f9e7ef8759fcecee09efe97",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 48000,
+        "frameCount": 24000,
+        "durationSeconds": 0.5
+      },
+      "metrics": {
+        "peak": 0.8600116,
+        "rms": 0.26939772,
+        "rmsByChannel": [
+          0.26939772
+        ],
+        "dcOffsetByChannel": [
+          0.00000311
+        ],
+        "maxAbsoluteDcOffset": 0.00000311,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9989583333,
+        "maxAdjacentDelta": 0.07977538,
+        "isolatedInternalStepCount": 81,
+        "maxIsolatedInternalStep": 0.07977538,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.5s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.26939772, non-zero ratio 0.9989583333)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.8600116."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000311."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-pickup-health.wav",
+      "bytes": 53804,
+      "sha256": "553888ab357a4dfbe62f265f67087f7877b83f25966ffa76762b7f2aea91ac8b",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 53760,
+        "frameCount": 26880,
+        "durationSeconds": 0.56
+      },
+      "metrics": {
+        "peak": 0.8600116,
+        "rms": 0.26970065,
+        "rmsByChannel": [
+          0.26970065
+        ],
+        "dcOffsetByChannel": [
+          0.00000318
+        ],
+        "maxAbsoluteDcOffset": 0.00000318,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9990327381,
+        "maxAdjacentDelta": 0.08706665,
+        "isolatedInternalStepCount": 97,
+        "maxIsolatedInternalStep": 0.08706665,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.56s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.26970065, non-zero ratio 0.9990327381)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.8600116."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000318."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-pickup-scroll.wav",
+      "bytes": 49964,
+      "sha256": "384de08f6659a2393393800298d11fbf6f5b7a42ca5361c4e3bfbb580af7a08d",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 49920,
+        "frameCount": 24960,
+        "durationSeconds": 0.52
+      },
+      "metrics": {
+        "peak": 0.85998108,
+        "rms": 0.2628126,
+        "rmsByChannel": [
+          0.2628126
+        ],
+        "dcOffsetByChannel": [
+          0.000003
+        ],
+        "maxAbsoluteDcOffset": 0.000003,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9993189103,
+        "maxAdjacentDelta": 0.0810259,
+        "isolatedInternalStepCount": 71,
+        "maxIsolatedInternalStep": 0.0810259,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.52s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.2628126, non-zero ratio 0.9993189103)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.85998108."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.000003."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-pickup-seal-alt.wav",
+      "bytes": 36524,
+      "sha256": "0bff742935fad4f0d684ecf7fd22f1ec3917207aa948fa4702494bfff7e1387b",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 36480,
+        "frameCount": 18240,
+        "durationSeconds": 0.38
+      },
+      "metrics": {
+        "peak": 0.85998535,
+        "rms": 0.29290411,
+        "rmsByChannel": [
+          0.29290411
+        ],
+        "dcOffsetByChannel": [
+          0.00000358
+        ],
+        "maxAbsoluteDcOffset": 0.00000358,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9990679825,
+        "maxAdjacentDelta": 0.10275269,
+        "isolatedInternalStepCount": 102,
+        "maxIsolatedInternalStep": 0.10275269,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.38s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.29290411, non-zero ratio 0.9990679825)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.85998535."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000358."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-pickup-seal.wav",
+      "bytes": 34604,
+      "sha256": "0189323287ac72ea70e56260a212050a746b4559bca9d173d7ab20adac3edb1a",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 34560,
+        "frameCount": 17280,
+        "durationSeconds": 0.36
+      },
+      "metrics": {
+        "peak": 0.85998535,
+        "rms": 0.29049462,
+        "rmsByChannel": [
+          0.29049462
+        ],
+        "dcOffsetByChannel": [
+          0.00000341
+        ],
+        "maxAbsoluteDcOffset": 0.00000341,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9982060185,
+        "maxAdjacentDelta": 0.10021973,
+        "isolatedInternalStepCount": 93,
+        "maxIsolatedInternalStep": 0.10021973,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.36s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.29049462, non-zero ratio 0.9982060185)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.85998535."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000341."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-player-hurt-alt.wav",
+      "bytes": 51884,
+      "sha256": "a3dcf00d050a19a5c3b549d34933ea5df57b9b0702db29082cc2d203780a2c12",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 51840,
+        "frameCount": 25920,
+        "durationSeconds": 0.54
+      },
+      "metrics": {
+        "peak": 0.91995239,
+        "rms": 0.21480664,
+        "rmsByChannel": [
+          0.21480664
+        ],
+        "dcOffsetByChannel": [
+          0.00000187
+        ],
+        "maxAbsoluteDcOffset": 0.00000187,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9977237654,
+        "maxAdjacentDelta": 0.13797418,
+        "isolatedInternalStepCount": 148,
+        "maxIsolatedInternalStep": 0.13797418,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.54s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.21480664, non-zero ratio 0.9977237654)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91995239."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000187."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-player-hurt.wav",
+      "bytes": 48044,
+      "sha256": "c7bfb8b3805eb41b7f5c7fee330b50d96d00d6f979b0443392ef92ed6a2bf1fc",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 48000,
+        "frameCount": 24000,
+        "durationSeconds": 0.5
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.22716352,
+        "rmsByChannel": [
+          0.22716352
+        ],
+        "dcOffsetByChannel": [
+          0.00000201
+        ],
+        "maxAbsoluteDcOffset": 0.00000201,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9962083333,
+        "maxAdjacentDelta": 0.12326205,
+        "isolatedInternalStepCount": 149,
+        "maxIsolatedInternalStep": 0.12326205,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.5s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22716352, non-zero ratio 0.9962083333)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000201."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-spin-attack.wav",
+      "bytes": 69164,
+      "sha256": "343816b6cd6c7fed873641c7ade433aea1736a1efdf2d93a0689927511a6961a",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 69120,
+        "frameCount": 34560,
+        "durationSeconds": 0.72
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.39168736,
+        "rmsByChannel": [
+          0.39168736
+        ],
+        "dcOffsetByChannel": [
+          0.00000491
+        ],
+        "maxAbsoluteDcOffset": 0.00000491,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9991319444,
+        "maxAdjacentDelta": 0.19790649,
+        "isolatedInternalStepCount": 3341,
+        "maxIsolatedInternalStep": 0.1957121,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.72s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.39168736, non-zero ratio 0.9991319444)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000491."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-stage-clear.wav",
+      "bytes": 211244,
+      "sha256": "e5e831c834531cb6b7c96cdd4aa2356ae29098332fbc9eae94e6358744f078c1",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 211200,
+        "frameCount": 105600,
+        "durationSeconds": 2.2
+      },
+      "metrics": {
+        "peak": 0.89996338,
+        "rms": 0.17119854,
+        "rmsByChannel": [
+          0.17119854
+        ],
+        "dcOffsetByChannel": [
+          0.00000187
+        ],
+        "maxAbsoluteDcOffset": 0.00000187,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9983617424,
+        "maxAdjacentDelta": 0.05856323,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 2.2s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.17119854, non-zero ratio 0.9983617424)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.89996338."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000187."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-wall-kick-alt.wav",
+      "bytes": 46124,
+      "sha256": "e34b1b152530dfcd5df98a1e5c5c1bd4c7b142f770bd1eeb100dfba6dbceeb05",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 46080,
+        "frameCount": 23040,
+        "durationSeconds": 0.48
+      },
+      "metrics": {
+        "peak": 0.92001099,
+        "rms": 0.22489042,
+        "rmsByChannel": [
+          0.22489042
+        ],
+        "dcOffsetByChannel": [
+          0.00000211
+        ],
+        "maxAbsoluteDcOffset": 0.00000211,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.996484375,
+        "maxAdjacentDelta": 0.10351563,
+        "isolatedInternalStepCount": 154,
+        "maxIsolatedInternalStep": 0.10351563,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.48s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22489042, non-zero ratio 0.996484375)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.92001099."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000211."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-wall-kick.wav",
+      "bytes": 44204,
+      "sha256": "3bf8a342e6b014d459674b29289f65f620d26845c2862c0485a6da62402e54c4",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 44160,
+        "frameCount": 22080,
+        "durationSeconds": 0.46
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.22189387,
+        "rmsByChannel": [
+          0.22189387
+        ],
+        "dcOffsetByChannel": [
+          0.00000225
+        ],
+        "maxAbsoluteDcOffset": 0.00000225,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9978713768,
+        "maxAdjacentDelta": 0.16409343,
+        "isolatedInternalStepCount": 216,
+        "maxIsolatedInternalStep": 0.13912964,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.46s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22189387, non-zero ratio 0.9978713768)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000225."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-wall-slide-loop.wav",
+      "bytes": 76844,
+      "sha256": "a44dca2a87aa15e122431bfbe21a24dd3b5754974d4fd4cf3fe23c55ae6d5754",
+      "kind": "loop",
+      "durationProfile": {
+        "name": "shortLoop",
+        "min": 0.5,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 76800,
+        "frameCount": 38400,
+        "durationSeconds": 0.8
+      },
+      "metrics": {
+        "peak": 0.77667236,
+        "rms": 0.22270744,
+        "rmsByChannel": [
+          0.22270744
+        ],
+        "dcOffsetByChannel": [
+          0.00000273
+        ],
+        "maxAbsoluteDcOffset": 0.00000273,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9999479167,
+        "maxAdjacentDelta": 0.07736442,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            -0.21954346
+          ],
+          "lastValues": [
+            -0.21954346
+          ],
+          "startSlopes": [
+            -0.02056885
+          ],
+          "endSlopes": [
+            -0.02371216
+          ],
+          "startBoundaryAmplitude": 0.21954346,
+          "endBoundaryAmplitude": 0.21954346,
+          "startBoundarySlope": 0.02056885,
+          "endBoundarySlope": 0.02371216,
+          "loopSeamValueDelta": 0,
+          "loopSeamSlopeDelta": 0.00314331
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "shortLoop duration must be 0.5..4s; found 0.8s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22270744, non-zero ratio 0.9999479167)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.77667236."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000273."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "loopSeamValue": {
+          "passed": true,
+          "detail": "Loop seam value delta must be <= 0.02; found 0."
+        },
+        "loopSeamSlope": {
+          "passed": true,
+          "detail": "Loop seam slope delta must be <= 0.02; found 0.00314331."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-warden-attack.wav",
+      "bytes": 74924,
+      "sha256": "8dae754d0769bb767016ac48e6a24d5fcc85d32de897cecb11723589002d8669",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 74880,
+        "frameCount": 37440,
+        "durationSeconds": 0.78
+      },
+      "metrics": {
+        "peak": 0.92001099,
+        "rms": 0.25275821,
+        "rmsByChannel": [
+          0.25275821
+        ],
+        "dcOffsetByChannel": [
+          0.00000256
+        ],
+        "maxAbsoluteDcOffset": 0.00000256,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9989583333,
+        "maxAdjacentDelta": 0.13446045,
+        "isolatedInternalStepCount": 1028,
+        "maxIsolatedInternalStep": 0.13446045,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.78s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.25275821, non-zero ratio 0.9989583333)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.92001099."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000256."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-warden-defeat.wav",
+      "bytes": 177644,
+      "sha256": "bb079f6767930b2d8b5d2b59e3ad94fb60bb3ff65a9c96ed376ce34bd3e5d042",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 177600,
+        "frameCount": 88800,
+        "durationSeconds": 1.85
+      },
+      "metrics": {
+        "peak": 0.91998047,
+        "rms": 0.21231298,
+        "rmsByChannel": [
+          0.21231298
+        ],
+        "dcOffsetByChannel": [
+          0.0000021
+        ],
+        "maxAbsoluteDcOffset": 0.0000021,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9951126126,
+        "maxAdjacentDelta": 0.12661743,
+        "isolatedInternalStepCount": 1101,
+        "maxIsolatedInternalStep": 0.12661743,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 1.85s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.21231298, non-zero ratio 0.9951126126)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998047."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.0000021."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-warden-hit.wav",
+      "bytes": 40364,
+      "sha256": "f7128ee520feea2888abf2bb14a1cc2d24698c74e7ea861963577c67f03d06e8",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 40320,
+        "frameCount": 20160,
+        "durationSeconds": 0.42
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.14800616,
+        "rmsByChannel": [
+          0.14800616
+        ],
+        "dcOffsetByChannel": [
+          9.6e-7
+        ],
+        "maxAbsoluteDcOffset": 9.6e-7,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9953869048,
+        "maxAdjacentDelta": 0.14981536,
+        "isolatedInternalStepCount": 183,
+        "maxIsolatedInternalStep": 0.14981536,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.42s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.14800616, non-zero ratio 0.9953869048)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 9.6e-7."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage1-warden-projectile.wav",
+      "bytes": 65324,
+      "sha256": "8a6df6fd2e81ae29d1e569cabffa204847ffff6ea5bed491d8c30f157557eb87",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 65280,
+        "frameCount": 32640,
+        "durationSeconds": 0.68
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.28693432,
+        "rmsByChannel": [
+          0.28693432
+        ],
+        "dcOffsetByChannel": [
+          0.0000034
+        ],
+        "maxAbsoluteDcOffset": 0.0000034,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9991727941,
+        "maxAdjacentDelta": 0.13858032,
+        "isolatedInternalStepCount": 1069,
+        "maxIsolatedInternalStep": 0.13858032,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.68s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.28693432, non-zero ratio 0.9991727941)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.0000034."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage2-relay-attack.wav",
+      "bytes": 78764,
+      "sha256": "98b28eea234d2687b9d8cb61a214e67a0fe0c219208c52cb162493a74c6e93fc",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 78720,
+        "frameCount": 39360,
+        "durationSeconds": 0.82
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.28808544,
+        "rmsByChannel": [
+          0.28808544
+        ],
+        "dcOffsetByChannel": [
+          0.00000344
+        ],
+        "maxAbsoluteDcOffset": 0.00000344,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9994410569,
+        "maxAdjacentDelta": 0.10827821,
+        "isolatedInternalStepCount": 813,
+        "maxIsolatedInternalStep": 0.10827821,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.82s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.28808544, non-zero ratio 0.9994410569)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000344."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage2-relay-defeat.wav",
+      "bytes": 187244,
+      "sha256": "0d6b63afe4d68ae9bc5679f43949a91d065e8bb8de0bce94c627feee06b2356f",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 187200,
+        "frameCount": 93600,
+        "durationSeconds": 1.95
+      },
+      "metrics": {
+        "peak": 0.91998047,
+        "rms": 0.23819099,
+        "rmsByChannel": [
+          0.23819099
+        ],
+        "dcOffsetByChannel": [
+          0.00000244
+        ],
+        "maxAbsoluteDcOffset": 0.00000244,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9976816239,
+        "maxAdjacentDelta": 0.15115356,
+        "isolatedInternalStepCount": 1601,
+        "maxIsolatedInternalStep": 0.15115356,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 1.95s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.23819099, non-zero ratio 0.9976816239)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998047."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000244."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage2-relay-hit.wav",
+      "bytes": 44204,
+      "sha256": "320dca6b065fd9117255aad51948aa8e71c399e8f6852a356cd5549ef2a43c87",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 44160,
+        "frameCount": 22080,
+        "durationSeconds": 0.46
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.15227831,
+        "rmsByChannel": [
+          0.15227831
+        ],
+        "dcOffsetByChannel": [
+          9.9e-7
+        ],
+        "maxAbsoluteDcOffset": 9.9e-7,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9956068841,
+        "maxAdjacentDelta": 0.16928168,
+        "isolatedInternalStepCount": 216,
+        "maxIsolatedInternalStep": 0.16928168,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.46s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.15227831, non-zero ratio 0.9956068841)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 9.9e-7."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage2-relay-projectile.wav",
+      "bytes": 69164,
+      "sha256": "851f80d94c9ead4ddaa263263cec20c0b3cd6864d9b1b4369c699345667d5467",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 69120,
+        "frameCount": 34560,
+        "durationSeconds": 0.72
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.30038406,
+        "rmsByChannel": [
+          0.30038406
+        ],
+        "dcOffsetByChannel": [
+          0.00000366
+        ],
+        "maxAbsoluteDcOffset": 0.00000366,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9980034722,
+        "maxAdjacentDelta": 0.12875366,
+        "isolatedInternalStepCount": 1126,
+        "maxIsolatedInternalStep": 0.12875366,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.72s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.30038406, non-zero ratio 0.9980034722)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000366."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage2-shadow-thread-hit.wav",
+      "bytes": 46124,
+      "sha256": "2c061e18012d3c023f2a1f4e49960410d28cbb5e1842986820d2df1b92d41260",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 46080,
+        "frameCount": 23040,
+        "durationSeconds": 0.48
+      },
+      "metrics": {
+        "peak": 0.91998291,
+        "rms": 0.18435108,
+        "rmsByChannel": [
+          0.18435108
+        ],
+        "dcOffsetByChannel": [
+          0.00000135
+        ],
+        "maxAbsoluteDcOffset": 0.00000135,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9961805556,
+        "maxAdjacentDelta": 0.12842189,
+        "isolatedInternalStepCount": 247,
+        "maxIsolatedInternalStep": 0.12842189,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.48s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.18435108, non-zero ratio 0.9961805556)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.91998291."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000135."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "stage2-shadow-thread-launch.wav",
+      "bytes": 69164,
+      "sha256": "a67b4b768eaac3c14d09ada9a15908c24c3a240b7483004f252d82fac594a345",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 69120,
+        "frameCount": 34560,
+        "durationSeconds": 0.72
+      },
+      "metrics": {
+        "peak": 0.92001099,
+        "rms": 0.29982187,
+        "rmsByChannel": [
+          0.29982187
+        ],
+        "dcOffsetByChannel": [
+          0.0000035
+        ],
+        "maxAbsoluteDcOffset": 0.0000035,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9990162037,
+        "maxAdjacentDelta": 0.13723757,
+        "isolatedInternalStepCount": 1428,
+        "maxIsolatedInternalStep": 0.12094402,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.72s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.29982187, non-zero ratio 0.9990162037)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.92001099."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.0000035."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "ui-back.wav",
+      "bytes": 21164,
+      "sha256": "0f7cc148e6b2421c0efd4264a733267703ef300bd62c52a66cacc2a2d233fc53",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 21120,
+        "frameCount": 10560,
+        "durationSeconds": 0.22
+      },
+      "metrics": {
+        "peak": 0.85998535,
+        "rms": 0.31925825,
+        "rmsByChannel": [
+          0.31925825
+        ],
+        "dcOffsetByChannel": [
+          0.00000379
+        ],
+        "maxAbsoluteDcOffset": 0.00000379,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9982007576,
+        "maxAdjacentDelta": 0.12496948,
+        "isolatedInternalStepCount": 164,
+        "maxIsolatedInternalStep": 0.12496948,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.22s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.31925825, non-zero ratio 0.9982007576)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.85998535."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000379."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "ui-confirm.wav",
+      "bytes": 26924,
+      "sha256": "a36c6fd4780053fad7564c501a0eb28a07366bd0b27a1f8ad3e9b4ffded3df4c",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 26880,
+        "frameCount": 13440,
+        "durationSeconds": 0.28
+      },
+      "metrics": {
+        "peak": 0.85998535,
+        "rms": 0.29653643,
+        "rmsByChannel": [
+          0.29653643
+        ],
+        "dcOffsetByChannel": [
+          0.00000372
+        ],
+        "maxAbsoluteDcOffset": 0.00000372,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.998735119,
+        "maxAdjacentDelta": 0.09701834,
+        "isolatedInternalStepCount": 99,
+        "maxIsolatedInternalStep": 0.09460449,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.28s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.29653643, non-zero ratio 0.998735119)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.85998535."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000372."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "ui-move.wav",
+      "bytes": 11564,
+      "sha256": "e3ca7720cd22ba92dc7a2a7db565ba2b52a7cdc8ef36d56a0cc81f003e87bcae",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 11520,
+        "frameCount": 5760,
+        "durationSeconds": 0.12
+      },
+      "metrics": {
+        "peak": 0.8600116,
+        "rms": 0.36760748,
+        "rmsByChannel": [
+          0.36760748
+        ],
+        "dcOffsetByChannel": [
+          0.00000478
+        ],
+        "maxAbsoluteDcOffset": 0.00000478,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9967013889,
+        "maxAdjacentDelta": 0.16012734,
+        "isolatedInternalStepCount": 262,
+        "maxIsolatedInternalStep": 0.16012734,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.12s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.36760748, non-zero ratio 0.9967013889)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.8600116."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000478."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    },
+    {
+      "file": "ui-pause.wav",
+      "bytes": 40364,
+      "sha256": "0fc642cff52122ae7285167582048608b909af7819dba866b26c14c2e4de7410",
+      "kind": "oneShot",
+      "durationProfile": {
+        "name": "oneShot",
+        "min": 0.08,
+        "max": 4
+      },
+      "format": {
+        "container": "RIFF",
+        "waveId": "WAVE",
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "byteRate": 96000,
+        "blockAlign": 2,
+        "bitsPerSample": 16,
+        "dataBytes": 40320,
+        "frameCount": 20160,
+        "durationSeconds": 0.42
+      },
+      "metrics": {
+        "peak": 0.79998779,
+        "rms": 0.22634038,
+        "rmsByChannel": [
+          0.22634038
+        ],
+        "dcOffsetByChannel": [
+          0.00000258
+        ],
+        "maxAbsoluteDcOffset": 0.00000258,
+        "clippedSampleCount": 0,
+        "clippedSampleRatio": 0,
+        "nonZeroSampleRatio": 0.9986111111,
+        "maxAdjacentDelta": 0.01800592,
+        "isolatedInternalStepCount": 0,
+        "maxIsolatedInternalStep": 0,
+        "stereo": null,
+        "edge": {
+          "firstValues": [
+            0
+          ],
+          "lastValues": [
+            0
+          ],
+          "startSlopes": [
+            0
+          ],
+          "endSlopes": [
+            0
+          ],
+          "startBoundaryAmplitude": 0,
+          "endBoundaryAmplitude": 0,
+          "startBoundarySlope": 0,
+          "endBoundarySlope": 0,
+          "loopSeamValueDelta": null,
+          "loopSeamSlopeDelta": null
+        }
+      },
+      "checks": {
+        "riffPcm": {
+          "passed": true,
+          "detail": "Audio must be RIFF/WAVE with integer PCM format code 1."
+        },
+        "bitsPerSample": {
+          "passed": true,
+          "detail": "Audio must be 16-bit PCM; found 16."
+        },
+        "sampleRate": {
+          "passed": true,
+          "detail": "Sample rate must be 48 kHz; found 48000 Hz."
+        },
+        "channels": {
+          "passed": true,
+          "detail": "Channel count must be mono or stereo; found 1."
+        },
+        "blockAlign": {
+          "passed": true,
+          "detail": "blockAlign must be 2; found 2."
+        },
+        "byteRate": {
+          "passed": true,
+          "detail": "byteRate must be 96000; found 96000."
+        },
+        "duration": {
+          "passed": true,
+          "detail": "oneShot duration must be 0.08..4s; found 0.42s."
+        },
+        "nonSilent": {
+          "passed": true,
+          "detail": "Audio is silent or effectively silent (RMS 0.22634038, non-zero ratio 0.9986111111)."
+        },
+        "peak": {
+          "passed": true,
+          "detail": "Peak must be 0.15..0.96; found 0.79998779."
+        },
+        "dcOffset": {
+          "passed": true,
+          "detail": "Absolute DC offset must be <= 0.01; found 0.00000258."
+        },
+        "clipping": {
+          "passed": true,
+          "detail": "Clipped-sample ratio must be <= 0.0001; found 0."
+        },
+        "startClick": {
+          "passed": true,
+          "detail": "Start boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        },
+        "endClick": {
+          "passed": true,
+          "detail": "End boundary amplitude 0 (max 0.02), slope 0 (max 0.08)."
+        }
+      },
+      "errors": [],
+      "valid": true
+    }
+  ]
+}
