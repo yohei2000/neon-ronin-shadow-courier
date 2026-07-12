@@ -566,30 +566,15 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     const checkpointX = reached.player?.x ?? 0;
     await releaseMovementKeys(page);
     await page.locator('canvas').click({ position: { x: 480, y: 270 } });
-    await page.keyboard.down('ArrowRight');
-    await page.keyboard.down('d');
-    let lastRetryJump = 0;
-    let lastRetrySlash = 0;
-    await waitFor(async () => {
-      const current = await state(page);
-      const player = current.player;
-      if (!player) return false;
-      const now = Date.now();
-      if (player.onGround && now - lastRetryJump > 650) {
-        lastRetryJump = now;
-        await jump(page, 150);
-      }
-      const enemyNear = (current.enemies ?? []).some(
-        (enemy) => enemy.visible !== false && !enemy.dead && Math.abs(enemy.x - player.x) < 240 && Math.abs(enemy.y - player.y) < 180
-      );
-      if (enemyNear && now - lastRetrySlash > 320) {
-        lastRetrySlash = now;
-        await slash(page);
-      }
-      return (current.player?.x ?? 0) > checkpointX + 180;
-    }, 'player did not move away from checkpoint before retry', 6000);
-    await page.keyboard.up('ArrowRight');
-    await page.keyboard.up('d');
+    const departed = await runKeyboardRouteToClear(
+      page,
+      (current) => (current.player?.x ?? 0) > checkpointX + 180
+    );
+    assert(
+      (departed.player?.x ?? 0) > checkpointX + 180,
+      `player did not move away from checkpoint before retry: start ${checkpointX}, end ${departed.player?.x ?? 0}`
+    );
+    await releaseMovementKeys(page);
     await page.keyboard.press('p');
     await waitFor(async () => (await state(page)).paused === true, 'pause did not open before retry');
     await page.keyboard.press('r');
