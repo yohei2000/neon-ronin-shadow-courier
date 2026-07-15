@@ -287,7 +287,7 @@ describe('Stage1 enemy animation coverage', () => {
 });
 
 describe('Game audio assets', () => {
-  it('loads one unique generated asset for every sound key', () => {
+  it('loads one unique curated runtime asset for every sound key', () => {
     expect(Object.keys(GameAudioAssets).sort()).toEqual(Object.values(GameAudioKey).sort());
     const audioDir = resolve(dirname(fileURLToPath(import.meta.url)), '../src/assets/audio');
     const hashes = new Set<string>();
