@@ -144,10 +144,10 @@ const imageFirstTerrain = () => {
   const terrainAssets = plates.filter((plate) => String(plate.assetKey ?? '').startsWith('stage1-terrain-'));
   return {
     passed:
-      terrain?.mode === 'image-first-overlap-v4' &&
+      terrain?.mode === 'image-first-overlap-v7-cutaway' &&
       String(terrain?.sourceManifest ?? '').endsWith('stage1-continuous-background-manifest.json') &&
       terrain?.overlapPerUsableBoundaryPx === 256 &&
-      terrain?.collisionSource === 'platforms+landform-colliders' &&
+      terrain?.collisionSource === 'v7-authored-surfaces' &&
       plates.length === sections.length &&
       terrainAssets.length === plates.length &&
       ordered[0]?.x === 0 &&

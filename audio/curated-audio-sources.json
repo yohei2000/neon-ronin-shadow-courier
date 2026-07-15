@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "acquiredAt": "2026-07-15",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "integrityReport": "artifacts/audio/curated-source-preparation-report.json",
+  "sourcePacks": [
+    {
+      "id": "kenney-rpg-audio",
+      "title": "RPG Audio",
+      "author": "Kenney",
+      "pageUrl": "https://kenney.nl/assets/rpg-audio",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "kenney_rpg-audio.zip",
+          "url": "https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip",
+          "sha256": "6dbeaf8544da958d8f2adcb4a4a4b76c1ade34a05f8ab9edccd327da7375f38b"
+        }
+      ],
+      "masterPrefixes": ["rpg-"]
+    },
+    {
+      "id": "kenney-impact-sounds",
+      "title": "Impact Sounds",
+      "author": "Kenney",
+      "pageUrl": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "kenney_impact-sounds.zip",
+          "url": "https://kenney.nl/media/pages/assets/impact-sounds/87b4ddecda-1677589768/kenney_impact-sounds.zip",
+          "sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8"
+        }
+      ],
+      "masterPrefixes": ["impact-"]
+    },
+    {
+      "id": "kenney-interface-sounds",
+      "title": "Interface Sounds",
+      "author": "Kenney",
+      "pageUrl": "https://kenney.nl/assets/interface-sounds",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "kenney_interface-sounds.zip",
+          "url": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+          "sha256": "f2193d072726d6758a5f7871b2dcc54dcce0d5c35c6f0a62f92549b327c81232"
+        }
+      ],
+      "masterPrefixes": ["ui-"]
+    },
+    {
+      "id": "kenney-sci-fi-sounds",
+      "title": "Sci-fi Sounds",
+      "author": "Kenney",
+      "pageUrl": "https://kenney.nl/assets/sci-fi-sounds",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "kenney_sci-fi-sounds.zip",
+          "url": "https://kenney.nl/media/pages/assets/sci-fi-sounds/6b296f9ecf-1677589334/kenney_sci-fi-sounds.zip",
+          "sha256": "119340f351a5098ad814f78719438c0da355a9ce8a4c8a3af6a8d48aa3d49e04"
+        }
+      ],
+      "masterPrefixes": ["scifi-", "computer-", "engine-", "space-", "thruster-"]
+    },
+    {
+      "id": "kenney-music-jingles",
+      "title": "Music Jingles",
+      "author": "Kenney",
+      "pageUrl": "https://kenney.nl/assets/music-jingles",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "kenney_music-jingles.zip",
+          "url": "https://kenney.nl/media/pages/assets/music-jingles/f37e530b9e-1677590399/kenney_music-jingles.zip",
+          "sha256": "b729ba57959bd58793d2c5cafa348aaf2655d354f3da35ec4729e03ec77197b8"
+        }
+      ],
+      "masterPrefixes": ["jingle-"]
+    },
+    {
+      "id": "tinysized-fantasy-sfx",
+      "title": "Fantasy Sound Effects (Tinysized SFX)",
+      "author": "Vehicle (Jan Schupke)",
+      "pageUrl": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "tinysized.zip",
+          "url": "https://opengameart.org/sites/default/files/tinysized.zip",
+          "sha256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db"
+        }
+      ],
+      "masterPrefixes": ["sword-", "whoosh-", "boots-", "paralyzer-", "metal-", "coin-", "water-"]
+    },
+    {
+      "id": "tt-cyberpunk-pack-2",
+      "title": "T & T Free Cyberpunk Pack 2",
+      "author": "Alexander Ehlers",
+      "pageUrl": "https://opengameart.org/content/t-t-free-cyberpunk-pack-2",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "night_club_chill_100bpm.ogg",
+          "url": "https://opengameart.org/sites/default/files/night_club_chill_100bpm.ogg",
+          "sha256": "c7f02e74ab9e11af9909db2b1a28905bcb309742c1528fcab67eff931a360ac4"
+        },
+        {
+          "fileName": "new_factory_129bpm.ogg",
+          "url": "https://opengameart.org/sites/default/files/new_factory_129bpm_0.ogg",
+          "sha256": "3365dd3d25697a54e843678d75f49732cd0bc88bfd3ccb574b39f0ed65fa7291"
+        },
+        {
+          "fileName": "through_the_sewers_1766bpm.ogg",
+          "url": "https://opengameart.org/sites/default/files/through_the_sewers_1766bpm.ogg",
+          "sha256": "a248f7bd3b0260bacd3cf4eb5bc325c6b15cc359334527b9734c3d4b6ced5f99"
+        }
+      ],
+      "masterNames": ["menu-night-club", "stage1-new-factory", "stage2-sewers"]
+    },
+    {
+      "id": "victory-theme",
+      "title": "Victory! Victory! Victory!",
+      "author": "Spring Spring",
+      "pageUrl": "https://opengameart.org/content/victory-victory-victory",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "victory-theme.ogg",
+          "url": "https://opengameart.org/sites/default/files/snd_music_victorytheme_0.ogg",
+          "sha256": "f263605366144be169f66f1649a4bf7f3e03b86b511e63c0b5d18d0c3402ba25"
+        }
+      ],
+      "masterNames": ["clear-victory"]
+    },
+    {
+      "id": "rain-loopable",
+      "title": "Rain (loopable)",
+      "author": "Ylmir",
+      "pageUrl": "https://opengameart.org/content/rain-loopable",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "rain-ogg.zip",
+          "url": "https://opengameart.org/sites/default/files/Rain%20OGG.zip",
+          "sha256": "e68f3e1c77493cf43bec84cebff5043bff6be9ce16d59b24caa988cd460aa75b"
+        }
+      ],
+      "masterNames": ["rain"]
+    },
+    {
+      "id": "scifi-city-ambient",
+      "title": "Scifi City - Ambient Loop",
+      "author": "TinyWorlds",
+      "pageUrl": "https://opengameart.org/content/scifi-city-ambient-loop",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "busy_cyberworld.ogg",
+          "url": "https://opengameart.org/sites/default/files/busy_cyberworld.ogg",
+          "sha256": "db06a538d562b031771f791fe1f5798037030f97dc13d94664b1d7087018ac51"
+        }
+      ],
+      "masterNames": ["cyber-city"]
+    },
+    {
+      "id": "factory-ambiance",
+      "title": "Factory ambiance",
+      "author": "yd",
+      "pageUrl": "https://opengameart.org/content/factory-ambiance",
+      "license": "CC0-1.0",
+      "downloads": [
+        {
+          "fileName": "Factory.ogg",
+          "url": "https://opengameart.org/sites/default/files/Factory.ogg",
+          "sha256": "c8c1b2b5bad66d2951cc366ad3337a67882a769b1c3057b2791fa2085ae4d09e"
+        }
+      ],
+      "masterNames": ["factory"]
+    }
+  ]
+}

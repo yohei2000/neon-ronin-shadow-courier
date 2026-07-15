@@ -12,7 +12,10 @@ const server = await createServer({
   ...createInlineViteConfig(),
   server: {
     host: '127.0.0.1',
-    port: 5174
+    port: 5174,
+    watch: {
+      ignored: ['**/artifacts/**']
+    }
   }
 });
 await server.listen();

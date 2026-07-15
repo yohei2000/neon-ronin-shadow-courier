@@ -1,6 +1,7 @@
 import stage1Content from './stage1Content.json';
 import stage1Landforms from './stage1Landforms.json';
 import type { RuntimeEnvironmentAssetKey } from './artAssets';
+import { buildStage1CollisionPlatforms } from './stage1Collision';
 
 export type Stage1SectionName =
   | 'Rain Lantern Start'
@@ -14,6 +15,16 @@ export type RectData = {
   readonly y: number;
   readonly width: number;
   readonly height: number;
+};
+
+export type Stage1CollisionSurfaceType = 'ground' | 'wall' | 'ceiling' | 'oneWay' | 'slope' | 'hazard' | 'trigger';
+
+export type Stage1CollisionRect = RectData & {
+  readonly id: string;
+  readonly sourceId: string;
+  readonly source: 'trial' | 'legacy';
+  readonly surfaceType: Stage1CollisionSurfaceType;
+  readonly oneWay: boolean;
 };
 
 export type Stage1Section = {
@@ -69,7 +80,8 @@ export type Stage1LandformRuntimeData = {
     | 'background-first-landforms-v1'
     | 'imagegen-concept-background-first-v2'
     | 'imagegen-continuous-background-overlap-v2'
-    | 'imagegen-continuous-background-rolling-v4';
+    | 'imagegen-continuous-background-rolling-v4'
+    | 'imagegen-continuous-background-rolling-v7-cutaway';
   readonly assetKey: RuntimeEnvironmentAssetKey;
   readonly frameWidth: number;
   readonly frameHeight: number;
@@ -93,10 +105,10 @@ export type Stage1LandformRuntimeData = {
 };
 
 export type StageVisualTerrain = {
-  readonly mode: 'image-first-overlap-v4';
+  readonly mode: 'image-first-overlap-v7-cutaway';
   readonly sourceManifest: string;
   readonly overlapPerUsableBoundaryPx: number;
-  readonly collisionSource: 'platforms+landform-colliders';
+  readonly collisionSource: 'v7-authored-surfaces';
   readonly plates: readonly StageVisualTerrainPlate[];
   readonly landforms: readonly StageVisualTerrainLandform[];
   readonly landformColliders: readonly StageVisualTerrainCollider[];
@@ -253,7 +265,12 @@ export const Stage1Data = {
   }
 } as unknown as Stage1Data;
 
-export const Stage1CollisionPlatforms: readonly RectData[] = [...Stage1Data.platforms, ...Stage1Data.visualTerrain.landformColliders];
+export const Stage1LegacyCollisionPlatforms: readonly RectData[] = [
+  ...Stage1Data.platforms,
+  ...Stage1Data.visualTerrain.landformColliders
+];
+
+export const Stage1CollisionPlatforms: readonly Stage1CollisionRect[] = buildStage1CollisionPlatforms(Stage1LegacyCollisionPlatforms);
 
 export const getSectionForX = (x: number): Stage1Section => {
   return (

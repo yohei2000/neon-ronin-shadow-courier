@@ -4,7 +4,7 @@ import { chromium } from '@playwright/test';
 import { createServer } from 'vite';
 import { createInlineViteConfig } from './vite-inline-config.mjs';
 
-const outputDir = path.resolve('artifacts', 'stage1', 'continuous-background-v4-single-master', 'runtime-alignment');
+const outputDir = path.resolve('artifacts', 'stage1', 'continuous-background-v7-cutaway-terrain', 'runtime-alignment');
 fs.mkdirSync(outputDir, { recursive: true });
 
 const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));

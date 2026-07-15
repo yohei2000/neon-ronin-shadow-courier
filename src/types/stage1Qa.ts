@@ -39,6 +39,13 @@ export type Stage1QaState = {
     readonly landforms: number;
     readonly landformFrames: number;
     readonly landformColliders: number;
+    readonly activeCollisionRects?: number;
+    readonly collisionTrial?: {
+      readonly enabled: boolean;
+      readonly coverageRange: { readonly start: number; readonly end: number };
+      readonly surfaceCount: number;
+      readonly generatedRectCount: number;
+    };
   };
   readonly e2eIntegrity?: {
     readonly debugTeleport: false;

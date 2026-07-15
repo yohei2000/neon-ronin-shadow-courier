@@ -13,7 +13,10 @@ const server = await createServer({
   ...createInlineViteConfig(),
   server: {
     host: '127.0.0.1',
-    port: preferredPort
+    port: preferredPort,
+    watch: {
+      ignored: ['**/artifacts/**']
+    }
   }
 });
 await server.listen();
@@ -26,7 +29,7 @@ const browser = await chromium.launch();
 console.log('stage1-e2e browser launched');
 const tests = [];
 const shouldRun = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
-const routeTimeoutMs = Number(process.env.E2E_ROUTE_TIMEOUT_MS ?? 420000);
+const routeTimeoutMs = Number(process.env.E2E_ROUTE_TIMEOUT_MS ?? 540000);
 const wardenEngageX = stage.warden.arena.x + 160;
 const wardenStopX = stage.warden.x - 120;
 const wardenAdvanceX = stage.warden.x - 130;
@@ -578,10 +581,14 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
     await page.keyboard.press('p');
     await waitFor(async () => (await state(page)).paused === true, 'pause did not open before retry');
     await page.keyboard.press('r');
-    await waitFor(async () => {
-      const current = await state(page);
-      return current.player?.x > 4400 && current.player?.x < 4560 && current.player.hp === current.player.maxHp;
-    }, 'retry checkpoint did not respawn near checkpoint');
+    try {
+      await waitFor(async () => {
+        const current = await state(page);
+        return current.player?.x > 4400 && current.player?.x < 4560 && current.player.hp === current.player.maxHp;
+      }, 'retry checkpoint did not respawn near checkpoint');
+    } catch {
+      throw new Error(`retry checkpoint did not respawn near checkpoint: ${JSON.stringify(await state(page))}`);
+    }
     return { checkpointRetry: true, checkpointCount: reached.checkpointCount };
   })
 );

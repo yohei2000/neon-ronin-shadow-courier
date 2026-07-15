@@ -14,6 +14,11 @@ import {
 import { CombatSystem, type SlashMode, type SlashState } from '../systems/CombatSystem';
 import type { DamageSource } from './types';
 
+type PlayerCollisionRect = RectData & {
+  readonly oneWay?: boolean;
+  readonly surfaceType?: 'ground' | 'wall' | 'ceiling' | 'oneWay' | 'slope' | 'hazard' | 'trigger';
+};
+
 export type PlayerVisualPose =
   | 'idle'
   | 'run'
@@ -200,7 +205,7 @@ export class Player {
     this.sprite.play('player-idle');
   }
 
-  update(input: Stage1InputSnapshot, platforms: readonly RectData[], nowMs: number, deltaMs: number, paused = false): PlayerFrameResult {
+  update(input: Stage1InputSnapshot, platforms: readonly PlayerCollisionRect[], nowMs: number, deltaMs: number, paused = false): PlayerFrameResult {
     const events: PlayerActionEvent[] = [];
 
     if (paused) {
@@ -574,12 +579,13 @@ export class Player {
     };
   }
 
-  private moveAndCollide(dx: number, dy: number, platforms: readonly RectData[]): void {
+  private moveAndCollide(dx: number, dy: number, platforms: readonly PlayerCollisionRect[]): void {
     if (dx !== 0) {
       this.x += dx;
       this.touchingLeft = false;
       this.touchingRight = false;
       for (const platform of platforms) {
+        if (platform.oneWay || (platform.surfaceType !== undefined && platform.surfaceType !== 'wall')) continue;
         if (!rectsOverlap(this.getBody(), platform)) continue;
         if (dx > 0) {
           this.x = platform.x - this.getBody().width / 2;
@@ -594,9 +600,26 @@ export class Player {
     }
 
     if (dy !== 0) {
+      const previousBody = this.getBody();
       this.y += dy;
       this.onGround = false;
       for (const platform of platforms) {
+        if (platform.oneWay) {
+          if (dy < 0) continue;
+          const body = this.getBody();
+          const overlapsHorizontally = body.x < platform.x + platform.width && body.x + body.width > platform.x;
+          const previousBottom = previousBody.y + previousBody.height;
+          const currentBottom = body.y + body.height;
+          if (!overlapsHorizontally || previousBottom > platform.y + 14 || currentBottom < platform.y) continue;
+          this.y = platform.y - body.height / 2;
+          this.vy = 0;
+          this.onGround = true;
+          this.shadowThreadChargeAvailable = true;
+          this.lastGroundedMs = this.scene.time.now;
+          this.jumpStartedMs = -Infinity;
+          this.jumpVisualVariant = null;
+          continue;
+        }
         if (!rectsOverlap(this.getBody(), platform)) continue;
         if (dy > 0) {
           this.y = platform.y - this.getBody().height / 2;

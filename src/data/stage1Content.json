@@ -7,7 +7,7 @@
   "targetFirstClearSeconds": { "min": 240, "max": 480 },
   "targetOptimizedSeconds": { "min": 105, "max": 210 },
   "safeFirstScreen": { "x": 0, "y": 0, "width": 640, "height": 540 },
-  "safeRestBeforeMiniboss": { "x": 8200, "y": 320, "width": 600, "height": 220 },
+  "safeRestBeforeMiniboss": { "x": 8200, "y": 370, "width": 600, "height": 280 },
   "sections": [
     { "id": "rain-lantern-start", "name": "Rain Lantern Start", "startX": 0, "endX": 1600, "orientation": "horizontal", "optionalRoute": false },
     { "id": "wall-kick-sign-shaft", "name": "Neon Sign Run", "startX": 1600, "endX": 3200, "orientation": "vertical", "optionalRoute": false },
@@ -16,10 +16,10 @@
     { "id": "lantern-warden-gate", "name": "Lantern Warden Gate", "startX": 7900, "endX": 10050, "orientation": "horizontal", "optionalRoute": false }
   ],
   "visualTerrain": {
-    "mode": "image-first-overlap-v4",
-    "sourceManifest": "artifacts/stage1/continuous-background-v4-single-master/stage1-continuous-background-manifest.json",
+    "mode": "image-first-overlap-v7-cutaway",
+    "sourceManifest": "artifacts/stage1/continuous-background-v7-cutaway-terrain/stage1-continuous-background-manifest.json",
     "overlapPerUsableBoundaryPx": 256,
-    "collisionSource": "platforms+landform-colliders",
+    "collisionSource": "v7-authored-surfaces",
     "plates": [
       { "id": "plate-rain-lantern-start", "assetKey": "stage1-terrain-rain-lantern-start", "x": 0, "y": 0, "width": 1856, "height": 900, "usableRange": { "start": 0, "end": 1600 }, "overlap": { "left": 0, "right": 256 }, "depth": 11, "alpha": 1 },
       { "id": "plate-neon-sign-run", "assetKey": "stage1-terrain-neon-sign-run", "x": 1344, "y": 0, "width": 2112, "height": 900, "usableRange": { "start": 1600, "end": 3200 }, "overlap": { "left": 256, "right": 256 }, "depth": 11, "alpha": 1 },
@@ -74,7 +74,7 @@
     { "id": "checkpoint-sign-top", "name": "High Sign Shrine", "x": 2700, "y": 86, "width": 76, "height": 86, "respawnX": 2700, "respawnY": 137, "sectionId": "wall-kick-sign-shaft" },
     { "id": "checkpoint-market-roof", "name": "Rooftop Market Shrine", "x": 4480, "y": 310, "width": 78, "height": 86, "respawnX": 4480, "respawnY": 358, "sectionId": "rooftop-hazard-line" },
     { "id": "checkpoint-thorn-high", "name": "Updraft Shrine", "x": 7240, "y": 159, "width": 78, "height": 86, "respawnX": 7240, "respawnY": 207, "sectionId": "neon-thorn-climb" },
-    { "id": "checkpoint-warden-rest", "name": "Moon Lantern Rest", "x": 8280, "y": 228, "width": 78, "height": 86, "respawnX": 8260, "respawnY": 278, "sectionId": "lantern-warden-gate" }
+    { "id": "checkpoint-warden-rest", "name": "Moon Lantern Rest", "x": 8280, "y": 376, "width": 78, "height": 86, "respawnX": 8260, "respawnY": 416, "sectionId": "lantern-warden-gate" }
   ],
   "hazards": [
     { "id": "sign-spark", "type": "timed-spark", "x": 1380, "y": 508, "width": 72, "height": 14, "damage": 1 },
@@ -111,17 +111,17 @@
       { "id": "seal-18", "x": 7240, "y": 190 },
       { "id": "seal-19", "x": 7440, "y": 195 },
       { "id": "seal-20", "x": 7900, "y": 195 },
-      { "id": "seal-21", "x": 8200, "y": 258 },
-      { "id": "seal-22", "x": 8700, "y": 426 },
-      { "id": "seal-23", "x": 9400, "y": 426 },
-      { "id": "seal-24", "x": 9870, "y": 426 }
+      { "id": "seal-21", "x": 8200, "y": 370 },
+      { "id": "seal-22", "x": 8700, "y": 556 },
+      { "id": "seal-23", "x": 9400, "y": 556 },
+      { "id": "seal-24", "x": 9870, "y": 556 }
     ],
     "scrolls": [],
     "pickups": [
       { "id": "health-01", "type": "health", "x": 2580, "y": 125 },
       { "id": "energy-01", "type": "energy", "x": 4560, "y": 338 },
       { "id": "health-02", "type": "health", "x": 7280, "y": 150 },
-      { "id": "energy-02", "type": "energy", "x": 8320, "y": 258 }
+      { "id": "energy-02", "type": "energy", "x": 8320, "y": 410 }
     ]
   },
   "enemies": [
@@ -134,10 +134,10 @@
   "warden": {
     "id": "lantern-warden-01",
     "x": 9300,
-    "y": 380,
-    "arena": { "x": 8900, "y": 316, "width": 900, "height": 226 },
+    "y": 510,
+    "arena": { "x": 8900, "y": 446, "width": 900, "height": 226 },
     "hp": 5,
     "attackStates": ["lantern-sweep", "spark-drop", "rush-cut"]
   },
-  "moonGate": { "id": "moon-gate", "x": 9870, "y": 398, "width": 118, "height": 170, "requiresWardenDefeated": true }
+  "moonGate": { "id": "moon-gate", "x": 9870, "y": 528, "width": 118, "height": 170, "requiresWardenDefeated": true }
 }

@@ -1,0 +1,480 @@
+{
+  "version": 1,
+  "enabled": true,
+  "importedAt": "2026-07-14T23:35:29.445Z",
+  "source": {
+    "fileName": "stage1-v7-collision-builder-project.json",
+    "sha256": "62912e1087f339fe7aa63aa82814c015926f675fea292675c67e4559af56acb0",
+    "projectName": "Neon Ronin Stage 1 v7 - Cutaway Collision Candidate"
+  },
+  "plate": {
+    "width": 10050,
+    "height": 900
+  },
+  "coverageRange": {
+    "start": 0,
+    "end": 10050
+  },
+  "surfaces": [
+    {
+      "id": "v7-ground-rain-lantern-start",
+      "type": "ground",
+      "points": [
+        [
+          0,
+          570
+        ],
+        [
+          560,
+          570
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Front edge of the wet stone street and retaining wall."
+    },
+    {
+      "id": "v7-slope-rain-bank-rise",
+      "type": "slope",
+      "points": [
+        [
+          560,
+          570
+        ],
+        [
+          720,
+          510
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Broad supported stone rise between the opening street terraces."
+    },
+    {
+      "id": "v7-ground-lantern-run",
+      "type": "ground",
+      "points": [
+        [
+          720,
+          510
+        ],
+        [
+          1710,
+          510
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Continuous wet stone coping before the tall sign stair."
+    },
+    {
+      "id": "v7-slope-sign-tower-stair",
+      "type": "slope",
+      "points": [
+        [
+          1710,
+          510
+        ],
+        [
+          2210,
+          210
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Visible monumental stone stair climbing to the sign tower crown."
+    },
+    {
+      "id": "v7-ground-sign-tower-crown",
+      "type": "ground",
+      "points": [
+        [
+          2210,
+          210
+        ],
+        [
+          2760,
+          210
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Upper stone terrace carried by two deep masonry arches."
+    },
+    {
+      "id": "v7-oneway-market-entry",
+      "type": "oneWay",
+      "points": [
+        [
+          2760,
+          390
+        ],
+        [
+          3150,
+          390
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Drop landing at the supported market-entry stone gallery."
+    },
+    {
+      "id": "v7-oneway-market-upper-gallery",
+      "type": "oneWay",
+      "points": [
+        [
+          3000,
+          360
+        ],
+        [
+          3200,
+          360
+        ],
+        [
+          3350,
+          350
+        ],
+        [
+          3600,
+          370
+        ],
+        [
+          3900,
+          370
+        ],
+        [
+          4150,
+          390
+        ],
+        [
+          4450,
+          390
+        ],
+        [
+          4680,
+          390
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Upper market route across connected timber galleries and roof fascia."
+    },
+    {
+      "id": "v7-slope-market-cross-stair",
+      "type": "slope",
+      "points": [
+        [
+          3190,
+          360
+        ],
+        [
+          3560,
+          570
+        ],
+        [
+          3840,
+          750
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Visible diagonal stair linking the market's upper, middle, and lower floors."
+    },
+    {
+      "id": "v7-oneway-market-middle-floor",
+      "type": "oneWay",
+      "points": [
+        [
+          3500,
+          570
+        ],
+        [
+          4680,
+          570
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Middle market floor with continuous beams, posts, and rooms beneath."
+    },
+    {
+      "id": "v7-oneway-market-lower-floor",
+      "type": "oneWay",
+      "points": [
+        [
+          3900,
+          800
+        ],
+        [
+          4700,
+          800
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Optional lower market landing above the cutaway foundation level."
+    },
+    {
+      "id": "v7-ground-drain-approach",
+      "type": "ground",
+      "points": [
+        [
+          4680,
+          390
+        ],
+        [
+          4970,
+          390
+        ]
+      ],
+      "thickness": 26,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Stone roof terrace immediately before the drainage descent."
+    },
+    {
+      "id": "v7-slope-drain-descent",
+      "type": "slope",
+      "points": [
+        [
+          4970,
+          390
+        ],
+        [
+          5280,
+          490
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Masonry stair descending from the market to the canal bank."
+    },
+    {
+      "id": "v7-ground-drain-bank",
+      "type": "ground",
+      "points": [
+        [
+          5280,
+          490
+        ],
+        [
+          6200,
+          490
+        ]
+      ],
+      "thickness": 28,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Continuous drainage-bank top carried by deep stone arches."
+    },
+    {
+      "id": "v7-oneway-thorn-floor-01",
+      "type": "oneWay",
+      "points": [
+        [
+          6270,
+          700
+        ],
+        [
+          6490,
+          700
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Lowest visible timber floor inside the cutaway climb tower."
+    },
+    {
+      "id": "v7-oneway-thorn-floor-02",
+      "type": "oneWay",
+      "points": [
+        [
+          6300,
+          600
+        ],
+        [
+          6600,
+          600
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Lower-mid timber landing inside the cutaway climb tower."
+    },
+    {
+      "id": "v7-oneway-thorn-floor-03",
+      "type": "oneWay",
+      "points": [
+        [
+          6280,
+          480
+        ],
+        [
+          6600,
+          480
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Middle landing aligned to the drain-bank entrance."
+    },
+    {
+      "id": "v7-oneway-thorn-floor-04",
+      "type": "oneWay",
+      "points": [
+        [
+          6330,
+          320
+        ],
+        [
+          6610,
+          320
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Upper-mid timber landing in the cutaway tower."
+    },
+    {
+      "id": "v7-oneway-thorn-floor-05",
+      "type": "oneWay",
+      "points": [
+        [
+          6270,
+          180
+        ],
+        [
+          6600,
+          180
+        ]
+      ],
+      "thickness": 18,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "Top tower room floor before the supported high gallery."
+    },
+    {
+      "id": "v7-wall-thorn-tower-left",
+      "type": "wall",
+      "points": [
+        [
+          6230,
+          380
+        ],
+        [
+          6230,
+          175
+        ]
+      ],
+      "thickness": 24,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Upper left masonry wall of the vertical cutaway climb, leaving a playable entry below."
+    },
+    {
+      "id": "v7-wall-thorn-tower-right",
+      "type": "wall",
+      "points": [
+        [
+          6640,
+          300
+        ],
+        [
+          6640,
+          700
+        ]
+      ],
+      "thickness": 24,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Lower right masonry wall of the vertical cutaway climb, leaving a playable exit to the high gallery."
+    },
+    {
+      "id": "v7-oneway-high-approach-gallery",
+      "type": "oneWay",
+      "points": [
+        [
+          6660,
+          260
+        ],
+        [
+          7650,
+          260
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "one-way",
+      "oneWay": true,
+      "notes": "High covered gallery floor supported by large arches and piers."
+    },
+    {
+      "id": "v7-slope-gate-descent-upper",
+      "type": "slope",
+      "points": [
+        [
+          7650,
+          260
+        ],
+        [
+          8050,
+          350
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Upper supported gate-approach stair."
+    },
+    {
+      "id": "v7-slope-gate-descent-lower",
+      "type": "slope",
+      "points": [
+        [
+          8050,
+          350
+        ],
+        [
+          8500,
+          570
+        ]
+      ],
+      "thickness": 20,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Lower broad stair descending into the Warden forecourt."
+    },
+    {
+      "id": "v7-ground-warden-forecourt",
+      "type": "ground",
+      "points": [
+        [
+          8500,
+          645
+        ],
+        [
+          10050,
+          645
+        ]
+      ],
+      "thickness": 30,
+      "collisionMode": "solid",
+      "oneWay": false,
+      "notes": "Front physical edge of the wet-stone Warden arena and Moon Gate threshold."
+    }
+  ]
+}

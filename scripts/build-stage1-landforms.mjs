@@ -4,7 +4,7 @@ import { chromium } from '@playwright/test';
 
 const rootDir = process.cwd();
 const runtimeDir = path.resolve(rootDir, 'src', 'assets', 'runtime');
-const sourceRelativeDir = 'artifacts/stage1/continuous-background-v4-single-master';
+const sourceRelativeDir = 'artifacts/stage1/continuous-background-v7-cutaway-terrain';
 const sourceDir = path.resolve(rootDir, ...sourceRelativeDir.split('/'));
 const stagePath = path.resolve(rootDir, 'src', 'data', 'stage1Content.json');
 const dataOutputPath = path.resolve(rootDir, 'src', 'data', 'stage1Landforms.json');
@@ -167,8 +167,8 @@ const generateRuntimeImages = async () => {
       output: `src/assets/runtime/${panel.plateAssetKey}.png`,
       width: dimensions.width,
       height: dimensions.height,
-      mode: 'imagegen-continuous-background-rolling-v4',
-      collisionSource: 'src/data/stage1Landforms.json#colliders'
+      mode: 'imagegen-continuous-background-rolling-v7-cutaway',
+      collisionSource: 'src/data/stage1CollisionTrial.json#surfaces'
     };
   });
 
@@ -361,7 +361,7 @@ const writeData = (terrainPlateOutputs) => {
     dataOutputPath,
     `${JSON.stringify(
       {
-        generation: 'imagegen-continuous-background-rolling-v4',
+        generation: 'imagegen-continuous-background-rolling-v7-cutaway',
         assetKey: 'stage1-landforms-spritesheet',
         frameWidth,
         frameHeight,
@@ -396,7 +396,7 @@ const updateManifest = (terrainPlateOutputs) => {
       frameHeight,
       frameCount,
       generatedAt: new Date().toISOString(),
-      mode: 'imagegen-continuous-background-rolling-v4-landforms',
+      mode: 'imagegen-continuous-background-rolling-v7-cutaway-landforms',
       placementSource: 'src/data/stage1Landforms.json',
       runtimeInstances: landforms.length,
       colliderInstances: colliders.length

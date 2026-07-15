@@ -11,7 +11,8 @@ import {
   GameAudioProfiles
 } from '../src/data/audioAssets';
 import { InkCrawlerAnimationFrames, KiteWraithAnimationFrames, LanternWardenAnimationFrames, PlayerAnimationFrames, SlashAnimationFrames } from '../src/data/artAssets';
-import { Stage1CollisionPlatforms, Stage1Data, Stage1Tuning } from '../src/data/stage1';
+import { Stage1CollisionPlatforms, Stage1Data, Stage1LegacyCollisionPlatforms, Stage1Tuning } from '../src/data/stage1';
+import { Stage1CollisionTrialInfo, Stage1TrialCollisionRects } from '../src/data/stage1Collision';
 import { validateStage1 } from '../src/data/stageValidation';
 import { CombatSystem, canTakeOverlapDamage, resolveSlashPhase } from '../src/systems/CombatSystem';
 import { SaveSystem, createDefaultSave, normalizeSaveData } from '../src/systems/SaveSystem';
@@ -51,10 +52,10 @@ describe('Stage1 validation', () => {
   });
 
   it('keeps Stage1 terrain image-first with large landform collision data', () => {
-    expect(Stage1Data.visualTerrain.mode).toBe('image-first-overlap-v4');
+    expect(Stage1Data.visualTerrain.mode).toBe('image-first-overlap-v7-cutaway');
     expect(Stage1Data.visualTerrain.overlapPerUsableBoundaryPx).toBe(256);
-    expect(Stage1Data.visualTerrain.sourceManifest).toContain('continuous-background-v4-single-master');
-    expect(Stage1Data.visualTerrain.collisionSource).toBe('platforms+landform-colliders');
+    expect(Stage1Data.visualTerrain.sourceManifest).toContain('continuous-background-v7-cutaway-terrain');
+    expect(Stage1Data.visualTerrain.collisionSource).toBe('v7-authored-surfaces');
     expect(Stage1Data.visualTerrain.plates).toHaveLength(Stage1Data.sections.length);
     expect(Stage1Data.visualTerrain.plates.every((plate) => plate.assetKey.startsWith('stage1-terrain-'))).toBe(true);
     const orderedPlates = [...Stage1Data.visualTerrain.plates].sort((left, right) => left.usableRange.start - right.usableRange.start);
@@ -74,8 +75,21 @@ describe('Stage1 validation', () => {
     expect(Stage1Data.visualTerrain.landformColliders.length).toBeGreaterThanOrEqual(25);
     expect(new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.frame)).size).toBeGreaterThanOrEqual(12);
     expect(new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.sectionId)).size).toBe(Stage1Data.sections.length);
-    expect(Stage1CollisionPlatforms.length).toBe(Stage1Data.platforms.length + Stage1Data.visualTerrain.landformColliders.length);
+    expect(Stage1LegacyCollisionPlatforms.length).toBe(Stage1Data.platforms.length + Stage1Data.visualTerrain.landformColliders.length);
     expect(Stage1Data.platforms.length).toBeGreaterThan(0);
+  });
+
+  it('uses the imported v7 collision source across the full stage width', () => {
+    expect(Stage1CollisionTrialInfo.enabled).toBe(true);
+    expect(Stage1CollisionTrialInfo.coverageRange).toEqual({ start: 0, end: 10050 });
+    expect(Stage1CollisionTrialInfo.surfaceCount).toBe(24);
+    expect(Stage1CollisionTrialInfo.generatedRectCount).toBe(Stage1TrialCollisionRects.length);
+    expect(Stage1CollisionTrialInfo.source.fileName).toBe('stage1-v7-collision-builder-project.json');
+    expect(Stage1TrialCollisionRects.length).toBeGreaterThan(100);
+    expect(Stage1TrialCollisionRects.some((rect) => rect.oneWay)).toBe(true);
+    expect(Stage1TrialCollisionRects.some((rect) => rect.surfaceType === 'slope')).toBe(true);
+    expect(Stage1CollisionPlatforms.filter((rect) => rect.source === 'legacy')).toHaveLength(0);
+    expect(Stage1CollisionPlatforms.filter((rect) => rect.source === 'trial')).toHaveLength(Stage1TrialCollisionRects.length);
   });
 });
 

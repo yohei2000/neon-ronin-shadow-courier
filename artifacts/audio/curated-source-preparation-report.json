@@ -1,0 +1,1049 @@
+{
+  "sampleRate": 48000,
+  "oneShots": [
+    {
+      "path": "audio/curated-sources/one-shots/rpg-draw-knife-1.wav",
+      "sha256": "d9e1aa7140d3ebb2d2c99f8b4259cd435d2ebfd2c60908d7dc7d783f7cdd998e",
+      "frames": 19186,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.399708,
+      "sourceFile": "drawKnife1.ogg",
+      "sourceSha256": "276403e72c3b71c47bc24db3083970c23f8e5551ffa78f436f83483c56f3f0bb"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-draw-knife-2.wav",
+      "sha256": "3ab744db47fb427f0aaf49e04742d76ea3bf393ae8704c82ea42267a4e97210a",
+      "frames": 21400,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.445833,
+      "sourceFile": "drawKnife2.ogg",
+      "sourceSha256": "d5df6a4130cbb016f97b4883769a418917b9629cb4c21717030b186e0c73281a"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-draw-knife-3.wav",
+      "sha256": "9b80e35d68bb157f264e623ffd14dcba4d01ab833a311ff9c589c74d5da96f2d",
+      "frames": 16603,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.345896,
+      "sourceFile": "drawKnife3.ogg",
+      "sourceSha256": "a11ae62fb1a628425769d11a9de394980ad8909c31f4c9a4316f226963e21caf"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-knife-slice-1.wav",
+      "sha256": "3461bb79682b2e8f277d2ca69cc4da427e2cc56b58385c8c8ca1e55f0c999ca3",
+      "frames": 20260,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.422083,
+      "sourceFile": "knifeSlice.ogg",
+      "sourceSha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-knife-slice-2.wav",
+      "sha256": "5032a280c907526080b86cf4a8853bbfe9bcebfbb99eed89a9ed04ca66970e82",
+      "frames": 23527,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.490146,
+      "sourceFile": "knifeSlice2.ogg",
+      "sourceSha256": "6c2064d0ef988d1ec3d56868e823ea8823a5cac00f2742560052633529407def"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-footstep-00.wav",
+      "sha256": "419cf5810976f5d07852a1183b07b7c55b9259b711d56cfc7b7392d578f62f73",
+      "frames": 11449,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.238521,
+      "sourceFile": "footstep00.ogg",
+      "sourceSha256": "6fe61ef1fc3bcf0e253bf2eb64759db6cb69e2fe452f4d88cc597ecf78a3d601"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-footstep-03.wav",
+      "sha256": "1ba52be479bc5d2c3e4f607e6b7d4105561dc44d2e249d59e2d0ca0a30886f5f",
+      "frames": 12825,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.267188,
+      "sourceFile": "footstep03.ogg",
+      "sourceSha256": "a86756b9af9f370455ab47844239bb07fd1bee7a113068c91f0fcd9b72703fae"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-cloth-1.wav",
+      "sha256": "0a05efec773b16fa2a581e0119bb21b9b88e6e6ed1acfdd204c93b6695f4a8a0",
+      "frames": 29697,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.618687,
+      "sourceFile": "cloth1.ogg",
+      "sourceSha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-cloth-3.wav",
+      "sha256": "64817c3902d02931e703124aa82a15703e8b184a3550258a4416bf2c551b59a7",
+      "frames": 22875,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.476562,
+      "sourceFile": "cloth3.ogg",
+      "sourceSha256": "a48632d17a4f1416541d261a32a31612e01267144c407fa3ecab3ff410f0085b"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-coins-1.wav",
+      "sha256": "1a1abec32905c7e59bdfa4c933ad4c9f693c3e5c84651a30400a0bcecfea1bf6",
+      "frames": 35480,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.739167,
+      "sourceFile": "handleCoins.ogg",
+      "sourceSha256": "8a91f969e932df709df80ee124d86a51389eed9b67f22e5e716bc2bbf60d8dab"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-coins-2.wav",
+      "sha256": "f2f4611217396eaacc674ec577e72bcb33257010d7eab0d4e607ac90183d1eed",
+      "frames": 16234,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.338208,
+      "sourceFile": "handleCoins2.ogg",
+      "sourceSha256": "4b857968d64f9ac9336a10ffac6694d7547e1f01566ad6857b30bc8db3ee6c32"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-metal-click.wav",
+      "sha256": "597b175fd813717be9676074e67818edfcb7693df1cb0ce5a12e5e76e28d5eb0",
+      "frames": 19574,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.407792,
+      "sourceFile": "metalClick.ogg",
+      "sourceSha256": "9851a69d0c613e13bceef08060ecc4148f098ef487927cbebe270d642398a3b3"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/rpg-metal-latch.wav",
+      "sha256": "ce155ebc0f48470bf867325c8b6aa5690e65a893544b3718aa5b806b5449c8d7",
+      "frames": 11954,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.249042,
+      "sourceFile": "metalLatch.ogg",
+      "sourceSha256": "ba9ba60b172b3ebc131a940f25793cd2e207aca7af73dc80d637277f060f1708"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-concrete-0.wav",
+      "sha256": "4bd13cd02bd6cf1b1851e41e439dac3a0efd305bd4b157acc2ac2efde440d62e",
+      "frames": 5085,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.105938,
+      "sourceFile": "footstep_concrete_000.ogg",
+      "sourceSha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-concrete-1.wav",
+      "sha256": "ff4c17ccf557a365e4ecc399b180c1ed49cbc98fff90981de62a1ff50e2c0e06",
+      "frames": 5167,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.107646,
+      "sourceFile": "footstep_concrete_001.ogg",
+      "sourceSha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-punch-heavy-0.wav",
+      "sha256": "0f254c98e142542dd59bacb7ee0973fc71a7dad1597716a90ed631d9ceb4b901",
+      "frames": 27641,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.575854,
+      "sourceFile": "impactPunch_heavy_000.ogg",
+      "sourceSha256": "b33a8f14068aec24ec69ba85e5e87fdc41228975f6a1a3e44a6e7d6fc3d9f8d8"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-punch-heavy-2.wav",
+      "sha256": "d574b6822ee16a97e50308ceef4ed21b873f90488794382654de399ffb43858c",
+      "frames": 21331,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.444396,
+      "sourceFile": "impactPunch_heavy_002.ogg",
+      "sourceSha256": "7993dd4c156b9979ad69f17be5ebe31850b16039a3857f8477141be54dfee1b3"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-punch-heavy-4.wav",
+      "sha256": "a5159adfeef48bfb86e330fe0b66456e3e409efe6f23fd325d3a234066ca4e3d",
+      "frames": 23381,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.487104,
+      "sourceFile": "impactPunch_heavy_004.ogg",
+      "sourceSha256": "f4c0c3eb8ab6517583b8218ed03f28923d1b687379aab4c1d5a6d4c10cf8e500"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-punch-medium-1.wav",
+      "sha256": "1e320b3fb2a09471d313de32f0d38334c3a59f9f226c6c192f0fb02f7233ce65",
+      "frames": 14082,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.293375,
+      "sourceFile": "impactPunch_medium_001.ogg",
+      "sourceSha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-punch-medium-3.wav",
+      "sha256": "5814486c292e6f0b0c445ea9533a3ceeb6847f64f4fff20097309e6bd31d37d2",
+      "frames": 15635,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.325729,
+      "sourceFile": "impactPunch_medium_003.ogg",
+      "sourceSha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-metal-heavy-0.wav",
+      "sha256": "604fa0ca675ed4efe991208b7821723d4de60f894b203bad779ac6b2964b4895",
+      "frames": 8048,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.167667,
+      "sourceFile": "impactMetal_heavy_000.ogg",
+      "sourceSha256": "e07045693e4a2b3d165c424e3dab4c781d9ff8880a386880ac89a51315d7f831"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-metal-heavy-1.wav",
+      "sha256": "25b16188ebe532c4711440de7094fc4fa8ae5d164f4b7c5811cf004076f6e37f",
+      "frames": 17246,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.359292,
+      "sourceFile": "impactMetal_heavy_001.ogg",
+      "sourceSha256": "83554049f81f4db9209379e103c30bfa63f65c42189a03f300b045c2c82e23ae"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-metal-heavy-3.wav",
+      "sha256": "997169d70a77fc7235705ae2c400396d231d53de27768a169a39bf06376e0a9f",
+      "frames": 9932,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.206917,
+      "sourceFile": "impactMetal_heavy_003.ogg",
+      "sourceSha256": "b0f2ba4dabde9a87eb9c188a19d31e0c2300fd321adeba08d3b9b8aa011d7037"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-metal-medium-0.wav",
+      "sha256": "8acb4ed942c72f4ba2bd004445e634397fed31c0721cd11bfcd062a46b0972e5",
+      "frames": 13045,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.271771,
+      "sourceFile": "impactMetal_medium_000.ogg",
+      "sourceSha256": "a96f879fec0864a8938e0c745b6996a6c5679c16a234ce31a01cc995e8401003"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/impact-metal-medium-3.wav",
+      "sha256": "e2ab027da87fb11f6789d5e4a010d657cbad61cd2cf5647be96877e2a5d88515",
+      "frames": 12191,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.253979,
+      "sourceFile": "impactMetal_medium_003.ogg",
+      "sourceSha256": "2a185e2e57211d02c1bdd33b872d6b6a2fe83e6c14f4e56f426a95e717acf08e"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-forcefield-0.wav",
+      "sha256": "56b790288b2bfba9e33ed3b486306d9105026ca675e826bec791a6d18d6f2465",
+      "frames": 40326,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.840125,
+      "sourceFile": "forceField_000.ogg",
+      "sourceSha256": "c2916f2a062c8ddd1aca2826d134fe90847037db31342726ffb0f9097afe339c"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-forcefield-2.wav",
+      "sha256": "4b362918e83316e3c11c64420cbf6e6e6907115af77da682194ea4e7cceea8e3",
+      "frames": 40355,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.840729,
+      "sourceFile": "forceField_002.ogg",
+      "sourceSha256": "051b0eafc479695af4ca3607d41fd4be41bae7c21f4f9508d004722b09f1bd63"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-forcefield-4.wav",
+      "sha256": "73e2c4db5eeb7dbbb83161ba07e17ae9bccdff248b2ab8c22f9b9e7a04784863",
+      "frames": 40345,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.840521,
+      "sourceFile": "forceField_004.ogg",
+      "sourceSha256": "05609bb296cbc287ae95ac8924c89809d69c89d7bb357cc6a117ec1b1ef65e09"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-low-explosion-0.wav",
+      "sha256": "2d70428cccd5142c535ab6b655409def69a68af4b9dfe6ab2d5abcdd5429b242",
+      "frames": 96003,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 2.000062,
+      "sourceFile": "lowFrequency_explosion_000.ogg",
+      "sourceSha256": "3cb48d86dab63140cfb9aaeea4d4a6846abaca5831d157d8adbec0490da26343"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-low-explosion-1.wav",
+      "sha256": "731f0e2eca69919233538f70f8a29bd6bac9d2bacd70c61c1c99a9b5ea67c8f4",
+      "frames": 48003,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.000063,
+      "sourceFile": "lowFrequency_explosion_001.ogg",
+      "sourceSha256": "cdda50600a4928f2f1b8371224d53c171ac799c1cf2c30b11999508985250b3b"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-explosion-crunch-0.wav",
+      "sha256": "06813d2fa41f31d53bfdc861d4a04b1520239e7dba42619a04be2a32bbb47a51",
+      "frames": 37319,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.777479,
+      "sourceFile": "explosionCrunch_000.ogg",
+      "sourceSha256": "4b597d658d0ae101f0a030fbeea5fc3a4292ab85f017470a8254a8e7959cbd69"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-explosion-crunch-2.wav",
+      "sha256": "a305223a86c1a8f6e38612f5a3ee13357d8d128d60a04b19b63d63060ab2c7ab",
+      "frames": 60277,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.255771,
+      "sourceFile": "explosionCrunch_002.ogg",
+      "sourceSha256": "be2b8ddc62e4a24c91e2e77793de98549ce216faf2f323a917e7d6f34321ff97"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-explosion-crunch-4.wav",
+      "sha256": "bb32754afd8b73d3c6e30a0fd372716d2248761495fc21361e41e4e5de976a53",
+      "frames": 95047,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.980146,
+      "sourceFile": "explosionCrunch_004.ogg",
+      "sourceSha256": "9c3a1c73cadf0de5d5a578b31a264f20b1ac7cb6ec9bbd34a203f58402ea5390"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-laser-large-1.wav",
+      "sha256": "232599ff474506d2c371199749b978feea676ffd2229d503bc05e65e37e3b934",
+      "frames": 34608,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.721,
+      "sourceFile": "laserLarge_001.ogg",
+      "sourceSha256": "e678aca631495b7dfef4ac625f0349875ccac81a60f538d530e072241af3e4bd"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-laser-small-2.wav",
+      "sha256": "78a23191fb9fdf938c342a77543830e2c3fb3f113f4de7b9d220a5572f080f03",
+      "frames": 16525,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.344271,
+      "sourceFile": "laserSmall_002.ogg",
+      "sourceSha256": "e70139466c3e801358c9041ee17db7ff82c0e9a9cdf44647ad0ea6b9f8458f63"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-slime-0.wav",
+      "sha256": "a2b3e48d968a1b65b152e38cb379a13aed7a8e75846eb9323625df68904dcbe8",
+      "frames": 23975,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.499479,
+      "sourceFile": "slime_000.ogg",
+      "sourceSha256": "480ee82b690136ea9db6966a3c3033356b8274752795c4e37afd6b6defcfacff"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/scifi-impact-metal-2.wav",
+      "sha256": "95f05568ffe3329d98dbf1faddd91670c39a903585e737354d5f0f49fb6eec37",
+      "frames": 22614,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.471125,
+      "sourceFile": "impactMetal_002.ogg",
+      "sourceSha256": "0c1bb4db8a4d48b2b8c2e65a175d9056b845f1063837599995d81be1c5957d2c"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-select-3.wav",
+      "sha256": "e851b70dadefe8f7e4ac3442b5d2297c5ae45ef1c48c0decf9b0c4dcf3bf53c5",
+      "frames": 11986,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.249708,
+      "sourceFile": "select_003.ogg",
+      "sourceSha256": "9a612fd2f513d52a296906b41071c990f75defe56be3bee60d2d4e2423b51b8b"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-select-5.wav",
+      "sha256": "0e0428e3ee4f1ae8196744cbbd619da4e46c18d045d59c7c62f064efa1f0c88c",
+      "frames": 11888,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.247667,
+      "sourceFile": "select_005.ogg",
+      "sourceSha256": "ad09146e4ea33b931b2f5dfb4051a4f1fe4a36f1a48c42c5e9269c292ae21214"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-select-6.wav",
+      "sha256": "622aa9262e72643cbbbde5000102285b0233ea4417f00e37fbb254e19ea06b55",
+      "frames": 11824,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.246333,
+      "sourceFile": "select_006.ogg",
+      "sourceSha256": "b44550fa8d3276c072ce7c3c1315d949f7a28a95bc22b3618ad4eea62eac8abe"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-confirm-1.wav",
+      "sha256": "364209169904d3b30998b5eb8ea1b8fc4ad84dca078b2ef4bfa57d91d6bc4594",
+      "frames": 13913,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.289854,
+      "sourceFile": "confirmation_001.ogg",
+      "sourceSha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-confirm-2.wav",
+      "sha256": "b4a69000a20a9f2801d38c2e74ce24053e9e73e596268f82b6f546054f785267",
+      "frames": 25873,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.539021,
+      "sourceFile": "confirmation_002.ogg",
+      "sourceSha256": "33b17a9a9a2397c62b285c52c33a907fdffb476909c99e42dde603f6a7a8b12c"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-confirm-4.wav",
+      "sha256": "c67689b378d4ce5741204a7fed3ab75b2a480d032fa33cc59263f52e57995fe6",
+      "frames": 23540,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.490417,
+      "sourceFile": "confirmation_004.ogg",
+      "sourceSha256": "568967a3d9f8a8f6af54ea01729c4882284308f2a27d78c07ffd7ee0d6951661"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-back-3.wav",
+      "sha256": "62f77b69769bf774042fd9d0e5af551ae0e4759c14ddc5e23c3c0760599769ca",
+      "frames": 4459,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.092896,
+      "sourceFile": "back_003.ogg",
+      "sourceSha256": "ff5e87de1230b1a5f1fa83e5a4ba9d7eb1c07154267ac34b510a17d4caa03cef"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-error-3.wav",
+      "sha256": "5d85d7d88781907934c5f9b9ec88df505fb0a17eeea7fd4abc7cd7ff5e31c1c4",
+      "frames": 20757,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.432437,
+      "sourceFile": "error_003.ogg",
+      "sourceSha256": "885b28175c7b511118bcffab95675b48bbac9005cf6514656ebdad979276b3ab"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-error-5.wav",
+      "sha256": "77deb13367992476f100fa26c201228a1063f0045810de4c39f3fdae28834329",
+      "frames": 10234,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.213208,
+      "sourceFile": "error_005.ogg",
+      "sourceSha256": "3f75b11df5b06d68d2c25fbf0e9c9d9e7dd9250562a4007ee34856b8a309a2ae"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-maximize-4.wav",
+      "sha256": "2ee82683310075870deeb22331041e6cc11b271c356c97caaff78d1652e11300",
+      "frames": 19429,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.404771,
+      "sourceFile": "maximize_004.ogg",
+      "sourceSha256": "59c7a24b204be24d2a44a86d1e4d18c2cf51fa0446967a14b2590e8fb3afaf34"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-maximize-5.wav",
+      "sha256": "4be34dd6aa2081565692097c6bf253f37025f64e4f4cc9bde30817e6dd695fbe",
+      "frames": 25181,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.524604,
+      "sourceFile": "maximize_005.ogg",
+      "sourceSha256": "0ee06fc3ee494723fc95b2224f9dc0af857f2903e7f94d5d33d8e67f454b3cf7"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-scroll-3.wav",
+      "sha256": "be8213c8bb48b422e41c36b2b806ffca6818ad463c2b2be54fd63f1c4c6d0072",
+      "frames": 48002,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.000042,
+      "sourceFile": "scroll_003.ogg",
+      "sourceSha256": "c2fecaa6e37c73d7141d0bd303d1c2231428d97c19ce83d50236a56804818643"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-glass-4.wav",
+      "sha256": "4f12d9edc9e21c05b3206dae5f26284540af049ec73025f66877f812cd217982",
+      "frames": 33229,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.692271,
+      "sourceFile": "glass_004.ogg",
+      "sourceSha256": "2379b58f953e3d86982aa8cddcae763022c6258e9820171bf905ce58b4e97766"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-open-4.wav",
+      "sha256": "a79e9e9b8fbaebac4ab7e55e36c340325cd3568dad2b416e571c1a6856165cdf",
+      "frames": 15499,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.322896,
+      "sourceFile": "open_004.ogg",
+      "sourceSha256": "4e02b8287bc4d9e7bf7a889cb9e48613c8eb22a310dfb0bf29c2bfd0a1e4bea5"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/ui-close-4.wav",
+      "sha256": "89ab53871ed43543042cdcea8492fb5f3e44d89145e72727f5768f9d788ba0c9",
+      "frames": 15499,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.322896,
+      "sourceFile": "close_004.ogg",
+      "sourceSha256": "41b41e01ac75f4bc5a9c8dc3b0de744fa7f877757463692783c12a8ae4bfae6b"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/sword-clash-1.wav",
+      "sha256": "df9d93e29fc98817cade0f89886045d27e6a4a59503eed7cf3f2c72acdb6fbbb",
+      "frames": 59587,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.241396,
+      "sourceFile": "sword-clash-01.wav",
+      "sourceSha256": "58072bf9c80d84a37c4cfaeb694659dad3b5c4ecd24e2f7fc1e7c2fcdc7fc325"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/sword-clash-3.wav",
+      "sha256": "f45d0c6bb23baa15f699cb1ca572ec1241256619a6102405865fe63f888cd657",
+      "frames": 33735,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.702812,
+      "sourceFile": "sword-clash-03.wav",
+      "sourceSha256": "2fb00a674fc987ef8aeca008c6b3987e0df9b0c11a81fc892ade97c59534b188"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/sword-clash-5.wav",
+      "sha256": "cab4ae952d30e69ee6b2be89221ff1e215c3f7e226409d84798061b0fa548d00",
+      "frames": 30288,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.631,
+      "sourceFile": "sword-clash-05.wav",
+      "sourceSha256": "3eb34d29cbc2f16d9a385ebebe36eb33fde2ffcab5c8fcf72429434b35df97e9"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/whoosh-metal-1.wav",
+      "sha256": "037c84a4add99a4f4cd0215fb525b01b4fe05ad06e2194002ae92ad5954ff426",
+      "frames": 9935,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.206979,
+      "sourceFile": "tin-whistle-whoosh-01.wav",
+      "sourceSha256": "8ac3354d54c8f3bfce39810a9ef821490eabba77d4fe10da504b2e0a61ab569d"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/whoosh-metal-2.wav",
+      "sha256": "3b46bf6b3caff1871a634ee28c5867db385c614a17f30827c803c339eddd0554",
+      "frames": 20109,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.418938,
+      "sourceFile": "tin-whistle-whoosh-02.wav",
+      "sourceSha256": "6ecd0cfa25f5598f5137260a0abcec7c9140ef31e4c12d2f3c7808b1e5538b16"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/whoosh-body-1.wav",
+      "sha256": "497cb1d9353db426a5c42d6efff854f6137acd87fd16936445900cceb363b406",
+      "frames": 14784,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.308,
+      "sourceFile": "tube-plastic-whoosh-01.wav",
+      "sourceSha256": "6bf539745db12b4b546bb8bb1ab2f75ccf403db80c07fc8f473fa288d0d428b9"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/whoosh-body-2.wav",
+      "sha256": "7a3704ae77cb157acc3142fa06d47cfc3e30f09eefe74847a713904c33faca10",
+      "frames": 16064,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.334667,
+      "sourceFile": "tube-plastic-whoosh-02.wav",
+      "sourceSha256": "2ba001b889f1465d949b5531e7c9f61425a0f81d2a40febe3bdb4e449e99c190"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/boots-jump.wav",
+      "sha256": "d01302653533175a0d4bb4bc08561a9f989b1b45ac401ccb694b8ab4407f185b",
+      "frames": 21398,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.445792,
+      "sourceFile": "boots-leather-jump-01.wav",
+      "sourceSha256": "9b8b6e3ac1f0263df49c60c1e571974b421bfe12c576f26328397ee644bb3ac4"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/boots-step.wav",
+      "sha256": "4219d715c5026af38f342e9e3157063f6cfc4e93674ae2799a2e871c6ecaf115",
+      "frames": 17270,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.359792,
+      "sourceFile": "boots-leather-step-01.wav",
+      "sourceSha256": "5b0de415a95f7ad5ef4541d8142415587b2898c43ac26a45862cf14756894a06"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/paralyzer-1.wav",
+      "sha256": "f7905b2fd9a9580eac0045226a562ff4e2716144f85347a567564b732dd9e733",
+      "frames": 42241,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.880021,
+      "sourceFile": "paralyzer-discharge-01.wav",
+      "sourceSha256": "8eaee5635e55ba4fe344f776e1b1830aa17501510ab9eb55a9fb1ba0dc82f827"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/paralyzer-2.wav",
+      "sha256": "188b41f4af5a4619af517cc879396fc383dfd6ef16633d077eb3f737a43bd616",
+      "frames": 63863,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.330479,
+      "sourceFile": "paralyzer-discharge-02.wav",
+      "sourceSha256": "37928eeef6c7711bfefaeaf21e8b9a7650bbabba2607c18cc5737cc9aa28eadc"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/metal-scrape.wav",
+      "sha256": "32e93c9f2c6334bc41775d72dd06289568f261d92ba4219da4c7f32a32c27adb",
+      "frames": 72930,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.519375,
+      "sourceFile": "metal-knife-scrape-01.wav",
+      "sourceSha256": "80a8a2647f9ac8dfa5709b75563cda48a8c815725094de6107201d65815c9e7a"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/coin-flip.wav",
+      "sha256": "7504dc55bd068d8a3ebcaca2c812b6376f7c8f0d34bf4f1e53f03b7a393cf850",
+      "frames": 16533,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.344438,
+      "sourceFile": "coinflip-01.wav",
+      "sourceSha256": "60c652aca20c60e4fa6efe086f061bc52ddc66d7728dd23d9b625b7e6485a96c"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/coin-spin.wav",
+      "sha256": "b273f11d5072c806d1f0a03e89154b94b21f06fed9c3d7324ef5477dec44bb3d",
+      "frames": 65557,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.365771,
+      "sourceFile": "coin-spin-fall-01.wav",
+      "sourceSha256": "c22f51e651107b62b203ed093d709a914a22715e81a0189b102e747a2f4a0722"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/water-drop.wav",
+      "sha256": "5b00aba8022624b1d05641b60d2e87ff788f03bfa5e97f64d8fe79fcd5a53822",
+      "frames": 16384,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.341333,
+      "sourceFile": "water-drop-01.wav",
+      "sourceSha256": "999b0667e48503ff8e5e6effbcacc49f1fc88e64f05c96b37f66ae166b2c7238"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/water-pour.wav",
+      "sha256": "e657c5ac9bd327eb2374a35375cfa8cb3d79c279b2b64ee320dcbe1f1b227024",
+      "frames": 75998,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.583292,
+      "sourceFile": "water-pour-01.wav",
+      "sourceSha256": "c2c1ad4d138873a803feade2d5e080ae169ba24edc2d9c388cdfc002f766d9f6"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/jingle-steel-1.wav",
+      "sha256": "2b6394b2491768eecfc67c603d485cadf38cf3175d2d6fc652e3aacf3322e159",
+      "frames": 66015,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.375312,
+      "sourceFile": "jingles_STEEL01.ogg",
+      "sourceSha256": "099b192f120f7eb7c24613be277428628b9ec9c81e1f8420254abce336fbe7e5"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/jingle-hit-11.wav",
+      "sha256": "66e41533986d3243039c040e49b94bea5fa57225f3a67d69f16a536fd7a3cb31",
+      "frames": 45481,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 0.947521,
+      "sourceFile": "jingles_HIT11.ogg",
+      "sourceSha256": "40d6f3fb92225d039a9196c5cda98c9366efdc837c10b9b6d01d94dfafae8ec9"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/jingle-pizzi-7.wav",
+      "sha256": "61fef7e115def391f1c4c70371b5284483ccb0cdab66c3be860886cd1b28fb78",
+      "frames": 63554,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.324042,
+      "sourceFile": "jingles_PIZZI07.ogg",
+      "sourceSha256": "91870588924e0e498c6eb8d4f4ccf8595c9e7dc51fb553797b551062e642ce7c"
+    },
+    {
+      "path": "audio/curated-sources/one-shots/jingle-nes-0.wav",
+      "sha256": "bb60b93ba305d3893ee432977646ca96846d9ba2a0814f91eaf4739574749e68",
+      "frames": 84377,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 1.757854,
+      "sourceFile": "jingles_NES00.ogg",
+      "sourceSha256": "1010c9b566d6c090ff03a4aaaf7439e26eb4cc4f20373800d0b7e6a9057b795d"
+    }
+  ],
+  "loops": [
+    {
+      "path": "audio/curated-sources/loops/computer-noise.wav",
+      "sha256": "54ca968e10930afa11ffee41787bddbaa973e8b00004fcbf36322add48794026",
+      "frames": 192000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 4.0,
+      "sourceFile": "computerNoise_002.ogg",
+      "sourceSha256": "6ae9bb261c6536d1699972da0cdbf6e0762cf7e9b925adb64a06ff375255cb71",
+      "startSeconds": 0,
+      "crossfadeSeconds": 0.35
+    },
+    {
+      "path": "audio/curated-sources/loops/engine-circular.wav",
+      "sha256": "3831256b50b16af07f3c504f4c1ec1649509c13956099cb949cf5fa070ac56a0",
+      "frames": 192000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 4.0,
+      "sourceFile": "engineCircular_001.ogg",
+      "sourceSha256": "e1df3a942842a24f7c4056db3177e8008edd73d4f3985fd95f55362bc85058bc",
+      "startSeconds": 0,
+      "crossfadeSeconds": 0.35
+    },
+    {
+      "path": "audio/curated-sources/loops/space-engine.wav",
+      "sha256": "a7a3384f3cf0881121c6fc187c56292eaef6b1959130e53705bc0ba2861fd1a9",
+      "frames": 192000,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 4.0,
+      "sourceFile": "spaceEngine_000.ogg",
+      "sourceSha256": "c06e84fb6734ddd0ce7242351e0952d560b3b3e47430172e8944f761d7bb1fc8",
+      "startSeconds": 0,
+      "crossfadeSeconds": 0.35
+    },
+    {
+      "path": "audio/curated-sources/loops/thruster-fire-0.wav",
+      "sha256": "6f8692b3b9158075a67baba2b7ed7aa343d76850ce3b1597419e9bb34f056d64",
+      "frames": 192000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 4.0,
+      "sourceFile": "thrusterFire_000.ogg",
+      "sourceSha256": "0fdc474d93f209debf1fc4ea77765a669dcb7676db31b4d8a0a509685bccf374",
+      "startSeconds": 0,
+      "crossfadeSeconds": 0.35
+    },
+    {
+      "path": "audio/curated-sources/loops/thruster-fire-2.wav",
+      "sha256": "2b9b1fd63619a7660251a4504967afbfe3a13b3134ff35966e8f78bd18d19bed",
+      "frames": 192000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 4.0,
+      "sourceFile": "thrusterFire_002.ogg",
+      "sourceSha256": "5f7731c30196d73777d62eec7cb36a28bf63852e70244057b7625b888e71a3a8",
+      "startSeconds": 0,
+      "crossfadeSeconds": 0.35
+    },
+    {
+      "path": "audio/curated-sources/loops/rain.wav",
+      "sha256": "1af7a8adb85e4fd37f29d876fd73b30964a2a7e99d16ea4cd949547b5192ec81",
+      "frames": 768000,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 16.0,
+      "sourceFile": "1.ogg",
+      "sourceSha256": "4f659f68cf5219007d0bb0969a1862491ceee4057fda4c491c6001e8608fa2cb",
+      "startSeconds": 5.0,
+      "crossfadeSeconds": 1.5
+    },
+    {
+      "path": "audio/curated-sources/loops/cyber-city.wav",
+      "sha256": "08bb19c5015167427e8f5b7cadc0bb189d47f553f7a903355379f0fde18b942a",
+      "frames": 768000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "durationSeconds": 16.0,
+      "sourceFile": "busy_cyberworld.ogg",
+      "sourceSha256": "db06a538d562b031771f791fe1f5798037030f97dc13d94664b1d7087018ac51",
+      "startSeconds": 4.0,
+      "crossfadeSeconds": 1.5
+    },
+    {
+      "path": "audio/curated-sources/loops/factory.wav",
+      "sha256": "48da2d69a1a507577a5ac43f125d08843302df981f2f8faf1998ad211702b171",
+      "frames": 768000,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 16.0,
+      "sourceFile": "Factory.ogg",
+      "sourceSha256": "c8c1b2b5bad66d2951cc366ad3337a67882a769b1c3057b2791fa2085ae4d09e",
+      "startSeconds": 24.0,
+      "crossfadeSeconds": 1.5
+    }
+  ],
+  "music": [
+    {
+      "path": "audio/curated-sources/music/menu-night-club.wav",
+      "sha256": "a13cf050238442d9bd652c0642959886fcf5a9f4dee0ad47e5e04805b4ce90dd",
+      "frames": 921600,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 19.2,
+      "sourceFile": "night_club_chill_100bpm.ogg",
+      "sourceSha256": "c7f02e74ab9e11af9909db2b1a28905bcb309742c1528fcab67eff931a360ac4",
+      "bpm": 100.0,
+      "bars": 8,
+      "startSeconds": 52.8,
+      "crossfadeSeconds": 0.65,
+      "candidateScores": [
+        {
+          "bar": 22.0,
+          "start": 52.8,
+          "rms": 0.3698892963805433,
+          "signatureDistance": 0.01566619486219822,
+          "envelopeDistance": 0.0019126532453816567,
+          "score": 0.025496029369861898
+        },
+        {
+          "bar": 20.0,
+          "start": 48.0,
+          "rms": 0.36958246346778656,
+          "signatureDistance": 0.022139793247636083,
+          "envelopeDistance": 0.0015054067400990048,
+          "score": 0.03517057689239675
+        },
+        {
+          "bar": 21.0,
+          "start": 50.4,
+          "rms": 0.369630194843964,
+          "signatureDistance": 0.021923175469824873,
+          "envelopeDistance": 0.0028664404605544375,
+          "score": 0.035889372600007775
+        },
+        {
+          "bar": 14.0,
+          "start": 33.6,
+          "rms": 0.36908736481556265,
+          "signatureDistance": 0.019753231331342314,
+          "envelopeDistance": 0.009000140802613086,
+          "score": 0.038054373432848745
+        },
+        {
+          "bar": 10.0,
+          "start": 24.0,
+          "rms": 0.37018159392376937,
+          "signatureDistance": 0.02215569311054897,
+          "envelopeDistance": 0.009585831257020847,
+          "score": 0.041092607455760495
+        }
+      ]
+    },
+    {
+      "path": "audio/curated-sources/music/stage1-new-factory.wav",
+      "sha256": "7971a42ee79c3db233eac46bf3fb19622025a24ab8a95436df849e35b88d1472",
+      "frames": 714419,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 14.883729,
+      "sourceFile": "new_factory_129bpm.ogg",
+      "sourceSha256": "3365dd3d25697a54e843678d75f49732cd0bc88bfd3ccb574b39f0ed65fa7291",
+      "bpm": 129.0,
+      "bars": 8,
+      "startSeconds": 55.813958,
+      "crossfadeSeconds": 0.65,
+      "candidateScores": [
+        {
+          "bar": 30.0,
+          "start": 55.81395833333333,
+          "rms": 0.4319769017704968,
+          "signatureDistance": 0.007304822312108989,
+          "envelopeDistance": 0.0028217600616004443,
+          "score": 0.013881675732592698
+        },
+        {
+          "bar": 27.0,
+          "start": 50.2325625,
+          "rms": 0.43257972497406766,
+          "signatureDistance": 0.010870760017276606,
+          "envelopeDistance": 0.0008218085979205211,
+          "score": 0.01811997650874129
+        },
+        {
+          "bar": 26.0,
+          "start": 48.372083333333336,
+          "rms": 0.43241556874272774,
+          "signatureDistance": 0.013622638544585964,
+          "envelopeDistance": 0.0009845353323776193,
+          "score": 0.02224471814837026
+        },
+        {
+          "bar": 29.0,
+          "start": 53.95347916666667,
+          "rms": 0.4316933846767081,
+          "signatureDistance": 0.014684620148793912,
+          "envelopeDistance": 0.0024147746323781847,
+          "score": 0.024395632721745598
+        },
+        {
+          "bar": 25.0,
+          "start": 46.511625,
+          "rms": 0.4326852304462945,
+          "signatureDistance": 0.014048362867864254,
+          "envelopeDistance": 0.010122309560794707,
+          "score": 0.030412428011683135
+        }
+      ]
+    },
+    {
+      "path": "audio/curated-sources/music/stage2-sewers.wav",
+      "sha256": "46127f91335d97eac1b63d5f6a0029ef5b5e1de91f116e89ae5240fad9d3d758",
+      "frames": 1043715,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 21.744062,
+      "sourceFile": "through_the_sewers_1766bpm.ogg",
+      "sourceSha256": "a248f7bd3b0260bacd3cf4eb5bc325c6b15cc359334527b9734c3d4b6ced5f99",
+      "bpm": 176.6,
+      "bars": 16,
+      "startSeconds": 72.027187,
+      "crossfadeSeconds": 0.65,
+      "candidateScores": [
+        {
+          "bar": 53.0,
+          "start": 72.0271875,
+          "rms": 0.3291714646261918,
+          "signatureDistance": 0.051877845653245436,
+          "envelopeDistance": 0.005400802377287457,
+          "score": 0.08338378078133428
+        },
+        {
+          "bar": 57.0,
+          "start": 77.4631875,
+          "rms": 0.32975673101927416,
+          "signatureDistance": 0.05516020023542218,
+          "envelopeDistance": 0.00800472439869227,
+          "score": 0.09101496581568304
+        },
+        {
+          "bar": 46.0,
+          "start": 62.51416666666667,
+          "rms": 0.3284160288626458,
+          "signatureDistance": 0.06258804182150056,
+          "envelopeDistance": 0.0007928956524526204,
+          "score": 0.09495665283644443
+        },
+        {
+          "bar": 55.0,
+          "start": 74.7451875,
+          "rms": 0.32985509849331934,
+          "signatureDistance": 0.05830280735918353,
+          "envelopeDistance": 0.01763645221838585,
+          "score": 0.10353922295336282
+        },
+        {
+          "bar": 42.0,
+          "start": 57.07814583333333,
+          "rms": 0.32801454882956677,
+          "signatureDistance": 0.07015680046357159,
+          "envelopeDistance": 0.007241219451890384,
+          "score": 0.11104004574105132
+        }
+      ]
+    },
+    {
+      "path": "audio/curated-sources/music/clear-victory.wav",
+      "sha256": "b4f44051f5762705d60568c6d4ed38a71ba961498932e623deb1db0325cecb0e",
+      "frames": 384000,
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 8.0,
+      "sourceFile": "victory-theme.ogg",
+      "sourceSha256": "f263605366144be169f66f1649a4bf7f3e03b86b511e63c0b5d18d0c3402ba25",
+      "bpm": 120.0,
+      "bars": 4,
+      "startSeconds": 52.0,
+      "crossfadeSeconds": 0.65,
+      "candidateScores": [
+        {
+          "bar": 26.0,
+          "start": 52.0,
+          "rms": 0.14128484276566217,
+          "signatureDistance": 0.09074489073871406,
+          "envelopeDistance": 0.02953530719241305,
+          "score": 0.16011111558495816
+        },
+        {
+          "bar": 29.0,
+          "start": 58.0,
+          "rms": 0.14044573234941282,
+          "signatureDistance": 0.08164103565944537,
+          "envelopeDistance": 0.04681257246729259,
+          "score": 0.16162694758486898
+        },
+        {
+          "bar": 35.0,
+          "start": 70.0,
+          "rms": 0.14247652567535973,
+          "signatureDistance": 0.06895780005571463,
+          "envelopeDistance": 0.07896676407246975,
+          "score": 0.16993084259674943
+        },
+        {
+          "bar": 17.0,
+          "start": 34.0,
+          "rms": 0.13570285042615274,
+          "signatureDistance": 0.09719095219696872,
+          "envelopeDistance": 0.02820199494935349,
+          "score": 0.18182500673531676
+        },
+        {
+          "bar": 21.0,
+          "start": 42.0,
+          "rms": 0.14422688958175786,
+          "signatureDistance": 0.12381880367148965,
+          "envelopeDistance": 0.0011454736129894085,
+          "score": 0.19430595950583998
+        }
+      ]
+    }
+  ]
+}

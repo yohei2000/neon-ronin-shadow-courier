@@ -16,6 +16,7 @@ import {
   type Stage1Scroll,
   type Stage1Seal
 } from '../data/stage1';
+import { Stage1CollisionTrialInfo } from '../data/stage1Collision';
 import { InkCrawler } from '../entities/InkCrawler';
 import { KiteWraith } from '../entities/KiteWraith';
 import { LanternWarden } from '../entities/LanternWarden';
@@ -250,7 +251,12 @@ export class Stage1Scene extends Phaser.Scene {
     if (params.get('debug') !== 'collision' && params.get('debugCollision') !== '1') return;
     if (params.get('showCollisionRects') !== '1') return;
 
-    for (const platform of Stage1Data.platforms) {
+    for (const platform of Stage1CollisionPlatforms) {
+      const tint = platform.source === 'trial'
+        ? platform.oneWay
+          ? Palette.lanternGold
+          : Palette.neonCyan
+        : Palette.neutralGray;
       const tile = this.add
         .tileSprite(
           platform.x + platform.width / 2,
@@ -260,26 +266,10 @@ export class Stage1Scene extends Phaser.Scene {
           RuntimeEnvironmentAssetKey.PlatformThinTile
         )
         .setDepth(70)
-        .setAlpha(0.5)
-        .setTint(Palette.neonCyan)
+        .setAlpha(platform.source === 'trial' ? 0.58 : 0.3)
+        .setTint(tint)
         .setBlendMode(Phaser.BlendModes.ADD);
       tile.tilePositionX = platform.x * 0.2;
-    }
-
-    for (const collider of Stage1Data.visualTerrain.landformColliders) {
-      const tile = this.add
-        .tileSprite(
-          collider.x + collider.width / 2,
-          collider.y + collider.height / 2,
-          collider.width,
-          collider.height,
-          RuntimeEnvironmentAssetKey.PlatformThinTile
-        )
-        .setDepth(70)
-        .setAlpha(0.42)
-        .setTint(Palette.lanternGold)
-        .setBlendMode(Phaser.BlendModes.ADD);
-      tile.tilePositionX = collider.x * 0.25;
     }
 
     for (const hazard of Stage1Data.hazards) {
@@ -607,7 +597,9 @@ export class Stage1Scene extends Phaser.Scene {
         plates: Stage1Data.visualTerrain.plates.length,
         landforms: Stage1Data.visualTerrain.landforms.length,
         landformFrames: new Set(Stage1Data.visualTerrain.landforms.map((landform) => landform.frame)).size,
-        landformColliders: Stage1Data.visualTerrain.landformColliders.length
+        landformColliders: Stage1Data.visualTerrain.landformColliders.length,
+        activeCollisionRects: Stage1CollisionPlatforms.length,
+        collisionTrial: Stage1CollisionTrialInfo
       },
       e2eIntegrity: {
         debugTeleport: false,

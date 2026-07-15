@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T04:20:43.329Z",
+  "generatedAt": "2026-07-14T23:10:33.883Z",
   "derivedFromApprovedArt": true,
   "sheets": [
     {
@@ -8390,58 +8390,58 @@
     },
     {
       "id": "stage1-terrain-rain-lantern-start",
-      "source": "artifacts/stage1/continuous-background-v4-single-master",
+      "source": "artifacts/stage1/continuous-background-v7-cutaway-terrain",
       "output": "src/assets/runtime/stage1-terrain-rain-lantern-start.png",
       "width": 1856,
       "height": 900,
-      "mode": "imagegen-continuous-background-rolling-v4",
-      "collisionSource": "src/data/stage1Landforms.json#colliders"
+      "mode": "imagegen-continuous-background-rolling-v7-cutaway",
+      "collisionSource": "src/data/stage1CollisionTrial.json#surfaces"
     },
     {
       "id": "stage1-terrain-neon-sign-run",
-      "source": "artifacts/stage1/continuous-background-v4-single-master",
+      "source": "artifacts/stage1/continuous-background-v7-cutaway-terrain",
       "output": "src/assets/runtime/stage1-terrain-neon-sign-run.png",
       "width": 2112,
       "height": 900,
-      "mode": "imagegen-continuous-background-rolling-v4",
-      "collisionSource": "src/data/stage1Landforms.json#colliders"
+      "mode": "imagegen-continuous-background-rolling-v7-cutaway",
+      "collisionSource": "src/data/stage1CollisionTrial.json#surfaces"
     },
     {
       "id": "stage1-terrain-rooftop-hazard-line",
-      "source": "artifacts/stage1/continuous-background-v4-single-master",
+      "source": "artifacts/stage1/continuous-background-v7-cutaway-terrain",
       "output": "src/assets/runtime/stage1-terrain-rooftop-hazard-line.png",
       "width": 2912,
       "height": 900,
-      "mode": "imagegen-continuous-background-rolling-v4",
-      "collisionSource": "src/data/stage1Landforms.json#colliders"
+      "mode": "imagegen-continuous-background-rolling-v7-cutaway",
+      "collisionSource": "src/data/stage1CollisionTrial.json#surfaces"
     },
     {
       "id": "stage1-terrain-neon-thorn-climb",
-      "source": "artifacts/stage1/continuous-background-v4-single-master",
+      "source": "artifacts/stage1/continuous-background-v7-cutaway-terrain",
       "output": "src/assets/runtime/stage1-terrain-neon-thorn-climb.png",
       "width": 2812,
       "height": 900,
-      "mode": "imagegen-continuous-background-rolling-v4",
-      "collisionSource": "src/data/stage1Landforms.json#colliders"
+      "mode": "imagegen-continuous-background-rolling-v7-cutaway",
+      "collisionSource": "src/data/stage1CollisionTrial.json#surfaces"
     },
     {
       "id": "stage1-terrain-lantern-warden-gate",
-      "source": "artifacts/stage1/continuous-background-v4-single-master",
+      "source": "artifacts/stage1/continuous-background-v7-cutaway-terrain",
       "output": "src/assets/runtime/stage1-terrain-lantern-warden-gate.png",
       "width": 2406,
       "height": 900,
-      "mode": "imagegen-continuous-background-rolling-v4",
-      "collisionSource": "src/data/stage1Landforms.json#colliders"
+      "mode": "imagegen-continuous-background-rolling-v7-cutaway",
+      "collisionSource": "src/data/stage1CollisionTrial.json#surfaces"
     },
     {
       "id": "stage1-landforms-spritesheet",
-      "source": "artifacts/stage1/continuous-background-v4-single-master",
+      "source": "artifacts/stage1/continuous-background-v7-cutaway-terrain",
       "output": "src/assets/runtime/stage1-landforms-spritesheet.png",
       "frameWidth": 768,
       "frameHeight": 384,
       "frameCount": 12,
-      "generatedAt": "2026-07-11T04:20:43.333Z",
-      "mode": "imagegen-continuous-background-rolling-v4-landforms",
+      "generatedAt": "2026-07-14T23:10:33.885Z",
+      "mode": "imagegen-continuous-background-rolling-v7-cutaway-landforms",
       "placementSource": "src/data/stage1Landforms.json",
       "runtimeInstances": 25,
       "colliderInstances": 26

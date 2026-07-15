@@ -1,0 +1,119 @@
+{
+  "master": {
+    "file": "stage1-master-layout.png",
+    "width": 10050,
+    "height": 900,
+    "sha256": "db3548b717237cadfdfb78e306d9b5afebe59ad41aee8970dc34c918e767d3f9"
+  },
+  "adjacentSharedOverlap": [
+    {
+      "leftPlate": "plate-01-rain-lantern-start",
+      "rightPlate": "plate-02-neon-sign-run",
+      "sharedWorldRange": [
+        1344,
+        1856
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    },
+    {
+      "leftPlate": "plate-02-neon-sign-run",
+      "rightPlate": "plate-03-rooftop-hazard-line",
+      "sharedWorldRange": [
+        2944,
+        3456
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    },
+    {
+      "leftPlate": "plate-03-rooftop-hazard-line",
+      "rightPlate": "plate-04-neon-thorn-climb",
+      "sharedWorldRange": [
+        5344,
+        5856
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    },
+    {
+      "leftPlate": "plate-04-neon-thorn-climb",
+      "rightPlate": "plate-05-lantern-warden-gate",
+      "sharedWorldRange": [
+        7644,
+        8156
+      ],
+      "sharedWidth": 512,
+      "maxPixelDelta": 0,
+      "pixelIdentical": true
+    }
+  ],
+  "allSharedPixelsIdentical": true,
+  "rollingSeamAudit": [
+    {
+      "incomingSource": "strip-02",
+      "pathMinWorldX": 2034,
+      "pathMaxWorldX": 2330,
+      "seamMeanPixelDelta": 3.7781,
+      "localMedianPixelDelta": 3.0744,
+      "seamToLocalRatio": 1.2289,
+      "hardEdgePass": true
+    },
+    {
+      "incomingSource": "strip-03",
+      "pathMinWorldX": 4025,
+      "pathMaxWorldX": 4301,
+      "seamMeanPixelDelta": 4.6974,
+      "localMedianPixelDelta": 4.0815,
+      "seamToLocalRatio": 1.1509,
+      "hardEdgePass": true
+    },
+    {
+      "incomingSource": "strip-04",
+      "pathMinWorldX": 6056,
+      "pathMaxWorldX": 6266,
+      "seamMeanPixelDelta": 1.6356,
+      "localMedianPixelDelta": 1.6556,
+      "seamToLocalRatio": 0.9879,
+      "hardEdgePass": true
+    },
+    {
+      "incomingSource": "strip-05",
+      "pathMinWorldX": 7593,
+      "pathMaxWorldX": 7813,
+      "seamMeanPixelDelta": 3.6781,
+      "localMedianPixelDelta": 3.4519,
+      "seamToLocalRatio": 1.0656,
+      "hardEdgePass": true
+    }
+  ],
+  "allRollingSeamChecksPass": true,
+  "supersededTrialCollisionAlignment": {
+    "surfaceLineCount": 28,
+    "sampleCount": 1724,
+    "edgeVsBelowMeanLumaDelta": -2.454,
+    "edgeVsBelowMedianLumaDelta": -1.864,
+    "meanContrastPass": false,
+    "status": "requires-reauthoring-after-visual-approval",
+    "authoritativeForV7Art": false
+  },
+  "authoredCollision": {
+    "project": "collision-authoring/stage1-v7-collision-builder-project.json",
+    "validation": "collision-authoring/stage1-v7-collision-validation.json",
+    "surfaceCount": 24,
+    "coverageRange": [
+      0,
+      10050
+    ],
+    "runtimeIntegrated": true
+  },
+  "collisionReauthorRequired": false,
+  "presentation": {
+    "literalCollisionStrokeOverlayUsed": false,
+    "postGenerationRoutePaintUsed": false,
+    "cutawaySupportRequired": true
+  }
+}

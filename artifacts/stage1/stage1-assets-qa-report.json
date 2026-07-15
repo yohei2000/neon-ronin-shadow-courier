@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T04:22:10.968Z",
+  "generatedAt": "2026-07-15T00:11:37.681Z",
   "passed": true,
   "checks": [
     {
@@ -70,7 +70,7 @@
     {
       "id": "stage1-continuous-terrain-approved-source",
       "passed": true,
-      "detail": "stage1-continuous-background-v4-rolling-master, overlap=true, rollingSeams=true, feather=2px, wideCrossfade=false"
+      "detail": "stage1-continuous-background-v7-cutaway-terrain, overlap=true, rollingSeams=true, collisionReauthorRequired=false"
     },
     {
       "id": "runtime-terrain-byte-equal-approved-source",
@@ -78,9 +78,14 @@
       "detail": "5/5 byte-equal"
     },
     {
-      "id": "runtime-terrain-manifest-rolling-v4",
+      "id": "runtime-terrain-manifest-rolling-v7-cutaway",
       "passed": true,
       "detail": "5/5 manifest entries"
+    },
+    {
+      "id": "stage1-v7-authored-collision-source",
+      "passed": true,
+      "detail": "24 surfaces, coverage=0-10050, sourceHash=true"
     },
     {
       "id": "stage1-image-first-terrain-rendering",
@@ -253,9 +258,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.0032489224137931035,
+      "maxBeigeRatio": 0.000918941570881226,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 27.624325311313694,
+      "maxAverageLuma": 23.315898986283273,
       "minOpaqueRatio": 1
     },
     {
@@ -264,9 +269,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.001709280303030303,
+      "maxBeigeRatio": 0.001105324074074074,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 29.29241056399259,
+      "maxAverageLuma": 25.71306221951761,
       "minOpaqueRatio": 1
     },
     {
@@ -275,9 +280,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.0001655982905982906,
+      "maxBeigeRatio": 0.0008741605616605616,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 26.78423331299662,
+      "maxAverageLuma": 27.733968762735227,
       "minOpaqueRatio": 1
     },
     {
@@ -286,9 +291,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.0002706654022443496,
+      "maxBeigeRatio": 0.0010344555081397188,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 30.742970997314423,
+      "maxAverageLuma": 23.5191538907955,
       "minOpaqueRatio": 1
     },
     {
@@ -297,9 +302,9 @@
       "passed": true,
       "activeFrames": 1,
       "maxEdgeRatio": 1,
-      "maxBeigeRatio": 0.00044703057171885103,
+      "maxBeigeRatio": 0.0004872079061605246,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 35.12140666851132,
+      "maxAverageLuma": 26.909528185737972,
       "minOpaqueRatio": 1
     },
     {
@@ -308,9 +313,9 @@
       "passed": true,
       "activeFrames": 12,
       "maxEdgeRatio": 0,
-      "maxBeigeRatio": 0.0016751805445310711,
+      "maxBeigeRatio": 0.0005370731021743932,
       "maxHaloRatio": 0,
-      "maxAverageLuma": 38.42231079211771,
+      "maxAverageLuma": 29.120769641316887,
       "minOpaqueRatio": 0.4955579969618056
     },
     {

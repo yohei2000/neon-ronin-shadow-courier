@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { chromium } from '@playwright/test';
 
 const artifactDir = path.resolve('artifacts', 'stage1');
@@ -24,9 +25,14 @@ const stage1LandformsText = read(path.resolve('src', 'data', 'stage1Landforms.js
 const stage1Landforms = JSON.parse(stage1LandformsText);
 const runtimeManifest = JSON.parse(read(path.resolve('src', 'assets', 'runtime', 'runtime-sprite-sheets.json')));
 const runtimeManifestIds = new Set((runtimeManifest.sheets ?? []).map((sheet) => sheet.id));
-const continuousTerrainRoot = path.resolve('artifacts', 'stage1', 'continuous-background-v4-single-master');
+const continuousTerrainRoot = path.resolve('artifacts', 'stage1', 'continuous-background-v7-cutaway-terrain');
 const continuousTerrainManifest = JSON.parse(read(path.join(continuousTerrainRoot, 'stage1-continuous-background-manifest.json')));
 const continuousTerrainValidation = JSON.parse(read(path.join(continuousTerrainRoot, 'stage1-continuous-background-validation.json')));
+const collisionAuthoringRoot = path.join(continuousTerrainRoot, 'collision-authoring');
+const collisionProjectPath = path.join(collisionAuthoringRoot, 'stage1-v7-collision-builder-project.json');
+const collisionValidation = JSON.parse(read(path.join(collisionAuthoringRoot, 'stage1-v7-collision-validation.json')));
+const runtimeCollision = JSON.parse(read(path.resolve('src', 'data', 'stage1CollisionTrial.json')));
+const collisionProjectSha256 = createHash('sha256').update(fs.readFileSync(collisionProjectPath)).digest('hex');
 const sourceFiles = listFiles(path.resolve('src')).filter((file) => /\.(ts|tsx|js|json)$/.test(file));
 const runtimeScanFiles = sourceFiles.filter((file) => !file.endsWith(path.join('src', 'data', 'approvedArtManifest.ts')));
 const stage1RuntimeFiles = sourceFiles.filter((file) =>
@@ -163,8 +169,8 @@ const runtimeTerrainManifestChecks = continuousTerrainSources.map((source) => {
   return {
     id: source.id,
     passed:
-      manifestEntry?.source === 'artifacts/stage1/continuous-background-v4-single-master' &&
-      manifestEntry?.mode === 'imagegen-continuous-background-rolling-v4' &&
+      manifestEntry?.source === 'artifacts/stage1/continuous-background-v7-cutaway-terrain' &&
+      manifestEntry?.mode === 'imagegen-continuous-background-rolling-v7-cutaway' &&
       manifestEntry?.width === plate?.width &&
       manifestEntry?.height === plate?.height
   };
@@ -325,16 +331,16 @@ const checks = [
   check('runtime-manifest-covers-stage1-assets', requiredRuntimeAssetKeys.every((id) => runtimeManifestIds.has(id)), requiredRuntimeAssetKeys.join(', ')),
   check(
     'stage1-continuous-terrain-approved-source',
-    continuousTerrainManifest.id === 'stage1-continuous-background-v4-rolling-master' &&
+    continuousTerrainManifest.id === 'stage1-continuous-background-v7-cutaway-terrain' &&
       continuousTerrainManifest.scope === 'approved-stage1-runtime-terrain-source' &&
       continuousTerrainManifest.notRuntimeIntegrated === false &&
       continuousTerrainValidation.allSharedPixelsIdentical === true &&
       continuousTerrainValidation.allRollingSeamChecksPass === true &&
-      continuousTerrainValidation.maximumSeamFeatherPx <= 2 &&
-      continuousTerrainValidation.wideAlphaCrossfadeUsed === false &&
-      continuousTerrainValidation.generationContinuity?.lowResolutionGeometryAuthorityCount === 1 &&
-      continuousTerrainValidation.generationContinuity?.independentlyGeneratedStagePanels === false,
-    `${continuousTerrainManifest.id}, overlap=${continuousTerrainValidation.allSharedPixelsIdentical}, rollingSeams=${continuousTerrainValidation.allRollingSeamChecksPass}, feather=${continuousTerrainValidation.maximumSeamFeatherPx}px, wideCrossfade=${continuousTerrainValidation.wideAlphaCrossfadeUsed}`
+      continuousTerrainManifest.generation?.independentStagePanels === false &&
+      continuousTerrainValidation.presentation?.literalCollisionStrokeOverlayUsed === false &&
+      continuousTerrainValidation.presentation?.postGenerationRoutePaintUsed === false &&
+      continuousTerrainValidation.collisionReauthorRequired === false,
+    `${continuousTerrainManifest.id}, overlap=${continuousTerrainValidation.allSharedPixelsIdentical}, rollingSeams=${continuousTerrainValidation.allRollingSeamChecksPass}, collisionReauthorRequired=${continuousTerrainValidation.collisionReauthorRequired}`
   ),
   check(
     'runtime-terrain-byte-equal-approved-source',
@@ -342,9 +348,20 @@ const checks = [
     `${runtimeTerrainSourceChecks.filter((item) => item.exists && item.byteEqual).length}/${runtimeTerrainSourceChecks.length} byte-equal`
   ),
   check(
-    'runtime-terrain-manifest-rolling-v4',
+    'runtime-terrain-manifest-rolling-v7-cutaway',
     runtimeTerrainManifestChecks.every((item) => item.passed),
     `${runtimeTerrainManifestChecks.filter((item) => item.passed).length}/${runtimeTerrainManifestChecks.length} manifest entries`
+  ),
+  check(
+    'stage1-v7-authored-collision-source',
+    collisionValidation.status === 'approved-runtime-source' &&
+      collisionValidation.passed === true &&
+      runtimeCollision.enabled === true &&
+      runtimeCollision.coverageRange?.start === 0 &&
+      runtimeCollision.coverageRange?.end === stage1Content.worldWidth &&
+      runtimeCollision.surfaces?.length === 24 &&
+      runtimeCollision.source?.sha256 === collisionProjectSha256,
+    `${runtimeCollision.surfaces?.length ?? 0} surfaces, coverage=${runtimeCollision.coverageRange?.start}-${runtimeCollision.coverageRange?.end}, sourceHash=${runtimeCollision.source?.sha256 === collisionProjectSha256}`
   ),
   check(
     'stage1-image-first-terrain-rendering',
@@ -361,7 +378,7 @@ const checks = [
       (stage1Landforms.colliders ?? []).length >= 25 &&
       (stage1Landforms.sourcePanels ?? []).length === 5 &&
       (stage1Landforms.terrainPlateOutputs ?? []).length === 5 &&
-      stage1Landforms.generation === 'imagegen-continuous-background-rolling-v4' &&
+      stage1Landforms.generation === 'imagegen-continuous-background-rolling-v7-cutaway' &&
       new Set((stage1Landforms.landforms ?? []).map((landform) => landform.frame)).size >= 12 &&
       preloadText.includes('RuntimeEnvironmentAssetKey.Stage1Landforms') &&
       stage1TextBundle.includes('RuntimeEnvironmentAssetKey.Stage1Landforms') &&
