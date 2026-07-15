@@ -7,6 +7,10 @@ const artifactDir = path.resolve('artifacts', 'stage1');
 fs.mkdirSync(artifactDir, { recursive: true });
 
 const read = (file) => fs.readFileSync(file, 'utf8');
+const canonicalTextSha256 = (file) =>
+  createHash('sha256')
+    .update(read(file).replace(/\r\n?/g, '\n'), 'utf8')
+    .digest('hex');
 const listFiles = (dir, acc = []) => {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
@@ -32,7 +36,7 @@ const collisionAuthoringRoot = path.join(continuousTerrainRoot, 'collision-autho
 const collisionProjectPath = path.join(collisionAuthoringRoot, 'stage1-v7-collision-builder-project.json');
 const collisionValidation = JSON.parse(read(path.join(collisionAuthoringRoot, 'stage1-v7-collision-validation.json')));
 const runtimeCollision = JSON.parse(read(path.resolve('src', 'data', 'stage1CollisionTrial.json')));
-const collisionProjectSha256 = createHash('sha256').update(fs.readFileSync(collisionProjectPath)).digest('hex');
+const collisionProjectSha256 = canonicalTextSha256(collisionProjectPath);
 const sourceFiles = listFiles(path.resolve('src')).filter((file) => /\.(ts|tsx|js|json)$/.test(file));
 const runtimeScanFiles = sourceFiles.filter((file) => !file.endsWith(path.join('src', 'data', 'approvedArtManifest.ts')));
 const stage1RuntimeFiles = sourceFiles.filter((file) =>

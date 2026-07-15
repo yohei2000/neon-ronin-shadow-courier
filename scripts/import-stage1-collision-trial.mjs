@@ -12,7 +12,8 @@ const inputPath = path.resolve(inputArg);
 const outputPath = path.resolve(rootDir, 'src', 'data', 'stage1CollisionTrial.json');
 const stagePath = path.resolve(rootDir, 'src', 'data', 'stage1Content.json');
 const sourceBytes = fs.readFileSync(inputPath);
-const source = JSON.parse(sourceBytes.toString('utf8'));
+const sourceText = sourceBytes.toString('utf8').replace(/\r\n?/g, '\n');
+const source = JSON.parse(sourceText);
 const stage = JSON.parse(fs.readFileSync(stagePath, 'utf8'));
 const allowedTypes = new Set(['ground', 'wall', 'ceiling', 'oneWay', 'slope', 'hazard', 'trigger']);
 
@@ -70,7 +71,7 @@ const result = {
   importedAt: new Date().toISOString(),
   source: {
     fileName: path.basename(inputPath),
-    sha256: crypto.createHash('sha256').update(sourceBytes).digest('hex'),
+    sha256: crypto.createHash('sha256').update(sourceText, 'utf8').digest('hex'),
     projectName: String(source.projectName ?? 'Stage Collision Project')
   },
   plate: {
