@@ -201,8 +201,8 @@ const auditRuntimeAssetPixels = async () => {
   ];
 
   const browser = await chromium.launch();
-  const page = await browser.newPage();
   try {
+    const page = await browser.newPage();
     const results = [];
     for (const audit of audits) {
       const bytes = fs.readFileSync(path.resolve(audit.file));

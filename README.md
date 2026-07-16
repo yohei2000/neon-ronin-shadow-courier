@@ -45,15 +45,32 @@ Art Lab runtime states remain available for visual review: `busy`, `player-motio
 
 Use `npm.cmd` on Windows PowerShell.
 
+Routine local validation does not start a browser:
+
 ```bash
-npm.cmd run typecheck
-npm.cmd run test
+npm.cmd run check:local
 npm.cmd run build
+```
+
+Run the short, single-browser smoke only when browser startup, title flow, input, or gameplay boot changed:
+
+```bash
+npm.cmd run test:smoke
+```
+
+The following Stage 1 commands are CI-oriented or explicit regression checks and are not part of routine local validation. GitHub Actions calls the required components individually on `main` pushes and manual dispatches; `qa:all-stage1` remains the compatibility aggregate:
+
+```bash
 npm.cmd run qa:stage1
 npm.cmd run qa:assets-stage1
-npm.cmd run e2e
-npm.cmd run qa:screenshots-stage1
+npm.cmd run test:e2e
+npm.cmd run test:visual
 npm.cmd run qa:all-stage1
+```
+
+Art production and review commands remain explicit:
+
+```bash
 npm.cmd run art:refs
 npm.cmd run art:generate
 npm.cmd run art:process
@@ -71,6 +88,8 @@ npm.cmd run art:review-report
 npm.cmd run art:audit
 npm.cmd run art:all
 ```
+
+Pull requests run Lint, type checking, unit tests, Stage 1 static QA, build, and the short smoke. `main` and manual runs add audio/art/asset QA, full browser regression, visual evidence capture, and Pages deployment. Failed browser checks upload the Playwright report, screenshots, and traces as GitHub Actions artifacts.
 
 Stage2's current validation is covered by `npm.cmd run test`, including `validateStage2` content checks for vertical range, wall-gap shaft geometry, diagonal slope geometry, anchor coverage, airborne lanes, and Stage2 save progress.
 

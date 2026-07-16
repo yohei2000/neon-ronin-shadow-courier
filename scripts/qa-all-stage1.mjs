@@ -39,7 +39,6 @@ const readJson = (file, fallback) => {
   }
 };
 
-const e2e = readJson(path.join(artifactDir, 'e2e-report.json'), {});
 const consoleReport = readJson(path.join(artifactDir, 'console-report.json'), { passed: false });
 const qaStage1 = readJson(path.join(artifactDir, 'stage1-qa-report.json'), { passed: false });
 const qaAssets = readJson(path.join(artifactDir, 'stage1-assets-qa-report.json'), { passed: false });

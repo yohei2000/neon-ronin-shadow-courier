@@ -1,6 +1,7 @@
-name: Deploy to GitHub Pages
+name: CI and Deploy
 
 on:
+  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
@@ -11,12 +12,13 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: ci-deploy-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -30,8 +32,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+      - name: Lint
+        run: npm run lint
 
       - name: Typecheck
         run: npm run typecheck
@@ -39,38 +41,72 @@ jobs:
       - name: Unit tests
         run: npm run test
 
+      - name: Stage 1 static QA
+        run: npm run qa:stage1
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE: ${{ github.event_name == 'pull_request' && '/' || format('/{0}/', github.event.repository.name) }}
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser smoke
+        run: npm run test:smoke
+
       - name: Audio QA
+        if: github.event_name != 'pull_request'
         run: npm run qa:audio
 
-      - name: Approved Art Freeze QA
+      - name: Approved Art QA
+        if: github.event_name != 'pull_request'
         run: |
           npm run art:validate-freeze
           npm run art:validate-generated
           npm run art:validate-assets
           npm run art:audit
 
-      - name: Stage 1 QA
-        run: |
-          npm run qa:stage1
-          npm run qa:assets-stage1
-          npm run e2e
-          npm run qa:screenshots-stage1
+      - name: Stage 1 asset QA
+        if: github.event_name != 'pull_request'
+        run: npm run qa:assets-stage1
 
-      - name: Build for Pages
-        run: npm run build
+      - name: Full browser regression
+        if: github.event_name != 'pull_request'
+        run: npm run test:e2e
         env:
-          VITE_BASE: /${{ github.event.repository.name }}/
+          E2E_REPORT_DIR: test-results/regression
+
+      - name: Visual evidence capture
+        if: github.event_name != 'pull_request'
+        run: npm run test:visual
+        env:
+          SCREENSHOT_OUTPUT_DIR: test-results/visual
 
       - name: Configure Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v6
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-evidence-${{ github.event_name }}-${{ github.run_number }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 14
+          path: |
+            playwright-report/
+            test-results/
+
   deploy:
-    needs: build
+    if: github.event_name != 'pull_request'
+    needs: verify
     runs-on: ubuntu-latest
     environment:
       name: github-pages

@@ -2,7 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { rootDir, writeJson } from './art-lib.mjs';
 
-const finalDir = path.join(rootDir, 'art', 'final');
 const reviewsDir = path.join(rootDir, 'art', 'reviews');
 const gateBDir = path.join(reviewsDir, 'gate-b');
 await fs.mkdir(gateBDir, { recursive: true });

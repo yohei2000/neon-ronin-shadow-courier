@@ -1,253 +1,84 @@
 import { expect, test, type Page } from '@playwright/test';
 
+type MenuState = {
+  readonly scene?: string;
+  readonly selectedIndex?: number;
+  readonly items?: readonly string[];
+};
+
 type StageState = {
-  scene?: string;
-  stageClear?: boolean;
-  player?: { x: number; y: number; onGround?: boolean; slashing: boolean; damageTaken?: number };
-  checkpointCount?: number;
-  wardenDefeated?: boolean;
-  paused?: boolean;
-  touch?: { visible: boolean; buttons?: Record<'left' | 'right' | 'jump' | 'attack' | 'pause', boolean> };
-  e2eIntegrity?: { debugTeleport: boolean; hiddenClearStageCall: boolean };
+  readonly scene?: string;
+  readonly player?: { readonly x: number };
 };
 
-const state = async (page: Page): Promise<StageState> => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
-const menuState = async (page: Page): Promise<{ scene?: string }> => page.evaluate(() => window.__NEON_RONIN_STAGE1_MENU__ ?? {});
+const menuState = async (page: Page): Promise<MenuState> =>
+  page.evaluate(() => window.__NEON_RONIN_STAGE1_MENU__ ?? {});
 
-const waitForStage1 = async (page: Page) => {
-  await expect.poll(async () => (await state(page)).scene).toBe('Stage1Scene');
+const stageState = async (page: Page): Promise<StageState> =>
+  page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?? {});
+
+const waitForMenuScene = async (page: Page, scene: string, timeout = 20_000): Promise<void> => {
+  await expect.poll(async () => (await menuState(page)).scene, { timeout }).toBe(scene);
 };
 
-const startStage1 = async (page: Page) => {
-  await page.goto('/');
-  await expect.poll(async () => (await menuState(page)).scene).toBe('TitleScene');
+const selectTitleMenuItem = async (page: Page, label: string): Promise<void> => {
+  await waitForMenuScene(page, 'TitleScene');
+  const current = await menuState(page);
+  const items = current.items ?? [];
+  const targetIndex = items.indexOf(label);
+  expect(targetIndex, `Title menu item not found: ${label}`).toBeGreaterThanOrEqual(0);
+
+  const selectedIndex = current.selectedIndex ?? 0;
+  const forwardSteps = (targetIndex - selectedIndex + items.length) % items.length;
+  const backwardSteps = (selectedIndex - targetIndex + items.length) % items.length;
+  const direction = forwardSteps <= backwardSteps ? 1 : -1;
+  const key = direction === 1 ? 'ArrowDown' : 'ArrowUp';
+  const stepCount = Math.min(forwardSteps, backwardSteps);
+
+  for (let step = 1; step <= stepCount; step += 1) {
+    const expectedIndex = (selectedIndex + direction * step + items.length) % items.length;
+    await page.keyboard.press(key);
+    await expect.poll(async () => (await menuState(page)).selectedIndex).toBe(expectedIndex);
+  }
+
   await page.keyboard.press('Enter');
-  await waitForStage1(page);
 };
 
-const jump = async (page: Page, holdMs = 95) => {
-  await page.keyboard.down('Space');
-  await page.waitForTimeout(holdMs);
-  await page.keyboard.up('Space');
-};
+test('@smoke title-flow', async ({ page }) => {
+  test.setTimeout(90_000);
+  const runtimeErrors: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'error') runtimeErrors.push(`console: ${message.text()}`);
+  });
+  page.on('pageerror', (error) => runtimeErrors.push(`pageerror: ${error.message}`));
 
-const slash = async (page: Page) => {
-  await page.keyboard.press('J');
-};
+  await page.goto('/');
+  await waitForMenuScene(page, 'TitleScene', 60_000);
 
-const gamePoint = async (page: Page, x: number, y: number) => {
-  const rect = await page.locator('canvas').boundingBox();
-  if (!rect) throw new Error('Canvas not found');
-  return {
-    x: rect.x + (x / 960) * rect.width,
-    y: rect.y + (y / 540) * rect.height
-  };
-};
+  await selectTitleMenuItem(page, 'CONTROLS');
+  await waitForMenuScene(page, 'ControlsScene');
+  await page.keyboard.press('Escape');
+  await waitForMenuScene(page, 'TitleScene');
 
-const cdpTouchPoint = (point: { x: number; y: number }, id: number) => ({
-  x: Math.round(point.x),
-  y: Math.round(point.y),
-  radiusX: 12,
-  radiusY: 12,
-  rotationAngle: 0,
-  force: 0.7,
-  id
-});
+  await selectTitleMenuItem(page, 'SETTINGS');
+  await waitForMenuScene(page, 'SettingsScene');
+  await page.keyboard.press('Escape');
+  await waitForMenuScene(page, 'TitleScene');
 
-const holdTouchPoints = async (page: Page, points: { x: number; y: number }[], holdMs: number) => {
-  const client = await page.context().newCDPSession(page);
+  await selectTitleMenuItem(page, 'START STAGE 1');
+  await expect.poll(async () => (await stageState(page)).scene, { timeout: 20_000 }).toBe('Stage1Scene');
+  const startX = (await stageState(page)).player?.x;
+  expect(startX, 'Player state was not published after Stage 1 started').toBeDefined();
+
+  await page.locator('canvas').click();
+  await page.keyboard.down('ArrowRight');
   try {
-    await client.send('Input.dispatchTouchEvent', {
-      type: 'touchStart',
-      touchPoints: points.map((point, index) => cdpTouchPoint(point, index + 1))
-    });
-    await page.waitForTimeout(holdMs);
+    await expect
+      .poll(async () => (await stageState(page)).player?.x ?? Number.NEGATIVE_INFINITY, { timeout: 8_000 })
+      .toBeGreaterThan(startX! + 12);
   } finally {
-    await client.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }).catch(() => undefined);
-    await client.detach().catch(() => undefined);
-  }
-};
-
-const runKeyboardRouteToClear = async (page: Page) => {
-  const started = Date.now();
-  let rightDown = false;
-  let lastJump = 0;
-  let lastSlash = 0;
-
-  const setRight = async (down: boolean) => {
-    rightDown = down;
-    if (down) await page.keyboard.down('ArrowRight');
-    else await page.keyboard.up('ArrowRight');
-  };
-
-  await setRight(true);
-  while (Date.now() - started < 115_000) {
-    const current = await state(page);
-    if (current.scene === 'StageClearScene' || current.stageClear) {
-      await setRight(false);
-      return current;
-    }
-    const player = current.player;
-    if (!player) {
-      await page.waitForTimeout(50);
-      continue;
-    }
-
-    if (player.x >= 5620 && !current.wardenDefeated) {
-      await setRight(false);
-    } else {
-      await setRight(true);
-    }
-
-    const now = Date.now();
-    const jumpZones = [
-      player.x > 1120 && player.x < 1900 && player.y > 280,
-      player.x > 2320 && player.x < 2585,
-      player.x > 3440 && player.x < 3820
-    ];
-    if (jumpZones.some(Boolean) && now - lastJump > 360) {
-      lastJump = now;
-      await jump(page, player.x > 1120 && player.x < 1900 ? 145 : player.x > 3440 ? 260 : 140);
-    }
-
-    const attackZones = [
-      player.x > 760 && player.x < 1060,
-      player.x > 2680 && player.x < 3120,
-      player.x > 3220 && player.x < 3560,
-      player.x > 5520 && !current.wardenDefeated
-    ];
-    if (attackZones.some(Boolean) && now - lastSlash > 300) {
-      lastSlash = now;
-      await slash(page);
-    }
-
-    await page.waitForTimeout(50);
-  }
-
-  await setRight(false);
-  throw new Error(`Stage1 keyboard route timed out at ${JSON.stringify(await state(page))}`);
-};
-
-test.describe('Stage1 playable vertical slice', () => {
-  test('title-flow', async ({ page }) => {
-    const consoleErrors: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'error') consoleErrors.push(message.text());
-    });
-    await page.goto('/');
-    await expect.poll(async () => (await menuState(page)).scene).toBe('TitleScene');
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('Enter');
-    await expect.poll(async () => (await menuState(page)).scene).toBe('ControlsScene');
-    await page.keyboard.press('Escape');
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('Enter');
-    await expect.poll(async () => (await menuState(page)).scene).toBe('SettingsScene');
-    await page.keyboard.press('Escape');
-    await page.keyboard.press('Enter');
-    await waitForStage1(page);
-    expect(consoleErrors).toEqual([]);
-  });
-
-  test('stage1-keyboard-clear', async ({ page }) => {
-    const consoleErrors: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'error') consoleErrors.push(message.text());
-    });
-    await startStage1(page);
-    const result = await runKeyboardRouteToClear(page);
-    expect(result.scene).toBe('StageClearScene');
-    expect(result.e2eIntegrity?.debugTeleport).not.toBe(true);
-    expect(result.e2eIntegrity?.hiddenClearStageCall).not.toBe(true);
-    expect(consoleErrors).toEqual([]);
-  });
-
-  test('mobile-controls', async ({ page }) => {
-    const consoleErrors: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'error') consoleErrors.push(message.text());
-    });
-    await page.setViewportSize({ width: 390, height: 844 });
-    await startStage1(page);
-    await expect.poll(async () => (await state(page)).touch?.visible).toBe(true);
-    const before = (await state(page)).player;
-    expect(before).toBeTruthy();
-
-    const left = await gamePoint(page, 80, 452);
-    await page.mouse.move(left.x, left.y);
-    await page.mouse.down();
-    await page.waitForTimeout(220);
-    await page.mouse.up();
-    const afterLeft = (await state(page)).player;
-    expect(afterLeft?.x).toBeLessThan(before!.x + 2);
-
-    const jumpButton = await gamePoint(page, 748, 454);
-    await page.mouse.move(jumpButton.x, jumpButton.y);
-    await page.mouse.down();
-    await page.waitForTimeout(180);
-    await page.mouse.up();
-    const afterJump = (await state(page)).player;
-    expect(afterJump?.y).toBeLessThan(afterLeft!.y);
-    await expect.poll(async () => (await state(page)).player?.onGround).toBe(true);
-
-    const rightButton = await gamePoint(page, 205, 452);
-    const simultaneousBefore = (await state(page)).player;
-    await holdTouchPoints(page, [rightButton, jumpButton], 220);
-    const simultaneousAfter = (await state(page)).player;
-    expect(simultaneousAfter?.x).toBeGreaterThan(simultaneousBefore!.x + 4);
-    expect(simultaneousAfter?.y).toBeLessThan(simultaneousBefore!.y - 8);
-    const touchButtons = (await state(page)).touch?.buttons;
-    expect(touchButtons?.right).not.toBe(true);
-    expect(touchButtons?.jump).not.toBe(true);
-
-    const attackButton = await gamePoint(page, 866, 426);
-    await page.mouse.move(attackButton.x, attackButton.y);
-    await page.mouse.down();
-    await page.waitForTimeout(80);
-    await page.mouse.up();
-    await expect.poll(async () => (await state(page)).player?.slashing).toBe(true);
-    expect(consoleErrors).toEqual([]);
-  });
-
-  test('checkpoint-retry', async ({ page }) => {
-    await startStage1(page);
-    await page.keyboard.down('ArrowRight');
-    let lastJump = 0;
-    for (let i = 0; i < 1000; i += 1) {
-      const current = await state(page);
-      const player = current.player;
-      if (player && player.x > 3000 && current.checkpointCount && current.checkpointCount >= 3) break;
-      if (player && player.x > 1120 && player.x < 1900 && player.y > 280 && Date.now() - lastJump > 360) {
-        lastJump = Date.now();
-        await jump(page, 145);
-      }
-      if (player && player.x > 1850 && player.x < 2250 && Date.now() - lastJump > 300) {
-        lastJump = Date.now();
-        await jump(page, 390);
-      }
-      if (player && player.x > 2320 && player.x < 2585 && Date.now() - lastJump > 360) {
-        lastJump = Date.now();
-        await jump(page, 140);
-      }
-      await page.waitForTimeout(50);
-    }
-    const checkpointState = await state(page);
-    expect(checkpointState.checkpointCount).toBeGreaterThanOrEqual(3);
-
-    const damageBefore = checkpointState.player?.damageTaken ?? 0;
-    for (let i = 0; i < 420; i += 1) {
-      const current = await state(page);
-      const player = current.player;
-      if ((player?.damageTaken ?? 0) > damageBefore || (player?.x ?? 0) > 3700) break;
-      await page.waitForTimeout(50);
-    }
     await page.keyboard.up('ArrowRight');
-    expect((await state(page)).player?.damageTaken).toBeGreaterThan(damageBefore);
-    await page.keyboard.press('p');
-    await expect.poll(async () => (await state(page)).paused).toBe(true);
-    await page.keyboard.press('r');
-    await expect.poll(async () => (await state(page)).player?.x).toBeGreaterThan(2980);
-    expect((await state(page)).player?.x).toBeLessThan(3100);
-  });
+  }
+
+  expect(runtimeErrors, 'Browser console/page errors').toEqual([]);
 });

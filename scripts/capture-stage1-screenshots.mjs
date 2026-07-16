@@ -4,24 +4,75 @@ import { chromium } from '@playwright/test';
 import { createServer } from 'vite';
 import { createInlineViteConfig } from './vite-inline-config.mjs';
 
-const artifactDir = path.resolve('artifacts', 'stage1');
+const artifactDir = path.resolve(process.env.SCREENSHOT_OUTPUT_DIR ?? path.join('artifacts', 'stage1'));
 fs.mkdirSync(artifactDir, { recursive: true });
 const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
 
-const server = await createServer({
-  ...createInlineViteConfig(),
-  server: {
-    host: '127.0.0.1',
-    port: 5174,
-    watch: {
-      ignored: ['**/artifacts/**']
-    }
-  }
-});
-await server.listen();
+let server;
+let browser;
+let cleanupPromise;
+let interruptedSignal;
 
-const baseUrl = server.resolvedUrls?.local?.[0]?.replace(/\/$/, '') ?? 'http://127.0.0.1:5174';
-const browser = await chromium.launch();
+const cleanup = async () => {
+  if (cleanupPromise) {
+    await cleanupPromise;
+    if (browser || server) await cleanup();
+    return;
+  }
+
+  cleanupPromise = (async () => {
+    const activeBrowser = browser;
+    browser = undefined;
+    const failures = [];
+
+    if (activeBrowser) {
+      try {
+        await activeBrowser.close();
+      } catch (error) {
+        failures.push(error);
+      }
+    }
+
+    const activeServer = server;
+    server = undefined;
+    if (activeServer) {
+      try {
+        activeServer.httpServer?.closeAllConnections?.();
+        await activeServer.close();
+      } catch (error) {
+        failures.push(error);
+      }
+    }
+
+    if (failures.length === 1) throw failures[0];
+    if (failures.length > 1) throw new AggregateError(failures, 'Failed to close screenshot verification resources');
+  })();
+
+  try {
+    await cleanupPromise;
+  } finally {
+    cleanupPromise = undefined;
+  }
+
+  if (browser || server) await cleanup();
+};
+
+const handleSignal = (signal, exitCode) => {
+  if (interruptedSignal) return;
+  interruptedSignal = signal;
+  process.exitCode = exitCode;
+  console.error(`Screenshot capture received ${signal}; cleaning up owned browser and server`);
+  void cleanup()
+    .catch((error) => {
+      console.error(`Failed to clean up after ${signal}:`, error);
+    });
+};
+const onSigint = () => handleSignal('SIGINT', 130);
+const onSigterm = () => handleSignal('SIGTERM', 143);
+process.on('SIGINT', onSigint);
+process.on('SIGTERM', onSigterm);
+
+let baseUrl;
 const consoleMessages = [];
 const routeTimeoutMs = Number(process.env.SCREENSHOT_ROUTE_TIMEOUT_MS ?? process.env.E2E_ROUTE_TIMEOUT_MS ?? 540000);
 const wardenEngageX = stage.warden.arena.x + 160;
@@ -76,7 +127,7 @@ const verticalAssistFor = (player) =>
   verticalAssistZones.find((zone) => player.x > zone.startX && player.x < zone.endX && player.y > zone.minY);
 const startStage1 = async (page) => {
   await page.goto(baseUrl);
-  await waitFor(async () => (await menuState(page)).scene === 'TitleScene');
+  await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 60_000);
   await page.keyboard.press('Enter');
   await waitFor(async () => (await state(page)).scene === 'Stage1Scene');
 };
@@ -368,6 +419,24 @@ const captureRoute = async (page) => {
 };
 
 try {
+  server = await createServer({
+    ...createInlineViteConfig(),
+    cacheDir: path.resolve('node_modules', '.vite-automation'),
+    server: {
+      host: '127.0.0.1',
+      port: 5174,
+      watch: {
+        ignored: ['**/artifacts/**']
+      }
+    }
+  });
+  if (interruptedSignal) throw new Error(`Screenshot capture interrupted by ${interruptedSignal}`);
+  await server.listen();
+  if (interruptedSignal) throw new Error(`Screenshot capture interrupted by ${interruptedSignal}`);
+  baseUrl = server.resolvedUrls?.local?.[0]?.replace(/\/$/, '') ?? 'http://127.0.0.1:5174';
+  browser = await chromium.launch();
+  if (interruptedSignal) throw new Error(`Screenshot capture interrupted by ${interruptedSignal}`);
+
   const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
   page.on('console', (message) => {
     if (message.type() === 'error') consoleMessages.push({ type: message.type(), text: message.text() });
@@ -414,6 +483,10 @@ try {
     console.log('qa:screenshots-stage1 PASS 9 screenshots, console clean');
   }
 } finally {
-  await browser.close();
-  await server.close();
+  try {
+    await cleanup();
+  } finally {
+    process.off('SIGINT', onSigint);
+    process.off('SIGTERM', onSigterm);
+  }
 }

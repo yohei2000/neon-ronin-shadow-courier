@@ -6,3 +6,5 @@ dist/
 .dev-server.*
 coverage/
 .vite/
+playwright-report/
+test-results/

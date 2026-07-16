@@ -4,31 +4,75 @@ import { chromium } from '@playwright/test';
 import { createServer } from 'vite';
 import { createInlineViteConfig } from './vite-inline-config.mjs';
 
-const artifactDir = path.resolve('artifacts', 'stage1');
+const artifactDir = path.resolve(process.env.E2E_REPORT_DIR ?? path.join('artifacts', 'stage1'));
 fs.mkdirSync(artifactDir, { recursive: true });
 const stage = JSON.parse(fs.readFileSync(path.resolve('src', 'data', 'stage1Content.json'), 'utf8'));
 
 const preferredPort = 5175;
-const server = await createServer({
-  ...createInlineViteConfig(),
-  server: {
-    host: '127.0.0.1',
-    port: preferredPort,
-    watch: {
-      ignored: ['**/artifacts/**']
-    }
-  }
-});
-await server.listen();
-const address = server.httpServer?.address();
-const actualPort = typeof address === 'object' && address ? address.port : preferredPort;
-const baseUrl = `http://127.0.0.1:${actualPort}`;
-console.log(`stage1-e2e server ${baseUrl}`);
+let server;
+let browser;
+let baseUrl;
+let cleanupPromise;
+let interruptedSignal;
+let activeScenarioName;
 
-const browser = await chromium.launch();
-console.log('stage1-e2e browser launched');
+const cleanupOwnedResources = async () => {
+  if (cleanupPromise) return cleanupPromise;
+
+  const attempt = (async () => {
+    const ownedBrowser = browser;
+    browser = undefined;
+    const failures = [];
+    if (ownedBrowser) {
+      try {
+        await ownedBrowser.close();
+      } catch (error) {
+        failures.push(error);
+      }
+    }
+
+    const ownedServer = server;
+    server = undefined;
+    if (ownedServer) {
+      try {
+        ownedServer.httpServer?.closeAllConnections?.();
+        await ownedServer.close();
+      } catch (error) {
+        failures.push(error);
+      }
+    }
+
+    if (failures.length === 1) throw failures[0];
+    if (failures.length > 1) throw new AggregateError(failures, 'Failed to close Stage 1 E2E resources');
+  })();
+  cleanupPromise = attempt;
+
+  try {
+    await attempt;
+  } finally {
+    if (cleanupPromise === attempt) cleanupPromise = undefined;
+  }
+};
+
+const handleSignal = (signal) => {
+  if (interruptedSignal) return;
+  interruptedSignal = signal;
+  process.exitCode = signal === 'SIGINT' ? 130 : 143;
+  console.error(`stage1-e2e received ${signal}; cleaning up owned browser and server`);
+  void cleanupOwnedResources().catch((error) => {
+    console.error(`stage1-e2e signal cleanup failed: ${error instanceof Error ? error.message : String(error)}`);
+  });
+};
+
+const handleSigint = () => handleSignal('SIGINT');
+const handleSigterm = () => handleSignal('SIGTERM');
+process.on('SIGINT', handleSigint);
+process.on('SIGTERM', handleSigterm);
+
 const tests = [];
-const shouldRun = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
+const isSelected = (name) => !process.env.E2E_FILTER || name.includes(process.env.E2E_FILTER);
+const shouldRun = (name) => !interruptedSignal && isSelected(name);
+const scenarioNames = ['audio-director', 'title-flow', 'stage1-keyboard-clear', 'mobile-controls', 'checkpoint-retry'];
 const routeTimeoutMs = Number(process.env.E2E_ROUTE_TIMEOUT_MS ?? 540000);
 const wardenEngageX = stage.warden.arena.x + 160;
 const wardenStopX = stage.warden.x - 120;
@@ -57,23 +101,60 @@ const state = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1__ ?
 const stage2State = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE2__ ?? {});
 const menuState = async (page) => page.evaluate(() => window.__NEON_RONIN_STAGE1_MENU__ ?? {});
 const audioState = async (page) => page.evaluate(() => window.__NEON_RONIN_AUDIO__ ?? {});
+const safeScenarioName = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'scenario';
 const withPage = async (viewport, fn) => {
-  const page = await browser.newPage(viewport ? { viewport, isMobile: viewport.width <= 480, hasTouch: viewport.width <= 480 } : undefined);
+  const scenarioName = activeScenarioName;
+  assert(scenarioName, 'stage1-e2e scenario name is unavailable');
+  const failureDir = path.resolve('test-results', 'regression', safeScenarioName(scenarioName));
+  fs.rmSync(failureDir, { recursive: true, force: true });
+  assert(browser, 'stage1-e2e browser is unavailable');
+
+  const context = await browser.newContext(
+    viewport ? { viewport, isMobile: viewport.width <= 480, hasTouch: viewport.width <= 480 } : undefined
+  );
+  let page;
+  let traceStarted = false;
+  let traceStopped = false;
   const consoleErrors = [];
-  page.on('console', (message) => {
-    if (message.type() === 'error') consoleErrors.push(message.text());
-  });
-  page.on('pageerror', (error) => consoleErrors.push(error.message));
   try {
+    await context.tracing.start({ screenshots: true, snapshots: false, sources: false });
+    traceStarted = true;
+    page = await context.newPage();
+    page.on('console', (message) => {
+      if (message.type() === 'error') consoleErrors.push(message.text());
+    });
+    page.on('pageerror', (error) => consoleErrors.push(error.message));
     const result = await fn(page, consoleErrors);
     assert(consoleErrors.length === 0, `console errors: ${consoleErrors.join('\n')}`);
+    traceStopped = true;
+    await context.tracing.stop().catch(() => undefined);
     return result;
+  } catch (error) {
+    fs.mkdirSync(failureDir, { recursive: true });
+    if (page && !page.isClosed()) {
+      await page.screenshot({ path: path.join(failureDir, 'failure.png'), fullPage: true }).catch((screenshotError) => {
+        console.error(
+          `stage1-e2e failure screenshot failed for ${scenarioName}: ${screenshotError instanceof Error ? screenshotError.message : String(screenshotError)}`
+        );
+      });
+    }
+    if (traceStarted && !traceStopped) {
+      traceStopped = true;
+      await context.tracing.stop({ path: path.join(failureDir, 'trace.zip') }).catch((traceError) => {
+        console.error(
+          `stage1-e2e trace save failed for ${scenarioName}: ${traceError instanceof Error ? traceError.message : String(traceError)}`
+        );
+      });
+    }
+    throw error;
   } finally {
-    await page.close();
+    if (traceStarted && !traceStopped) await context.tracing.stop().catch(() => undefined);
+    if (page) await page.close({ runBeforeUnload: false }).catch(() => undefined);
+    await context.close().catch(() => undefined);
   }
 };
 const selectTitleMenuItem = async (page, label) => {
-  await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open');
+  await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open', 60_000);
   const currentMenu = await menuState(page);
   const items = currentMenu.items ?? [];
   const targetIndex = items.indexOf(label);
@@ -93,6 +174,7 @@ const selectTitleMenuItem = async (page, label) => {
 const record = async (name, fn) => {
   const started = Date.now();
   console.log(`START ${name}`);
+  activeScenarioName = name;
   try {
     const details = await fn();
     tests.push({ name, status: 'passed', durationMs: Date.now() - started, details });
@@ -102,6 +184,8 @@ const record = async (name, fn) => {
     tests.push({ name, status: 'failed', durationMs: Date.now() - started, error: message });
     console.log(`FAIL ${name}`);
     console.error(message);
+  } finally {
+    activeScenarioName = undefined;
   }
 };
 const startStage1 = async (page) => {
@@ -431,10 +515,56 @@ const runKeyboardRouteToClear = async (page, stopWhen) => {
   throw new Error(`keyboard route timed out at ${JSON.stringify(await state(page))}`);
 };
 
+const reportSuffix = process.env.E2E_FILTER
+  ? `-${process.env.E2E_FILTER.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+  : '';
+const writeReport = (passed) => {
+  const report = {
+    generatedAt: new Date().toISOString(),
+    passed,
+    tests
+  };
+  fs.writeFileSync(path.join(artifactDir, `e2e${reportSuffix}-report.json`), `${JSON.stringify(report, null, 2)}\n`);
+  return report;
+};
+
+const runStage1E2E = async () => {
+  try {
+    const selectedScenarioNames = scenarioNames.filter(isSelected);
+    if (selectedScenarioNames.length === 0) {
+      writeReport(false);
+      console.error(`E2E_FILTER matched zero scenarios: ${process.env.E2E_FILTER}`);
+      process.exitCode = 1;
+      return;
+    }
+
+    server = await createServer({
+      ...createInlineViteConfig(),
+      cacheDir: path.resolve('node_modules', '.vite-automation'),
+      server: {
+        host: '127.0.0.1',
+        port: preferredPort,
+        watch: {
+          ignored: ['**/artifacts/**']
+        }
+      }
+    });
+    if (interruptedSignal) throw new Error(`stage1-e2e interrupted by ${interruptedSignal}`);
+    await server.listen();
+    if (interruptedSignal) throw new Error(`stage1-e2e interrupted by ${interruptedSignal}`);
+    const address = server.httpServer?.address();
+    const actualPort = typeof address === 'object' && address ? address.port : preferredPort;
+    baseUrl = `http://127.0.0.1:${actualPort}`;
+    console.log(`stage1-e2e server ${baseUrl}`);
+
+    browser = await chromium.launch();
+    if (interruptedSignal) throw new Error(`stage1-e2e interrupted by ${interruptedSignal}`);
+    console.log('stage1-e2e browser launched');
+
 if (shouldRun('audio-director')) await record('audio-director', () =>
   withPage(null, async (page) => {
     await page.goto(baseUrl);
-    await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open for audio QA');
+    await waitFor(async () => (await menuState(page)).scene === 'TitleScene', 'title did not open for audio QA', 60_000);
     await waitFor(async () => (await audioState(page)).profile === 'menu', 'menu audio profile did not initialize');
     await page.keyboard.press('ArrowDown');
     await waitFor(async () => (await audioState(page)).locked === false, 'WebAudio did not unlock after user input');
@@ -593,24 +723,35 @@ if (shouldRun('checkpoint-retry')) await record('checkpoint-retry', () =>
   })
 );
 
-const report = {
-  generatedAt: new Date().toISOString(),
-  passed: tests.every((test) => test.status === 'passed'),
-  tests
+    try {
+      await cleanupOwnedResources();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      tests.push({ name: 'resource-cleanup', status: 'failed', durationMs: 0, error: message });
+      console.error(`stage1-e2e resource cleanup failed: ${message}`);
+    }
+
+    const report = writeReport(!interruptedSignal && tests.length > 0 && tests.every((test) => test.status === 'passed'));
+
+    for (const item of tests) {
+      console.log(`${item.status === 'passed' ? 'PASS' : 'FAIL'} ${item.name} ${item.durationMs}ms`);
+      if (item.status === 'failed') console.error(item.error);
+    }
+
+    if (!report.passed && !interruptedSignal) process.exitCode = 1;
+  } finally {
+    try {
+      await cleanupOwnedResources();
+    } finally {
+      process.removeListener('SIGINT', handleSigint);
+      process.removeListener('SIGTERM', handleSigterm);
+    }
+  }
 };
-const reportSuffix = process.env.E2E_FILTER
-  ? `-${process.env.E2E_FILTER.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
-  : '';
-fs.writeFileSync(path.join(artifactDir, `e2e${reportSuffix}-report.json`), `${JSON.stringify(report, null, 2)}\n`);
 
-await browser.close();
-await server.close();
-
-for (const item of tests) {
-  console.log(`${item.status === 'passed' ? 'PASS' : 'FAIL'} ${item.name} ${item.durationMs}ms`);
-  if (item.status === 'failed') console.error(item.error);
-}
-
-if (!report.passed) {
-  process.exit(1);
+try {
+  await runStage1E2E();
+} catch (error) {
+  console.error(error instanceof Error ? error.stack ?? error.message : String(error));
+  if (!process.exitCode) process.exitCode = 1;
 }

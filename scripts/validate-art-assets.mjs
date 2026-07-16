@@ -175,6 +175,7 @@ async function inspectAlpha(relative) {
   }
 }
 
+try {
 for (const file of requiredFiles) {
   await requireFile(file);
 }
@@ -299,13 +300,12 @@ await writeJson(path.join(rootDir, 'art', 'final-v2', 'asset-validation-report.j
   errors
 });
 
-try {
   if (errors.length > 0) {
     console.error(JSON.stringify({ errors }, null, 2));
-    process.exit(1);
+    process.exitCode = 1;
+  } else {
+    console.log(`art:validate-assets PASS ${JSON.stringify({ files: checkedFiles.length, runtimeImageRefs })}`);
   }
-
-  console.log(`art:validate-assets PASS ${JSON.stringify({ files: checkedFiles.length, runtimeImageRefs })}`);
 } finally {
   if (alphaBrowser) await alphaBrowser.close();
 }

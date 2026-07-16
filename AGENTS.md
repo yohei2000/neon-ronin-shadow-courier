@@ -77,33 +77,44 @@ npm.cmd run art:all
 
 After freeze, use `art:validate-freeze` for normal Stage1 asset checks. Do not run `art:process` unless a new explicit art-change gate authorizes regeneration/reprocessing.
 
-Current Stage1 commands:
+## Test Operations
+
+- Routine local validation is browser-free: run `npm.cmd run check:local` for Lint, type checking, and unit tests. Run `npm.cmd run build` when build output or release readiness matters.
+- Run `npm.cmd run test:smoke` locally only when browser startup, title flow, input, or gameplay boot behavior changed. It owns one Chromium instance and one Vite server on the automation port and must stop both when it finishes.
+- Do not run `test:e2e`, `test:visual`, `e2e`, `qa:screenshots-stage1`, or `qa:all-stage1` as routine local checks. GitHub Actions runs the E2E and visual components on `main` or manual dispatch; `qa:all-stage1` remains an explicit compatibility aggregate rather than a standard CI step.
+- Pull requests run Lint, type checking, unit tests, Stage 1 static QA, build, and the short browser smoke. Pushes to `main` and manual runs add audio/art/asset QA, full browser regression, and visual evidence capture before Pages deployment.
+- Canvas tests must assert the semantic QA snapshots (`__NEON_RONIN_STAGE1__`, `__NEON_RONIN_STAGE2__`, menu, and audio state) with polling. Fixed waits are allowed only for deliberate input holds or short pacing, never as the sole readiness or success oracle.
+- Treat gameplay screenshots as review and failure evidence, not the only pass/fail signal. Playable regression must use real controls and keep the no-teleport/no-hidden-clear integrity assertions; capture-only healing or authoring helpers must not be used to claim playable correctness.
+- Every test-owned browser, page, context, and development server must close through `finally`-backed, idempotent cleanup. Automation must use its dedicated port and dependency cache instead of reusing arbitrary local resources.
+- GitHub Actions must upload the Playwright HTML report, JSON reports, failure screenshots, and traces with `if: always()` while keeping the uploaded path set narrow.
+
+Routine local checks:
 
 ```bash
-npm.cmd run typecheck
-npm.cmd run test
-npm.cmd run build
+npm.cmd run check:local
+```
+
+Targeted local browser smoke, only when relevant:
+
+```bash
+npm.cmd run test:smoke
+```
+
+CI-oriented Stage 1 checks:
+
+```bash
 npm.cmd run qa:stage1
 npm.cmd run qa:assets-stage1
-npm.cmd run e2e
-npm.cmd run qa:screenshots-stage1
+npm.cmd run test:e2e
+npm.cmd run test:visual
 npm.cmd run qa:all-stage1
 ```
 
-Current audio commands:
+Audio checks:
 
 ```bash
-npm.cmd run audio:generate
 npm.cmd run audio:validate
 npm.cmd run qa:audio
-```
-
-Current Stage2 validation commands:
-
-```bash
-npm.cmd run typecheck
-npm.cmd run test
-npm.cmd run build
 ```
 
 ## Handoff Rules

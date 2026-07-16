@@ -12,11 +12,18 @@ const server = await createServer({
 await server.listen();
 server.printUrls();
 
+let shuttingDown = false;
 const shutdown = async () => {
-  await server.close();
-  process.exit(0);
+  if (shuttingDown) return;
+  shuttingDown = true;
+  try {
+    await server.close();
+  } finally {
+    process.exit(0);
+  }
 };
 
-process.on('SIGINT', () => void shutdown());
-process.on('SIGTERM', () => void shutdown());
+process.once('SIGHUP', () => void shutdown());
+process.once('SIGINT', () => void shutdown());
+process.once('SIGTERM', () => void shutdown());
 process.stdin.resume();

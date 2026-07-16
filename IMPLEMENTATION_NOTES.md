@@ -72,8 +72,9 @@ This repo now preserves v1 evidence while building Gate B v2 from native image-g
 
 - `qa:stage1` validates the compact 5-section one-way route, no optional branches, no hidden scroll routes, checkpoints, seal pickups, hazards, enemies, the single updraft gimmick, Lantern Warden, safe first screen, safe pre-boss rest, Moon Gate, and target-duration metadata.
 - `qa:assets-stage1` validates approved art usage, frozen copies, runtime lineage, no old v1 runtime art, no reference-sheet runtime use, no remote runtime assets, required texture/animation keys, and runtime pixel audits for edge cuts plus paper-background residue.
-- `e2e` runs Playwright-driven named tests: `title-flow`, `stage1-keyboard-clear`, `mobile-controls`, and `checkpoint-retry`.
-- `qa:screenshots-stage1` writes the required `artifacts/stage1/*.png`, `console-report.json`, and keeps the console clean.
+- `test:smoke` runs one short Playwright Test for title/menu flow, Stage1 boot, and real rightward movement; `e2e` remains a compatibility alias for the CI-oriented `test:e2e` regression runner.
+- `test:e2e` runs the Playwright-driven named regression tests `audio-director`, `title-flow`, `stage1-keyboard-clear`, `mobile-controls`, and `checkpoint-retry`, with failure screenshots and traces under `test-results/regression/`.
+- `test:visual` (`qa:screenshots-stage1` compatibility alias) writes the required `artifacts/stage1/*.png`, `console-report.json`, and keeps the console clean.
 - `qa:all-stage1` runs final Stage1 validation and writes `artifacts/stage1/stage1-acceptance-report.md`.
 - `validateStage2` is covered by `npm.cmd run test` and checks six dynamic sections, continuous route coverage, large vertical range, wall-gap shaft geometry, diagonal slope geometry, high/low platform density, Kage-Ito anchor coverage, airborne enemy lanes, and Relay Keeper as a miniboss.
 - `art:validate-generated` checks raw generated candidates, logs, source assets, selected masters, final-v2 assets, and v2 approval state.
